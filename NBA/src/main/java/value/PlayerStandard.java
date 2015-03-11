@@ -1,4 +1,4 @@
-package Value;
+package value;
 
 public enum PlayerStandard {
 	
