@@ -1,5 +1,5 @@
 package presentation.common;
 
-public class temp {
-
+public enum PlayerStandard {
+	
 }
