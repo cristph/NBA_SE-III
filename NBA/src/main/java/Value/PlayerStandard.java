@@ -1,4 +1,4 @@
-package presentation.common;
+package Value;
 
 public enum PlayerStandard {
 	
