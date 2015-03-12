@@ -17,6 +17,8 @@ public class PlayerPO {
 	int exp; //球龄
 	String school; //毕业院校
 	
+	String team;//所属球队名称
+	
 	Image actionImage; //全身照
 	Image portaitImage; //球员头像
 }

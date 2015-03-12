@@ -13,6 +13,8 @@ public class PlayerGamePO {
 	String time; //在场时间(分钟:秒)
 	
 	int firstTime;//先发次数
+	int gameTime;//参赛场数
+	
 	int hitShootNum; //投篮命中数
 	int shootNum; //投篮出手数
 	
@@ -33,4 +35,5 @@ public class PlayerGamePO {
     int foulNum;//犯规数
     
     int score; //个人得分
+    
 }
