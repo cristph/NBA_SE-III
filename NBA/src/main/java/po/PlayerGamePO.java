@@ -8,11 +8,11 @@ public class PlayerGamePO {
 	String name;
 	String teamName;
 	
-	//boolean isLineUp; //是否为首发
-	
+		
 	String position;
 	String time; //在场时间(分钟:秒)
 	
+	int firstTime;//先发次数
 	int hitShootNum; //投篮命中数
 	int shootNum; //投篮出手数
 	
