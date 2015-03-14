@@ -5,7 +5,7 @@ package businesslogic.playerbl;
 
 public class PlayerGameInfo {
 	
-	public PlayerGameInfo(String name, String team, String time, int inTime,
+	public PlayerGameInfo(String name, String team, double time, int inTime,
 			int firstTime, int hitShootNum, int shootNum, int threePointNum,
 			int threeShootNum, int freeHitNum, int freeNum, int rebAttNum,
 			int rebDefNum, int rebTotalNum, int assistNum, int stealNum,
@@ -32,32 +32,49 @@ public class PlayerGameInfo {
 		this.foulNum = foulNum;
 		this.score = score;
 	}
-
+	
 	String name;//名字
 	String team;//所属球队
-	String time; //在场时间(分钟:秒)
+	double time; //在场时间(单位:秒)
 	
 	int inTime;//参赛场数
-    int firstTime;//先发场数
+	int firstTime;//先发场数
     
-    int hitShootNum; //投篮命中数
-	int shootNum; //投篮出手数
+    double hitShootNum; //投篮命中数
+    double shootNum; //投篮出手数
 	
-	int threePointNum; //三分命中数
-	int threeShootNum; //三分出手数
+	double threePointNum; //三分命中数
+	double threeShootNum; //三分出手数
 	
-	int freeHitNum; //罚球命中数
-	int freeNum; //罚球出手数
+	double freeHitNum; //罚球命中数
+	double freeNum; //罚球出手数
 	
-	int rebAttNum; //进攻篮板数
-	int rebDefNum; //防守篮板数
-	int rebTotalNum; //总篮板数
+	double rebAttNum; //进攻篮板数
+	double rebDefNum; //防守篮板数
+	double rebTotalNum; //总篮板数
 	
-	int assistNum;//助攻数
-	int stealNum;//抢断数
-    int blockNum;//盖帽数
-    int errorNum;//失误数
-    int foulNum;//犯规数
+	double assistNum;//助攻数
+	double stealNum;//抢断数
+    double blockNum;//盖帽数
+    double errorNum;//失误数
+    double foulNum;//犯规数
     
     int score; //个人得分
+    
+    double shooting;//投篮命中率
+    double threeRate;//三分命中率
+    double freeRate;//罚球命中率
+    
+    double rate;//效率
+    double GMSC;//GmSc效率
+    double realHitRate;//真实命中率
+    double throwRate;//投篮效率
+    double rebRate;//篮板率
+    double attRebRate;//进攻篮板率
+    double defRebRate;//防守篮板率
+    double assistRate;//助攻率
+    double stealRate;//抢断率
+    double blockRate;//盖帽率
+    double errorRate;//失误率
+    double usedRate;//使用率
 }

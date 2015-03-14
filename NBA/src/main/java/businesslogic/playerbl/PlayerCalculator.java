@@ -29,12 +29,12 @@ public class PlayerCalculator {
 	    double realHitRate;//真实命中率
 	    double throwRate;//投篮效率
 	    double rebRate;//篮板率
-	    double attRebRate;
-	    double defRebRate;
-	    double assistRate;
-	    double stealRate;
-	    double blockRate;
-	    double errorRate;
+	    double attRebRate;//进攻篮板率
+	    double defRebRate;//防守篮板率
+	    double assistRate;//助攻率
+	    double stealRate;//抢断率
+	    double blockRate;//盖帽率
+	    double errorRate;//失误率
 	    double usedRate;//使用率
 	}
 	
@@ -128,11 +128,7 @@ public class PlayerCalculator {
 				}else{//该球员未参加任何比赛
 					//do nothing
 				}
-			    PlayerGameInfo player=new PlayerGameInfo(name, team, time, pgSize,
-						firstTime, hitShootNum, shootNum, threePointNum,
-						threeShootNum, freeHitNum, freeNum, rebAttNum,
-						rebDefNum, rebTotalNum, assistNum, stealNum,
-						blockNum, errorNum, foulNum, score);
+			    PlayerGameInfo player=null;
 				
 				playerList.add(player);
 			}
