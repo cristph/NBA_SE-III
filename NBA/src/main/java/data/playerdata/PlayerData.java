@@ -14,7 +14,7 @@ public class PlayerData implements PlayerDataService {
 
 	public ArrayList<PlayerPO> getPlayerData() {
 		// TODO Auto-generated method stub
-		String path="/data/players/info";
+		String path="data/players/info";
 		
 		File rootFile=new File(path);
 		File array[]=rootFile.listFiles();
@@ -25,8 +25,8 @@ public class PlayerData implements PlayerDataService {
 		{
 			if(array[i].isFile())
 			{
-				String playerPath=array[i].getPath();
-				PlayerPO temp=prService.getPlayerPo(playerPath);
+				String playerName=array[i].getName();
+				PlayerPO temp=prService.getPlayerPo(playerName);
 				list.add(temp);
 			}
 		}

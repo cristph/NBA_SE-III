@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class PlayerAllGamePO {
 
 	String playerName;
+	String teamName;
 	ArrayList<PlayerGamePO> gameDataList;
 	
 	public String getPlayerName() {
