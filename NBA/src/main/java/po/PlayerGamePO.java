@@ -5,17 +5,15 @@ package po;
 
 public class PlayerGamePO {
 	
-	String name;
-	String teamName;
-	
-		
-	String position;
+	String position;//位置
 	String time; //在场时间(分钟:秒)
+	int matchDate;//比赛日期  1999-01-01
+	String matchPair;//比赛双方
+	String matchResult;//比赛结果
 	
-	int firstTime;//先发次数
-	int gameTime;//参赛场数
-	
-	int hitShootNum; //投篮命中数
+    boolean isFirst;//是否先发	
+    
+    int hitShootNum; //投篮命中数
 	int shootNum; //投篮出手数
 	
 	int threePointNum; //三分命中数

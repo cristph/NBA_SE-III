@@ -18,7 +18,7 @@ public class TeamPO {
 	String birthday; //建立时间
 	
 	ArrayList<String> playerList;//所属球员列表
-	
-	
 	Image teamPic; //球队标志
+	
+	ArrayList<TeamGamePO> gameDataList;
 }

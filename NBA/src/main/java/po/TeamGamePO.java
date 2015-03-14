@@ -5,7 +5,11 @@ package po;
 
 public class TeamGamePO {
 	
-	String teamName;
+	String matchDate;//比赛日期
+	String matchPair;//比赛对位
+	String matchResult;//比赛最终得分
+	String[] partScore;//长度为4的数组用于记录每一节的比分情况
+	
 	
 	int hitShootNum; //投篮命中数
 	int shootNum; //投篮出手数
