@@ -2,11 +2,11 @@ package dataservice.teamdataservice;
 
 import java.util.ArrayList;
 
-import po.TeamGamePO;
+import po.TeamAllGamePO;
 import po.TeamPO;
 
 public interface TeamDataService {
 
 	public ArrayList<TeamPO> getTeamData();
-	public ArrayList<TeamGamePO> getTeamGameData();
+	public ArrayList<TeamAllGamePO> getTeamGameData();
 }
