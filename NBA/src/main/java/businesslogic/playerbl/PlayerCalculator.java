@@ -10,6 +10,7 @@ public class PlayerCalculator {
 	
 	ArrayList<PlayerGameInfo> playerList;
 	ArrayList<PlayerInfoVO> totalList;
+	ArrayList<PlayerInfoVO> avgList;
 	
 	public PlayerCalculator(){
 		playerList=new ArrayList<PlayerGameInfo>();
@@ -18,6 +19,27 @@ public class PlayerCalculator {
 	
 	public void calTotal(){
 		totalList=new ArrayList<PlayerInfoVO>();
+		
+		double shooting;//投篮命中率
+	    double threeRate;//三分命中率
+	    double freeRate;//罚球命中率
+	    
+	    double rate;//效率
+	    double GMSC;//GmSc效率
+	    double realHitRate;//真实命中率
+	    double throwRate;//投篮效率
+	    double rebRate;//篮板率
+	    double attRebRate;
+	    double defRebRate;
+	    double assistRate;
+	    double stealRate;
+	    double blockRate;
+	    double errorRate;
+	    double usedRate;//使用率
+	}
+	
+	public void calAvg(){
+		avgList=new ArrayList<PlayerInfoVO>();
 	}
 	
 	/*
