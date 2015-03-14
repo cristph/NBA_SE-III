@@ -23,7 +23,7 @@ public class PlayerPO {
 	Image actionImage; //全身照
 	Image portaitImage; //球员头像
 	
-	ArrayList<PlayerGamePO> gameDataList;//球员赛季每一场比赛的数据
+
 	
 	
 }

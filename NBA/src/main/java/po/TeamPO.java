@@ -20,5 +20,4 @@ public class TeamPO {
 	ArrayList<String> playerList;//所属球员列表
 	Image teamPic; //球队标志
 	
-	ArrayList<TeamGamePO> gameDataList;
 }
