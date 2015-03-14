@@ -33,5 +33,88 @@ public class PlayerGamePO {
     int foulNum;//犯规数
     
     int score; //个人得分
-    
+
+	public String getPosition() {
+		return position;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public int getMatchDate() {
+		return matchDate;
+	}
+
+	public String getMatchPair() {
+		return matchPair;
+	}
+
+	public String getMatchResult() {
+		return matchResult;
+	}
+
+	public boolean isFirst() {
+		return isFirst;
+	}
+
+	public int getHitShootNum() {
+		return hitShootNum;
+	}
+
+	public int getShootNum() {
+		return shootNum;
+	}
+
+	public int getThreePointNum() {
+		return threePointNum;
+	}
+
+	public int getThreeShootNum() {
+		return threeShootNum;
+	}
+
+	public int getFreeHitNum() {
+		return freeHitNum;
+	}
+
+	public int getFreeNum() {
+		return freeNum;
+	}
+
+	public int getRebAttNum() {
+		return rebAttNum;
+	}
+
+	public int getRebDefNum() {
+		return rebDefNum;
+	}
+
+	public int getRebTotalNum() {
+		return rebTotalNum;
+	}
+
+	public int getAssistNum() {
+		return assistNum;
+	}
+
+	public int getStealNum() {
+		return stealNum;
+	}
+
+	public int getBlockNum() {
+		return blockNum;
+	}
+
+	public int getErrorNum() {
+		return errorNum;
+	}
+
+	public int getFoulNum() {
+		return foulNum;
+	}
+
+	public int getScore() {
+		return score;
+	}
 }

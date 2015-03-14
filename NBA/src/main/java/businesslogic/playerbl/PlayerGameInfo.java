@@ -5,7 +5,35 @@ package businesslogic.playerbl;
 
 public class PlayerGameInfo {
 	
-	String position;//位置
+	public PlayerGameInfo(String name, String team, String time, int inTime,
+			int firstTime, int hitShootNum, int shootNum, int threePointNum,
+			int threeShootNum, int freeHitNum, int freeNum, int rebAttNum,
+			int rebDefNum, int rebTotalNum, int assistNum, int stealNum,
+			int blockNum, int errorNum, int foulNum, int score) {
+		
+		this.name = name;
+		this.team = team;
+		this.time = time;
+		this.inTime = inTime;
+		this.firstTime = firstTime;
+		this.hitShootNum = hitShootNum;
+		this.shootNum = shootNum;
+		this.threePointNum = threePointNum;
+		this.threeShootNum = threeShootNum;
+		this.freeHitNum = freeHitNum;
+		this.freeNum = freeNum;
+		this.rebAttNum = rebAttNum;
+		this.rebDefNum = rebDefNum;
+		this.rebTotalNum = rebTotalNum;
+		this.assistNum = assistNum;
+		this.stealNum = stealNum;
+		this.blockNum = blockNum;
+		this.errorNum = errorNum;
+		this.foulNum = foulNum;
+		this.score = score;
+	}
+
+	String name;//名字
 	String team;//所属球队
 	String time; //在场时间(分钟:秒)
 	
