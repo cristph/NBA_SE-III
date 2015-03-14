@@ -8,6 +8,7 @@ import java.awt.Image;
 
 public class PlayerPO {
 	
+
 	String name; 
 	int number; //球衣号码
 	String position; //位置
