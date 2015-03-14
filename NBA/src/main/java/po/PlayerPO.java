@@ -24,7 +24,40 @@ public class PlayerPO {
 	Image actionImage; //全身照
 	Image portaitImage; //球员头像
 	
-
-	
-	
+	public String getName() {
+		return name;
+	}
+	public int getNumber() {
+		return number;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public double getHeight() {
+		return height;
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public int getAge() {
+		return age;
+	}
+	public int getExp() {
+		return exp;
+	}
+	public String getSchool() {
+		return school;
+	}
+	public String getTeam() {
+		return team;
+	}
+	public Image getActionImage() {
+		return actionImage;
+	}
+	public Image getPortaitImage() {
+		return portaitImage;
+	}
 }
