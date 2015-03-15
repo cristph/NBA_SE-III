@@ -15,4 +15,8 @@ public class PlayerAllGamePO {
 	public ArrayList<PlayerGamePO> getGameDataList() {
 		return gameDataList;
 	}
+
+	public String getTeamName() {
+		return teamName;
+	}
 }

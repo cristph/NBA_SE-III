@@ -20,25 +20,26 @@ public class PlayerBLController implements PlayerBLService{
 		pc=new PlayerCalculator();
 	}
 
-	public ArrayList<PlayerInfoVO> getPlayerTotalInfo(String name, Type type) {
+	public ArrayList<PlayerVO> getPlayerTotalInfo(String name, Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ArrayList<PlayerInfoVO> getPlayerAvgInfo(String name, Type type) {
+	public ArrayList<PlayerInfoVO> getPlayerAvgInOrder(Order order,
+			PlayerStandard stan) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ArrayList<PlayerVO> getPlayerInOrder(Order order, PlayerStandard stan) {
+	public ArrayList<PlayerInfoVO> getPlayerTotalInOrder(Order order,
+			PlayerStandard stan) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public ArrayList<PlayerVO> getPlayerTop_50(PlayerStandard stan,
+	public ArrayList<PlayerInfoVO> getPlayerTop_50(PlayerStandard stan,
 			Position pos, League lea, Zone zone) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
