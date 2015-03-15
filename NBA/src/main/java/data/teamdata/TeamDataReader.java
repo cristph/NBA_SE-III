@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import data.common.Filter;
 import po.TeamGamePO;
@@ -67,6 +68,34 @@ public class TeamDataReader implements TeamDataReadService {
 	public ArrayList<TeamGamePO> getTeamGamePo() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	/*
+	 * getTeamImage方法未测试过;用于获得球队名与Image的对应关系的HashMap
+	 * @see data.teamdata.TeamDataReadService#getTeamImage()
+	 */
+	public HashMap<String, Image> getTeamImage() {
+		// TODO Auto-generated method stub
+		
+		HashMap<String,Image> imgMap=new HashMap<String,Image>();
+		
+		String imgPath="data/teams";
+		
+		File root=new File(imgPath);
+		File array[]=root.listFiles();
+		for(int i=0;i<array.length;i++)
+		{
+			String fileName=array[i].getName();
+			boolean isSvg=fileName.substring((fileName.indexOf('.')+1)).equals("svg");
+			String teamName=fileName.substring(0, fileName.indexOf('.'));
+			if(isSvg)
+			{   
+				Image img=Toolkit.getDefaultToolkit().createImage(imgPath+"/"+fileName);
+				imgMap.put(teamName, img);
+			}
+		}
+		
+		
+		return imgMap;
 	}
 
 }

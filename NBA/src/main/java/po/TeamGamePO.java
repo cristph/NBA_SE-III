@@ -6,8 +6,8 @@ package po;
 public class TeamGamePO {
 	
 	String matchDate;//比赛日期
-	String matchPair;//比赛对位
-	String matchResult;//比赛最终得分
+	String opponent;//比赛对手
+	String matchResult;//比赛结果 例如：100:99（本队在前）
 	String[] partScore;//长度为4的数组用于记录每一节的比分情况
 	
 	
@@ -29,6 +29,15 @@ public class TeamGamePO {
     int blockNum;//盖帽数
     int errorNum;//失误数
     int foulNum;//犯规数
+    
+    int allPlayerTime; //球队所有队员上场时间（单位：秒）
+    int teamHitNum; //球队总进球数
 	
-    int score; //比赛得分
+    int oppAttNum;//对手进攻篮板数
+	int oppDefNum;//对手防守篮板数
+	int oppTeamRebNum; //对手总篮板数
+    int oppTwoNum; //对手两分球出手次数
+    
+	
+    
 }

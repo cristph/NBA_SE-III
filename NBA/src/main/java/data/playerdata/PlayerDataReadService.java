@@ -9,4 +9,5 @@ public interface PlayerDataReadService {
 
 	public PlayerPO getPlayerPo(String name);
 	public HashMap<String,PlayerGamePO> getPlayerGamePo();
+
 }
