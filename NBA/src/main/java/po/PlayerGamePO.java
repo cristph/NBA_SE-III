@@ -6,6 +6,7 @@ package po;
 public class PlayerGamePO {
 	
 	String position;//位置
+	String team;//所代表的球队
 	int time; //在场时间(秒)
 	int matchDate;//比赛日期  1999-01-01
 	String matchPair;//比赛双方

@@ -9,16 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-
 import data.common.Filter;
-import po.PlayerGamePO;
 import po.PlayerPO;
 
 public class PlayerDataReader implements PlayerDataReadService {
     
-	int birthYear=0;
-	int txtAge=0;
+	private int birthYear=0;
+	private int txtAge=0;
+
 	public PlayerPO getPlayerPo(String playerName) {
 		// TODO Auto-generated method stub
 		PlayerPO result=new PlayerPO();
@@ -114,12 +112,6 @@ public class PlayerDataReader implements PlayerDataReadService {
 		
 		return result;
 	}
-
-	public HashMap<String, PlayerGamePO> getPlayerGamePo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	public String changeDate(String s){
 		
