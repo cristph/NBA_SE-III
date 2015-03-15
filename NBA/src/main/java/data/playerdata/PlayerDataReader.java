@@ -9,16 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-
 import data.common.Filter;
-import po.PlayerGamePO;
 import po.PlayerPO;
 
 public class PlayerDataReader implements PlayerDataReadService {
     
-	int birthYear=0;
-	int txtAge=0;
+	private int birthYear=0;
+	private int txtAge=0;
+
 	public PlayerPO getPlayerPo(String playerName) {
 		// TODO Auto-generated method stub
 		PlayerPO result=new PlayerPO();
@@ -34,7 +32,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 	       
 			while((line=inTwo.readLine())!=null)
 			{
-			  line=filter.filt(line);
+			  line=filter.filtPlayer(line);
 			  StringBuffer sb=new StringBuffer(line);	
 		      if(row==4)           //第4行为球员号码
 		      {
@@ -91,6 +89,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		       }
 		      row++;
 		     }
+			inTwo.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +98,6 @@ public class PlayerDataReader implements PlayerDataReadService {
 			e.printStackTrace();
 		}
 		
-	    StringBuffer sbb=new StringBuffer(playerName);
 	    int length=playerName.length();
 	    playerName=playerName.substring(0, length-4);
 		result.setName(playerName);
@@ -114,12 +112,6 @@ public class PlayerDataReader implements PlayerDataReadService {
 		
 		return result;
 	}
-
-	public HashMap<String, PlayerGamePO> getPlayerGamePo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 	public String changeDate(String s){
 		
