@@ -5,7 +5,7 @@ package businesslogic.playerbl;
 
 public class PlayerGameInfo {
 	
-	public PlayerGameInfo(String name, String team, double time, int inTime,
+	public PlayerGameInfo(String name, String team, int time, int inTime,
 			int firstTime, int hitShootNum, int shootNum, int threePointNum,
 			int threeShootNum, int freeHitNum, int freeNum, int rebAttNum,
 			int rebDefNum, int rebTotalNum, int assistNum, int stealNum,
@@ -35,7 +35,7 @@ public class PlayerGameInfo {
 	
 	String name;//名字
 	String team;//所属球队
-	double time; //在场时间(单位:秒)
+	int time; //在场时间(单位:秒)
 	
 	int inTime;//参赛场数
 	int firstTime;//先发场数
@@ -61,6 +61,7 @@ public class PlayerGameInfo {
     
     int score; //个人得分
     
+    /*
     double shooting;//投篮命中率
     double threeRate;//三分命中率
     double freeRate;//罚球命中率
@@ -77,4 +78,5 @@ public class PlayerGameInfo {
     double blockRate;//盖帽率
     double errorRate;//失误率
     double usedRate;//使用率
+    */
 }

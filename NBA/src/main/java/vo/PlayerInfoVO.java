@@ -7,7 +7,7 @@ public class PlayerInfoVO {
 			double threePointNum, double threeShootNum, double freeHitNum,
 			double freeNum, double rebAttNum, double rebDefNum,
 			double rebTotalNum, double assistNum, double stealNum,
-			double blockNum, double errorNum, double foulNum, int score,
+			double blockNum, double errorNum, double foulNum, double score,
 			double shooting, double threeRate, double freeRate, double rate,
 			double gMSC, double realHitRate, double throwRate, double rebRate,
 			double attRebRate, double defRebRate, double assistRate,
@@ -76,7 +76,7 @@ public class PlayerInfoVO {
     double errorNum;//失误数
     double foulNum;//犯规数
     
-    int score; //个人得分
+    double score; //个人得分
     
     double shooting;//投篮命中率
     double threeRate;//三分命中率
