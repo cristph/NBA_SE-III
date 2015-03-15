@@ -3,84 +3,84 @@ package vo;
 import java.awt.Image;
 
 public class TeamVO {
-	String teamName; //鐞冮槦鍏ㄥ悕
-    String shortName; //缂╁啓
+	String teamName; //球队全名
+    String shortName; //缩写
 	
-	String location; //鎵�鍦ㄥ湴
-	String compArea; //璧涘尯
-	String zone; //鍒嗗尯
-	String home; //涓诲満
-	String birthday; //寤虹珛鏃堕棿
+	String location; //所在地
+	String compArea; //赛区
+	String zone; //分区
+	String home; //主场
+	String birthday; //建立时间
 	
 	
-	Image teamPic; //鐞冮槦鏍囧織
+	Image teamPic; //球队标志
 	
-	int gamenum;//姣旇禌鍦烘暟
+	int gamenum;//比赛场数
 	
-	//璧涘鎬绘暟
-	int hitShootNum; //鎶曠鍛戒腑鏁�
-	int shootNum; //鎶曠鍑烘墜鏁�
+	//赛季总数据
+	int hitShootNum; //投篮命中数
+	int shootNum; //投篮出手数
 	
-	int threePointNum; //涓夊垎鍛戒腑鏁�
-	int threeShootNum; //涓夊垎鍑烘墜鏁�
+	int threePointNum; //三分命中数
+	int threeShootNum; //三分出手数
 	
-	int freeHitNum; //缃氱悆鍛戒腑鏁�
-	int freeNum; //缃氱悆鍑烘墜鏁�
+	int freeHitNum; //罚球命中数
+	int freeNum; //罚球出手数
 	
-	int rebAttNum; //杩涙敾绡澘鏁�
-	int rebDefNum; //闃插畧绡澘鏁�
-	int rebTotalNum; //鎬荤鏉挎暟
+	int rebAttNum; //进攻篮板数
+	int rebDefNum; //防守篮板数
+	int rebTotalNum; //总篮板数
 	
-	int assistNum;//鍔╂敾鏁�
-	int stealNum;//鎶㈡柇鏁�
-    int blockNum;//鐩栧附鏁�
-    int errorNum;//澶辫鏁�
-    int foulNum;//鐘鏁�
-	
-    double shootrate;//鎶曠鍛戒腑鐜�
-    double threepointrate;//涓夊垎鍛戒腑鐜�
-    double freehitrate;//缃氱悆鍛戒腑鐜�
-    double winrate;//鑳滅巼
-    double attackround;//杩涙敾鍥炲悎
-    double attackrate;//杩涙敾鏁堢巼
-    double defendrate;//闃插畧鏁堢巼锛�
-    double rebrate;//绡澘鏁堢巼锛�
-    double stealrate;//鎶㈡柇鏁堢巼锛�
-    double assistrate;//鍔╂敾鐜�
-	//璧涘鎬绘暟
+	int assistNum;//助攻数
+	int stealNum;//抢断数
+    int blockNum;//盖帽数
+    int errorNum;//失误数
+    int foulNum;//犯规数
+    
+    double shootrate;//投篮命中率
+    double threepointrate;//三分命中率
+    double freehitrate;//罚球命中率
+    double winrate;//胜率
+    double attackround;//进攻回合
+    double attackrate;//进攻效率
+    double defendrate;//防守效率
+    double rebrate;//篮板效率
+    double stealrate;//抢断效率
+    double assistrate;//助攻率
+	//赛季总数据
     
     
-    //璧涘骞冲潎鏁�
-  	int hitShootNumave; //鎶曠鍛戒腑鏁�
-  	int shootNumave; //鎶曠鍑烘墜鏁�
+    //赛季平均数据
+  	int hitShootNumave; //投篮命中数
+  	int shootNumave; //投篮出手数
   	
-  	int threePointNumave; //涓夊垎鍛戒腑鏁�
-  	int threeShootNumave; //涓夊垎鍑烘墜鏁�
+  	int threePointNumave; //三分命中数
+  	int threeShootNumave; //三分出手数
   	
-  	int freeHitNumave; //缃氱悆鍛戒腑鏁�
-  	int freeNumave; //缃氱悆鍑烘墜鏁�
+  	int freeHitNumave; //罚球命中数
+  	int freeNumave; //罚球出手数
   	
-  	int rebAttNumave; //杩涙敾绡澘鏁�
-  	int rebDefNumave; //闃插畧绡澘鏁�
-  	int rebTotalNumave; //鎬荤鏉挎暟
+  	int rebAttNumave; //进攻篮板数
+  	int rebDefNumave; //防守篮板数
+  	int rebTotalNumave; //总篮板数
   	
-  	int assistNumave;//鍔╂敾鏁�
-  	int stealNumave;//鎶㈡柇鏁�
-    int blockNumave;//鐩栧附鏁�
-    int errorNumave;//澶辫鏁�
-    int foulNumave;//鐘鏁�
+  	int assistNumave;//助攻数
+  	int stealNumave;//抢断数
+    int blockNumave;//盖帽数
+    int errorNumave;//失误数
+    int foulNumave;//犯规数
   	
-    double shootrateave;//鎶曠鍛戒腑鐜�
-    double threepointrateave;//涓夊垎鍛戒腑鐜�
-    double freehitrateave;//缃氱悆鍛戒腑鐜�
-    double winrateave;//鑳滅巼
-    double attackroundave;//杩涙敾鍥炲悎
-    double attackrateave;//杩涙敾鏁堢巼
-    double defendrateave;//闃插畧鏁堢巼锛�
-    double rebrateave;//绡澘鏁堢巼锛�
-    double stealrateave;//鎶㈡柇鏁堢巼锛�
-    double assistrateave;//鍔╂敾鐜�
-  	//璧涘骞冲潎鏁�
+    double shootrateave;//投篮命中率
+    double threepointrateave;//三分命中率
+    double freehitrateave;//罚球命中率
+    double winrateave;//胜率
+    double attackroundave;//进攻回合
+    double attackrateave;//进攻效率
+    double defendrateave;//防守效率
+    double rebrateave;//篮板效率
+    double stealrateave;//抢断效率
+    double assistrateave;//助攻率
+  	//赛季平均数据
 	public String getTeamName() {
 		return teamName;
 	}
