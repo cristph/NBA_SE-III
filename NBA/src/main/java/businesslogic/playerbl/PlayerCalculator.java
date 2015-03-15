@@ -18,6 +18,7 @@ public class PlayerCalculator {
 	}
 	
 	public void calTotal(){
+		
 		totalList=new ArrayList<PlayerInfoVO>();
 		
 		double shooting;//投篮命中率
