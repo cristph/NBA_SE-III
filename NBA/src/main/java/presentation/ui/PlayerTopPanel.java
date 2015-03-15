@@ -4,8 +4,16 @@ package presentation.ui;
  *  前50的球员
  */
 
-import java.awt.Component;
 
-public class PlayerTopPanel extends Component {
+
+import javax.swing.JPanel;
+
+import presentation.control.ControlService;
+
+public class PlayerTopPanel extends JPanel{
+
+	public PlayerTopPanel(ControlService cs) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

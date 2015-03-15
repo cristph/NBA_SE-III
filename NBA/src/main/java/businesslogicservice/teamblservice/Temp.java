@@ -1,5 +1,5 @@
 package businesslogicservice.teamblservice;
 
-public class temp {
+public class Temp {
 
 }

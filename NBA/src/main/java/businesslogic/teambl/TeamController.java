@@ -9,9 +9,9 @@ import dataservice.teamdataservice.TeamDataService;
 import value.TeamStandard;
 import value.Value.Order;
 import vo.TeamVO;
-import businesslogicservice.teamblservice.teamblservice;
+import businesslogicservice.teamblservice.TeamBLService;
 
-public class teamcontroller implements teamblservice{
+public class TeamController implements TeamBLService{
 	
 	TeamDataService t=new TeamData();
     public TeamVO getTeamInfo(String name){

@@ -8,7 +8,7 @@ import value.TeamStandard;
 import value.Value.Order;
 import vo.TeamVO;
 
-public interface teamblservice {
+public interface TeamBLService {
 	public TeamVO getTeamInfo(String name);
 	
     public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan);

@@ -4,8 +4,16 @@ package presentation.ui;
  * 球员的所有的界面
  */
 
-import java.awt.Component;
 
-public class PlayerAllPanel extends Component {
+
+import javax.swing.JPanel;
+
+import presentation.control.ControlService;
+
+public class PlayerAllPanel extends JPanel {
+
+	public PlayerAllPanel(ControlService cs) {
+		// TODO Auto-generated constructor stub
+	}
 
 }

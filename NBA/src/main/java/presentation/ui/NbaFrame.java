@@ -23,6 +23,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import presentation.control.ControlService;
+import presentation.control.UIControler;
+
 
 class NbaFrame extends JFrame{
 	
@@ -36,7 +39,8 @@ class NbaFrame extends JFrame{
 		this.setTitle("NBA数据库");
 		int height = (int) (DataInAll.screenSize.height*0.8);
 		int width = (int) (DataInAll.screenSize.width*0.6);
-		this.setBounds((DataInAll.screenSize.width-width)/2, (DataInAll.screenSize.height-height)/2, width, height);
+		this.setBounds((DataInAll.screenSize.width-width)/2
+				, (DataInAll.screenSize.height-height)/2, width, height);
 		this.setLayout(new BorderLayout());
 		JPanel panel = new JPanel();
 		Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
@@ -48,12 +52,15 @@ class NbaFrame extends JFrame{
 		panel.add(title);
 		this.add(panel,BorderLayout.NORTH);
 		
+		//声明一个controler作为控制
+		ControlService cs = new UIControler();
+		
 		//选项卡的界面
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab("球队查看", new TeamAllPanel());
-		tabbedPane.addTab("球队排序", new TeamOrderPanel());
-		tabbedPane.addTab("球员查看", new PlayerAllPanel());
-		tabbedPane.addTab("前五十球员", new PlayerTopPanel());
+		tabbedPane.addTab("球队查看", new TeamAllPanel(cs));
+		tabbedPane.addTab("球队排序", new TeamOrderPanel(cs));
+		tabbedPane.addTab("球员查看", new PlayerAllPanel(cs));
+		tabbedPane.addTab("前五十球员", new PlayerTopPanel(cs));
 		this.add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.setTabComponentAt(0, new JLabel("球队查看"));
 		
