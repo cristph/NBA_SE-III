@@ -10,7 +10,10 @@ public class TeamData implements TeamDataService {
 
 	public ArrayList<TeamPO> getTeamData() {
 		// TODO Auto-generated method stub
-		return null;
+		TeamDataReadService tdrs=new TeamDataReader();
+		ArrayList<TeamPO> list=tdrs.getTeamPo();
+		
+		return list;
 	}
 
 	public ArrayList<TeamAllGamePO> getTeamGameData() {

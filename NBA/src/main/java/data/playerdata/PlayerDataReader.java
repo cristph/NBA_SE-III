@@ -34,7 +34,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 	       
 			while((line=inTwo.readLine())!=null)
 			{
-			  line=filter.filt(line);
+			  line=filter.filtPlayer(line);
 			  StringBuffer sb=new StringBuffer(line);	
 		      if(row==4)           //第4行为球员号码
 		      {
@@ -91,6 +91,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		       }
 		      row++;
 		     }
+			inTwo.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,7 +100,6 @@ public class PlayerDataReader implements PlayerDataReadService {
 			e.printStackTrace();
 		}
 		
-	    StringBuffer sbb=new StringBuffer(playerName);
 	    int length=playerName.length();
 	    playerName=playerName.substring(0, length-4);
 		result.setName(playerName);

@@ -7,6 +7,6 @@ import po.TeamPO;
 
 public interface TeamDataReadService {
 
-	public TeamPO getTeamPo(String teamName);
+	public ArrayList<TeamPO> getTeamPo();
 	public ArrayList<TeamGamePO> getTeamGamePo();
 }
