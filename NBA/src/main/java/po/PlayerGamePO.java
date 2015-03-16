@@ -21,7 +21,8 @@ public class PlayerGamePO {
 	int threeShootNum; //三分出手数
 	
 	int freeHitNum; //罚球命中数
-	int freeNum; //罚球出手数
+
+    int freeNum; //罚球出手数
 	
 	int rebAttNum; //进攻篮板数
 	int rebDefNum; //防守篮板数
@@ -36,6 +37,106 @@ public class PlayerGamePO {
     int score; //个人得分
     int twoNum; //球员自己两分球出手数（不是球队）
     
+	
+	
+	
+	public String getTeam() {
+		return team;
+	}
+
+	public void setTeam(String team) {
+		this.team = team;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
+	public void setMatchDate(int matchDate) {
+		this.matchDate = matchDate;
+	}
+
+	public void setMatchPair(String matchPair) {
+		this.matchPair = matchPair;
+	}
+
+	public void setMatchResult(String matchResult) {
+		this.matchResult = matchResult;
+	}
+
+	public void setFirst(boolean isFirst) {
+		this.isFirst = isFirst;
+	}
+
+	public void setHitShootNum(int hitShootNum) {
+		this.hitShootNum = hitShootNum;
+	}
+
+	public void setShootNum(int shootNum) {
+		this.shootNum = shootNum;
+	}
+
+	public void setThreePointNum(int threePointNum) {
+		this.threePointNum = threePointNum;
+	}
+
+	public void setThreeShootNum(int threeShootNum) {
+		this.threeShootNum = threeShootNum;
+	}
+
+	public void setFreeHitNum(int freeHitNum) {
+		this.freeHitNum = freeHitNum;
+	}
+
+	public void setFreeNum(int freeNum) {
+		this.freeNum = freeNum;
+	}
+
+	public void setRebAttNum(int rebAttNum) {
+		this.rebAttNum = rebAttNum;
+	}
+
+	public void setRebDefNum(int rebDefNum) {
+		this.rebDefNum = rebDefNum;
+	}
+
+	public void setRebTotalNum(int rebTotalNum) {
+		this.rebTotalNum = rebTotalNum;
+	}
+
+	public void setAssistNum(int assistNum) {
+		this.assistNum = assistNum;
+	}
+
+	public void setStealNum(int stealNum) {
+		this.stealNum = stealNum;
+	}
+
+	public void setBlockNum(int blockNum) {
+		this.blockNum = blockNum;
+	}
+
+	public void setErrorNum(int errorNum) {
+		this.errorNum = errorNum;
+	}
+
+	public void setFoulNum(int foulNum) {
+		this.foulNum = foulNum;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public void setTwoNum(int twoNum) {
+		this.twoNum = twoNum;
+	}
+
+	
     public String getPosition() {
 		return position;
 	}

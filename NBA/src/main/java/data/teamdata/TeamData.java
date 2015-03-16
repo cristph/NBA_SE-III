@@ -22,6 +22,9 @@ public class TeamData implements TeamDataService {
 		// TODO Auto-generated method stub
 		TeamDataReadService tdrs=new TeamDataReader();
 		HashMap<String,Image> result=tdrs.getTeamImage();
+		//Image img=result.get("MEM");
+		
+		
 		return result;
 	}
 	
@@ -30,6 +33,9 @@ public class TeamData implements TeamDataService {
 		return null;
 	}
 
-	
+	public static void main(String args[]){
+		TeamData td=new TeamData();
+		td.getTeamImage();
+	}
 
 }

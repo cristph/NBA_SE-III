@@ -16,7 +16,13 @@ import po.TeamPO;
 
 public class TeamDataReader implements TeamDataReadService {
 
-	public ArrayList<TeamPO> getTeamPo() {
+	
+    
+	
+	
+
+    	public ArrayList<TeamPO> getTeamPo() {
+
 		// TODO Auto-generated method stub
 		String txtPath="data/teams/teams.txt";
 		String imgPath="data/teams";
@@ -84,12 +90,16 @@ public class TeamDataReader implements TeamDataReadService {
 		File array[]=root.listFiles();
 		for(int i=0;i<array.length;i++)
 		{
+			System.out.println(array[i]);
 			String fileName=array[i].getName();
+			System.out.println(fileName);
 			boolean isSvg=fileName.substring((fileName.indexOf('.')+1)).equals("svg");
+			System.out.println(isSvg);
 			String teamName=fileName.substring(0, fileName.indexOf('.'));
+			System.out.println(teamName);
 			if(isSvg)
 			{   
-				Image img=Toolkit.getDefaultToolkit().createImage(imgPath+"/"+fileName);
+				Image img=Toolkit.getDefaultToolkit().getImage(imgPath+"/"+fileName);
 				imgMap.put(teamName, img);
 			}
 		}
