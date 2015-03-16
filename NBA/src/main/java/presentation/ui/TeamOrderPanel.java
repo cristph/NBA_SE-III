@@ -25,7 +25,9 @@ public class TeamOrderPanel extends JPanel {
 		// 初始化界面
 		this.setLayout(new BorderLayout());
 		
-		//
+		//选项面
+		JPanel title = new JPanel();
+		
 		
 	}
 
