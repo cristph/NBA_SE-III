@@ -6,15 +6,18 @@ public class Shiyan {
 
 	public static void main(String[] args) {
 	
-		String s="1;;1";
-		String ss[]=s.split(";");
-		for(int i=0;i<ss.length;i++)
-		{
-			System.out.println(ss[i].equals(""));
-			
+		int data[]=new int[20];
+		for(int i=3;i<15;i++){
+			data[i]=i+1;
 		}
-		
-		
+		for(int j=0;j<data.length;j++)
+		{
+			System.out.print(data[j]);
+			System.out.print(" ");
+		}
+		String s="abc";
+		int p=Integer.parseInt(s);
+	
 		
 	}
 
