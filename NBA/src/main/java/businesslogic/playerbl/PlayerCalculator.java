@@ -26,7 +26,7 @@ public class PlayerCalculator {
 	 * calTotal()方法用于计算美个球员赛季总数据
 	 * 结果保存于ArrayList<PlayerInfoVO> totalList中
 	 */
-	public void calTotal(){
+	public void calTotal(String od){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
 		TeamInfoProvider tip=null; 
@@ -155,7 +155,7 @@ public class PlayerCalculator {
 						GMSC, realHitRate, throwRate, rebRate,
 						attRebRate, defRebRate, assistRate,
 						stealRate, blockRate, errorRate,
-						usedRate);
+						usedRate,od);
 			    totalList.add(pi);
 			}
 			

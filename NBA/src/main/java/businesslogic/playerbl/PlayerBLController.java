@@ -7,7 +7,6 @@ import value.PlayerStandard;
 import value.Value.League;
 import value.Value.Order;
 import value.Value.Position;
-import value.Value.Type;
 import value.Value.Zone;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
@@ -20,7 +19,7 @@ public class PlayerBLController implements PlayerBLService{
 		pc=new PlayerCalculator();
 	}
 
-	public ArrayList<PlayerVO> getPlayerTotalInfo(String name, Type type) {
+	public PlayerVO getPlayerTotalInfo(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -42,4 +41,6 @@ public class PlayerBLController implements PlayerBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 }
