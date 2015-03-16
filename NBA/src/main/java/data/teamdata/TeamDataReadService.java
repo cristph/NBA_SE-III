@@ -10,6 +10,5 @@ import po.TeamPO;
 public interface TeamDataReadService {
 
 	public ArrayList<TeamPO> getTeamPo();
-	public ArrayList<TeamGamePO> getTeamGamePo();
 	public HashMap<String,Image> getTeamImage();
 }

@@ -6,7 +6,7 @@ package po;
 public class TeamGamePO {
 	
 	String matchDate;//比赛日期
-	String opponent;//比赛对手
+	String matchPair;//比赛双方
 	String matchResult;//比赛结果 例如：100:99（本队在前）
 	String[] partScore;//长度为4的数组用于记录每一节的比分情况
 	
@@ -15,6 +15,7 @@ public class TeamGamePO {
 	int shootNum; //投篮出手数
 	
 	int threePointNum; //三分命中数
+	
 	int threeShootNum; //三分出手数
 	
 	int freeHitNum; //罚球命中数
@@ -31,24 +32,21 @@ public class TeamGamePO {
     int foulNum;//犯规数
     
     int allPlayerTime; //球队所有队员上场时间（单位：秒）
-    int teamHitNum; //球队总进球数
-	
-    int oppAttNum;//对手进攻篮板数
-	int oppDefNum;//对手防守篮板数
-	int oppTeamRebNum; //对手总篮板数
-    int oppTwoNum; //对手两分球出手次数
+
+    
+    public String getMatchPair() {
+		return matchPair;
+	}
+	public void setMatchPair(String matchPair) {
+		this.matchPair = matchPair;
+	}
 	public String getMatchDate() {
 		return matchDate;
 	}
 	public void setMatchDate(String matchDate) {
 		this.matchDate = matchDate;
 	}
-	public String getOpponent() {
-		return opponent;
-	}
-	public void setOpponent(String opponent) {
-		this.opponent = opponent;
-	}
+	
 	public String getMatchResult() {
 		return matchResult;
 	}
@@ -151,36 +149,8 @@ public class TeamGamePO {
 	public void setAllPlayerTime(int allPlayerTime) {
 		this.allPlayerTime = allPlayerTime;
 	}
-	public int getTeamHitNum() {
-		return teamHitNum;
-	}
-	public void setTeamHitNum(int teamHitNum) {
-		this.teamHitNum = teamHitNum;
-	}
-	public int getOppAttNum() {
-		return oppAttNum;
-	}
-	public void setOppAttNum(int oppAttNum) {
-		this.oppAttNum = oppAttNum;
-	}
-	public int getOppDefNum() {
-		return oppDefNum;
-	}
-	public void setOppDefNum(int oppDefNum) {
-		this.oppDefNum = oppDefNum;
-	}
-	public int getOppTeamRebNum() {
-		return oppTeamRebNum;
-	}
-	public void setOppTeamRebNum(int oppTeamRebNum) {
-		this.oppTeamRebNum = oppTeamRebNum;
-	}
-	public int getOppTwoNum() {
-		return oppTwoNum;
-	}
-	public void setOppTwoNum(int oppTwoNum) {
-		this.oppTwoNum = oppTwoNum;
-	}
+	
+	
     
 	
     

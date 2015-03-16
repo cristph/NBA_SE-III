@@ -11,7 +11,8 @@ import java.util.HashMap;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 
-public class PlayerGameDataReader implements PlayerGameDataReadService {
+
+public class PlayerGameDataReader implements PlayerGameDataReadService{
 
 	private String currentSeason=null;
 	private String currentDate=null;
@@ -19,6 +20,7 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 	private String currentTeam=null;
 	private String currentResult=null;
 	private String currentPlayer=null;
+	
 	
 	public HashMap<String, PlayerAllGamePO> getPlayerGamePo() {
 		// TODO Auto-generated method stub
@@ -194,5 +196,8 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 		return temp;
 		
 	}
+
+	
+	
 	
 }

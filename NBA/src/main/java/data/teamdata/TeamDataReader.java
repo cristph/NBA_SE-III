@@ -16,12 +16,8 @@ import po.TeamPO;
 
 public class TeamDataReader implements TeamDataReadService {
 
-	
-    
-	
-	
 
-    	public ArrayList<TeamPO> getTeamPo() {
+    public ArrayList<TeamPO> getTeamPo() {
 
 		// TODO Auto-generated method stub
 		String txtPath="data/teams/teams.txt";
@@ -71,16 +67,7 @@ public class TeamDataReader implements TeamDataReadService {
 		return result;
 	}
 
-	public ArrayList<TeamGamePO> getTeamGamePo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	/*
-	 * getTeamImage方法未测试过;用于获得球队名与Image的对应关系的HashMap
-	 * @see data.teamdata.TeamDataReadService#getTeamImage()
-	 */
 	public HashMap<String, Image> getTeamImage() {
-		// TODO Auto-generated method stub
 		
 		HashMap<String,Image> imgMap=new HashMap<String,Image>();
 		
