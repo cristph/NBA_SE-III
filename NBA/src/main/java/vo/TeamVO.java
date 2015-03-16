@@ -18,25 +18,21 @@ public class TeamVO {
 	int gamenum;//比赛场数
 	
 	//赛季总数据
+	int score;//得分
 	int hitShootNum; //投篮命中数
-	int shootNum; //投篮出手数
-	
+	int shootNum; //投篮出手数	
 	int threePointNum; //三分命中数
-	int threeShootNum; //三分出手数
-	
+	int threeShootNum; //三分出手数	
 	int freeHitNum; //罚球命中数
-	int freeNum; //罚球出手数
-	
+	int freeNum; //罚球出手数	
 	int rebAttNum; //进攻篮板数
 	int rebDefNum; //防守篮板数
-	int rebTotalNum; //总篮板数
-	
+	int rebTotalNum; //总篮板数	
 	int assistNum;//助攻数
 	int stealNum;//抢断数
     int blockNum;//盖帽数
     int errorNum;//失误数
-    int foulNum;//犯规数
-    
+    int foulNum;//犯规数  
     double shootrate;//投篮命中率
     double threepointrate;//三分命中率
     double freehitrate;//罚球命中率
@@ -51,6 +47,7 @@ public class TeamVO {
     
     
     //赛季平均数据
+    int avgscore;//场均得分
   	int hitShootNumave; //投篮命中数
   	int shootNumave; //投篮出手数
   	
@@ -70,16 +67,6 @@ public class TeamVO {
     int errorNumave;//失误数
     int foulNumave;//犯规数
   	
-    double shootrateave;//投篮命中率
-    double threepointrateave;//三分命中率
-    double freehitrateave;//罚球命中率
-    double winrateave;//胜率
-    double attackroundave;//进攻回合
-    double attackrateave;//进攻效率
-    double defendrateave;//防守效率
-    double rebrateave;//篮板效率
-    double stealrateave;//抢断效率
-    double assistrateave;//助攻率
   	//赛季平均数据
 	public String getTeamName() {
 		return teamName;
@@ -363,65 +350,12 @@ public class TeamVO {
 	public void setFoulNumave(int foulNumave) {
 		this.foulNumave = foulNumave;
 	}
-	public double getShootrateave() {
-		return shootrateave;
+	public int getScore() {
+		return score;
 	}
-	public void setShootrateave(double shootrateave) {
-		this.shootrateave = shootrateave;
+	public int getAvgscore() {
+		return avgscore;
 	}
-	public double getThreepointrateave() {
-		return threepointrateave;
-	}
-	public void setThreepointrateave(double threepointrateave) {
-		this.threepointrateave = threepointrateave;
-	}
-	public double getFreehitrateave() {
-		return freehitrateave;
-	}
-	public void setFreehitrateave(double freehitrateave) {
-		this.freehitrateave = freehitrateave;
-	}
-	public double getWinrateave() {
-		return winrateave;
-	}
-	public void setWinrateave(double winrateave) {
-		this.winrateave = winrateave;
-	}
-	public double getAttackroundave() {
-		return attackroundave;
-	}
-	public void setAttackroundave(double attackroundave) {
-		this.attackroundave = attackroundave;
-	}
-	public double getAttackrateave() {
-		return attackrateave;
-	}
-	public void setAttackrateave(double attackrateave) {
-		this.attackrateave = attackrateave;
-	}
-	public double getDefendrateave() {
-		return defendrateave;
-	}
-	public void setDefendrateave(double defendrateave) {
-		this.defendrateave = defendrateave;
-	}
-	public double getRebrateave() {
-		return rebrateave;
-	}
-	public void setRebrateave(double rebrateave) {
-		this.rebrateave = rebrateave;
-	}
-	public double getStealrateave() {
-		return stealrateave;
-	}
-	public void setStealrateave(double stealrateave) {
-		this.stealrateave = stealrateave;
-	}
-	public double getAssistrateave() {
-		return assistrateave;
-	}
-	public void setAssistrateave(double assistrateave) {
-		this.assistrateave = assistrateave;
-	}
+	
 
 }
