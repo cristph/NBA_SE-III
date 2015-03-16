@@ -13,8 +13,8 @@ import vo.PlayerVO;
 
 public interface PlayerBLService {
 	
-	//得到球员信息
-	public ArrayList<PlayerVO> getPlayerTotalInfo(String name, Type type);
+	//得到单个球员的信息
+	public PlayerVO getPlayerTotalInfo(String name);
 	
 	//得到全部球员赛季平均数据排序结果
 	public ArrayList<PlayerInfoVO> getPlayerAvgInOrder(Order order,PlayerStandard stan);

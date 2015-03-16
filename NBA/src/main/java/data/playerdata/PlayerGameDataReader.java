@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import po.PlayerAllGamePO;
@@ -22,6 +23,9 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 	public HashMap<String, PlayerAllGamePO> getPlayerGamePo() {
 		// TODO Auto-generated method stub
 		String path="data/matches";
+		
+		HashMap<String,PlayerAllGamePO> result=new HashMap<String,PlayerAllGamePO>(); 
+		
 		File root=new File(path);
 		File array[]=root.listFiles();
 		for(int i=0;i<array.length;i++)
@@ -44,6 +48,7 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 						}
 					    else if(row==2)
 					    {
+					    	row++;
 							continue;
 					    }
 						else if(line.length()<4)
@@ -52,13 +57,28 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 						}
 						else 
 						{
-			                				
+			                PlayerGamePO temPo=getPO(line);
+			                boolean existed=result.containsKey(currentPlayer);
+			                if(existed)
+			                {
+			                	PlayerAllGamePO currentPO=result.get(currentPlayer);
+			                	currentPO.addMatch(temPo);
+			                }
+			                else
+			                {
+			                	PlayerAllGamePO newPo=new PlayerAllGamePO();
+			                	newPo.setPlayerName(currentPlayer);
+			                	newPo.setTeamName(currentTeam);
+			                	ArrayList<PlayerGamePO> newList=new ArrayList<PlayerGamePO>();
+			                	newList.add(temPo);
+			                	newPo.setGameDataList(newList);
+			                	result.put(currentPlayer, newPo);
+			                }
 						}
-			
-						
-						
-					}
+						row++;
+		            }
 					
+					inTwo.close();
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -66,11 +86,9 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
+		    }
 		}
-		
-		return null;
+		return result;
 		}
 	
 	private void initCurrent(String s){
@@ -88,19 +106,16 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
         String yyear=null;
 		if((month>0)&&(month<=4))
 		{
-			yyear="20"+preYear;
+			yyear="20"+backYear;
 		}
 		else
 		{
-			yyear="20"+backYear;
+			yyear="20"+preYear;
 		}
 		return yyear+"-"+s;
 			
 	}
-
-
-	
-	
+    
 	private PlayerGamePO getPO(String line){
 		PlayerGamePO temp=new PlayerGamePO();
 		boolean isFirst=true;
@@ -115,8 +130,15 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 			temp.setPosition("substitution");
 			isFirst=false;
 		}
+		
+		
 		String time[]=info[2].split(":");
-		int tim=Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
+		
+		int tim=0;
+		if(time.length==2)
+		 tim=Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
+		else if(time.length==0)
+		 tim=Integer.parseInt(time[0])*60;	
 	    temp.setTime(tim);
 	    
 		
@@ -130,6 +152,7 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 		}catch(NumberFormatException n)
 		{
 			data[i-3]=-1;
+			System.out.println(currentDate+"/"+currentPair+"/"+currentPlayer);
 		}
 		}
 		
@@ -149,8 +172,15 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 		temp.setErrorNum(data[13]);
 		temp.setScore(data[14]);
 		
-		//temp.set
+		temp.setFirst(isFirst);
 		
+		int twoShoot=temp.getShootNum()-temp.getThreeShootNum();
+		temp.setTwoNum(twoShoot);
+		
+		temp.setMatchDate(currentDate);
+		temp.setMatchPair(currentPair);
+		temp.setMatchResult(currentResult);
+		temp.setTeam(currentTeam);
 		
 		
 		/*投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;
@@ -161,7 +191,7 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 		
 		
 		
-		return null;
+		return temp;
 		
 	}
 	

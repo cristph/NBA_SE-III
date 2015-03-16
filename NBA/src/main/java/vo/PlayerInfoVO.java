@@ -12,7 +12,7 @@ public class PlayerInfoVO {
 			double gMSC, double realHitRate, double throwRate, double rebRate,
 			double attRebRate, double defRebRate, double assistRate,
 			double stealRate, double blockRate, double errorRate,
-			double usedRate) {
+			double usedRate,String order) {
 		this.name = name;
 		this.team = team;
 		this.time = time;
@@ -48,6 +48,8 @@ public class PlayerInfoVO {
 		this.blockRate = blockRate;
 		this.errorRate = errorRate;
 		this.usedRate = usedRate;
+		this.order = order;
+		
 	}
 	
 	String name;//名字
@@ -94,4 +96,114 @@ public class PlayerInfoVO {
     double blockRate;//盖帽率
     double errorRate;//失误率
     double usedRate;//使用率
+    String order;//需要选项
+	public String getName() {
+		return name;
+	}
+	public String getTeam() {
+		return team;
+	}
+	public double getTime() {
+		return time;
+	}
+	public int getInTime() {
+		return inTime;
+	}
+	public int getFirstTime() {
+		return firstTime;
+	}
+	public double getHitShootNum() {
+		return hitShootNum;
+	}
+	public double getShootNum() {
+		return shootNum;
+	}
+	public double getThreePointNum() {
+		return threePointNum;
+	}
+	public double getThreeShootNum() {
+		return threeShootNum;
+	}
+	public double getFreeHitNum() {
+		return freeHitNum;
+	}
+	public double getFreeNum() {
+		return freeNum;
+	}
+	public double getRebAttNum() {
+		return rebAttNum;
+	}
+	public double getRebDefNum() {
+		return rebDefNum;
+	}
+	public double getRebTotalNum() {
+		return rebTotalNum;
+	}
+	public double getAssistNum() {
+		return assistNum;
+	}
+	public double getStealNum() {
+		return stealNum;
+	}
+	public double getBlockNum() {
+		return blockNum;
+	}
+	public double getErrorNum() {
+		return errorNum;
+	}
+	public double getFoulNum() {
+		return foulNum;
+	}
+	public double getScore() {
+		return score;
+	}
+	public double getShooting() {
+		return shooting;
+	}
+	public double getThreeRate() {
+		return threeRate;
+	}
+	public double getFreeRate() {
+		return freeRate;
+	}
+	public double getRate() {
+		return rate;
+	}
+	public double getGMSC() {
+		return GMSC;
+	}
+	public double getRealHitRate() {
+		return realHitRate;
+	}
+	public double getThrowRate() {
+		return throwRate;
+	}
+	public double getRebRate() {
+		return rebRate;
+	}
+	public double getAttRebRate() {
+		return attRebRate;
+	}
+	public double getDefRebRate() {
+		return defRebRate;
+	}
+	public double getAssistRate() {
+		return assistRate;
+	}
+	public double getStealRate() {
+		return stealRate;
+	}
+	public double getBlockRate() {
+		return blockRate;
+	}
+	public double getErrorRate() {
+		return errorRate;
+	}
+	public double getUsedRate() {
+		return usedRate;
+	}
+	public String getOrder() {
+		return order;
+	}
+	
 }

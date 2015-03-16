@@ -6,14 +6,27 @@ package presentation.ui;
 
 
 
+import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 
 import presentation.control.ControlService;
 
 public class TeamOrderPanel extends JPanel {
+	ControlService cs;
 
 	public TeamOrderPanel(ControlService cs) {
-		// TODO Auto-generated constructor stub
+		this.cs = cs;
+		init();//初始化界面
+		
+	}
+
+	private void init() {
+		// 初始化界面
+		this.setLayout(new BorderLayout());
+		
+		//
+		
 	}
 
 }
