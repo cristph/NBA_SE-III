@@ -8,7 +8,7 @@ public class PlayerGamePO {
 	String position;//位置
 	String team;//所代表的球队
 	int time; //在场时间(秒)
-	int matchDate;//比赛日期  1999-01-01
+	String matchDate;//比赛日期  1999-01-01
 	String matchPair;//比赛双方
 	String matchResult;//比赛结果
 	
@@ -56,7 +56,7 @@ public class PlayerGamePO {
 		this.time = time;
 	}
 
-	public void setMatchDate(int matchDate) {
+	public void setMatchDate(String matchDate) {
 		this.matchDate = matchDate;
 	}
 
@@ -145,7 +145,7 @@ public class PlayerGamePO {
 		return time;
 	}
 
-	public int getMatchDate() {
+	public String getMatchDate() {
 		return matchDate;
 	}
 

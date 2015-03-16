@@ -134,9 +134,17 @@ public class PlayerGameDataReader implements PlayerGameDataReadService {
 		temp.setThreePointNum(data[2]);
 		temp.setThreeShootNum(data[3]);
 		temp.setFreeHitNum(data[4]);
-		temp.setFreeNum(data[8]);
-		temp.setRebAttNum(data[9]);
-		//temp.
+		temp.setFreeNum(data[5]);
+		temp.setRebAttNum(data[6]);
+		temp.setRebDefNum(data[7]);
+		temp.setRebTotalNum(data[8]);
+		temp.setAssistNum(data[9]);
+		temp.setBlockNum(data[10]);
+		temp.setFoulNum(data[11]);
+		temp.setErrorNum(data[12]);
+		temp.setScore(data[13]);
+		
+		
 		
 		
 		/*球员名;位置;在场时间;投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;
