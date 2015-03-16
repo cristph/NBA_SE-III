@@ -6,6 +6,8 @@ import businesslogic.teambl.TeamInfo;
 import businesslogicservice.teamblservice.TeamInfoProvider;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
+import value.PlayerStandard;
+import value.Value.Order;
 import vo.PlayerInfoVO;
 
 public class PlayerCalculator {
@@ -166,7 +168,9 @@ public class PlayerCalculator {
 	/*
 	 * calAvg()方法用于计算每个球员赛季平均数据
 	 * 结果保存于ArrayList<PlayerInfoVO> avgList中
-	public void calAvg(){
+	 * 
+	 */ 
+	public void calAvg(String od){
 		avgList=new ArrayList<PlayerInfoVO>();
 		
 		int gameListSize=gameList.size();
@@ -199,6 +203,7 @@ public class PlayerCalculator {
 			    int foulNum=0;//犯规数
 			    int score=0; //个人得分
 			    
+			    /*
 			    double shooting=0;//投篮命中率
 			    double threeRate=0;//三分命中率
 			    double freeRate=0;//罚球命中率
@@ -214,7 +219,7 @@ public class PlayerCalculator {
 			    double blockRate=0;//盖帽率
 			    double errorRate=0;//失误率
 			    double usedRate=0;//使用率
-				
+				*/
 				if(pgSize>0){
 					for(int j=0;j<pgSize;j++){
 						
@@ -244,6 +249,7 @@ public class PlayerCalculator {
 						int p_foulNum=pg.getFoulNum();//犯规数
 						int p_score=pg.getScore(); //个人得分
 						
+						/*
 						int p_allPlayerTime=pg.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
 						int p_teamRebNum=pg.getTeamRebNum(); //球队总篮板数
 						int p_oppTeamRebNum=pg.getOppTeamRebNum(); //对手总篮板数
@@ -258,6 +264,7 @@ public class PlayerCalculator {
 						int p_teamThrowNum=pg.getTeamThrowNum(); //球队所有球员总出手次数
 						int p_teamFreeNum=pg.getTeamFreeNum(); //球队所有球员罚球次数
 						int p_teamErrorNum=pg.getTeamErrorNum(); //球队所有球员失误次数
+						*/
 						
 						//计算数据总和
 						time+=p_time; //在场时间(分钟:秒)
@@ -277,7 +284,8 @@ public class PlayerCalculator {
 					    errorNum+=p_errorNum;//失误数
 					    foulNum+=p_foulNum;//犯规数
 					    score+=p_score; //个人得分
-					    				    
+					    
+					    /*
 					    //计算比率总和
 					    double T=cm.calT(p_time, p_allPlayerTime);//用于计算的数据T
 					    shooting+=cm.calRate(p_hitShootNum, p_shootNum);//投篮命中率
@@ -295,7 +303,7 @@ public class PlayerCalculator {
 					    blockRate+=cm.calBlockRate(p_blockNum, p_oppTwoNum, T);//盖帽率
 					    errorRate+=cm.calErrorRate(p_teamErrorNum, p_twoNum, p_teamFreeNum);//失误率
 					    usedRate+=cm.calUseRate(p_threeShootNum, p_freeNum, p_errorNum, T, p_teamThrowNum, p_teamFreeNum, p_teamErrorNum);//使用率
-					    
+					    */
 					    
 					}
 				}
@@ -306,17 +314,34 @@ public class PlayerCalculator {
 						1.0*freeNum/pgSize, 1.0*rebAttNum/pgSize, 1.0*rebDefNum/pgSize,
 						1.0*rebTotalNum/pgSize, 1.0*assistNum/pgSize, 1.0*stealNum/pgSize,
 						1.0*blockNum/pgSize, 1.0*errorNum/pgSize, 1.0*foulNum/pgSize, 1.0*score/pgSize,
-						1.0*shooting/pgSize, threeRate/pgSize, freeRate/pgSize, rate/pgSize,
-						GMSC/pgSize, realHitRate/pgSize, throwRate/pgSize, rebRate/pgSize,
-						attRebRate/pgSize, defRebRate/pgSize, assistRate/pgSize,
-						stealRate/pgSize, blockRate/pgSize, errorRate/pgSize,
-						usedRate/pgSize);
+						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,od);
 				
 			    avgList.add(pi);
 			}//end of for loop;循环依据球员
 		}//end of if
 	}
-	*/
+	
+	public ArrayList sortList(String type,Order order,PlayerStandard ps){
+		Sort sort=new Sort();
+		if(type.equals("Total")){
+			if(totalList!=null){
+				sort.sort(totalList, order, ps);
+			}else{
+				calTotal("");
+				sort.sort(totalList, order, ps);
+			}
+			return totalList;
+		}else if(type.equals("Avg")){
+			if(avgList!=null){
+				sort.sort(avgList, order, ps);
+			}else{
+				calTotal("");
+				sort.sort(avgList, order, ps);
+			}
+			return avgList;
+		}
+		return null;
+	}
 	
 	/*
 	 * iniData()方法用于初始化数据

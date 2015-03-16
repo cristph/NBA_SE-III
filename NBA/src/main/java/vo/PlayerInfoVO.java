@@ -205,5 +205,7 @@ public class PlayerInfoVO {
 	public String getOrder() {
 		return order;
 	}
-	
+	public void setOrder(String str){
+		this.order=str;
+	}
 }

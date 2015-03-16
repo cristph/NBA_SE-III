@@ -12,9 +12,11 @@ public class Sort {
 	public void sort(ArrayList<PlayerInfoVO> list,Order order, PlayerStandard ps){
 		if(order==Order.UP){
 			if(ps==PlayerStandard.assistNum){
-				
+				AssistNumUPSort ans=new AssistNumUPSort();
+				ans.quicksort(list);
 			}else if(ps==PlayerStandard.assistRate){
-				
+				AssistRateUPSort ans=new AssistRateUPSort();
+				ans.quicksort(list);
 			}else if(ps==PlayerStandard.attRebRate){
 				
 			}else if(ps==PlayerStandard.blockNum){

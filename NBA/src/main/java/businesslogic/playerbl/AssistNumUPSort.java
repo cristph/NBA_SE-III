@@ -1,11 +1,11 @@
 package businesslogic.playerbl;
 
 import java.util.ArrayList;
+
 import vo.PlayerInfoVO;
 
-public class AssistRateSort {
-	
-	public static final int CUTOFF = 11;
+public class AssistNumUPSort {
+public static final int CUTOFF = 11;
 	
 	public void quicksort( ArrayList<PlayerInfoVO> arr ) {
 		quickSort( arr, 0, arr.size() - 1 ); 
@@ -14,11 +14,11 @@ public class AssistRateSort {
 	public PlayerInfoVO median( ArrayList<PlayerInfoVO> arr, int left, int right ) {
 		int center = ( left + right ) / 2;
 		
-		if ( arr.get(left).getAssistRate()>arr.get(center).getAssistRate() )
+		if ( arr.get(left).getAssistNum()>arr.get(center).getAssistNum() )
 			swapRef( arr, left, center );
-		if ( arr.get(left).getAssistRate()>arr.get(right).getAssistRate() )
+		if ( arr.get(left).getAssistNum()>arr.get(right).getAssistNum() )
 			swapRef( arr, left, right );
-		if ( arr.get(center).getAssistRate()>arr.get(right).getAssistRate() )
+		if ( arr.get(center).getAssistNum()>arr.get(right).getAssistNum() )
 			swapRef( arr, center, right );
  
 		swapRef( arr, center, right - 1 );
@@ -33,8 +33,8 @@ public class AssistRateSort {
 			//start partitioning
 			int i = left, j = right - 1;
 			for ( ; ; ) {
-				while ( arr.get(++i).getAssistRate()< pivot.getAssistRate()  ) ;
-				while ( arr.get(--j).getAssistRate()> pivot.getAssistRate() ) ;
+				while ( arr.get(++i).getAssistNum()< pivot.getAssistNum()  ) ;
+				while ( arr.get(--j).getAssistNum()> pivot.getAssistNum() ) ;
 				if ( i < j )
 					swapRef( arr, i, j );
 				else
@@ -63,7 +63,7 @@ public class AssistRateSort {
 		int i;
 		for ( int j = start + 1; j <= end; j++ ) {
 			PlayerInfoVO tmp = arr.get(j);
-			for ( i = j; i > start && tmp.getAssistRate()<arr.get(i - 1).getAssistRate(); i-- ) {
+			for ( i = j; i > start && tmp.getAssistNum()<arr.get(i - 1).getAssistNum(); i-- ) {
 				arr.set(i, arr.get(i-1));
 			}
 			arr.set(i, tmp);
