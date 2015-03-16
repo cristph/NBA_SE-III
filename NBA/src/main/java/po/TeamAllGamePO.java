@@ -18,4 +18,7 @@ public class TeamAllGamePO {
 	public void setGameDataList(ArrayList<TeamGamePO> gameDataList) {
 		this.gameDataList = gameDataList;
 	}
+	public void addGame(TeamGamePO po){
+		gameDataList.add(po);
+	}
 }

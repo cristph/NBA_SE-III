@@ -45,26 +45,33 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 					partScore=line.split(";");
 				}
 				else if(line.length()<=4)
-				{
+				{   
 					currentPO.setMatchDate(currentDate);
 					currentPO.setMatchResult(currentResult);
 					currentPO.setPartScore(partScore);
 					currentPO.setMatchPair(currentPair);
 					if(change)
 					{
-						
-					}
-					
-				
-					
-				}
+						boolean isExisted=map.containsKey(currentTeam);
+						if(isExisted)
+						{
+							TeamAllGamePO temp=map.get(currentTeam);
+							temp.addGame(currentPO);
+						}
+						else{
+							TeamAllGamePO newPO=new TeamAllGamePO();
+							newPO.addGame(currentPO);
+							map.put(currentTeam,newPO);
+							
+						}
+						}
+					change=true;
+			       }
 				else{
 					currentPO=addData(currentPO,line);
 				}
-
-					
-					
-			}
+             }
+			inTwo.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,7 +83,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 	    }
 		
 		
-		return null;
+		return map;
 	}
 	
 	
