@@ -6,7 +6,6 @@ import value.PlayerStandard;
 import value.Value.League;
 import value.Value.Order;
 import value.Value.Position;
-import value.Value.Type;
 import value.Value.Zone;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
