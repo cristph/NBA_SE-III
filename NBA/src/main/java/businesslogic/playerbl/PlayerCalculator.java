@@ -2,6 +2,8 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
+import businesslogic.teambl.TeamInfo;
+import businesslogicservice.teamblservice.TeamInfoProvider;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import vo.PlayerInfoVO;
@@ -27,6 +29,7 @@ public class PlayerCalculator {
 	public void calTotal(){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
+		TeamInfoProvider tip=null; 
 		
 	    int gameListSize=gameList.size();
 		//若球员列表不为空
@@ -81,6 +84,8 @@ public class PlayerCalculator {
 						
 						//获取单场比赛数据
 						PlayerGamePO pg=list.get(j);
+						//获取单场比赛的队伍信息
+						TeamInfo tif=tip.getTeamInfo(pg.getTeam(), pg.getMatchDate());
 						
 						time+=pg.getTime(); //在场时间(分钟:秒)
 						if(pg.isFirst()){
@@ -103,20 +108,21 @@ public class PlayerCalculator {
 					    
 					    score+=pg.getScore(); //个人得分
 					    
-					    allPlayerTime+=pg.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
-					    teamRebNum+=pg.getTeamRebNum(); //球队总篮板数
-					    oppTeamRebNum+=pg.getOppTeamRebNum(); //对手总篮板数
-					    teamAttRebNum+=pg.getTeamAttRebNum(); //球队总进攻篮板数
-					    oppTeamAttRebNum+=pg.getOppTeamAttRebNum(); //对手总进攻篮板数
-					    teamDefRebNum+=pg.getTeamDefRebNum(); //球队总防守篮板数
-					    oppTeamDefRebNum+=pg.getOppTeamDefRebNum(); //对手总防守篮板数
-					    teamHitNum+=pg.getTeamHitNum(); //球队总进球数
-					    oppAttNum+=pg.getOppAttNum(); //对手进攻次数
-					    oppTwoNum+=pg.getOppTwoNum(); //对手两分球出手次数
-					    twoNum+=pg.getTwoNum(); //球员自己两分球出手数（不是球队）
-					    teamThrowNum+=pg.getTeamThrowNum(); //球队所有球员总出手次数
-					    teamFreeNum+=pg.getTeamFreeNum(); //球队所有球员罚球次数
-					    teamErrorNum+=pg.getTeamErrorNum(); //球队所有球员失误次数
+					    allPlayerTime+=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
+					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
+					    oppTeamRebNum+=tif.getOppTeamRebNum(); //对手总篮板数
+					    teamAttRebNum+=tif.getTeamAttRebNum(); //球队总进攻篮板数
+					    oppTeamAttRebNum+=tif.getOppTeamAttRebNum(); //对手总进攻篮板数
+					    teamDefRebNum+=tif.getTeamDefRebNum(); //球队总防守篮板数
+					    oppTeamDefRebNum+=tif.getOppTeamDefRebNum(); //对手总防守篮板数
+					    teamHitNum+=tif.getTeamHitNum(); //球队总进球数
+					    oppAttNum+=tif.getOppAttNum(); //对手进攻次数
+					    oppTwoNum+=tif.getOppTwoNum(); //对手两分球出手次数
+					    twoNum+=tif.getTwoNum(); //球员自己两分球出手数（不是球队）
+					    teamThrowNum+=tif.getTeamThrowNum(); //球队所有球员总出手次数
+					    teamFreeNum+=tif.getTeamFreeNum(); //球队所有球员罚球次数
+					    teamErrorNum+=tif.getTeamErrorNum(); //球队所有球员失误次数
+					    
 					}//end of for loop
 				}else{//该球员未参加任何比赛
 					//do nothing
@@ -160,7 +166,6 @@ public class PlayerCalculator {
 	/*
 	 * calAvg()方法用于计算每个球员赛季平均数据
 	 * 结果保存于ArrayList<PlayerInfoVO> avgList中
-	 */
 	public void calAvg(){
 		avgList=new ArrayList<PlayerInfoVO>();
 		
@@ -238,6 +243,7 @@ public class PlayerCalculator {
 						int p_errorNum=pg.getErrorNum();//失误数
 						int p_foulNum=pg.getFoulNum();//犯规数
 						int p_score=pg.getScore(); //个人得分
+						
 						int p_allPlayerTime=pg.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
 						int p_teamRebNum=pg.getTeamRebNum(); //球队总篮板数
 						int p_oppTeamRebNum=pg.getOppTeamRebNum(); //对手总篮板数
@@ -310,7 +316,7 @@ public class PlayerCalculator {
 			}//end of for loop;循环依据球员
 		}//end of if
 	}
-	
+	*/
 	
 	/*
 	 * iniData()方法用于初始化数据

@@ -36,4 +36,48 @@ public class TeamInfo {
     int teamThrowNum; //球队所有球员总出手次数
     int teamFreeNum; //球队所有球员罚球次数
     int teamErrorNum; //球队所有球员失误次数
+    
+	public int getAllPlayerTime() {
+		return allPlayerTime;
+	}
+	public int getTeamRebNum() {
+		return teamRebNum;
+	}
+	public int getOppTeamRebNum() {
+		return oppTeamRebNum;
+	}
+	public int getTeamAttRebNum() {
+		return teamAttRebNum;
+	}
+	public int getOppTeamAttRebNum() {
+		return oppTeamAttRebNum;
+	}
+	public int getTeamDefRebNum() {
+		return teamDefRebNum;
+	}
+	public int getOppTeamDefRebNum() {
+		return oppTeamDefRebNum;
+	}
+	public int getTeamHitNum() {
+		return teamHitNum;
+	}
+	public int getOppAttNum() {
+		return oppAttNum;
+	}
+	public int getOppTwoNum() {
+		return oppTwoNum;
+	}
+	public int getTwoNum() {
+		return twoNum;
+	}
+	public int getTeamThrowNum() {
+		return teamThrowNum;
+	}
+	public int getTeamFreeNum() {
+		return teamFreeNum;
+	}
+	public int getTeamErrorNum() {
+		return teamErrorNum;
+	}
+	
 }
