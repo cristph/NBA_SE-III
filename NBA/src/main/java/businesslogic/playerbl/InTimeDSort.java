@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import vo.PlayerInfoVO;
 
-public class AssistNumUPSort {
+public class InTimeDSort {
 	public static final int CUTOFF = 11;
 	
 	public void quicksort( ArrayList<PlayerInfoVO> arr ) {
@@ -14,11 +14,11 @@ public class AssistNumUPSort {
 	public PlayerInfoVO median( ArrayList<PlayerInfoVO> arr, int left, int right ) {
 		int center = ( left + right ) / 2;
 		
-		if ( arr.get(left).getAssistNum()>arr.get(center).getAssistNum() )
+		if ( arr.get(left).getInTime()<arr.get(center).getInTime() )
 			swapRef( arr, left, center );
-		if ( arr.get(left).getAssistNum()>arr.get(right).getAssistNum() )
+		if ( arr.get(left).getInTime()<arr.get(right).getInTime() )
 			swapRef( arr, left, right );
-		if ( arr.get(center).getAssistNum()>arr.get(right).getAssistNum() )
+		if ( arr.get(center).getInTime()<arr.get(right).getInTime() )
 			swapRef( arr, center, right );
  
 		swapRef( arr, center, right - 1 );
@@ -33,8 +33,8 @@ public class AssistNumUPSort {
 			//start partitioning
 			int i = left, j = right - 1;
 			for ( ; ; ) {
-				while ( arr.get(++i).getAssistNum()< pivot.getAssistNum()  ) ;
-				while ( arr.get(--j).getAssistNum()> pivot.getAssistNum() ) ;
+				while ( arr.get(++i).getInTime()> pivot.getInTime() ) ;
+				while ( arr.get(--j).getInTime()< pivot.getInTime() ) ;
 				if ( i < j )
 					swapRef( arr, i, j );
 				else
@@ -63,7 +63,7 @@ public class AssistNumUPSort {
 		int i;
 		for ( int j = start + 1; j <= end; j++ ) {
 			PlayerInfoVO tmp = arr.get(j);
-			for ( i = j; i > start && tmp.getAssistNum()<arr.get(i - 1).getAssistNum(); i-- ) {
+			for ( i = j; i > start && tmp.getInTime()>arr.get(i - 1).getInTime(); i-- ) {
 				arr.set(i, arr.get(i-1));
 			}
 			arr.set(i, tmp);
