@@ -37,8 +37,9 @@ class NbaFrame extends JFrame{
 	private void init() {
 		// 初始化查看界面
 		this.setTitle("NBA数据库");
-		int height = (int) (DataInAll.screenSize.height*0.8);
-		int width = (int) (DataInAll.screenSize.width*0.6);
+		int height = 640;
+		int width = 768;
+		System.out.println(height+" "+width);
 		this.setBounds((DataInAll.screenSize.width-width)/2
 				, (DataInAll.screenSize.height-height)/2, width, height);
 		this.setLayout(new BorderLayout());
