@@ -6,6 +6,12 @@ public class TeamAllGamePO {
 
 	String teamName;
 	ArrayList<TeamGamePO> gameDataList;
+	
+	public TeamAllGamePO(){
+		gameDataList=new ArrayList<TeamGamePO>();
+		
+	}
+	
 	public String getTeamName() {
 		return teamName;
 	}

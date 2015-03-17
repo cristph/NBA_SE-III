@@ -30,7 +30,17 @@ public class TeamData implements TeamDataService {
 	
 	public ArrayList<TeamAllGamePO> getTeamGameData() {
 		// TODO Auto-generated method stub
-		return null;
+		TeamGameDataReadService tgdrs=new TeamGameDataReader();
+		HashMap<String,TeamAllGamePO> map=tgdrs.getTeamAllGamePo();
+		java.util.Iterator<String> it=map.keySet().iterator();
+		
+		ArrayList<TeamAllGamePO> list=new ArrayList<TeamAllGamePO>();
+		while(it.hasNext()){
+			TeamAllGamePO temp=map.get(it.next());
+			list.add(temp);
+		}
+		
+		return list;
 	}
 
 	public static void main(String args[]){

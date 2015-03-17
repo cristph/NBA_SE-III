@@ -27,6 +27,8 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 	    for(int i=0;i<array.length;i++)
 	    {
 	       File file=array[i];
+	       String fileName=file.getName();
+	       currentSeason=fileName.substring(0, 5);
 	       try {
 			FileReader inOne=new FileReader(file);
 			BufferedReader inTwo=new BufferedReader(inOne);
@@ -50,6 +52,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 					currentPO.setMatchResult(currentResult);
 					currentPO.setPartScore(partScore);
 					currentPO.setMatchPair(currentPair);
+					currentTeam=line;
 					if(change)
 					{
 						boolean isExisted=map.containsKey(currentTeam);
@@ -61,6 +64,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 						else{
 							TeamAllGamePO newPO=new TeamAllGamePO();
 							newPO.addGame(currentPO);
+							newPO.setTeamName(currentTeam);
 							map.put(currentTeam,newPO);
 							
 						}
@@ -70,7 +74,18 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 				else{
 					currentPO=addData(currentPO,line);
 				}
+				row++;
              }
+			boolean isExisted=map.containsKey(currentTeam);
+		       if(isExisted)
+		    	   map.get(currentTeam).addGame(currentPO);
+		       else{
+		    		TeamAllGamePO newPO=new TeamAllGamePO();
+					newPO.addGame(currentPO);
+					newPO.setTeamName(currentTeam);
+					map.put(currentTeam,newPO);
+		       }
+		    	   
 			inTwo.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -80,8 +95,8 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 			e.printStackTrace();
 		}
 	       
+	       
 	    }
-		
 		
 		return map;
 	}
@@ -117,14 +132,17 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 		
 		int time=0;
 		String tim[]=info[2].split(":");
+		try{
 		if(tim.length==1)
 			time=Integer.parseInt(tim[0])*60;
 		else if(tim.length==2)
 			time=Integer.parseInt(tim[0])*60+Integer.parseInt(tim[1]);
-		
+		}catch(NumberFormatException e){
+			time=-1;
+		}
 		 
 		int data[]=new int[15];
-		for(int i=0;i<info.length;i++)
+		for(int i=0;i<data.length;i++)
 		{
 			try{
 			data[i]=Integer.parseInt(info[i+3]);
@@ -146,7 +164,6 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 		int block=data[11];
 		int error=data[12];
 		int foul=data[13];
-		int score=data[14];
 		
 		po.setAllPlayerTime(po.getAllPlayerTime()+time);
 		po.setAssistNum(po.getAssistNum()+ass);
@@ -160,6 +177,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 		po.setRebTotalNum(po.getRebTotalNum()+reb);
 		po.setShootNum(po.getShootNum()+shootNum);
 		po.setStealNum(po.getStealNum()+steal);
+		po.setErrorNum(po.getErrorNum()+error);
 		po.setThreePointNum(po.getThreePointNum()+threeHitNum);
 		po.setThreeShootNum(po.getThreeShootNum()+threeShootNum);
 		
