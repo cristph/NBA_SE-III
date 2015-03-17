@@ -28,7 +28,7 @@ public class PlayerCalculator {
 	 * calTotal()方法用于计算美个球员赛季总数据
 	 * 结果保存于ArrayList<PlayerInfoVO> totalList中
 	 */
-	public void calTotal(String od){
+	public void calTotal(){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
 		TeamInfoProvider tip=null; 
@@ -157,7 +157,7 @@ public class PlayerCalculator {
 						GMSC, realHitRate, throwRate, rebRate,
 						attRebRate, defRebRate, assistRate,
 						stealRate, blockRate, errorRate,
-						usedRate,od);
+						usedRate,"");
 			    totalList.add(pi);
 			}
 			
@@ -170,7 +170,7 @@ public class PlayerCalculator {
 	 * 结果保存于ArrayList<PlayerInfoVO> avgList中
 	 * 
 	 */ 
-	public void calAvg(String od){
+	public void calAvg(){
 		avgList=new ArrayList<PlayerInfoVO>();
 		
 		int gameListSize=gameList.size();
@@ -314,33 +314,33 @@ public class PlayerCalculator {
 						1.0*freeNum/pgSize, 1.0*rebAttNum/pgSize, 1.0*rebDefNum/pgSize,
 						1.0*rebTotalNum/pgSize, 1.0*assistNum/pgSize, 1.0*stealNum/pgSize,
 						1.0*blockNum/pgSize, 1.0*errorNum/pgSize, 1.0*foulNum/pgSize, 1.0*score/pgSize,
-						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,od);
+						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,"");
 				
 			    avgList.add(pi);
 			}//end of for loop;循环依据球员
 		}//end of if
 	}
 	
-	public ArrayList sortList(String type,Order order,PlayerStandard ps){
-		Sort sort=new Sort();
-		if(type.equals("Total")){
-			if(totalList!=null){
-				sort.sort(totalList, order, ps);
-			}else{
-				calTotal("");
-				sort.sort(totalList, order, ps);
-			}
-			return totalList;
-		}else if(type.equals("Avg")){
-			if(avgList!=null){
-				sort.sort(avgList, order, ps);
-			}else{
-				calTotal("");
-				sort.sort(avgList, order, ps);
-			}
-			return avgList;
+	public ArrayList<PlayerInfoVO> totalSort(Order order,PlayerStandard ps){
+		Sort sort=new Sort();	
+		if(totalList!=null){
+			sort.sort(totalList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(totalList, order, ps);
 		}
-		return null;
+		return totalList;
+	}
+	
+	public ArrayList<PlayerInfoVO> avgSort(Order order,PlayerStandard ps){
+		Sort sort=new Sort();
+		if(avgList!=null){
+			sort.sort(avgList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(avgList, order, ps);
+		}
+		return avgList;
 	}
 	
 	/*
