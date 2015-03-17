@@ -12,7 +12,7 @@ import vo.TeamVO;
 public interface TeamBLService {
 	public TeamVO getTeamInfo(String name);
 	
-    public ArrayList<TeamGameVO> getTeamInOrder(Order order,TeamStandard stan);
+    public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan);
     
     public HashMap<String,Image> getAllTeam();
 }

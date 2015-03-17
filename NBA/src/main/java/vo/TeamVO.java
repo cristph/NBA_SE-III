@@ -18,6 +18,8 @@ public class TeamVO {
 	int gamenum;//比赛场数
 	
 	//赛季总数据
+	int allpoint;//总得分
+	
 	int hitShootNum; //投篮命中数
 	int shootNum; //投篮出手数
 	
@@ -44,13 +46,16 @@ public class TeamVO {
     double attackround;//进攻回合
     double attackrate;//进攻效率
     double defendrate;//防守效率
-    double rebrate;//篮板效率
+    double rebattrate;//进攻篮板效率
+    double rebdefrate;//防守篮板效率
     double stealrate;//抢断效率
     double assistrate;//助攻率
 	//赛季总数据
     
     
     //赛季平均数据
+    int allpointave;//平均得分
+    
   	int hitShootNumave; //投篮命中数
   	int shootNumave; //投篮出手数
   	
@@ -77,7 +82,8 @@ public class TeamVO {
     double attackroundave;//进攻回合
     double attackrateave;//进攻效率
     double defendrateave;//防守效率
-    double rebrateave;//篮板效率
+    double rebattrateave;//进攻篮板效率
+    double rebdefrateave;//防守篮板效率
     double stealrateave;//抢断效率
     double assistrateave;//助攻率
   	//赛季平均数据
@@ -261,12 +267,7 @@ public class TeamVO {
 	public void setDefendrate(double defendrate) {
 		this.defendrate = defendrate;
 	}
-	public double getRebrate() {
-		return rebrate;
-	}
-	public void setRebrate(double rebrate) {
-		this.rebrate = rebrate;
-	}
+	
 	public double getStealrate() {
 		return stealrate;
 	}
@@ -405,12 +406,7 @@ public class TeamVO {
 	public void setDefendrateave(double defendrateave) {
 		this.defendrateave = defendrateave;
 	}
-	public double getRebrateave() {
-		return rebrateave;
-	}
-	public void setRebrateave(double rebrateave) {
-		this.rebrateave = rebrateave;
-	}
+	
 	public double getStealrateave() {
 		return stealrateave;
 	}
@@ -423,5 +419,42 @@ public class TeamVO {
 	public void setAssistrateave(double assistrateave) {
 		this.assistrateave = assistrateave;
 	}
+	public int getAllpoint() {
+		return allpoint;
+	}
+	public void setAllpoint(int allpoint) {
+		this.allpoint = allpoint;
+	}
+	public double getRebattrate() {
+		return rebattrate;
+	}
+	public void setRebattrate(double rebattrate) {
+		this.rebattrate = rebattrate;
+	}
+	public double getRebdefrate() {
+		return rebdefrate;
+	}
+	public void setRebdefrate(double rebdefrate) {
+		this.rebdefrate = rebdefrate;
+	}
+	public int getAllpointave() {
+		return allpointave;
+	}
+	public void setAllpointave(int allpointave) {
+		this.allpointave = allpointave;
+	}
+	public double getRebattrateave() {
+		return rebattrateave;
+	}
+	public void setRebattrateave(double rebattrateave) {
+		this.rebattrateave = rebattrateave;
+	}
+	public double getRebdefrateave() {
+		return rebdefrateave;
+	}
+	public void setRebdefrateave(double rebdefrateave) {
+		this.rebdefrateave = rebdefrateave;
+	}
+	
 
 }
