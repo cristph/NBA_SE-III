@@ -33,6 +33,15 @@ public class TeamGamePO {
     
     int allPlayerTime; //球队所有队员上场时间（单位：秒）
 
+    boolean isDirty=false;
+    
+    public boolean getIsDirty(){
+    	return isDirty;
+    }
+    public void setIsDirty(boolean b){
+    	isDirty=b;
+    }
+    
     
     public String getMatchPair() {
 		return matchPair;

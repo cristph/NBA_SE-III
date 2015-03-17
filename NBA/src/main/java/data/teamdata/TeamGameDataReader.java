@@ -148,7 +148,8 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 			data[i]=Integer.parseInt(info[i+3]);
 			}catch(NumberFormatException n){
 				data[i]=-1;
-			}
+				po.setIsDirty(true);
+				}
 	    }
 		int hitNum=data[0];
 		int shootNum=data[1];

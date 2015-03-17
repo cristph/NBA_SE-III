@@ -37,9 +37,17 @@ public class PlayerGamePO {
     int score; //个人得分
     int twoNum; //球员自己两分球出手数（不是球队）
     
+	boolean isDirty=false;
 	
 	
-	
+	public boolean isDirty() {
+		return isDirty;
+	}
+
+	public void setDirty(boolean isDirty) {
+		this.isDirty = isDirty;
+	}
+
 	public String getTeam() {
 		return team;
 	}

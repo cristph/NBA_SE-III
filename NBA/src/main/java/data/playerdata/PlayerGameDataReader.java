@@ -154,6 +154,7 @@ public class PlayerGameDataReader implements PlayerGameDataReadService{
 		}catch(NumberFormatException n)
 		{
 			data[i-3]=-1;
+			temp.setDirty(true);
 			System.out.println(currentDate+"/"+currentPair+"/"+currentPlayer);
 		}
 		}
