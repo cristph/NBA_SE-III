@@ -87,6 +87,8 @@ public class TeamVO {
     double stealrateave;//抢断效率
     double assistrateave;//助攻率
   	//赛季平均数据
+    
+    
 	public String getTeamName() {
 		return teamName;
 	}

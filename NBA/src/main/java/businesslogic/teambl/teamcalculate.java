@@ -181,7 +181,7 @@ public class teamcalculate {
     public double attrebrate(TeamAllGamePO p,TeamAllGamePO p2){
     	return (getrebattnum(p)*1.0)/((getrebattnum(p)+getrebdefnum(p2))*1.0);
     }
-    public double defrearate(TeamAllGamePO p,TeamAllGamePO p2){
+    public double defrebrate(TeamAllGamePO p,TeamAllGamePO p2){
     	return (getrebdefnum(p)*1.0)/((getrebdefnum(p)+getrebattnum(p2))*1.0);
     }
     public double getstealrate(TeamAllGamePO p,TeamAllGamePO p2){
@@ -189,7 +189,7 @@ public class teamcalculate {
     	return (getstealnum(p)*1.0)/(getattackround(p,p2)/100);
     }
     public double getassistrate(TeamAllGamePO p,TeamAllGamePO p2){//p2为不同对手对应每场比赛数据
-    	return (getassistnum(p)*1.0)/(getattackround(p,p2)/100);
+    	return (getassistnum(p)*1.0)/(getattackround(p2,p)/100);
     }
     //总数据
     
