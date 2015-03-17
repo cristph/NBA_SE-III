@@ -8,6 +8,7 @@ import data.teamdata.TeamData;
 import dataservice.teamdataservice.TeamDataService;
 import value.TeamStandard;
 import value.Value.Order;
+import vo.TeamGameVO;
 import vo.TeamVO;
 import businesslogicservice.teamblservice.TeamBLService;
 
@@ -18,7 +19,7 @@ public class TeamController implements TeamBLService{
     	return null;
     }
 	
-    public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan){
+    public ArrayList<TeamGameVO> getTeamInOrder(Order order,TeamStandard stan){
     	return null;
     }
     
