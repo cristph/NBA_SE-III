@@ -31,4 +31,14 @@ public class UIControler implements ControlService{
 		
 	}
 
+	public String[] getOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String[] getString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

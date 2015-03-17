@@ -68,16 +68,16 @@ public class TeamAllPanel extends JPanel {
 		//创建GroupLayout的水平连续组，，越先加入的ParallelGroup，优先级级别越高。
 		GroupLayout.SequentialGroup hGroup = 
 				layout.createSequentialGroup();
-        hGroup.addGap(30);
+        hGroup.addGap(20);
         hGroup.addGroup(layout.createParallelGroup()
         		.addComponent(position1));
-		hGroup.addGap(60);
+		hGroup.addGap(75);
 		hGroup.addGroup(layout.createParallelGroup()
 				.addComponent(area1).addComponent(position2));
 		hGroup.addGap(60);
 		hGroup.addGroup(layout.createParallelGroup()
                 .addComponent(position3));
-		hGroup.addGap(80);
+		hGroup.addGap(75);
 		hGroup.addGroup(layout.createParallelGroup()
                 .addComponent(position4));
 		hGroup.addGap(60);
