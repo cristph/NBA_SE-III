@@ -18,6 +18,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 	private String[] partScore=null;
 	private String currentTeam=null;
 	private String currentSeason=null;
+	private boolean isDirty=false;
 	public HashMap<String, TeamAllGamePO> getTeamAllGamePo() {
 		// TODO Auto-generated method stub
 		HashMap<String,TeamAllGamePO> map=new HashMap<String,TeamAllGamePO>();
@@ -26,6 +27,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 		File array[]=root.listFiles();
 	    for(int i=0;i<array.length;i++)
 	    {
+	       isDirty=false;
 	       File file=array[i];
 	       String fileName=file.getName();
 	       currentSeason=fileName.substring(0, 5);
@@ -55,13 +57,16 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 					currentTeam=line;
 					if(change)
 					{
+						currentPO.setIsDirty(isDirty);
+						
 						boolean isExisted=map.containsKey(currentTeam);
 						if(isExisted)
 						{
 							TeamAllGamePO temp=map.get(currentTeam);
 							temp.addGame(currentPO);
 						}
-						else{
+						else
+						{
 							TeamAllGamePO newPO=new TeamAllGamePO();
 							newPO.addGame(currentPO);
 							newPO.setTeamName(currentTeam);
@@ -148,7 +153,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 			data[i]=Integer.parseInt(info[i+3]);
 			}catch(NumberFormatException n){
 				data[i]=-1;
-				po.setIsDirty(true);
+				isDirty=true;
 				}
 	    }
 		int hitNum=data[0];
