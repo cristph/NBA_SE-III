@@ -64,45 +64,46 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 			v.setRebDefNum(cal.getrebdefnum(thisteam));
 			v.setRebTotalNum(cal.getrebtotalnum(thisteam));
 			
-			int assistNum;//助攻数
-			int stealNum;//抢断数
-		    int blockNum;//盖帽数
-		    int errorNum;//失误数
-		    int foulNum;//犯规数
+			v.setAssistNum(cal.getassistnum(thisteam));
+			v.setStealNum(cal.getstealnum(thisteam));
+			v.setBlockNum(cal.getblocknum(thisteam));
+			v.setErrorNum(cal.geterrornum(thisteam));
+			v.setFoulNum(cal.getfoulnum(thisteam));
 		    
-		    double shootrate;//投篮命中率
-		    double threepointrate;//三分命中率
-		    double freehitrate;//罚球命中率
-		    double winrate;//胜率
-		    double attackround;//进攻回合
-		    double attackrate;//进攻效率
-		    double defendrate;//防守效率
-		    double rebattrate;//进攻篮板效率
-		    double rebdefrate;//防守篮板效率
-		    double stealrate;//抢断效率
-		    double assistrate;//助攻率
+		    v.setShootrate(cal.getshootrate(thisteam));
+		    v.setThreepointrate(cal.getthreepointrate(thisteam));
+		    v.setFreehitrate(cal.getfreeshootrate(thisteam));
+		    v.setWinrate(cal.getwinrate(thisteam));
+		    v.setAttackround(cal.getattackround(thisteam, oppteam));
+		    v.setAttackrate(cal.getattrate(thisteam, oppteam));
+		    v.setDefendrate(cal.getdefrate(thisteam, oppteam));
+		    v.setRebattrate(cal.attrebrate(thisteam, oppteam));
+		    v.setRebdefrate(cal.defrebrate(thisteam, oppteam));
+		    v.setStealrate(cal.getstealrate(thisteam, oppteam));
+		    v.setAssistrate(cal.getassistrate(thisteam, oppteam));
 		    
 		    
-		    int allpointave;//平均得分
+		    v.setAllpointave(cal.getavepoint(thisteam));
 		    
-		  	int hitShootNumave; //投篮命中数
-		  	int shootNumave; //投篮出手数
+		  	v.setHitShootNumave(cal.getavehitshootnum(thisteam)); 
+		  	v.setShootNumave(cal.getaveshootnum(thisteam));
 		  	
-		  	int threePointNumave; //三分命中数
-		  	int threeShootNumave; //三分出手数
+		  	v.setThreePointNumave(cal.getavethreepointnum(thisteam));
+		  	v.setThreeShootNumave(cal.getavethreeshootnum(thisteam));
 		  	
-		  	int freeHitNumave; //罚球命中数
-		  	int freeNumave; //罚球出手数
+		  	v.setFreeHitNumave(cal.getavefreehitnum(thisteam));
+		  	v.setFreeNumave(cal.getavefreenum(thisteam));
 		  	
-		  	int rebAttNumave; //进攻篮板数
-		  	int rebDefNumave; //防守篮板数
-		  	int rebTotalNumave; //总篮板数
+		  	v.setRebAttNumave(cal.getaverebattnum(thisteam));
+		  	v.setRebDefNumave(cal.getaverebdefnum(thisteam));
+		  	v.setRebTotalNumave(cal.getaverebtotalnum(thisteam));
 		  	
-		  	int assistNumave;//助攻数
-		  	int stealNumave;//抢断数
-		    int blockNumave;//盖帽数
-		    int errorNumave;//失误数
-		    int foulNumave;//犯规数
+		  	v.setAssistNumave(cal.getaveassistnum(thisteam));
+		  	v.setStealNumave(cal.getavestealnum(thisteam));
+		  	v.setBlockNumave(cal.getaveblocknum(thisteam));
+		  	v.setErrorNumave(cal.getaveerrornum(thisteam));
+		  	v.setFoulNumave(cal.getavefoulnum(thisteam));
+		  	pa.add(v);
 		}
 	}
     public TeamVO getTeamInfo(String name){
@@ -146,6 +147,22 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	
     }
     public TeamInfo getTeamInfo(String team, String date){
+    	TeamAllGamePO thisteam=new TeamAllGamePO();
+    	TeamAllGamePO oppteam=new TeamAllGamePO();
+    	
+    	for(TeamAllGamePO p:po){
+    		if(p.getTeamName().equals(team)){
+    			thisteam=p;
+    			break;
+    		}
+    	}
+    	oppteam=getoppgamedata(thisteam);
+    	ArrayList<TeamGamePO> thist=new ArrayList<TeamGamePO>();
+    	ArrayList<TeamGamePO> oppt=new ArrayList<TeamGamePO>();
+    	thist=thisteam.getGameDataList();
+    	oppt=oppteam.getGameDataList();
+    	
+    	
     	return null;
     }
 

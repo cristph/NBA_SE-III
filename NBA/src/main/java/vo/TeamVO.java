@@ -54,28 +54,70 @@ public class TeamVO {
     
     
     //赛季平均数据
-    int allpointave;//平均得分
+    double allpointave;//平均得分
     
-  	int hitShootNumave; //投篮命中数
-  	int shootNumave; //投篮出手数
+  	double hitShootNumave; //投篮命中数
+  	double shootNumave; //投篮出手数
   	
-  	int threePointNumave; //三分命中数
-  	int threeShootNumave; //三分出手数
+  	double threePointNumave; //三分命中数
+  	double threeShootNumave; //三分出手数
   	
-  	int freeHitNumave; //罚球命中数
-  	int freeNumave; //罚球出手数
+  	double freeHitNumave; //罚球命中数
+  	double freeNumave; //罚球出手数
   	
-  	int rebAttNumave; //进攻篮板数
-  	int rebDefNumave; //防守篮板数
-  	int rebTotalNumave; //总篮板数
+  	double rebAttNumave; //进攻篮板数
+  	double rebDefNumave; //防守篮板数
+  	double rebTotalNumave; //总篮板数
   	
-  	int assistNumave;//助攻数
-  	int stealNumave;//抢断数
-    int blockNumave;//盖帽数
-    int errorNumave;//失误数
-    int foulNumave;//犯规数
+  	double assistNumave;//助攻数
+  	double stealNumave;//抢断数
+    double blockNumave;//盖帽数
+    double errorNumave;//失误数
+    double foulNumave;//犯规数
   	
-    double shootrateave;//投篮命中率
+    public void setHitShootNumave(double hitShootNumave) {
+		this.hitShootNumave = hitShootNumave;
+	}
+	public void setShootNumave(double shootNumave) {
+		this.shootNumave = shootNumave;
+	}
+	public void setThreePointNumave(double threePointNumave) {
+		this.threePointNumave = threePointNumave;
+	}
+	public void setThreeShootNumave(double threeShootNumave) {
+		this.threeShootNumave = threeShootNumave;
+	}
+	public void setFreeHitNumave(double freeHitNumave) {
+		this.freeHitNumave = freeHitNumave;
+	}
+	public void setFreeNumave(double freeNumave) {
+		this.freeNumave = freeNumave;
+	}
+	public void setRebAttNumave(double rebAttNumave) {
+		this.rebAttNumave = rebAttNumave;
+	}
+	public void setRebDefNumave(double rebDefNumave) {
+		this.rebDefNumave = rebDefNumave;
+	}
+	public void setRebTotalNumave(double rebTotalNumave) {
+		this.rebTotalNumave = rebTotalNumave;
+	}
+	public void setAssistNumave(double assistNumave) {
+		this.assistNumave = assistNumave;
+	}
+	public void setStealNumave(double stealNumave) {
+		this.stealNumave = stealNumave;
+	}
+	public void setBlockNumave(double blockNumave) {
+		this.blockNumave = blockNumave;
+	}
+	public void setErrorNumave(double errorNumave) {
+		this.errorNumave = errorNumave;
+	}
+	public void setFoulNumave(double foulNumave) {
+		this.foulNumave = foulNumave;
+	}
+	double shootrateave;//投篮命中率
     double threepointrateave;//三分命中率
     double freehitrateave;//罚球命中率
     double winrateave;//胜率
@@ -282,90 +324,7 @@ public class TeamVO {
 	public void setAssistrate(double assistrate) {
 		this.assistrate = assistrate;
 	}
-	public int getHitShootNumave() {
-		return hitShootNumave;
-	}
-	public void setHitShootNumave(int hitShootNumave) {
-		this.hitShootNumave = hitShootNumave;
-	}
-	public int getShootNumave() {
-		return shootNumave;
-	}
-	public void setShootNumave(int shootNumave) {
-		this.shootNumave = shootNumave;
-	}
-	public int getThreePointNumave() {
-		return threePointNumave;
-	}
-	public void setThreePointNumave(int threePointNumave) {
-		this.threePointNumave = threePointNumave;
-	}
-	public int getThreeShootNumave() {
-		return threeShootNumave;
-	}
-	public void setThreeShootNumave(int threeShootNumave) {
-		this.threeShootNumave = threeShootNumave;
-	}
-	public int getFreeHitNumave() {
-		return freeHitNumave;
-	}
-	public void setFreeHitNumave(int freeHitNumave) {
-		this.freeHitNumave = freeHitNumave;
-	}
-	public int getFreeNumave() {
-		return freeNumave;
-	}
-	public void setFreeNumave(int freeNumave) {
-		this.freeNumave = freeNumave;
-	}
-	public int getRebAttNumave() {
-		return rebAttNumave;
-	}
-	public void setRebAttNumave(int rebAttNumave) {
-		this.rebAttNumave = rebAttNumave;
-	}
-	public int getRebDefNumave() {
-		return rebDefNumave;
-	}
-	public void setRebDefNumave(int rebDefNumave) {
-		this.rebDefNumave = rebDefNumave;
-	}
-	public int getRebTotalNumave() {
-		return rebTotalNumave;
-	}
-	public void setRebTotalNumave(int rebTotalNumave) {
-		this.rebTotalNumave = rebTotalNumave;
-	}
-	public int getAssistNumave() {
-		return assistNumave;
-	}
-	public void setAssistNumave(int assistNumave) {
-		this.assistNumave = assistNumave;
-	}
-	public int getStealNumave() {
-		return stealNumave;
-	}
-	public void setStealNumave(int stealNumave) {
-		this.stealNumave = stealNumave;
-	}
-	public int getBlockNumave() {
-		return blockNumave;
-	}
-	public void setBlockNumave(int blockNumave) {
-		this.blockNumave = blockNumave;
-	}
-	public int getErrorNumave() {
-		return errorNumave;
-	}
-	public void setErrorNumave(int errorNumave) {
-		this.errorNumave = errorNumave;
-	}
-	public int getFoulNumave() {
-		return foulNumave;
-	}
-	public void setFoulNumave(int foulNumave) {
-		this.foulNumave = foulNumave;
-	}
+	
 	public double getShootrateave() {
 		return shootrateave;
 	}
@@ -439,10 +398,10 @@ public class TeamVO {
 	public void setRebdefrate(double rebdefrate) {
 		this.rebdefrate = rebdefrate;
 	}
-	public int getAllpointave() {
+	public double getAllpointave() {
 		return allpointave;
 	}
-	public void setAllpointave(int allpointave) {
+	public void setAllpointave(double allpointave) {
 		this.allpointave = allpointave;
 	}
 	public double getRebattrateave() {
