@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import vo.PlayerInfoVO;
 
 public class AssistNumUPSort {
-	public static final int CUTOFF = 11;
+public static final int CUTOFF = 11;
 	
 	public void quicksort( ArrayList<PlayerInfoVO> arr ) {
 		quickSort( arr, 0, arr.size() - 1 ); 

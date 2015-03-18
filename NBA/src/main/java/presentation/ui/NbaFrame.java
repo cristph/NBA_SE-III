@@ -32,7 +32,6 @@ class NbaFrame extends JFrame{
 	public NbaFrame(){
 		init();
 		this.setVisible(true);
-		this.setResizable(false);
 	}
 
 	private void init() {

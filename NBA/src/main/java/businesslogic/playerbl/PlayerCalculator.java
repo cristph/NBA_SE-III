@@ -28,7 +28,7 @@ public class PlayerCalculator {
 	 * calTotal()方法用于计算美个球员赛季总数据
 	 * 结果保存于ArrayList<PlayerInfoVO> totalList中
 	 */
-	public void calTotal(){
+	public void calTotal(String od){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
 		TeamInfoProvider tip=null; 
@@ -78,10 +78,6 @@ public class PlayerCalculator {
 			    int teamThrowNum=0; //球队所有球员总出手次数
 			    int teamFreeNum=0; //球队所有球员罚球次数
 			    int teamErrorNum=0; //球队所有球员失误次数
-			    
-			    int doub_sign=0;
-			    int doub=0;//二双次数
-			    double par=0;//得分/篮板/助攻(加权比1:1:1)
 				
 			    //若该球员参加过比赛
 			    if(pgSize>0){
@@ -105,45 +101,14 @@ public class PlayerCalculator {
 						freeNum+=pg.getFreeNum(); //罚球出手数
 						rebAttNum+=pg.getRebAttNum(); //进攻篮板数
 						rebDefNum+=pg.getRebDefNum(); //防守篮板数
-						
-						int reb=pg.getRebTotalNum();
-						if(reb>=10){
-							doub_sign+=1;
-						}
-						rebTotalNum+=reb; //总篮板数
-						
-						int ass=pg.getAssistNum();
-						if(ass>=10){
-							doub_sign+=1;
-						}
-						assistNum+=ass;//助攻数
-						
-						int ste=pg.getStealNum();
-						if(ste>=10){
-							doub_sign+=1;
-						}
-						stealNum+=ste;//抢断数
-						
-						int blo=pg.getBlockNum();
-						if(blo>=10){
-							doub_sign+=1;
-						}
-					    blockNum+=blo;//盖帽数
-					    
+						rebTotalNum+=pg.getRebTotalNum(); //总篮板数
+						assistNum+=pg.getAssistNum();//助攻数
+						stealNum+=pg.getStealNum();//抢断数
+					    blockNum+=pg.getBlockNum();//盖帽数
 					    errorNum+=pg.getErrorNum();//失误数
 					    foulNum+=pg.getFoulNum();//犯规数
 					    
-					    int sc=pg.getScore();
-					    if(sc>=10){
-					    	doub_sign+=1;
-					    }
-					    score+=sc; //个人得分
-					    
-					    if(doub_sign>=2){
-					    	doub+=1;
-					    }//二双次数
-					    
-					    par=par+sc+reb+ass; //得分/篮板/助攻(尚未除以3)
+					    score+=pg.getScore(); //个人得分
 					    
 					    allPlayerTime+=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
 					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
@@ -192,7 +157,7 @@ public class PlayerCalculator {
 						GMSC, realHitRate, throwRate, rebRate,
 						attRebRate, defRebRate, assistRate,
 						stealRate, blockRate, errorRate,
-						usedRate,"",doub,par/3);
+						usedRate,od);
 			    totalList.add(pi);
 			}
 			
@@ -205,7 +170,7 @@ public class PlayerCalculator {
 	 * 结果保存于ArrayList<PlayerInfoVO> avgList中
 	 * 
 	 */ 
-	public void calAvg(){
+	public void calAvg(String od){
 		avgList=new ArrayList<PlayerInfoVO>();
 		
 		int gameListSize=gameList.size();
@@ -238,7 +203,6 @@ public class PlayerCalculator {
 			    int foulNum=0;//犯规数
 			    int score=0; //个人得分
 			    
-			    double par=0;//得分/篮板/助攻(加权比1:1:1)
 			    /*
 			    double shooting=0;//投篮命中率
 			    double threeRate=0;//三分命中率
@@ -321,8 +285,6 @@ public class PlayerCalculator {
 					    foulNum+=p_foulNum;//犯规数
 					    score+=p_score; //个人得分
 					    
-					    par=par+p_score+p_rebTotalNum+p_stealNum;//得分/篮板/助攻(尚未除以3)
-					    
 					    /*
 					    //计算比率总和
 					    double T=cm.calT(p_time, p_allPlayerTime);//用于计算的数据T
@@ -352,33 +314,33 @@ public class PlayerCalculator {
 						1.0*freeNum/pgSize, 1.0*rebAttNum/pgSize, 1.0*rebDefNum/pgSize,
 						1.0*rebTotalNum/pgSize, 1.0*assistNum/pgSize, 1.0*stealNum/pgSize,
 						1.0*blockNum/pgSize, 1.0*errorNum/pgSize, 1.0*foulNum/pgSize, 1.0*score/pgSize,
-						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,"",0,par/(3*pgSize));
+						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,od);
 				
 			    avgList.add(pi);
 			}//end of for loop;循环依据球员
 		}//end of if
 	}
 	
-	public ArrayList<PlayerInfoVO> totalSort(Order order,PlayerStandard ps){
-		Sort sort=new Sort();	
-		if(totalList!=null){
-			sort.sort(totalList, order, ps);
-		}else{
-			calTotal();
-			sort.sort(totalList, order, ps);
-		}
-		return totalList;
-	}
-	
-	public ArrayList<PlayerInfoVO> avgSort(Order order,PlayerStandard ps){
+	public ArrayList sortList(String type,Order order,PlayerStandard ps){
 		Sort sort=new Sort();
-		if(avgList!=null){
-			sort.sort(avgList, order, ps);
-		}else{
-			calTotal();
-			sort.sort(avgList, order, ps);
+		if(type.equals("Total")){
+			if(totalList!=null){
+				sort.sort(totalList, order, ps);
+			}else{
+				calTotal("");
+				sort.sort(totalList, order, ps);
+			}
+			return totalList;
+		}else if(type.equals("Avg")){
+			if(avgList!=null){
+				sort.sort(avgList, order, ps);
+			}else{
+				calTotal("");
+				sort.sort(avgList, order, ps);
+			}
+			return avgList;
 		}
-		return avgList;
+		return null;
 	}
 	
 	/*
