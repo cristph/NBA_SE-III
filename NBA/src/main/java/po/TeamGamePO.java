@@ -36,7 +36,7 @@ public class TeamGamePO {
     boolean isDirty=false;
     
     public boolean getIsDirty(){
-    	return isDirty;
+    	return isDirty; 
     }
     public void setIsDirty(boolean b){
     	isDirty=b;
