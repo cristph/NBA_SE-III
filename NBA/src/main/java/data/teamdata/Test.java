@@ -29,7 +29,8 @@ public class Test {
 			{
 				TeamGamePO temp=poList.get(j);
 				System.out.print("日期："+temp.getMatchDate()+" 进攻篮板数："+temp.getRebAttNum()
-						+" 防守篮板数："+temp.getRebDefNum()+" 总篮板数"+temp.getRebTotalNum());
+						+" 防守篮板数："+temp.getRebDefNum()+" 总篮板数"+temp.getRebTotalNum()+
+						" 投篮命中数"+temp.getHitShootNum());
 				System.out.println();
 
 			}
