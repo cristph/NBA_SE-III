@@ -26,6 +26,7 @@ public class TeamOrderPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		
 		//
+		System.out.println();
 		
 	}
 
