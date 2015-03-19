@@ -22,5 +22,5 @@ public interface PlayerBLService {
 	public ArrayList<PlayerInfoVO> getPlayerTotalInOrder(Order order,PlayerStandard stan);
 	
 	//得到球员前50列表
-	public ArrayList<PlayerInfoVO> getPlayerTop_50(PlayerStandard stan,Position pos,League lea,Zone zone);
+	public ArrayList<PlayerInfoVO> getPlayerTop_50(Order order,PlayerStandard stan,Position pos,League lea,Zone zone);
 }

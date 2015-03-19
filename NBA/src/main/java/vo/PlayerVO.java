@@ -11,17 +11,40 @@ import java.awt.Image;
 public class PlayerVO {
 	String name;
 	String team;
+	String number; //球衣编号
     String Position;//位置
     String height;
-    double weight;
+    String weight;
     String birth;
-    int age;
-    int exp;
+    String age;
+    String exp;
     String school;
     Image pic;
     Image action;//动作图片
     PlayerInfoVO  all;
     PlayerInfoVO avg;//平均的
+    
+	public PlayerVO(String name, String team, String number, String position,
+			String height, String weight, String birth, String age, String exp,
+			String school, Image pic, Image action, PlayerInfoVO all,
+			PlayerInfoVO avg) {
+		super();
+		this.name = name;
+		this.team = team;
+		this.number = number;
+		Position = position;
+		this.height = height;
+		this.weight = weight;
+		this.birth = birth;
+		this.age = age;
+		this.exp = exp;
+		this.school = school;
+		this.pic = pic;
+		this.action = action;
+		this.all = all;
+		this.avg = avg;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -34,16 +57,16 @@ public class PlayerVO {
 	public String getHeight() {
 		return height;
 	}
-	public double getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 	public String getBirth() {
 		return birth;
 	}
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
-	public int getExp() {
+	public String getExp() {
 		return exp;
 	}
 	public String getSchool() {
@@ -61,7 +84,7 @@ public class PlayerVO {
 	public PlayerInfoVO getAvg() {
 		return avg;
 	}
-	
-	
-
+	public String getNumber() {
+		return number;
+	}
 }
