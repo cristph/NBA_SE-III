@@ -1,19 +1,24 @@
 package businesslogic.playerbl;
 
 import java.util.ArrayList;
-
 import businesslogic.teambl.TeamInfo;
 import businesslogicservice.teamblservice.TeamInfoProvider;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
+import po.PlayerPO;
 import value.PlayerStandard;
+import value.Value.League;
 import value.Value.Order;
+import value.Value.Position;
+import value.Value.Zone;
 import vo.PlayerInfoVO;
+import vo.PlayerVO;
 
 public class PlayerCalculator {
 	
 	CalMethod cm;
 	ArrayList<PlayerAllGamePO> gameList;
+	ArrayList<PlayerPO> playerList;
 	
 	ArrayList<PlayerInfoVO> totalList;
 	ArrayList<PlayerInfoVO> avgList;
@@ -28,7 +33,7 @@ public class PlayerCalculator {
 	 * calTotal()方法用于计算美个球员赛季总数据
 	 * 结果保存于ArrayList<PlayerInfoVO> totalList中
 	 */
-	public void calTotal(String od){
+	public void calTotal(){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
 		TeamInfoProvider tip=null; 
@@ -78,6 +83,9 @@ public class PlayerCalculator {
 			    int teamThrowNum=0; //球队所有球员总出手次数
 			    int teamFreeNum=0; //球队所有球员罚球次数
 			    int teamErrorNum=0; //球队所有球员失误次数
+			    
+			    int doub=0; //二双次数
+			    double par=0; //得分/篮板/助攻
 				
 			    //若该球员参加过比赛
 			    if(pgSize>0){
@@ -88,6 +96,8 @@ public class PlayerCalculator {
 						PlayerGamePO pg=list.get(j);
 						//获取单场比赛的队伍信息
 						TeamInfo tif=tip.getTeamInfo(pg.getTeam(), pg.getMatchDate());
+						
+						int t_sign=0;
 						
 						time+=pg.getTime(); //在场时间(分钟:秒)
 						if(pg.isFirst()){
@@ -101,14 +111,45 @@ public class PlayerCalculator {
 						freeNum+=pg.getFreeNum(); //罚球出手数
 						rebAttNum+=pg.getRebAttNum(); //进攻篮板数
 						rebDefNum+=pg.getRebDefNum(); //防守篮板数
-						rebTotalNum+=pg.getRebTotalNum(); //总篮板数
-						assistNum+=pg.getAssistNum();//助攻数
-						stealNum+=pg.getStealNum();//抢断数
-					    blockNum+=pg.getBlockNum();//盖帽数
+						
+						int re=pg.getRebTotalNum();
+						if(re>=10){
+							t_sign+=1;
+						}
+						rebTotalNum+=re; //总篮板数
+						
+						int as=pg.getAssistNum();
+						if(as>=10){
+							t_sign+=1;
+						}
+						assistNum+=as;//助攻数
+						
+						int st=pg.getStealNum();
+						if(st>=10){
+							t_sign+=1;
+						}
+						stealNum+=st;//抢断数
+						
+						int bl=pg.getBlockNum();
+						if(bl>=10){
+							t_sign+=1;
+						}
+					    blockNum+=bl;//盖帽数
+					    
 					    errorNum+=pg.getErrorNum();//失误数
 					    foulNum+=pg.getFoulNum();//犯规数
 					    
-					    score+=pg.getScore(); //个人得分
+					    int sc=pg.getScore();
+					    if(sc>=10){
+					    	t_sign+=1;
+					    }
+					    score+=sc; //个人得分
+					    
+					    if(t_sign>=2){
+					    	doub+=1;
+					    }//二双次数
+					    
+					    par=par+sc+bl+as;//得分/篮板/助攻(尚未除以3)
 					    
 					    allPlayerTime+=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
 					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
@@ -157,7 +198,7 @@ public class PlayerCalculator {
 						GMSC, realHitRate, throwRate, rebRate,
 						attRebRate, defRebRate, assistRate,
 						stealRate, blockRate, errorRate,
-						usedRate,od);
+						usedRate,"",1.0*par/3,doub);
 			    totalList.add(pi);
 			}
 			
@@ -170,7 +211,7 @@ public class PlayerCalculator {
 	 * 结果保存于ArrayList<PlayerInfoVO> avgList中
 	 * 
 	 */ 
-	public void calAvg(String od){
+	public void calAvg(){
 		avgList=new ArrayList<PlayerInfoVO>();
 		
 		int gameListSize=gameList.size();
@@ -202,6 +243,8 @@ public class PlayerCalculator {
 			    int errorNum=0;//失误数
 			    int foulNum=0;//犯规数
 			    int score=0; //个人得分
+			    
+			    double par=0; //得分/篮板/助攻
 			    
 			    /*
 			    double shooting=0;//投篮命中率
@@ -284,7 +327,7 @@ public class PlayerCalculator {
 					    errorNum+=p_errorNum;//失误数
 					    foulNum+=p_foulNum;//犯规数
 					    score+=p_score; //个人得分
-					    
+					    par=par+p_score+p_rebTotalNum+p_assistNum;//得分/篮板/助攻
 					    /*
 					    //计算比率总和
 					    double T=cm.calT(p_time, p_allPlayerTime);//用于计算的数据T
@@ -314,33 +357,170 @@ public class PlayerCalculator {
 						1.0*freeNum/pgSize, 1.0*rebAttNum/pgSize, 1.0*rebDefNum/pgSize,
 						1.0*rebTotalNum/pgSize, 1.0*assistNum/pgSize, 1.0*stealNum/pgSize,
 						1.0*blockNum/pgSize, 1.0*errorNum/pgSize, 1.0*foulNum/pgSize, 1.0*score/pgSize,
-						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,od);
+						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,"",1.0*par/(3*pgSize),0);
 				
 			    avgList.add(pi);
 			}//end of for loop;循环依据球员
 		}//end of if
 	}
 	
-	public ArrayList sortList(String type,Order order,PlayerStandard ps){
+	public ArrayList<PlayerInfoVO> totalSort(Order order,PlayerStandard ps){
 		Sort sort=new Sort();
-		if(type.equals("Total")){
-			if(totalList!=null){
-				sort.sort(totalList, order, ps);
-			}else{
-				calTotal("");
-				sort.sort(totalList, order, ps);
+		if(totalList!=null){
+			sort.sort(totalList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(totalList, order, ps);
+		}
+		return totalList;
+	}
+	
+	public ArrayList<PlayerInfoVO> avgSort(Order order,PlayerStandard ps){
+		Sort sort=new Sort();
+		if(avgList!=null){
+			sort.sort(avgList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(avgList, order, ps);
+		}
+		return avgList;
+	}
+	
+	public ArrayList<PlayerInfoVO> getTotalTopList(Order order,PlayerStandard ps,Position pos,League lea,Zone zone){
+		Sort sort=new Sort();
+		ArrayList<PlayerInfoVO> res=new ArrayList<PlayerInfoVO>();
+		//先排序
+		if(totalList!=null){
+			sort.sort(totalList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(totalList, order, ps);
+		}
+		
+		int j=0;
+		for(int i=0;i<totalList.size();i++){
+			PlayerInfoVO pi=totalList.get(i);
+			String name=pi.getName();
+			PlayerPO p=getPlayer(name);
+			/*
+			if(){
+				
 			}
-			return totalList;
-		}else if(type.equals("Avg")){
-			if(avgList!=null){
-				sort.sort(avgList, order, ps);
-			}else{
-				calTotal("");
-				sort.sort(avgList, order, ps);
+			*/
+			res.add(pi);
+			j+=1;
+			if(j==50){
+				return res;
 			}
-			return avgList;
+		}
+		return res;
+	}
+	
+	public ArrayList<PlayerInfoVO> getAvgTopList(Order order,PlayerStandard ps,Position pos,League lea,Zone zone){
+		Sort sort=new Sort();
+		ArrayList<PlayerInfoVO> res=new ArrayList<PlayerInfoVO>();
+		//先排序
+		if(avgList!=null){
+			sort.sort(avgList, order, ps);
+		}else{
+			calTotal();
+			sort.sort(avgList, order, ps);
+		}
+		
+		int j=0;
+		for(int i=0;i<avgList.size();i++){
+			PlayerInfoVO pi=avgList.get(i);
+			String name=pi.getName();
+			PlayerPO p=getPlayer(name);
+			/*
+			if(){
+				
+			}
+			*/
+			res.add(pi);
+			j+=1;
+			if(j==50){
+				return res;
+			}
+		}
+		return res;
+	}
+	
+	public PlayerPO getPlayer(String name){
+		for(int i=0;i<playerList.size();i++){
+			PlayerPO p=playerList.get(i);
+			if(p.getName().equals(name)){
+				return p;
+			}
 		}
 		return null;
+	}
+	
+	public PlayerVO getPlayerInfo(String name){
+		
+		PlayerPO p=getPlayer(name);
+		String number = null; //球衣号码
+		String position = null; //位置
+		String height = null;
+		String weight = null;
+		String birth = null; //生日(月日，年)
+		String age = null;
+		String exp = null; //球龄
+		String school = null; //毕业院校
+		
+		if(p==null){
+			number="NO INFO";
+			position="NO INFO";
+			height="NO INFO";
+			weight="NO INFO";
+			birth="NO INFO";
+			age="NO INFO";
+			exp="NO INFO";
+			school="NO INFO";
+		}
+		
+		if(totalList==null){
+			calTotal();
+		}
+		if(avgList==null){
+			calAvg();
+		}
+		
+		PlayerInfoVO total_p = null;
+		for(int i=0;i<totalList.size();i++){
+			PlayerInfoVO tv=totalList.get(i);
+			if(tv.getName().equals(name)){
+				total_p=tv;
+				break;
+			}
+		}
+		if(total_p==null){
+			total_p=new PlayerInfoVO(name, "NO INFO", -1, -1, -1, 
+					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, "", -1, -1);
+		}
+		
+		PlayerInfoVO avg_p = null;
+		for(int j=0;j<avgList.size();j++){
+			PlayerInfoVO pv=totalList.get(j);
+			if(pv.getName().equals(name)){
+				avg_p=pv;
+				break;
+			}
+		}
+		if(avg_p==null){
+			avg_p=new PlayerInfoVO(name, "NO INFO", -1, -1, -1, 
+					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
+					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, "", -1, -1);
+		}
+		
+		String team=total_p.getTeam();
+		
+		PlayerVO v=new PlayerVO(name, team, number, position, height,
+				weight, birth, age, exp, school,
+				p.getPortaitImage(), p.getActionImage(), total_p, avg_p);
+		
+		return v;
 	}
 	
 	/*
@@ -351,7 +531,7 @@ public class PlayerCalculator {
 		
 		//从数据层获取数据
 		gameList = null;
-		
+		playerList=null;
 	}
 	
 	

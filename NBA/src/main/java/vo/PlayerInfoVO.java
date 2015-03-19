@@ -12,7 +12,7 @@ public class PlayerInfoVO {
 			double gMSC, double realHitRate, double throwRate, double rebRate,
 			double attRebRate, double defRebRate, double assistRate,
 			double stealRate, double blockRate, double errorRate,
-			double usedRate,String order) {
+			double usedRate, String order, double par, int doub) {
 		this.name = name;
 		this.team = team;
 		this.time = time;
@@ -49,7 +49,8 @@ public class PlayerInfoVO {
 		this.errorRate = errorRate;
 		this.usedRate = usedRate;
 		this.order = order;
-		
+		this.par = par;
+		this.doub = doub;
 	}
 	
 	String name;//名字
@@ -97,6 +98,10 @@ public class PlayerInfoVO {
     double errorRate;//失误率
     double usedRate;//使用率
     String order;//需要选项
+    
+    double par; //得分/篮板
+    int doub; //两双数
+    
 	public String getName() {
 		return name;
 	}
@@ -207,5 +212,11 @@ public class PlayerInfoVO {
 	}
 	public void setOrder(String str){
 		this.order=str;
+	}
+	public double getPar() {
+		return par;
+	}
+	public int getDoub() {
+		return doub;
 	}
 }
