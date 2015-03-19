@@ -26,6 +26,13 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 	public TeamController(){
 		po=t.getTeamGameData();
 		p2=t.getTeamData();
+		for(TeamAllGamePO pagp:po){
+			for(TeamGamePO pp:pagp.getGameDataList()){
+				if(pp.getIsDirty()==false){
+					pagp.getGameDataList().remove(pp);
+				}
+			}
+		}
 		for(TeamPO p:p2){
 			TeamVO v=new TeamVO();
 			TeamAllGamePO thisteam=new TeamAllGamePO();
@@ -161,9 +168,27 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	ArrayList<TeamGamePO> oppt=new ArrayList<TeamGamePO>();
     	thist=thisteam.getGameDataList();
     	oppt=oppteam.getGameDataList();
-    	
-    	
-    	return null;
+    	TeamGamePO p1=new TeamGamePO();
+    	TeamGamePO p2=new TeamGamePO();
+    	for(TeamGamePO tgp:thist){
+    		if(tgp.getMatchDate().equals(date)){
+    			p1=tgp;
+    			break;
+    		}
+    	}
+    	p2=oppt.get(thist.indexOf(p1));
+    	TeamInfo f=new TeamInfo(p1.getAllPlayerTime(),p1.getRebTotalNum(),p2.getRebTotalNum(),p1.getRebAttNum(),p2.getRebAttNum(),p1.getRebDefNum(),p2.getRebDefNum(),p1.getHitShootNum(),p2.getShootNum(),p2.getShootNum()-p2.getThreeShootNum(),p1.getShootNum(),p1.getFreeNum(),p1.getErrorNum());
+    	return f;
+    }
+    public String getArea(String teamName){
+    	String s="";
+    	for(TeamPO p:p2){
+    		if(p.getTeamName().equals(teamName)){
+    			s=p.getCompArea()+"-"+p.getZone();
+    			break;
+    		}
+    	}
+    	return s;
     }
 
 }
