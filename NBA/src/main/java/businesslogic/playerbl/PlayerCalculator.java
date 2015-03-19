@@ -120,7 +120,7 @@ public class PlayerCalculator {
 					    teamHitNum+=tif.getTeamHitNum(); //球队总进球数
 					    oppAttNum+=tif.getOppAttNum(); //对手进攻次数
 					    oppTwoNum+=tif.getOppTwoNum(); //对手两分球出手次数
-					    twoNum+=tif.getTwoNum(); //球员自己两分球出手数（不是球队）
+					    twoNum+=pg.getTwoNum(); //球员自己两分球出手数（不是球队）
 					    teamThrowNum+=tif.getTeamThrowNum(); //球队所有球员总出手次数
 					    teamFreeNum+=tif.getTeamFreeNum(); //球队所有球员罚球次数
 					    teamErrorNum+=tif.getTeamErrorNum(); //球队所有球员失误次数
