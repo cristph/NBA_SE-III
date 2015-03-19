@@ -6,15 +6,7 @@ public class Value {
 		UP,DOWN
 	}
 	
-	public enum League{
-		W,E
-	}
-	
-	public enum Position{
-		F,C,G
-	}
-	
 	public enum Zone{
-		Southeast,Atlantic,Central,Northwest,Pacific,Southwest
+		W,E,Southeast,Atlantic,Central,Northwest,Pacific,Southwest
 	}
 }

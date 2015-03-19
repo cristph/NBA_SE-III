@@ -3,9 +3,7 @@ package businesslogicservice.playerblservice;
 import java.util.ArrayList;
 
 import value.PlayerStandard;
-import value.Value.League;
 import value.Value.Order;
-import value.Value.Position;
 import value.Value.Zone;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
@@ -22,5 +20,5 @@ public interface PlayerBLService {
 	public ArrayList<PlayerInfoVO> getPlayerTotalInOrder(Order order,PlayerStandard stan);
 	
 	//得到球员前50列表
-	public ArrayList<PlayerInfoVO> getPlayerTop_50(Order order,PlayerStandard stan,Position pos,League lea,Zone zone);
+	public ArrayList<PlayerInfoVO> getPlayerTop_50(Order order,PlayerStandard stan,String position,Zone zone);
 }

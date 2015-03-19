@@ -1,15 +1,16 @@
 package businesslogic.playerbl;
 
 import java.util.ArrayList;
+
+import data.playerdata.PlayerData;
+import dataservice.playerdataservice.PlayerDataService;
 import businesslogic.teambl.TeamInfo;
 import businesslogicservice.teamblservice.TeamInfoProvider;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import po.PlayerPO;
 import value.PlayerStandard;
-import value.Value.League;
 import value.Value.Order;
-import value.Value.Position;
 import value.Value.Zone;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
@@ -386,7 +387,7 @@ public class PlayerCalculator {
 		return avgList;
 	}
 	
-	public ArrayList<PlayerInfoVO> getTotalTopList(Order order,PlayerStandard ps,Position pos,League lea,Zone zone){
+	public ArrayList<PlayerInfoVO> getTotalTopList(Order order,PlayerStandard ps,String position,Zone zone){
 		Sort sort=new Sort();
 		ArrayList<PlayerInfoVO> res=new ArrayList<PlayerInfoVO>();
 		//先排序
@@ -402,21 +403,19 @@ public class PlayerCalculator {
 			PlayerInfoVO pi=totalList.get(i);
 			String name=pi.getName();
 			PlayerPO p=getPlayer(name);
-			/*
-			if(){
-				
-			}
-			*/
-			res.add(pi);
-			j+=1;
-			if(j==50){
-				return res;
+			
+			if(p.getPosition().equals(position)){
+				res.add(pi);
+				j+=1;
+				if(j==50){
+					return res;
+				}
 			}
 		}
 		return res;
 	}
 	
-	public ArrayList<PlayerInfoVO> getAvgTopList(Order order,PlayerStandard ps,Position pos,League lea,Zone zone){
+	public ArrayList<PlayerInfoVO> getAvgTopList(Order order,PlayerStandard ps,String position,Zone zone){
 		Sort sort=new Sort();
 		ArrayList<PlayerInfoVO> res=new ArrayList<PlayerInfoVO>();
 		//先排序
@@ -432,16 +431,15 @@ public class PlayerCalculator {
 			PlayerInfoVO pi=avgList.get(i);
 			String name=pi.getName();
 			PlayerPO p=getPlayer(name);
-			/*
-			if(){
-				
+			
+			if(p.getPosition().equals(position)){
+				res.add(pi);
+				j+=1;
+				if(j==50){
+					return res;
+				}
 			}
-			*/
-			res.add(pi);
-			j+=1;
-			if(j==50){
-				return res;
-			}
+			
 		}
 		return res;
 	}
@@ -530,8 +528,9 @@ public class PlayerCalculator {
 	public void iniData(){
 		
 		//从数据层获取数据
-		gameList = null;
-		playerList=null;
+		PlayerDataService pds=new PlayerData();
+		gameList = pds.getPlayerGameData();
+		playerList=pds.getPlayerData();
 	}
 	
 	
