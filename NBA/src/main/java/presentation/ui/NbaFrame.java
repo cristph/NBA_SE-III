@@ -24,7 +24,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import presentation.control.ControlService;
-import presentation.control.UIControler;
+import presentation.control.PlayerOrderControl;
+import presentation.control.PlayerTopControl;
+import presentation.control.TeamControl;
+import value.Value.Kind;
 
 
 class NbaFrame extends JFrame{
@@ -32,6 +35,7 @@ class NbaFrame extends JFrame{
 	public NbaFrame(){
 		init();
 		this.setVisible(true);
+		this.setResizable(false);
 	}
 
 	private void init() {
@@ -54,14 +58,15 @@ class NbaFrame extends JFrame{
 		this.add(panel,BorderLayout.NORTH);
 		
 		//声明一个controler作为控制
-		ControlService cs = new UIControler();
-		
+		TeamControl cs = new TeamControl();
+		PlayerOrderControl ps = new PlayerOrderControl();
+		PlayerTopControl ts = new PlayerTopControl();
 		//选项卡的界面
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("球队查看", new TeamAllPanel(cs));
-		tabbedPane.addTab("球队排序", new TeamOrderPanel(cs));
-		tabbedPane.addTab("球员查看", new PlayerAllPanel(cs));
-		tabbedPane.addTab("前五十球员", new PlayerTopPanel(cs));
+		tabbedPane.addTab("球队排序", new OrderPanel(cs));
+		tabbedPane.addTab("球员查看", new OrderPanel(ps));
+		tabbedPane.addTab("前五十球员", new OrderPanel(cs));
 		this.add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.setTabComponentAt(0, new JLabel("球队查看"));
 		

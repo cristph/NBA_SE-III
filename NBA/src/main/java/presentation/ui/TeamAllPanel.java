@@ -19,13 +19,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-
-import presentation.control.ControlService;
+import presentation.control.TeamControlService;
 
 public class TeamAllPanel extends JPanel {
 
-	ControlService cs;
-	public TeamAllPanel(ControlService cs) {
+	TeamControlService cs;
+	public TeamAllPanel(TeamControlService cs) {
 		//得到界面的控制对象
 		this.cs = cs;
 		init();
@@ -68,16 +67,16 @@ public class TeamAllPanel extends JPanel {
 		//创建GroupLayout的水平连续组，，越先加入的ParallelGroup，优先级级别越高。
 		GroupLayout.SequentialGroup hGroup = 
 				layout.createSequentialGroup();
-        hGroup.addGap(30);
+        hGroup.addGap(20);
         hGroup.addGroup(layout.createParallelGroup()
         		.addComponent(position1));
-		hGroup.addGap(60);
+		hGroup.addGap(75);
 		hGroup.addGroup(layout.createParallelGroup()
 				.addComponent(area1).addComponent(position2));
 		hGroup.addGap(60);
 		hGroup.addGroup(layout.createParallelGroup()
                 .addComponent(position3));
-		hGroup.addGap(80);
+		hGroup.addGap(75);
 		hGroup.addGroup(layout.createParallelGroup()
                 .addComponent(position4));
 		hGroup.addGap(60);
@@ -136,7 +135,7 @@ public class TeamAllPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				//响应事件
-				cs.findTeam(name);
+				cs.findAim(name);
 			}
 			
 		});
