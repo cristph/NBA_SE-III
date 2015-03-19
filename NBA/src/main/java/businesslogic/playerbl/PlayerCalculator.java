@@ -95,6 +95,10 @@ public class PlayerCalculator {
 						
 						//获取单场比赛数据
 						PlayerGamePO pg=list.get(j);
+						if(pg.isDirty()){
+							break;
+						}
+						
 						//获取单场比赛的队伍信息
 						TeamInfo tif=tip.getTeamInfo(pg.getTeam(), pg.getMatchDate());
 						
@@ -228,6 +232,7 @@ public class PlayerCalculator {
 				
 				int time = 0; //在场时间(分钟:秒)
 				//inTime:参赛场数为pgSize
+				int inTime=pgSize;
 			    int firstTime=0;//先发场数
 			    int hitShootNum=0; //投篮命中数
 				int shootNum=0; //投篮出手数
@@ -269,6 +274,10 @@ public class PlayerCalculator {
 						
 						//获取单场比赛数据
 						PlayerGamePO pg=list.get(j);
+						if(pg.isDirty()){
+							inTime--;
+							break;
+						}
 						
 						int p_time=pg.getTime(); //在场时间(分钟:秒)
 						int p_firstTime;
@@ -352,13 +361,13 @@ public class PlayerCalculator {
 					}
 				}
 				
-				PlayerInfoVO pi=new PlayerInfoVO(name, team, 1.0*time/pgSize, pgSize,
-						firstTime, 1.0*hitShootNum/pgSize, 1.0*shootNum/pgSize,
-						1.0*threePointNum/pgSize, 1.0*threeShootNum/pgSize, 1.0*freeHitNum/pgSize,
-						1.0*freeNum/pgSize, 1.0*rebAttNum/pgSize, 1.0*rebDefNum/pgSize,
-						1.0*rebTotalNum/pgSize, 1.0*assistNum/pgSize, 1.0*stealNum/pgSize,
-						1.0*blockNum/pgSize, 1.0*errorNum/pgSize, 1.0*foulNum/pgSize, 1.0*score/pgSize,
-						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,"",1.0*par/(3*pgSize),0);
+				PlayerInfoVO pi=new PlayerInfoVO(name, team, 1.0*time/inTime, pgSize,
+						firstTime, 1.0*hitShootNum/inTime, 1.0*shootNum/inTime,
+						1.0*threePointNum/inTime, 1.0*threeShootNum/inTime, 1.0*freeHitNum/inTime,
+						1.0*freeNum/inTime, 1.0*rebAttNum/inTime, 1.0*rebDefNum/inTime,
+						1.0*rebTotalNum/inTime, 1.0*assistNum/inTime, 1.0*stealNum/inTime,
+						1.0*blockNum/inTime, 1.0*errorNum/inTime, 1.0*foulNum/inTime, 1.0*score/inTime,
+						0, 0, 0, 0,0, 0, 0, 0,0, 0, 0,0, 0, 0,0,"",1.0*par/(3*inTime),0);
 				
 			    avgList.add(pi);
 			}//end of for loop;循环依据球员
@@ -404,7 +413,12 @@ public class PlayerCalculator {
 			String name=pi.getName();
 			PlayerPO p=getPlayer(name);
 			
-			if(p.getPosition().equals(position)){
+			String z=zone.toString();
+			
+			TeamInfoProvider tip=null;
+			String[] re=tip.getArea(pi.getTeam()).split("-");
+			
+			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1])) ){
 				res.add(pi);
 				j+=1;
 				if(j==50){
@@ -432,7 +446,12 @@ public class PlayerCalculator {
 			String name=pi.getName();
 			PlayerPO p=getPlayer(name);
 			
-			if(p.getPosition().equals(position)){
+			String z=zone.toString();
+			
+			TeamInfoProvider tip=null;
+			String[] re=tip.getArea(pi.getTeam()).split("-");
+			
+			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1]))){
 				res.add(pi);
 				j+=1;
 				if(j==50){

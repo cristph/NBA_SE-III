@@ -12,4 +12,11 @@ public interface TeamInfoProvider {
 	 */
 	public TeamInfo getTeamInfo(String team, String date);
 	
+	/*
+	 *该接口用于获取球队所属分区
+	 *供playerbl包内调用
+	 *返回值格式形如：“W-Atlantic”
+	 */
+	public String getArea(String teamName);
+	
 }
