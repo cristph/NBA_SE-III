@@ -19,6 +19,6 @@ public class palyermain {
 		*/
 		
 		PlayerVO po=p.getPlayerTotalInfo("Akkk");
-		System.out.println(po.getBirth());
+		System.out.println("birth: "+po.getBirth());
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.playerdata.PlayerData;
 import dataservice.playerdataservice.PlayerDataService;
+import businesslogic.teambl.TeamController;
 import businesslogic.teambl.TeamInfo;
 import businesslogicservice.teamblservice.TeamInfoProvider;
 import po.PlayerAllGamePO;
@@ -37,7 +38,7 @@ public class PlayerCalculator {
 	public void calTotal(){
 		
 		totalList=new ArrayList<PlayerInfoVO>();
-		TeamInfoProvider tip=null; 
+		TeamInfoProvider tip=new TeamController();
 		
 	    int gameListSize=gameList.size();
 		//若球员列表不为空
@@ -415,7 +416,7 @@ public class PlayerCalculator {
 			
 			String z=zone.toString();
 			
-			TeamInfoProvider tip=null;
+			TeamInfoProvider tip=new TeamController();
 			String[] re=tip.getArea(pi.getTeam()).split("-");
 			
 			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1])) ){
@@ -448,7 +449,7 @@ public class PlayerCalculator {
 			
 			String z=zone.toString();
 			
-			TeamInfoProvider tip=null;
+			TeamInfoProvider tip=new TeamController();
 			String[] re=tip.getArea(pi.getTeam()).split("-");
 			
 			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1]))){
