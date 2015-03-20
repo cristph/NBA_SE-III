@@ -28,8 +28,11 @@ public class Test {
 
 	        for(int i=0;i<list1.size();i++){
 	        	PlayerPO temp=list1.get(i);
-	        	System.out.println(temp.getName()+";"+temp.getExp()+";"+temp.getPosition()+";"
-	        			+temp.getHeight()+";"+temp.getWeight()+";"+temp.getSchool()+";"+temp.getActionImage()+";"+temp.getPortaitImage());
+	        	if(temp.getName().equals("Royce White")){
+	        		System.out.println(temp.getName()+";"+temp.getExp()+";"+temp.getPosition()+";"
+		        			+temp.getHeight()+";"+temp.getWeight()+";"+temp.getSchool());
+	        	}
+	        	
 	        }
 	}
 	public void testTwo(){
@@ -49,6 +52,7 @@ public class Test {
        ArrayList<String> nameList=new ArrayList<String>();
        for(int i=0;i<list.size();i++){
     	   PlayerAllGamePO temp=list.get(i);
+    	   if(temp.getPlayerName().equals("Royce White")){
     	   System.out.println("球员："+temp.getPlayerName()+" 球队："+temp.getTeamName()+
     		   " 参加比赛数："+temp.getGameDataList().size());
     	   
@@ -63,7 +67,7 @@ public class Test {
     		   System.out.print(" 个人得分"+tempp.getScore());
     		   System.out.println();
     	   }
-    	   
+    	   }
     	  // String name=temp.getPlayerName();
     	  // name=name.replace(" ", "");
     	  // if(nameList.contains(name)){
