@@ -32,7 +32,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 				TeamGamePO pp=pagp.getGameDataList().get(i);
 				//System.out.println(pagp.getGameDataList().size());
 				if(pp.getIsDirty()==true){
-					//System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
+					System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
 					pagp.getGameDataList().remove(pp);
 					i=i-1;
 				}
@@ -188,14 +188,19 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	oppt=oppteam.getGameDataList();
     	TeamGamePO p1=new TeamGamePO();
     	TeamGamePO p2=new TeamGamePO();
+    	int ishere=0;
     	for(TeamGamePO tgp:thist){
     		if(tgp.getMatchDate().equals(date)){
     			p1=tgp;
+    			ishere=1;
     			break;
     		}
     	}
-    	p2=oppt.get(thist.indexOf(p1));
-    	TeamInfo f=new TeamInfo(p1.getAllPlayerTime(),p1.getRebTotalNum(),p2.getRebTotalNum(),p1.getRebAttNum(),p2.getRebAttNum(),p1.getRebDefNum(),p2.getRebDefNum(),p1.getHitShootNum(),p2.getRebAttNum(),p2.getShootNum()-p2.getThreeShootNum(),p1.getShootNum(),p1.getFreeNum(),p1.getErrorNum());
+    	TeamInfo f=null;
+    	if(ishere==1){
+    	    p2=oppt.get(thist.indexOf(p1));
+    	    f=new TeamInfo(p1.getAllPlayerTime(),p1.getRebTotalNum(),p2.getRebTotalNum(),p1.getRebAttNum(),p2.getRebAttNum(),p1.getRebDefNum(),p2.getRebDefNum(),p1.getHitShootNum(),p2.getRebAttNum(),p2.getShootNum()-p2.getThreeShootNum(),p1.getShootNum(),p1.getFreeNum(),p1.getErrorNum());
+    	}
     	return f;
     }
     public String getArea(String teamName){
@@ -215,8 +220,8 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     			System.out.println("OK");
     		}
     	}*/
-    	TeamVO v=t.getTeamInfo("BOS");
-    	System.out.println(v.getAttackround());
+    	//TeamVO v=t.getTeamInfo("BOS");
+    	//System.out.println(v.getAttackround());
     }
 
 }
