@@ -161,6 +161,12 @@ public class PlayerDataReader implements PlayerDataReadService {
 			birthYear=Integer.parseInt(year);
 		    String date=year+"-"+month+"-"+day;
 	        
+		    boolean b1=year.equals("null");
+		    boolean b2=month.equals("null");
+		    boolean b3=day.equals("null");
+		   
+		    if(b1||b2||b3)
+		    	return "Wrong";
 	    	return date;
 		
 	}
