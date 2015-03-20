@@ -1,5 +1,6 @@
 package businesslogic.playerbl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
 import data.playerdata.PlayerData;
@@ -477,6 +478,7 @@ public class PlayerCalculator {
 	public PlayerVO getPlayerInfo(String name){
 		
 		PlayerPO p=getPlayer(name);
+		
 		String number = null; //球衣号码
 		String position = null; //位置
 		String height = null;
@@ -486,15 +488,29 @@ public class PlayerCalculator {
 		String exp = null; //球龄
 		String school = null; //毕业院校
 		
+		Image act_img=null;
+		Image p_img=null;
+		
 		if(p==null){
-			number="NO INFO";
-			position="NO INFO";
-			height="NO INFO";
-			weight="NO INFO";
-			birth="NO INFO";
-			age="NO INFO";
-			exp="NO INFO";
-			school="NO INFO";
+			number="NO_INFO";
+			position="NO_INFO";
+			height="NO_INFO";
+			weight="NO_INFO";
+			birth="NO_INFO";
+			age="NO_INFO";
+			exp="NO_INFO";
+			school="NO_INFO";
+		}else{
+			number = p.getNumber(); //球衣号码
+			position = p.getPosition(); //位置
+			height = p.getHeight();
+			weight = p.getWeight();
+			birth = p.getBirth(); //生日(月日，年)
+			age = p.getAge();
+			exp = p.getExp(); //球龄
+			school = p.getSchool(); //毕业院校
+			act_img=p.getActionImage();
+			p_img=p.getPortaitImage();
 		}
 		
 		if(totalList==null){
@@ -513,7 +529,7 @@ public class PlayerCalculator {
 			}
 		}
 		if(total_p==null){
-			total_p=new PlayerInfoVO(name, "NO INFO", -1, -1, -1, 
+			total_p=new PlayerInfoVO(name, "NO_INFO", -1, -1, -1, 
 					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, "", -1, -1);
 		}
@@ -527,16 +543,17 @@ public class PlayerCalculator {
 			}
 		}
 		if(avg_p==null){
-			avg_p=new PlayerInfoVO(name, "NO INFO", -1, -1, -1, 
+			avg_p=new PlayerInfoVO(name, "NO_INFO", -1, -1, -1, 
 					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
 					-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, "", -1, -1);
 		}
 		
 		String team=total_p.getTeam();
 		
+		//System.out.println("img:"+p.getPortaitImage());
 		PlayerVO v=new PlayerVO(name, team, number, position, height,
 				weight, birth, age, exp, school,
-				p.getPortaitImage(), p.getActionImage(), total_p, avg_p);
+				p_img, act_img, total_p, avg_p);
 		
 		return v;
 	}

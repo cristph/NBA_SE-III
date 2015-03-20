@@ -102,45 +102,51 @@ public class PlayerDataReader implements PlayerDataReadService {
 	    playerName=playerName.substring(0, length-4);
 		result.setName(playerName);
 		
-		String actionPng="/data/players/action/"+playerName+".png";
-		String portraitImage="/data/players/portrait"+playerName+".png";
+		String actionPng="data/players/action/"+playerName+".png";
+		String portraitImage="data/players/portrait"+playerName+".png";
+		
+		
+		
 		Image actionImg=Toolkit.getDefaultToolkit().getImage(actionPng);
 		Image portraitImg=Toolkit.getDefaultToolkit().getImage(portraitImage);
 		
+		
+		
+		
 		result.setActionImage(actionImg);
-		result.setActionImage(portraitImg);
+		result.setPortaitImage(portraitImg);
 		
 		return result;
 	}
 
 	public String changeDate(String s){
-		
+		System.out.println(s);
 		StringBuffer sb=new StringBuffer(s);
 		String sMonth=sb.substring(0, 3);
 		String month=null;
-		if(!sMonth.equals("Sept"))
+		if(!sMonth.equals("SEPT"))
 		{
 			if(sMonth.equals("JAN"))
 	    	  month="1";
-	        else if(sMonth.equals("Feb"))
+	        else if(sMonth.equals("FEB"))
 	    	  month="2";
-	        else if(sMonth.equals("Mar"))
+	        else if(sMonth.equals("MAR"))
 	          month="3";
-	        else if(sMonth.equals("Apr"))
+	        else if(sMonth.equals("APR"))
 	          month="4";
-	        else if(sMonth.equals("May"))
+	        else if(sMonth.equals("MAY"))
 	          month="5";
-	        else if(sMonth.equals("Jun"))
+	        else if(sMonth.equals("JUN"))
 	          month="6";
-	        else if(sMonth.equals("Jul"))
+	        else if(sMonth.equals("JUL"))
 	          month="7";
-	        else if(sMonth.equals("Aug"))
+	        else if(sMonth.equals("AUG"))
 	          month="8";
-	        else if(sMonth.equals("Oct"))
+	        else if(sMonth.equals("OCT"))
 	          month="10";
-	        else if(sMonth.equals("Nov"))
+	        else if(sMonth.equals("NOV"))
 	          month="11";
-	        else if(sMonth.equals("Dec"))
+	        else if(sMonth.equals("DEC"))
 	          month="12";
 			
 			sb=sb.delete(0, 3);
@@ -155,6 +161,14 @@ public class PlayerDataReader implements PlayerDataReadService {
 			birthYear=Integer.parseInt(year);
 		    String date=year+"-"+month+"-"+day;
 	        
+		    System.out.println(date);
+		    
+		    boolean b1=(year==null);
+		    boolean b2=(month==null);
+		    boolean b3=(day==null);
+		   
+		    if(b1||b2||b3)
+		    	return "Wrong";
 	    	return date;
 		
 	}

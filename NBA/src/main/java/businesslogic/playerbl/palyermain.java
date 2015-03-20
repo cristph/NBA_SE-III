@@ -18,7 +18,13 @@ public class palyermain {
 		}
 		*/
 		
-		PlayerVO po=p.getPlayerTotalInfo("Akkk");
-		System.out.println("birth: "+po.getBirth());
+		PlayerVO po=p.getPlayerTotalInfo("James Harden");
+		System.out.println(po.getBirth()+" "+po.getAge()+" "+po.getExp()+" "+po.getHeight()
+				+" "+po.getName()+" "+po.getNumber()
+				+" "+po.getPosition()+" "+po.getSchool()+" "+po.getTeam()
+				+" "+po.getWeight()+" "+po.getAction()+" "+po.getPic());
+		
+		PlayerInfoVO pvo=po.getAll();
+		System.out.println(pvo.getAssistNum()+" "+pvo.getAssistRate()+" "+pvo.getAttRebRate()+" "+pvo.getBlockNum());
 	}
 }
