@@ -13,7 +13,7 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
        Test t=new Test();
-       t.testOne();
+       t.testTwo();
 	}
 
 	public void testOne(){
@@ -37,4 +37,25 @@ public class Test {
 			
 		}
 	}
+
+    public void testTwo(){
+    	TeamData td=new TeamData();
+    	ArrayList<TeamAllGamePO> list=td.getTeamGameData();
+    	System.out.println(list.size());
+    	
+    	for(int j=0;j<list.size();j++){
+    	TeamAllGamePO one=list.get(j);
+    	ArrayList<TeamGamePO> l=one.getGameDataList();
+    	
+    	for(int i=0;i<l.size();i++)
+    	{
+    		TeamGamePO temp=l.get(i);
+    		if(temp.getIsDirty()==true){
+    		System.out.println(temp.getMatchDate()+" "+temp.getMatchPair()+" "+temp.getMatchResult());
+    		}
+    		}
+    	
+    }
+
+}
 }

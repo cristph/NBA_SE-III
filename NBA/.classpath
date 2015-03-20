@@ -22,5 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA_SE-III/NBA/lib/batik-all-1.7.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
