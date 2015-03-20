@@ -97,12 +97,15 @@ public class PlayerCalculator {
 						
 						//获取单场比赛数据
 						PlayerGamePO pg=list.get(j);
-						if(pg.isDirty()){
+						if(pg.isDirty()){//若为脏数据
 							break;
 						}
 						
 						//获取单场比赛的队伍信息
 						TeamInfo tif=tip.getTeamInfo(pg.getTeam(), pg.getMatchDate());
+						if(tif==null){//若为脏数据
+							break;
+						}
 						
 						int t_sign=0;
 						
@@ -438,7 +441,7 @@ public class PlayerCalculator {
 		if(avgList!=null){
 			sort.sort(avgList, order, ps);
 		}else{
-			calTotal();
+			calAvg();
 			sort.sort(avgList, order, ps);
 		}
 		
@@ -452,6 +455,17 @@ public class PlayerCalculator {
 			
 			TeamInfoProvider tip=new TeamController();
 			String[] re=tip.getArea(pi.getTeam()).split("-");
+			
+			if(p==null){
+				if(z.equals(re[0])||z.equals(re[1])){
+					res.add(pi);
+					j+=1;
+					if(j==50){
+						return res;
+					}
+				}
+				continue;
+			}
 			
 			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1]))){
 				res.add(pi);
