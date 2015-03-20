@@ -219,67 +219,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 		
 	}
 	
-	private TeamGamePO addData(TeamGamePO po,String line){
-		String info[]=line.split(";");
-		
-		int time=0;
-		String tim[]=info[2].split(":");
-		try{
-		if(tim.length==1)
-			time=Integer.parseInt(tim[0])*60;
-		else if(tim.length==2)
-			time=Integer.parseInt(tim[0])*60+Integer.parseInt(tim[1]);
-		}catch(NumberFormatException e){
-			time=-1;
-		}
-		 
-		int data[]=new int[15];
-		for(int i=0;i<data.length;i++)
-		{
-			try{
-			data[i]=Integer.parseInt(info[i+3]);
-			}catch(NumberFormatException n){
-				data[i]=-1;
-				isDirty=true;
-				}
-	    }
-		int hitNum=data[0];
-		int shootNum=data[1];
-		int threeHitNum=data[2];
-		int threeShootNum=data[3];
-		int freeHitNum=data[4];
-		int freeShootNum=data[5];
-		int attReb=data[6];
-		int defReb=data[7];
-		int reb=data[8];
-		int ass=data[9];
-		int steal=data[10];
-		int block=data[11];
-		int error=data[12];
-		int foul=data[13];
-		
-		po.setAllPlayerTime(po.getAllPlayerTime()+time);
-		po.setAssistNum(po.getAssistNum()+ass);
-		po.setBlockNum(po.getBlockNum()+block);
-		po.setFoulNum(po.getFoulNum()+foul);
-		po.setFreeHitNum(po.getFreeHitNum()+freeHitNum);
-		po.setFreeNum(po.getFreeNum()+freeShootNum);
-		po.setHitShootNum(po.getHitShootNum()+hitNum);
-		po.setRebAttNum(po.getRebAttNum()+attReb);
-		po.setRebDefNum(po.getRebDefNum()+defReb);
-		po.setRebTotalNum(po.getRebTotalNum()+reb);
-		po.setShootNum(po.getShootNum()+shootNum);
-		po.setStealNum(po.getStealNum()+steal);
-		po.setErrorNum(po.getErrorNum()+error);
-		po.setThreePointNum(po.getThreePointNum()+threeHitNum);
-		po.setThreeShootNum(po.getThreeShootNum()+threeShootNum);
-		
-		return po;
-	}
-	/*球员名;位置;在场时间;投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;
-     * 进攻（前场）篮板数;防守（后场）篮板数;总篮板数;助攻数;抢断数;盖帽数;失误 数;犯规数;
-     * 个人得分; 
-    */
+	
 	private void initData(){
 		 time=0;
 		 hitNum=0;

@@ -102,13 +102,19 @@ public class PlayerDataReader implements PlayerDataReadService {
 	    playerName=playerName.substring(0, length-4);
 		result.setName(playerName);
 		
-		String actionPng="/data/players/action/"+playerName+".png";
-		String portraitImage="/data/players/portrait"+playerName+".png";
+		String actionPng="data/players/action/"+playerName+".png";
+		String portraitImage="data/players/portrait"+playerName+".png";
+		
+		
+		
 		Image actionImg=Toolkit.getDefaultToolkit().getImage(actionPng);
 		Image portraitImg=Toolkit.getDefaultToolkit().getImage(portraitImage);
 		
+		
+		
+		
 		result.setActionImage(actionImg);
-		result.setActionImage(portraitImg);
+		result.setPortaitImage(portraitImg);
 		
 		return result;
 	}

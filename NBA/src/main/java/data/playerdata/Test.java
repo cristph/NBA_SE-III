@@ -14,7 +14,7 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Test t1=new Test();
-        t1.testFour();
+        t1.testOne();
 		
 	}
 
@@ -29,7 +29,7 @@ public class Test {
 	        for(int i=0;i<list1.size();i++){
 	        	PlayerPO temp=list1.get(i);
 	        	System.out.println(temp.getName()+";"+temp.getExp()+";"+temp.getPosition()+";"
-	        			+temp.getHeight()+";"+temp.getWeight()+";"+temp.getSchool()+";");
+	        			+temp.getHeight()+";"+temp.getWeight()+";"+temp.getSchool()+";"+temp.getActionImage()+";"+temp.getPortaitImage());
 	        }
 	}
 	public void testTwo(){
