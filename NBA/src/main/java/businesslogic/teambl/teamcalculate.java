@@ -180,7 +180,7 @@ public class teamcalculate {
     	return rate;
     }
     public double getdefrate(TeamAllGamePO p,TeamAllGamePO p2){
-    	System.out.println(p2.getGameDataList().size());
+    	//System.out.println(p2.getGameDataList().size());
     	double d1=getattackround(p2,p);
     	double d2=getallpoint(p2)*1.0;
     	double rate=d2/(d1/100);
