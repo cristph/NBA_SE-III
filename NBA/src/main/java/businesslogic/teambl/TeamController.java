@@ -201,7 +201,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     public String getArea(String teamName){
     	String s="";
     	for(TeamPO p:p2){
-    		if(p.getTeamName().equals(teamName)){
+    		if(p.getShortName().equals(teamName)){
     			s=p.getCompArea()+"-"+p.getZone();
     			break;
     		}
