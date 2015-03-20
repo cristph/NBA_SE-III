@@ -4,20 +4,19 @@ import java.util.ArrayList;
 
 import value.PlayerStandard;
 import value.Value.Order;
+import value.Value.Zone;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
 
 public class palyermain {
 	public static void main(String []args){
+		//test1();
+		//test2();
+		test3();
+	}
+	
+	public static void test1(){
 		PlayerBLController p=new PlayerBLController();
-		/*
-		ArrayList<PlayerInfoVO> list=p.getPlayerAvgInOrder(Order.UP, PlayerStandard.assistNum);
-		for(int i=0;i<list.size();i++){
-			PlayerInfoVO pp=list.get(i);
-			System.out.println(pp.getName()+"  "+pp.getAssistNum());
-		}
-		*/
-		
 		PlayerVO po=p.getPlayerTotalInfo("James Harden");
 		System.out.println(po.getBirth()+" "+po.getAge()+" "+po.getExp()+" "+po.getHeight()
 				+" "+po.getName()+" "+po.getNumber()
@@ -26,5 +25,23 @@ public class palyermain {
 		
 		PlayerInfoVO pvo=po.getAll();
 		System.out.println(pvo.getAssistNum()+" "+pvo.getAssistRate()+" "+pvo.getAttRebRate()+" "+pvo.getBlockNum());
+	}
+	
+	public static void test2(){
+		PlayerBLController p=new PlayerBLController();
+		ArrayList<PlayerInfoVO> lis=p.getPlayerTop_50(Order.UP, PlayerStandard.assistNum, "G", Zone.W);
+		for(int i=0;i<lis.size();i++){
+			PlayerInfoVO pp=lis.get(i);
+			System.out.println(pp.getAssistNum()+" "+pp.getName());
+		}
+	}
+	
+	public static void test3(){
+		PlayerBLController p=new PlayerBLController();
+		ArrayList<PlayerInfoVO> lis=p.getPlayerTotalInOrder(Order.UP, PlayerStandard.defRebRate);
+		for(int i=0;i<lis.size();i++){
+			PlayerInfoVO pp=lis.get(i);
+			System.out.println(pp.getDefRebRate()+" "+pp.getName());
+		}
 	}
 }
