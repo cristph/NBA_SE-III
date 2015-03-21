@@ -7,6 +7,6 @@ public class Value {
 	}
 	
 	public enum Zone{
-		W,E,Southeast,Atlantic,Central,Northwest,Pacific,Southwest
+		ALL,W,E,Southeast,Atlantic,Central,Northwest,Pacific,Southwest
 	}
 }
