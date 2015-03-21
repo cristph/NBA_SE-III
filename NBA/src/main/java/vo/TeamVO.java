@@ -24,6 +24,48 @@ public class TeamVO {
 	int shootNum; //投篮出手数
 	
 	int threePointNum; //三分命中数
+	public double getHitShootNumave() {
+		return hitShootNumave;
+	}
+	public double getShootNumave() {
+		return shootNumave;
+	}
+	public double getThreePointNumave() {
+		return threePointNumave;
+	}
+	public double getThreeShootNumave() {
+		return threeShootNumave;
+	}
+	public double getFreeHitNumave() {
+		return freeHitNumave;
+	}
+	public double getFreeNumave() {
+		return freeNumave;
+	}
+	public double getRebAttNumave() {
+		return rebAttNumave;
+	}
+	public double getRebDefNumave() {
+		return rebDefNumave;
+	}
+	public double getRebTotalNumave() {
+		return rebTotalNumave;
+	}
+	public double getAssistNumave() {
+		return assistNumave;
+	}
+	public double getStealNumave() {
+		return stealNumave;
+	}
+	public double getBlockNumave() {
+		return blockNumave;
+	}
+	public double getErrorNumave() {
+		return errorNumave;
+	}
+	public double getFoulNumave() {
+		return foulNumave;
+	}
 	int threeShootNum; //三分出手数
 	
 	int freeHitNum; //罚球命中数
