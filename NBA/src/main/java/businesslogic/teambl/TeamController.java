@@ -16,7 +16,7 @@ import businesslogicservice.teamblservice.TeamBLService;
 import businesslogicservice.teamblservice.TeamInfoProvider;
 
 public class TeamController implements TeamBLService, TeamInfoProvider{
-	
+	teamsearch ts=new teamsearch();
 	TeamDataService t=new TeamData();
 	teamcalculate cal=new teamcalculate();
 	ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
@@ -61,7 +61,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 			//thisteam.setTeamName(p.getTeamName());
 			TeamAllGamePO oppteam=getoppgamedata(thisteam);
 			//System.out.println(thisteam.getGameDataList().size());
-			v.setTeamName(p.getShortName());
+			v.setTeamName(p.getTeamName());
 			v.setShortName(p.getShortName());
 			v.setLocation(p.getLocation());
 			v.setCompArea(p.getCompArea());
@@ -134,7 +134,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     public TeamVO getTeamInfo(String name){
     	TeamVO result=new TeamVO();
     	for(TeamVO v:pa){
-    		if(v.getTeamName().equals(name)){
+    		if(v.getShortName().equals(name)){
     			result=v;
     			break;
     		}
@@ -143,7 +143,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     }
 	
     public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan){
-    	return null;
+    	return ts.sort(pa, order, stan);
     }
     
     public HashMap<String,Image> getAllTeam(){
@@ -222,6 +222,11 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	}*/
     	//TeamVO v=t.getTeamInfo("BOS");
     	//System.out.println(v.getAttackround());
+    	ArrayList<String> s=t.getTeamInOrder(Order.UP, TeamStandard.allpoint);
+    	for(int i=0;i<s.size();i++){
+    		System.out.println(s.get(i)+i);
+    	}
+    	System.out.println(t.getTeamInfo(s.get(29)).getAllpointave());
     }
 
 }
