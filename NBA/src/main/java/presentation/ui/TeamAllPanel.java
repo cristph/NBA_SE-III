@@ -128,8 +128,10 @@ public class TeamAllPanel extends JPanel {
 		test.setBorder(border);
 		test.setLayout(new BorderLayout());
 		final String name = cs.findTeam(line,row);
-		ImageIcon icon = new ImageIcon(cs.getTeamPic(name));
+		Image temp = cs.getTeamPic(name) ;
 		JButton button = new JButton(name);
+		temp = temp.getScaledInstance(button.getWidth(), button.getHeight(), temp.SCALE_DEFAULT);
+		ImageIcon icon = new ImageIcon(temp);
 		button.setIcon(icon);
 		button.addActionListener(new ActionListener(){
 
