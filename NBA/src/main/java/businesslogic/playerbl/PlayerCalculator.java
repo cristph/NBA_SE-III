@@ -395,7 +395,7 @@ public class PlayerCalculator {
 		if(avgList!=null){
 			sort.sort(avgList, order, ps);
 		}else{
-			calTotal();
+			calAvg();
 			sort.sort(avgList, order, ps);
 		}
 		return avgList;
