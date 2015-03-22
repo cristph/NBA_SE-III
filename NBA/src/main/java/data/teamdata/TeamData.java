@@ -10,6 +10,8 @@ import dataservice.teamdataservice.TeamDataService;
 
 public class TeamData implements TeamDataService {
 
+	static boolean hasDraw=false;
+	static HashMap<String,Image> map=null;
 	public ArrayList<TeamPO> getTeamData() {
 		// TODO Auto-generated method stub
 		TeamDataReadService tdrs=new TeamDataReader();
@@ -20,12 +22,19 @@ public class TeamData implements TeamDataService {
 
 	public HashMap<String, Image> getTeamImage() {
 		// TODO Auto-generated method stub
+		if(!hasDraw){
 		TeamDataReadService tdrs=new TeamDataReader();
 		HashMap<String,Image> result=tdrs.getTeamImage();
-		//Image img=result.get("MEM");
-		
-		
+		map=result;
 		return result;
+		}
+		else{
+			return map;
+		}
+		//Image img=result.get("MEM");
+		//System.out.println("------------------TeamData结束");
+		
+		
 	}
 	
 	public ArrayList<TeamAllGamePO> getTeamGameData() {
