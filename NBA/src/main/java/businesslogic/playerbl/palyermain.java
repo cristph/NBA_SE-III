@@ -11,8 +11,8 @@ import vo.PlayerVO;
 public class palyermain {
 	public static void main(String []args){
 		//test1();
-		//test2();
-		test3();
+		test2();
+		//test3();
 	}
 	
 	public static void test1(){
@@ -29,19 +29,19 @@ public class palyermain {
 	
 	public static void test2(){
 		PlayerBLController p=new PlayerBLController();
-		ArrayList<PlayerInfoVO> lis=p.getPlayerTop_50(Order.UP, PlayerStandard.assistNum, "G", Zone.W);
+		ArrayList<PlayerInfoVO> lis=p.getPlayerTop_50(Order.DOWN, PlayerStandard.doub, "ALL", Zone.ALL);
 		for(int i=0;i<lis.size();i++){
 			PlayerInfoVO pp=lis.get(i);
-			System.out.println(pp.getAssistNum()+" "+pp.getName());
+			System.out.println(pp.getDoub()+" "+pp.getName()+" "+pp.getTeam());
 		}
 	}
 	
 	public static void test3(){
 		PlayerBLController p=new PlayerBLController();
-		ArrayList<PlayerInfoVO> lis=p.getPlayerTotalInOrder(Order.UP, PlayerStandard.defRebRate);
+		ArrayList<PlayerInfoVO> lis=p.getPlayerTotalInOrder(Order.DOWN, PlayerStandard.doub);
 		for(int i=0;i<lis.size();i++){
 			PlayerInfoVO pp=lis.get(i);
-			System.out.println(pp.getDefRebRate()+" "+pp.getName());
+			System.out.println(pp.getDoub()+" "+pp.getName()+" "+pp.getTeam());
 		}
 	}
 }
