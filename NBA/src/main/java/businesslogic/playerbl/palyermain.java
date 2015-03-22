@@ -11,8 +11,8 @@ import vo.PlayerVO;
 public class palyermain {
 	public static void main(String []args){
 		//test1();
-		test2();
-		//test3();
+		//test2();
+		test3();
 	}
 	
 	public static void test1(){
@@ -38,10 +38,10 @@ public class palyermain {
 	
 	public static void test3(){
 		PlayerBLController p=new PlayerBLController();
-		ArrayList<PlayerInfoVO> lis=p.getPlayerTotalInOrder(Order.DOWN, PlayerStandard.doub);
+		ArrayList<PlayerInfoVO> lis=p.getPlayerAvgInOrder(Order.DOWN, PlayerStandard.score);
 		for(int i=0;i<lis.size();i++){
 			PlayerInfoVO pp=lis.get(i);
-			System.out.println(pp.getDoub()+" "+pp.getName()+" "+pp.getTeam());
+			System.out.println(pp.getScore()+" "+pp.getName()+" "+pp.getTeam());
 		}
 	}
 }
