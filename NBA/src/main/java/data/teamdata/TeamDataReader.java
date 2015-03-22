@@ -38,7 +38,7 @@ public class TeamDataReader implements TeamDataReadService {
 				if(row<=30)
 				{
 				  line=filter.filtTeam(line);
-				  System.out.println(row);
+				
 				  String info[]=line.split("│");
 				  TeamPO temp=new TeamPO();
 				  temp.setTeamName(info[0]);
@@ -48,8 +48,8 @@ public class TeamDataReader implements TeamDataReadService {
 				  temp.setZone(info[4]);
 				  temp.setHome(info[5]);
 				  temp.setBirthday(info[6]);
-				  Image teamImg=Toolkit.getDefaultToolkit().createImage(imgPath+"/"+info[1]
-						  +".svg");
+				  Image teamImg=Toolkit.getDefaultToolkit().getImage(imgPath+"/"+info[1]
+						  +".png");
 				  temp.setTeamPic(teamImg);
 				  result.add(temp);
 				  }
