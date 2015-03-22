@@ -3,6 +3,7 @@ package presentation.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -42,7 +43,9 @@ public class TeamFrame extends JFrame{
 		all.setLayout(new BorderLayout());
 		TeamBLService ps = new TeamController();
 		TeamVO tvo = ps.getTeamInfo(name);
-		ImageIcon action = new ImageIcon(tvo.getTeamPic());
+		Image temp = tvo.getTeamPic();
+		temp = temp.getScaledInstance(240, 240, temp.SCALE_DEFAULT);
+		ImageIcon action = new ImageIcon(temp);
 		JLabel omg = new JLabel(action);
 		JLabel info = new JLabel("基本信息");
 		Font font =new  Font("TimesRoman",Font.BOLD,20);
@@ -103,7 +106,7 @@ public class TeamFrame extends JFrame{
 		layout.setVerticalGroup(hGroup);
 		all.add(omg,BorderLayout.WEST);
 		all.add(label,BorderLayout.CENTER);
-		//all.add(img,BorderLayout.EAST);
+		
 		
 		// 加入表格信息
 		ShowPanel spane = new ShowPanel(tvo,1);
@@ -115,6 +118,9 @@ public class TeamFrame extends JFrame{
 		
 		
 		
+	}
+	public static void main(String[] args){
+		TeamFrame frame = new TeamFrame("HOU");
 	}
 
 }

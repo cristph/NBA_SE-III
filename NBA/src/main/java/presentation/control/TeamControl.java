@@ -20,6 +20,7 @@ import businesslogicservice.teamblservice.TeamBLService;
 public class TeamControl implements ControlService,TeamControlService{
 
 	TeamBLService ts = new TeamController();
+	HashMap<String,Image> hash = ts.getAllTeam();
 	public String findTeam(int line, int row) {
 		// 得到球队的名称在显示层
 		String[][] list = {{"CHI","BKN","ATL","DEN","GSW","DAL"}
@@ -32,7 +33,7 @@ public class TeamControl implements ControlService,TeamControlService{
 
 	public Image getTeamPic(String name) {
 		// 得到图片在显示层
-		HashMap<String,Image> hash = ts.getAllTeam();
+		
 		
 		return hash.get(name);
 	}

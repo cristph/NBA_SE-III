@@ -130,7 +130,7 @@ public class TeamAllPanel extends JPanel {
 		final String name = cs.findTeam(line,row);
 		Image temp = cs.getTeamPic(name) ;
 		JButton button = new JButton(name);
-		temp = temp.getScaledInstance(button.getWidth(), button.getHeight(), temp.SCALE_DEFAULT);
+		temp = temp.getScaledInstance(80, 80, temp.SCALE_DEFAULT);
 		ImageIcon icon = new ImageIcon(temp);
 		button.setIcon(icon);
 		button.addActionListener(new ActionListener(){

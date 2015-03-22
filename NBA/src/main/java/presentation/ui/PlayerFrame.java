@@ -51,13 +51,16 @@ public class PlayerFrame extends JFrame{
 		all.setLayout(new BorderLayout());
 		PlayerBLService ps = new PlayerBLController();
 		PlayerVO pvo = ps.getPlayerTotalInfo(name);
-		//ImageIcon icon = new ImageIcon(pvo.getPic());
-		System.out.println(name+"uio");
-		ImageIcon action = new ImageIcon(pvo.getAction());
-		//JLabel img = new JLabel(icon);
+		Image test = pvo.getPic();
+		test = test.getScaledInstance(140,120,test.SCALE_DEFAULT);
+		ImageIcon icon = new ImageIcon(test);
+		Image temp = pvo.getAction();
+		temp = temp.getScaledInstance(320,480,temp.SCALE_DEFAULT);
+		ImageIcon action = new ImageIcon(temp);
+		JLabel img = new JLabel(icon);
 		JLabel omg = new JLabel(action);
 		JLabel info = new JLabel("基本信息");
-		Font font =new  Font("TimesRoman",Font.BOLD,20);
+		Font font =new  Font("TimesRoman",Font.BOLD,35);
 		info.setFont(font);
 		JLabel name = new JLabel("姓名");
 		JLabel num = new JLabel("号码");
@@ -86,7 +89,7 @@ public class PlayerFrame extends JFrame{
 		GroupLayout.SequentialGroup hGroup = 
 				layout.createSequentialGroup();
 		hGroup.addGap(20);
-		hGroup.addGroup(layout.createParallelGroup().addComponent(info));
+		hGroup.addGroup(layout.createParallelGroup().addComponent(info).addComponent(img));
 		hGroup.addGap(20);
 		hGroup.addGroup(layout.createParallelGroup().addComponent(name).addComponent(namer).addComponent(team).addComponent(teamr));
 		hGroup.addGap(20);
@@ -116,7 +119,7 @@ public class PlayerFrame extends JFrame{
 				.addComponent(bir)
 				.addComponent(exp));
 		vGroup.addGap(20);
-		vGroup.addGroup(layout.createParallelGroup()
+		vGroup.addGroup(layout.createParallelGroup().addComponent(img)
 				.addComponent(teamr).addComponent(numr).addComponent(weir)
 				.addComponent(birr)
 				.addComponent(expr));
@@ -126,7 +129,6 @@ public class PlayerFrame extends JFrame{
 		layout.setVerticalGroup(hGroup);
 		all.add(omg,BorderLayout.WEST);
 		all.add(label,BorderLayout.CENTER);
-		//all.add(img,BorderLayout.EAST);
 		
 		// 加入表格信息
 		ShowPanel spane = new ShowPanel(pvo);
