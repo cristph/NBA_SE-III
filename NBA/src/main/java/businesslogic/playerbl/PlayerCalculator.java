@@ -585,7 +585,7 @@ public class PlayerCalculator {
 		
 		PlayerInfoVO avg_p = null;
 		for(int j=0;j<avgList.size();j++){
-			PlayerInfoVO pv=totalList.get(j);
+			PlayerInfoVO pv=avgList.get(j);
 			if(pv.getName().equals(name)){
 				avg_p=pv;
 				break;
