@@ -119,7 +119,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		return result;
 	}
 
-	public String changeDate(String s){
+	private String changeDate(String s){
 		System.out.println(s);
 		StringBuffer sb=new StringBuffer(s);
 		String sMonth=sb.substring(0, 3);
@@ -173,7 +173,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		
 	}
 	
-	public String getYear(){
+	private  String getYear(){
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy");
 		String year=sdf.format(d);

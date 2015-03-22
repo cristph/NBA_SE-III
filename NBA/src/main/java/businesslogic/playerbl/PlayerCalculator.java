@@ -415,21 +415,45 @@ public class PlayerCalculator {
 		int j=0;
 		for(int i=0;i<totalList.size();i++){
 			PlayerInfoVO pi=totalList.get(i);
-			String name=pi.getName();
-			PlayerPO p=getPlayer(name);
+			
 			
 			String z=zone.toString();
 			
 			TeamInfoProvider tip=new TeamController();
 			String[] re=tip.getArea(pi.getTeam()).split("-");
 			
-			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1])) ){
-				res.add(pi);
-				j+=1;
-				if(j==50){
-					return res;
+			if(position.equals("ALL")){//任意位置
+				if(z.equals(re[0])||z.equals(re[1])||z.equals("ALL")){
+					res.add(pi);
+					j+=1;
+					if(j==50){
+						return res;
+					}
+				}
+			}else{//特定位置
+				String name=pi.getName();
+				PlayerPO p=getPlayer(name);
+				
+				if(p==null){
+					if(z.equals(re[0])||z.equals(re[1])||z.equals("ALL")){
+						res.add(pi);
+						j+=1;
+						if(j==50){
+							return res;
+						}
+					}
+					continue;
+				}
+				if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1])||z.equals("ALL")) ){
+					res.add(pi);
+					j+=1;
+					if(j==50){
+						return res;
+					}
 				}
 			}
+			
+			
 		}
 		return res;
 	}
@@ -447,32 +471,43 @@ public class PlayerCalculator {
 		
 		int j=0;
 		for(int i=0;i<avgList.size();i++){
+			
 			PlayerInfoVO pi=avgList.get(i);
-			String name=pi.getName();
-			PlayerPO p=getPlayer(name);
 			
 			String z=zone.toString();
-			
 			TeamInfoProvider tip=new TeamController();
 			String[] re=tip.getArea(pi.getTeam()).split("-");
 			
-			if(p==null){
-				if(z.equals(re[0])||z.equals(re[1])){
+			if(position.equals("ALL")){//任意位置
+				if(z.equals(re[0])||z.equals(re[1])||z.equals("ALL")){
 					res.add(pi);
 					j+=1;
 					if(j==50){
 						return res;
 					}
 				}
-				continue;
-			}
-			
-			if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1]))){
-				res.add(pi);
-				j+=1;
-				if(j==50){
-					return res;
+			}else{//特定位置
+				String name=pi.getName();
+				PlayerPO p=getPlayer(name);
+				
+				if(p==null){
+					if(z.equals(re[0])||z.equals(re[1])||z.equals("ALL")){
+						res.add(pi);
+						j+=1;
+						if(j==50){
+							return res;
+						}
+					}
+					continue;
 				}
+				if(p.getPosition().equals(position) &&(z.equals(re[0])||z.equals(re[1])||z.equals("ALL"))){
+					res.add(pi);
+					j+=1;
+					if(j==50){
+						return res;
+					}
+				}
+				
 			}
 			
 		}

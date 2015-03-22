@@ -42,12 +42,11 @@ public class PlayerBLController implements PlayerBLService{
 		// TODO Auto-generated method stub
 		if(stan==PlayerStandard.score||stan==PlayerStandard.rebTotalNum||stan==PlayerStandard.assistNum
 				||stan==PlayerStandard.par||stan==PlayerStandard.blockNum||stan==PlayerStandard.stealNum
-				||stan==PlayerStandard.foulNum||stan==PlayerStandard.errorNum||stan==PlayerStandard.time
-				||stan==PlayerStandard.doub){
+				||stan==PlayerStandard.foulNum||stan==PlayerStandard.errorNum||stan==PlayerStandard.time){
 			ArrayList<PlayerInfoVO> res=pc.getAvgTopList(order, stan, pos, zone);
 			return res;
 		}else if(stan==PlayerStandard.rate||stan==PlayerStandard.shooting||stan==PlayerStandard.threeRate
-				||stan==PlayerStandard.freeRate){
+				||stan==PlayerStandard.freeRate||stan==PlayerStandard.doub){
 			ArrayList<PlayerInfoVO> res=pc.getTotalTopList(order, stan, pos, zone);
 			return res;
 		}

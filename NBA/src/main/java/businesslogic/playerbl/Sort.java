@@ -98,6 +98,12 @@ public class Sort {
 			}else if(ps==PlayerStandard.usedRate){
 				UsedRateUPSort urs=new UsedRateUPSort();
 				urs.quicksort(list);
+			}else if(ps==PlayerStandard.doub){
+				DoubUPSort dus=new DoubUPSort();
+				dus.quicksort(list);
+			}else if(ps==PlayerStandard.par){
+				ParUPSort pus=new ParUPSort();
+				pus.quicksort(list);
 			}
 		}else{
 			if(ps==PlayerStandard.assistNum){
@@ -187,6 +193,12 @@ public class Sort {
 			}else if(ps==PlayerStandard.usedRate){
 				UsedRateDSort urs=new UsedRateDSort();
 				urs.quicksort(list);
+			}else if(ps==PlayerStandard.doub){
+				DoubDSort dus=new DoubDSort();
+				dus.quicksort(list);
+			}else if(ps==PlayerStandard.par){
+				ParDSort pus=new ParDSort();
+				pus.quicksort(list);
 			}
 		}
 	}
