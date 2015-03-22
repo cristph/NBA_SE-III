@@ -47,9 +47,6 @@ public class TeamFrame extends JFrame{
 		temp = temp.getScaledInstance(240, 240, temp.SCALE_DEFAULT);
 		ImageIcon action = new ImageIcon(temp);
 		JLabel omg = new JLabel(action);
-		JLabel info = new JLabel("基本信息");
-		Font font =new  Font("TimesRoman",Font.BOLD,20);
-		info.setFont(font);
 		JLabel name = new JLabel("队名");
 		JLabel shortName = new JLabel("简称");
 		JLabel pos = new JLabel("位置");
@@ -71,7 +68,7 @@ public class TeamFrame extends JFrame{
 		GroupLayout.SequentialGroup hGroup = 
 				layout.createSequentialGroup();
 		hGroup.addGap(20);
-		hGroup.addGroup(layout.createParallelGroup().addComponent(info));
+		hGroup.addGroup(layout.createParallelGroup());
 		hGroup.addGap(20);
 		hGroup.addGroup(layout.createParallelGroup().addComponent(name).addComponent(namer).addComponent(shortName).addComponent(shortNamer));
 		hGroup.addGap(20);
@@ -86,7 +83,7 @@ public class TeamFrame extends JFrame{
 				layout.createSequentialGroup();
 		vGroup.addGap(5);
 		vGroup.addGroup(layout.createParallelGroup()
-				.addComponent(info).addComponent(name).addComponent(pos).addComponent(zone).addComponent(bir));
+				.addComponent(name).addComponent(pos).addComponent(zone).addComponent(bir));
 		vGroup.addGap(20);
 		vGroup.addGroup(layout.createParallelGroup()
 				.addComponent(namer).addComponent(posr).addComponent(zoner)
@@ -113,6 +110,10 @@ public class TeamFrame extends JFrame{
 		spane.setPreferredSize(new Dimension(width, height/5));
 		this.add(all,BorderLayout.CENTER);
 		this.add(spane,BorderLayout.SOUTH);	
+		JLabel block = new JLabel("基本信息");
+		Font font =new  Font("TimesRoman",Font.BOLD,30);
+		block.setFont(font);
+		this.add(block,BorderLayout.NORTH);
 		
 		
 		
