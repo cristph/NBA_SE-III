@@ -54,7 +54,14 @@ public class TeamData implements TeamDataService {
 
 	public static void main(String args[]){
 		TeamData td=new TeamData();
-		td.getTeamImage();
+		double time1=System.currentTimeMillis();
+		HashMap<String,Image> temp=td.getTeamImage();
+		double time2=System.currentTimeMillis();
+		System.out.println(time2-time1);
+		HashMap<String,Image> temp2=td.getTeamImage();
+		double time3=System.currentTimeMillis();
+		System.out.println(time3-time2);
+		
 	}
 
 }

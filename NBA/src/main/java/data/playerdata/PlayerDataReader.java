@@ -103,7 +103,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		result.setName(playerName);
 		
 		String actionPng="data/players/action/"+playerName+".png";
-		String portraitImage="data/players/portrait"+playerName+".png";
+		String portraitImage="data/players/portrait/"+playerName+".png";
 		
 		
 		
