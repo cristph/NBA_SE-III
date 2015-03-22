@@ -5,9 +5,12 @@ package presentation.ui;
  */
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,47 +45,105 @@ public class PlayerFrame extends JFrame{
 		System.out.println(height+" "+width);
 		this.setBounds((DataInAll.screenSize.width-width)/2
 				, (DataInAll.screenSize.height-height)/2, width, height);
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		
 		JPanel all = new JPanel();
-		all.setBounds(0, 0, width, height/3);
+		all.setLayout(new BorderLayout());
 		PlayerBLService ps = new PlayerBLController();
-		PlayerVO pvo = ps.getPlayerTotalInfo("Aaron Gray");
-		ImageIcon icon = new ImageIcon(pvo.getPic());
-		ImageIcon action = new ImageIcon(pvo.getAction());
+		PlayerVO pvo = ps.getPlayerTotalInfo(name);
+		Image test = pvo.getPic();
+		test = test.getScaledInstance(140,120,test.SCALE_DEFAULT);
+		ImageIcon icon = new ImageIcon(test);
+		Image temp = pvo.getAction();
+		temp = temp.getScaledInstance(320,480,temp.SCALE_DEFAULT);
+		ImageIcon action = new ImageIcon(temp);
+		JLabel img = new JLabel(icon);
+		JLabel omg = new JLabel(action);
+		JLabel info = new JLabel("基本信息");
+		Font font =new  Font("TimesRoman",Font.BOLD,35);
+		info.setFont(font);
+		JLabel name = new JLabel("姓名");
+		JLabel num = new JLabel("号码");
+		JLabel pos = new JLabel("位置");
+		JLabel hei = new JLabel("身高");
+		JLabel wei = new JLabel("体重");
+		JLabel bir = new JLabel("生日");
+		JLabel age = new JLabel("年龄");
+		JLabel exp = new JLabel("球龄");
+		JLabel sch = new JLabel("学校");
+		JLabel team = new JLabel("队伍");
+		JLabel namer = new JLabel(pvo.getName());
+		JLabel numr = new JLabel(pvo.getNumber());
+		JLabel posr = new JLabel(pvo.getPosition());
+		JLabel heir = new JLabel(pvo.getHeight());
+		JLabel weir = new JLabel(pvo.getWeight());
+		JLabel birr = new JLabel(pvo.getBirth());
+		JLabel ager = new JLabel(pvo.getAge());
+		JLabel expr = new JLabel(pvo.getExp());
+		JLabel schr = new JLabel(pvo.getSchool());
+		JLabel teamr = new JLabel(pvo.getTeam());
+		JPanel label  = new JPanel();
+		GroupLayout layout = new GroupLayout(label);
+		label.setLayout(layout);
+		//水平连续组
+		GroupLayout.SequentialGroup hGroup = 
+				layout.createSequentialGroup();
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(info).addComponent(img));
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(name).addComponent(namer).addComponent(team).addComponent(teamr));
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(pos).addComponent(posr).addComponent(num).addComponent(numr));
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(hei).addComponent(heir).addComponent(wei).addComponent(weir));
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(age).addComponent(ager).addComponent(bir).addComponent(birr));
+		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(sch).addComponent(schr).addComponent(exp).addComponent(expr));
+		hGroup.addGap(20);
+
+		//垂直连续组
+		GroupLayout.SequentialGroup vGroup = 
+				layout.createSequentialGroup();
+		vGroup.addGap(5);
+		vGroup.addGroup(layout.createParallelGroup()
+				.addComponent(info).addComponent(name).addComponent(pos).addComponent(hei).addComponent(age).addComponent(sch));
+		vGroup.addGap(20);
+		vGroup.addGroup(layout.createParallelGroup()
+				.addComponent(namer).addComponent(posr).addComponent(heir)
+				.addComponent(ager)
+				.addComponent(schr));
+		vGroup.addGap(20);
+		vGroup.addGroup(layout.createParallelGroup()
+				.addComponent(team).addComponent(num).addComponent(wei)
+				.addComponent(bir)
+				.addComponent(exp));
+		vGroup.addGap(20);
+		vGroup.addGroup(layout.createParallelGroup().addComponent(img)
+				.addComponent(teamr).addComponent(numr).addComponent(weir)
+				.addComponent(birr)
+				.addComponent(expr));
 		
-		String [][] data = new String[2][9];
-		data[0][0] = "姓名";
-		data[0][1] = "号码";
-		data[0][2] = "位置";
-		data[0][3] = "身高";
-		data[0][4] = "体重";
-		data[0][5] = "生日";
-		data[0][6] = "年龄";
-		data[0][7] = "球龄";
-		data[0][8] = "学校";
-		data[1][0] = pvo.getName();
-		data[1][1] = pvo.getNumber();
-		data[1][2] = pvo.getPosition();
-		data[1][3] = pvo.getHeight();
-		data[1][4] = pvo.getWeight();
-		data[1][5] = pvo.getBirth();
-		data[1][6] = pvo.getAge();
-		data[1][7] = pvo.getExp();
-		data[1][8] = pvo.getSchool();
-		JList li = new JList(data);
-		all.add(li);
+		
+		layout.setHorizontalGroup(vGroup);
+		layout.setVerticalGroup(hGroup);
+		all.add(omg,BorderLayout.WEST);
+		all.add(label,BorderLayout.CENTER);
 		
 		// 加入表格信息
+		ShowPanel spane = new ShowPanel(pvo);
+		spane.setPreferredSize(new Dimension(width, height/5));
+		this.add(all,BorderLayout.CENTER);
+		this.add(spane,BorderLayout.SOUTH);	
 		
-		
-		this.add(all);
 		
 		
 		
 		
 	}
 	
-	
+	public static void main(String[] args){
+		PlayerFrame frame = new PlayerFrame("Aaron Gray");
+	}
 
 }

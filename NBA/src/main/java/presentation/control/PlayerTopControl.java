@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import presentation.ui.PlayerFrame;
 import value.PlayerStandard;
 import value.Value.Order;
 import value.Value.Zone;
@@ -26,7 +27,7 @@ public class PlayerTopControl implements ControlService{
 	 * 进入球员界面
 	 */
 	public void findAim(String name) {
-		
+		new PlayerFrame(name);
 	}
 
 	public String[] getOrder(int i) {
@@ -56,7 +57,7 @@ public class PlayerTopControl implements ControlService{
 		Object[][] t = new Object[list.size()][15];
 		for(int i=0;i<list.size();i++){
 			PlayerInfoVO temp = list.get(i);
-			t[i][0] = temp.getName();
+			t[i][0] = new JButton(temp.getName());
 			t[i][1] = temp.getScore();
 			t[i][2] = temp.getRebTotalNum();
 			t[i][3] = temp.getAssistNum();
@@ -85,7 +86,7 @@ public class PlayerTopControl implements ControlService{
 		Object[][] t = new Object[list.size()][15];
 		for(int i=0;i<list.size();i++){
 			PlayerInfoVO temp = list.get(i);
-			t[i][0] = temp.getName();
+			t[i][0] = new JButton(temp.getName());
 			t[i][1] = temp.getScore();
 			t[i][2] = temp.getRebTotalNum();
 			t[i][3] = temp.getAssistNum();
@@ -148,7 +149,7 @@ public class PlayerTopControl implements ControlService{
 		if(stan.equals("助攻")){
 			return PlayerStandard.assistNum;
 		}
-		if(stan.equals("得分/篮板/助攻(加权比为 1:1:1)")){
+		if(stan.equals("得分/篮板/助攻(1:1:1)")){
 			return PlayerStandard.par;
 		}
 		if(stan.equals("盖帽")){

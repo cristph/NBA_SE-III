@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 
+import presentation.ui.PlayerFrame;
 import value.PlayerStandard;
 import value.Value.Order;
 import vo.PlayerInfoVO;
@@ -33,7 +34,7 @@ public class PlayerOrderControl implements ControlService{
 					,"投篮命中率","三分命中率","罚球命中率"
 					,"进攻数","防守数","抢断数","盖帽数"
 					,"失误数","犯规数","得分","效率","GmSc"
-					,"效率值","真实命中率","投篮效率", "篮板率"
+					,"真实命中率","投篮效率", "篮板率"
 					,"进攻篮板率","防守篮板率","助攻率","抢断率"
 					,"盖帽率","失误率","使用率"};
 			return title1;
@@ -52,7 +53,7 @@ public class PlayerOrderControl implements ControlService{
 				,"投篮命中率","三分命中率","罚球命中率"
 				,"进攻数","防守数","抢断数","盖帽数"
 				,"失误数","犯规数","得分","效率","GmSc"
-				,"效率值","真实命中率","投篮效率", "篮板率"
+				,"真实命中率","投篮效率", "篮板率"
 				,"进攻篮板率","防守篮板率","助攻率","抢断率"
 				,"盖帽率","失误率","使用率"};
 		return title1;
@@ -67,7 +68,7 @@ public class PlayerOrderControl implements ControlService{
 		
 		//
 		ArrayList<PlayerInfoVO> info = ps.getPlayerAvgInOrder(Order.DOWN, PlayerStandard.score);
-		Object[][] t = new Object[info.size()][30];
+		Object[][] t = new Object[info.size()][29];
 		for(int i=0;i<info.size();i++){
 			PlayerInfoVO temp = info.get(i);
 			t[i][0] = new JButton(temp.getName());
@@ -86,20 +87,19 @@ public class PlayerOrderControl implements ControlService{
 			t[i][13] =Double.toString(temp.getBlockNum());
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
-			t[i][16] =Double.toString(temp.getStealNum());
-			t[i][17] =Double.toString(temp.getScore());
-			t[i][18] =nf.format(temp.getRate());
-			t[i][19] =Double.toString(temp.getGMSC());
-			t[i][20] =nf.format(temp.getRealHitRate());
-			t[i][21] =nf.format(temp.getThrowRate());
-			t[i][22] =nf.format(temp.getRebRate());
-			t[i][23] =nf.format(temp.getAttRebRate());
-			t[i][24] =nf.format(temp.getDefRebRate());
-			t[i][25] =nf.format(temp.getAssistRate());
-			t[i][26] =nf.format(temp.getStealRate());
-			t[i][27] =nf.format(temp.getBlockRate());
-			t[i][28] =nf.format(temp.getErrorRate());
-			t[i][29] =nf.format(temp.getUsedRate());			
+			t[i][16] =Double.toString(temp.getScore());
+			t[i][17] =nf.format(temp.getRate());
+			t[i][18] =Double.toString(temp.getGMSC());
+			t[i][19] =nf.format(temp.getRealHitRate());
+			t[i][20] =nf.format(temp.getThrowRate());
+			t[i][21] =nf.format(temp.getRebRate());
+			t[i][22] =nf.format(temp.getAttRebRate());
+			t[i][23] =nf.format(temp.getDefRebRate());
+			t[i][24] =nf.format(temp.getAssistRate());
+			t[i][25] =nf.format(temp.getStealRate());
+			t[i][26] =nf.format(temp.getBlockRate());
+			t[i][27] =nf.format(temp.getErrorRate());
+			t[i][28] =nf.format(temp.getUsedRate());			
 			
 		}
 		return t;
@@ -125,7 +125,7 @@ public class PlayerOrderControl implements ControlService{
 		else{
 			info = ps.getPlayerAvgInOrder(or, stan);
 		}
-		Object[][] t = new Object[info.size()][30];
+		Object[][] t = new Object[info.size()][29];
 		for(int i=0;i<info.size();i++){
 			PlayerInfoVO temp = info.get(i);
 			t[i][0] = new JButton(temp.getName());
@@ -135,30 +135,48 @@ public class PlayerOrderControl implements ControlService{
 			t[i][4] = Double.toString(temp.getRebTotalNum());
 			t[i][5] = Double.toString(temp.getAssistNum());
 			t[i][6] = Double.toString(temp.getTime());
-			t[i][7] = "";
-			t[i][8] = "";
-			t[i][9] = "";
+			t[i][7] = temp.getShooting();
+			t[i][8] = temp.getThreeRate();
+			t[i][9] = temp.getFreeRate();
 			t[i][10] =Double.toString(temp.getRebAttNum());
 			t[i][11] =Double.toString(temp.getRebDefNum());
 			t[i][12] =Double.toString(temp.getStealNum());
 			t[i][13] =Double.toString(temp.getBlockNum());
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
-			t[i][16] =Double.toString(temp.getStealNum());
-			t[i][17] =Double.toString(temp.getScore());
-			t[i][18] ="";
-			t[i][19] ="";
-			t[i][20] ="";
-			t[i][21] ="";
-			t[i][22] ="";
-			t[i][23] ="";
-			t[i][24] ="";
-			t[i][25] ="";
-			t[i][26] ="";
-			t[i][27] ="";
-			t[i][28] ="";
-			t[i][29] ="";
+			t[i][16] =Double.toString(temp.getScore());
+			t[i][17] =temp.getRate();
+			t[i][18] =Double.toString(temp.getGMSC());
+			t[i][19] =temp.getRealHitRate();
+			t[i][20] =temp.getThrowRate();
+			t[i][21] =temp.getRebRate();
+			t[i][22] =temp.getAttRebRate();
+			t[i][23] =temp.getDefRebRate();
+			t[i][24] =temp.getAssistRate();
+			t[i][25] =temp.getStealRate();
+			t[i][26] =temp.getBlockRate();
+			t[i][27] =temp.getErrorRate();
+			t[i][28] =temp.getUsedRate();		
 			
+		}
+		if(kind.equals("平均数据")){
+			for(int i=0;i<info.size();i++){
+				t[i][7] = "无";
+				t[i][8] = "无";
+				t[i][9] = "无";
+				t[i][17] ="无";
+				t[i][18] ="无";
+				t[i][19] ="无";
+				t[i][20] ="无";
+				t[i][21] ="无";
+				t[i][22] ="无";
+				t[i][23] ="无";
+				t[i][24] ="无";
+				t[i][25] ="无";
+				t[i][26] ="无";
+				t[i][27] ="无";
+				t[i][28] ="无";	
+			}
 		}
 		
 		return t;
@@ -260,7 +278,7 @@ public class PlayerOrderControl implements ControlService{
 
 	public void findAim(String name) {
 		//跳转到球员界面
-		
+		PlayerFrame frame = new PlayerFrame(name);
 		
 	}
 

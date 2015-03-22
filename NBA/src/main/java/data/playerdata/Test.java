@@ -14,7 +14,7 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         Test t1=new Test();
-        t1.testOne();
+        t1.testFive();
 		
 	}
 
@@ -115,4 +115,32 @@ public class Test {
 			
 		
 	}
+
+    public void testFive(){
+    	PlayerData pd=new PlayerData();
+    	ArrayList<PlayerAllGamePO> list=pd.getPlayerGameData();
+    	for(int i=0;i<list.size();i++)
+    	{
+    		PlayerAllGamePO po=list.get(i);
+    		ArrayList<PlayerGamePO> l=po.getGameDataList();
+    		System.out.print(po.getPlayerName());
+    		
+    		double n1=0;
+    		double n2=0;
+    		for(int j=0;j<l.size();j++)
+    		{
+    			PlayerGamePO temp=l.get(j);
+    		    n1=new Double(temp.getThreeShootNum())+n1;
+    		    n2=new Double(temp.getThreePointNum())+n2;
+    		}
+    		
+    		double rate=0;
+			if(n1!=0)
+		    rate= new Double(n2/n1);
+			else
+			rate=0;
+			System.out.println("三分命中率为"+rate);
+    	}
+    }
+
 }

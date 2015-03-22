@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import data.common.Filter;
+import data.common.Transverter;
 import po.TeamPO;
 
 public class TeamDataReader implements TeamDataReadService {
@@ -20,7 +21,7 @@ public class TeamDataReader implements TeamDataReadService {
 
 		// TODO Auto-generated method stub
 		String txtPath="data/teams/teams.txt";
-		String imgPath="data/teams";
+		String imgPath="data/teamPng";
 		ArrayList<TeamPO> result=new ArrayList<TeamPO>();
 		
 		File file=new File(txtPath);
@@ -37,7 +38,7 @@ public class TeamDataReader implements TeamDataReadService {
 				if(row<=30)
 				{
 				  line=filter.filtTeam(line);
-				  System.out.println(row);
+				
 				  String info[]=line.split("│");
 				  TeamPO temp=new TeamPO();
 				  temp.setTeamName(info[0]);
@@ -47,8 +48,8 @@ public class TeamDataReader implements TeamDataReadService {
 				  temp.setZone(info[4]);
 				  temp.setHome(info[5]);
 				  temp.setBirthday(info[6]);
-				  Image teamImg=Toolkit.getDefaultToolkit().createImage(imgPath+"/"+info[1]
-						  +".svg");
+				  Image teamImg=Toolkit.getDefaultToolkit().getImage(imgPath+"/"+info[1]
+						  +".png");
 				  temp.setTeamPic(teamImg);
 				  result.add(temp);
 				  }
@@ -68,22 +69,19 @@ public class TeamDataReader implements TeamDataReadService {
 
 	public HashMap<String, Image> getTeamImage() {
 		
+		convertSvg();
 		HashMap<String,Image> imgMap=new HashMap<String,Image>();
 		
-		String imgPath="data/teams";
+		String imgPath="data/teamPng";
 		
 		File root=new File(imgPath);
 		File array[]=root.listFiles();
 		for(int i=0;i<array.length;i++)
 		{
-			System.out.println(array[i]);
 			String fileName=array[i].getName();
-			System.out.println(fileName);
-			boolean isSvg=fileName.substring((fileName.indexOf('.')+1)).equals("svg");
-			System.out.println(isSvg);
+			boolean isPng=fileName.substring((fileName.indexOf('.')+1)).equals("png");
 			String teamName=fileName.substring(0, fileName.indexOf('.'));
-			System.out.println(teamName);
-			if(isSvg)
+			if(isPng)
 			{   
 				Image img=Toolkit.getDefaultToolkit().getImage(imgPath+"/"+fileName);
 				imgMap.put(teamName, img);
@@ -94,4 +92,33 @@ public class TeamDataReader implements TeamDataReadService {
 		return imgMap;
 	}
 
+	private void convertSvg(){
+		Transverter ts=new Transverter();
+		
+		String sourceImg="data/teams";
+		String targetPath="data/teamPng";
+		
+		File sourceRoot=new File(sourceImg);
+		File array[]=sourceRoot.listFiles();
+		for(int i=0;i<array.length;i++)
+		{
+			String fileName=array[i].getName();
+			String backName=fileName.substring(fileName.indexOf('.')+1);
+			String preName=fileName.substring(0,fileName.indexOf('.'));
+			if(backName.equals("svg"))
+			{
+				String pngPath=targetPath+"/"+preName+".png";
+				ts.convertToPngByFIle(sourceImg+"/"+fileName,pngPath );
+			}
+		}
+	}
+	
+	public static void main(String[] args){
+		TeamDataReader tdr=new TeamDataReader();
+		HashMap<String,Image> map=tdr.getTeamImage();
+		
+	}
+	
+	
+	
 }
