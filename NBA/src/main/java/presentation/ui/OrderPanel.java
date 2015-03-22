@@ -20,6 +20,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -62,7 +63,6 @@ public class OrderPanel extends JPanel {
 		box3 = new JComboBox(cs.getOrder(3));//第二项下拉框
 		
 		
-		
 		//按钮
 		JButton sure = new JButton("确认");
 		
@@ -80,7 +80,6 @@ public class OrderPanel extends JPanel {
 		hGroup.addGroup(layout.createParallelGroup().addComponent(box3Title).addComponent(box3));
 		hGroup.addGap(10);
 		hGroup.addGroup(layout.createParallelGroup().addComponent(sure));
-		
 		//垂直连续组
 		GroupLayout.SequentialGroup vGroup = 
 				layout.createSequentialGroup();
@@ -94,6 +93,7 @@ public class OrderPanel extends JPanel {
 				.addComponent(sure));
 		
 		layout.setHorizontalGroup(hGroup);
+		layout.setVerticalGroup(vGroup);
 		this.add(title,BorderLayout.NORTH);
 		
 		//展示的列表
@@ -117,7 +117,6 @@ public class OrderPanel extends JPanel {
 				Object[][] list = cs.getList((String)(box1.getSelectedItem()),(String)box2.getSelectedItem(),(String)box3.getSelectedItem());
 				modle.upd(list);
 				table.repaint();
-				
 			}
 			
 		});	
@@ -127,7 +126,9 @@ public class OrderPanel extends JPanel {
 				int row = table.getSelectedRow();
 				int line = table.getSelectedColumn();
 				if(line==0){
-					System.out.println("use team");
+					JButton m = (JButton)table.getValueAt(row,line);
+					String name = m.getText();
+					cs.findAim(name);
 					
 				}
 			}

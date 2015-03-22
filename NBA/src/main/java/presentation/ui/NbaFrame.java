@@ -99,6 +99,7 @@ class NbaFrame extends JFrame{
 	
 	public static void main(String[] args){
 		NbaFrame f= new NbaFrame();
+		System.out.println("ui finish");
 	}
 }
 
