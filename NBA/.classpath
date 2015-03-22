@@ -23,5 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA_SE-III/NBA/lib/batik-1.7/batik.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

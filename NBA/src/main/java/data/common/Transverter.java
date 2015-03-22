@@ -15,7 +15,7 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 public class Transverter {
 
 	
-	public static void convertToPngByFIle(String svgPath,String pngPath){
+	public void convertToPngByFIle(String svgPath,String pngPath){
 		FileInputStream svgStream=null;
 		FileOutputStream pngStream=null;
 		try {
