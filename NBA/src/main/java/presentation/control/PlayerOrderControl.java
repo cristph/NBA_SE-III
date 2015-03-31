@@ -88,7 +88,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
 			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =nf.format(temp.getRate());
+			t[i][17] =Double.toString(temp.getRate());
 			t[i][18] =Double.toString(temp.getGMSC());
 			t[i][19] =nf.format(temp.getRealHitRate());
 			t[i][20] =nf.format(temp.getThrowRate());
@@ -145,7 +145,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
 			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =temp.getRate();
+			t[i][17] =Double.toString(temp.getRate());
 			t[i][18] =Double.toString(temp.getGMSC());
 			t[i][19] =temp.getRealHitRate();
 			t[i][20] =temp.getThrowRate();

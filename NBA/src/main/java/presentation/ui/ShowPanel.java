@@ -143,7 +143,7 @@ public class ShowPanel extends JPanel{
 			t[0][14] =Double.toString(temp.getErrorNum());
 			t[0][15] =Double.toString(temp.getFoulNum());
 			t[0][16] =Double.toString(temp.getScore());
-			t[0][17] =nf.format(temp.getRate());
+			t[0][17] =Double.toString(temp.getRate());
 			t[0][18] =Double.toString(temp.getGMSC());
 			t[0][19] =nf.format(temp.getRealHitRate());
 			t[0][20] =nf.format(temp.getThrowRate());
