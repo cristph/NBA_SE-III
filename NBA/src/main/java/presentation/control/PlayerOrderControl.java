@@ -77,7 +77,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][3] = Integer.toString(temp.getFirstTime());
 			t[i][4] = Double.toString(temp.getRebTotalNum());
 			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime());
+			t[i][6] = Double.toString(temp.getTime()/3600)+"小时";
 			t[i][7] = nf.format(temp.getShooting());
 			t[i][8] = nf.format(temp.getThreeRate());
 			t[i][9] = nf.format(temp.getFreeRate());
@@ -134,7 +134,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][3] = Integer.toString(temp.getFirstTime());
 			t[i][4] = Double.toString(temp.getRebTotalNum());
 			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime());
+			t[i][6] = Double.toString(temp.getTime()/3600)+"小时";
 			t[i][7] = temp.getShooting();
 			t[i][8] = temp.getThreeRate();
 			t[i][9] = temp.getFreeRate();

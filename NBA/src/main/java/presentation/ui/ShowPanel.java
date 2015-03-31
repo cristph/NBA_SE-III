@@ -132,7 +132,7 @@ public class ShowPanel extends JPanel{
 			t[0][3] = Integer.toString(temp.getFirstTime());
 			t[0][4] = Double.toString(temp.getRebTotalNum());
 			t[0][5] = Double.toString(temp.getAssistNum());
-			t[0][6] = Double.toString(temp.getTime());
+			t[0][6] = Double.toString(temp.getTime()/3600)+"小时";
 			t[0][7] = nf.format(temp.getShooting());
 			t[0][8] = nf.format(temp.getThreeRate());
 			t[0][9] = nf.format(temp.getFreeRate());
@@ -165,7 +165,7 @@ public class ShowPanel extends JPanel{
 			t[0][3] = Integer.toString(temp.getFirstTime());
 			t[0][4] = Double.toString(temp.getRebTotalNum());
 			t[0][5] = Double.toString(temp.getAssistNum());
-			t[0][6] = Double.toString(temp.getTime());
+			t[0][6] = Double.toString(temp.getTime()/3600)+"小时";
 			t[0][7] = "无" ;
 			t[0][8] = "无" ;
 			t[0][9] = "无" ;
