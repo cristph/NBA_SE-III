@@ -73,6 +73,8 @@ public class ShowPanel extends JPanel{
 				if(all.isSelected()){
 					Object list1[][] = changeList("all");
 					modle.upd(list1);
+					repaint();
+					revalidate();
 				}
 				else{
 					Object list1[][] = changeList("ave");
@@ -196,8 +198,8 @@ public class ShowPanel extends JPanel{
 		Object[][] t1 = new Object[1][26];
 		TeamVO temp = tvo;
 		if(aim.equals("all")){
-			t1[0][0] = temp.getShootNum();
-			t1[0][1] = temp.getHitShootNum();
+			t1[0][0] = temp.getHitShootNum();
+			t1[0][1] = temp.getShootNum();
 			t1[0][2] = temp.getThreePointNum();
 			t1[0][3] = temp.getThreeShootNum();
 			t1[0][4] = temp.getFreeHitNum();
@@ -224,8 +226,8 @@ public class ShowPanel extends JPanel{
 			t1[0][25] = temp.getAssistrate();
 		}
 		else{
-			t1[0][0] = temp.getShootNumave();
-			t1[0][1] = temp.getHitShootNumave();
+			t1[0][0] = temp.getHitShootNumave();
+			t1[0][1] = temp.getShootNumave();
 			t1[0][2] = temp.getThreePointNumave();
 			t1[0][3] = temp.getThreeShootNumave();
 			t1[0][4] = temp.getFreeHitNumave();
