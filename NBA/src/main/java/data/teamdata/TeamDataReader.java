@@ -68,14 +68,18 @@ public class TeamDataReader implements TeamDataReadService {
 	}
 
 	public HashMap<String, Image> getTeamImage() {
-		
-		convertSvg();
-		HashMap<String,Image> imgMap=new HashMap<String,Image>();
-		
 		String imgPath="data/teamPng";
+		File file=new File(imgPath);
+		File array[]=file.listFiles();
 		
-		File root=new File(imgPath);
-		File array[]=root.listFiles();
+		System.out.println("teamPng.length"+array.length);
+		if(array.length==0){
+		convertSvg();
+		}
+		
+		HashMap<String,Image> imgMap=new HashMap<String,Image>();
+		array=file.listFiles();
+		
 		for(int i=0;i<array.length;i++)
 		{
 			String fileName=array[i].getName();
@@ -87,7 +91,6 @@ public class TeamDataReader implements TeamDataReadService {
 				imgMap.put(teamName, img);
 			}
 		}
-		
 		
 		return imgMap;
 	}
