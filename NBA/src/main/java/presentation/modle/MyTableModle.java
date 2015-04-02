@@ -47,7 +47,6 @@ public class MyTableModle extends AbstractTableModel{
      }
 	 
 	 public Class<?> getColumnClass(int columnIndex) {
-		 System.out.println("gggg"+columnIndex);
 		   return list[0][columnIndex].getClass();
       }
 	 
