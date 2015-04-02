@@ -4,9 +4,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,17 +21,15 @@ public class TeamDataReader implements TeamDataReadService {
 
     public ArrayList<TeamPO> getTeamPo() {
 
-		// TODO Auto-generated method stub
 		String txtPath="data/teams/teams.txt";
 		String imgPath="data/teamPng";
 		ArrayList<TeamPO> result=new ArrayList<TeamPO>();
 		
-		File file=new File(txtPath);
-		
 		try 
 		{
 			Filter filter=new Filter();
-			FileReader 	inOne = new FileReader(file);
+			InputStream in=new FileInputStream(txtPath);
+			InputStreamReader 	inOne = new InputStreamReader(in,"UTF-8");
 			BufferedReader inTwo=new BufferedReader(inOne);
 			String line=inTwo.readLine();
 			int row=1;
@@ -72,7 +72,6 @@ public class TeamDataReader implements TeamDataReadService {
 		File file=new File(imgPath);
 		File array[]=file.listFiles();
 		
-		System.out.println("teamPng.length"+array.length);
 		if(array.length==0){
 		convertSvg();
 		}
@@ -114,14 +113,5 @@ public class TeamDataReader implements TeamDataReadService {
 				ts.convertToPngByFIle(sourceImg+"/"+fileName,pngPath );
 			}
 		}
-	}
-	
-	public static void main(String[] args){
-		TeamDataReader tdr=new TeamDataReader();
-		HashMap<String,Image> map=tdr.getTeamImage();
-		
-	}
-	
-	
-	
+	}	
 }

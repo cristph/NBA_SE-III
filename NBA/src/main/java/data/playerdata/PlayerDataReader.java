@@ -3,12 +3,16 @@ package data.playerdata;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
-import java.io.File;
+
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import data.common.Filter;
 import po.PlayerPO;
 
@@ -23,12 +27,13 @@ public class PlayerDataReader implements PlayerDataReadService {
 		Filter filter=new Filter();
 		try {
 			String path="data/players/info"+"/"+playerName;
-			FileReader inOne=new FileReader(new File(path));
+			InputStream in=new FileInputStream(path);
+			InputStreamReader inOne=new InputStreamReader(in,"UTF-8");
+			
 			BufferedReader inTwo=new BufferedReader(inOne);
 			int row=1;
 			
 			String line=null;
-	       // line=inTwo.readLine();
 	       
 			while((line=inTwo.readLine())!=null)
 			{
@@ -161,7 +166,6 @@ public class PlayerDataReader implements PlayerDataReadService {
 			birthYear=Integer.parseInt(year);
 		    String date=year+"-"+month+"-"+day;
 	        
-		    System.out.println(date);
 		    
 		    boolean b1=(year==null);
 		    boolean b2=(month==null);

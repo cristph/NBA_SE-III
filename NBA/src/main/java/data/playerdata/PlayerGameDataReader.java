@@ -143,7 +143,6 @@ public class PlayerGameDataReader implements PlayerGameDataReadService{
 		 tim=Integer.parseInt(time[0])*60;	
 	    temp.setTime(tim);
 	    
-		
 		int data[]=new int[15];
 		
 		for(int i=3;i<info.length;i++)
@@ -155,7 +154,6 @@ public class PlayerGameDataReader implements PlayerGameDataReadService{
 		{
 			data[i-3]=-1;
 			temp.setDirty(true);
-			System.out.println(currentDate+"/"+currentPair+"/"+currentPlayer);
 		}
 		}
 		
@@ -184,15 +182,6 @@ public class PlayerGameDataReader implements PlayerGameDataReadService{
 		temp.setMatchPair(currentPair);
 		temp.setMatchResult(currentResult);
 		temp.setTeam(currentTeam);
-		
-		
-		/*投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;
-		 * 进攻（前场）篮板数;防守（后场）篮板数;总篮板数;助攻数;抢断数;盖帽数;失误 数;
-		 * 犯规数;个人得分;
-		 */
-		
-		
-		
 		
 		return temp;
 		

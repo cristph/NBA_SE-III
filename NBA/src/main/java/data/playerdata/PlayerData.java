@@ -36,10 +36,8 @@ public class PlayerData implements PlayerDataService {
 	}
 
 	public ArrayList<PlayerAllGamePO> getPlayerGameData() {
-		// TODO Auto-generated method stub
 		PlayerGameDataReadService pgds=new PlayerGameDataReader();
 		HashMap<String,PlayerAllGamePO> result=pgds.getPlayerGamePo();
-		//System.out.println("HashMap的长度是"+result.size());
 		java.util.Iterator<String> it=result.keySet().iterator();
 		ArrayList<PlayerAllGamePO> list=new ArrayList<PlayerAllGamePO>();
 		while(it.hasNext()){
