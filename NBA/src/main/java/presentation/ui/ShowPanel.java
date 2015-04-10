@@ -73,8 +73,6 @@ public class ShowPanel extends JPanel{
 				if(all.isSelected()){
 					Object list1[][] = changeList("all");
 					modle.upd(list1);
-					repaint();
-					revalidate();
 				}
 				else{
 					Object list1[][] = changeList("ave");
@@ -132,7 +130,7 @@ public class ShowPanel extends JPanel{
 			t[0][3] = Integer.toString(temp.getFirstTime());
 			t[0][4] = Double.toString(temp.getRebTotalNum());
 			t[0][5] = Double.toString(temp.getAssistNum());
-			t[0][6] = Double.toString(temp.getTime()/3600)+"小时";
+			t[0][6] = Double.toString(temp.getTime());
 			t[0][7] = nf.format(temp.getShooting());
 			t[0][8] = nf.format(temp.getThreeRate());
 			t[0][9] = nf.format(temp.getFreeRate());
@@ -143,7 +141,7 @@ public class ShowPanel extends JPanel{
 			t[0][14] =Double.toString(temp.getErrorNum());
 			t[0][15] =Double.toString(temp.getFoulNum());
 			t[0][16] =Double.toString(temp.getScore());
-			t[0][17] =Double.toString(temp.getRate());
+			t[0][17] =nf.format(temp.getRate());
 			t[0][18] =Double.toString(temp.getGMSC());
 			t[0][19] =nf.format(temp.getRealHitRate());
 			t[0][20] =nf.format(temp.getThrowRate());
@@ -165,7 +163,7 @@ public class ShowPanel extends JPanel{
 			t[0][3] = Integer.toString(temp.getFirstTime());
 			t[0][4] = Double.toString(temp.getRebTotalNum());
 			t[0][5] = Double.toString(temp.getAssistNum());
-			t[0][6] = Double.toString(temp.getTime()/3600)+"小时";
+			t[0][6] = Double.toString(temp.getTime());
 			t[0][7] = "无" ;
 			t[0][8] = "无" ;
 			t[0][9] = "无" ;
@@ -198,8 +196,8 @@ public class ShowPanel extends JPanel{
 		Object[][] t1 = new Object[1][26];
 		TeamVO temp = tvo;
 		if(aim.equals("all")){
-			t1[0][0] = temp.getHitShootNum();
-			t1[0][1] = temp.getShootNum();
+			t1[0][0] = temp.getShootNum();
+			t1[0][1] = temp.getHitShootNum();
 			t1[0][2] = temp.getThreePointNum();
 			t1[0][3] = temp.getThreeShootNum();
 			t1[0][4] = temp.getFreeHitNum();
@@ -226,8 +224,8 @@ public class ShowPanel extends JPanel{
 			t1[0][25] = temp.getAssistrate();
 		}
 		else{
-			t1[0][0] = temp.getHitShootNumave();
-			t1[0][1] = temp.getShootNumave();
+			t1[0][0] = temp.getShootNumave();
+			t1[0][1] = temp.getHitShootNumave();
 			t1[0][2] = temp.getThreePointNumave();
 			t1[0][3] = temp.getThreeShootNumave();
 			t1[0][4] = temp.getFreeHitNumave();

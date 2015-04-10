@@ -1,6 +1,8 @@
 package data.common;
 
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,8 +16,10 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 
 public class Transverter {
 
+
 	
 	public void convertToPngByFIle(String svgPath,String pngPath){
+
 		FileInputStream svgStream=null;
 		FileOutputStream pngStream=null;
 		try {
@@ -43,4 +47,13 @@ public class Transverter {
 		
 		
 	}
+
+    public void convertFileToTxt(){
+    	try {
+			Desktop.getDesktop().open(new File("data/matches/pl.bat"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 }

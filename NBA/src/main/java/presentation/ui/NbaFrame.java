@@ -98,11 +98,8 @@ class NbaFrame extends JFrame{
 	
 	
 	public static void main(String[] args){
-		double time1=System.currentTimeMillis();
-	
 		NbaFrame f= new NbaFrame();
-		double time2=System.currentTimeMillis();
-		System.out.println("时间是"+(time2-time1));
+		System.out.println("ui finish");
 	}
 }
 

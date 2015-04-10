@@ -77,7 +77,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][3] = Integer.toString(temp.getFirstTime());
 			t[i][4] = Double.toString(temp.getRebTotalNum());
 			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime()/3600)+"小时";
+			t[i][6] = Double.toString(temp.getTime());
 			t[i][7] = nf.format(temp.getShooting());
 			t[i][8] = nf.format(temp.getThreeRate());
 			t[i][9] = nf.format(temp.getFreeRate());
@@ -88,7 +88,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
 			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =Double.toString(temp.getRate());
+			t[i][17] =nf.format(temp.getRate());
 			t[i][18] =Double.toString(temp.getGMSC());
 			t[i][19] =nf.format(temp.getRealHitRate());
 			t[i][20] =nf.format(temp.getThrowRate());
@@ -134,7 +134,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][3] = Integer.toString(temp.getFirstTime());
 			t[i][4] = Double.toString(temp.getRebTotalNum());
 			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime()/3600)+"小时";
+			t[i][6] = Double.toString(temp.getTime());
 			t[i][7] = temp.getShooting();
 			t[i][8] = temp.getThreeRate();
 			t[i][9] = temp.getFreeRate();
@@ -145,7 +145,7 @@ public class PlayerOrderControl implements ControlService{
 			t[i][14] =Double.toString(temp.getErrorNum());
 			t[i][15] =Double.toString(temp.getFoulNum());
 			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =Double.toString(temp.getRate());
+			t[i][17] =temp.getRate();
 			t[i][18] =Double.toString(temp.getGMSC());
 			t[i][19] =temp.getRealHitRate();
 			t[i][20] =temp.getThrowRate();

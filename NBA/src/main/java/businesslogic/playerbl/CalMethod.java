@@ -18,12 +18,9 @@ public class CalMethod {
 	
 	public double calEfficiency(int rebTotalNum, int assistNum, int stealNum,
 			int blockNum, int errorNum, int score, 
-			int hitShootNum, int shootNum, int freeHitNum,int freeNum,int inTime){
-		if(inTime==0){
-			return 0;
-		}
+			int hitShootNum, int shootNum, int freeHitNum,int freeNum){
 		return 1.0*((score+rebTotalNum+assistNum+assistNum+blockNum)
-				-(shootNum-hitShootNum)-(freeNum-freeHitNum)-errorNum)/inTime;
+				-(shootNum-hitShootNum)-(freeNum-freeHitNum)-errorNum);
 	}
 	
 	public double calGmScEfficiency(int rebAttNum, int rebDefNum, int assistNum, int stealNum,

@@ -185,7 +185,7 @@ public class PlayerCalculator {
 			    double shooting=cm.calRate(hitShootNum, shootNum);//投篮命中率
 			    double threeRate=cm.calRate(threePointNum, threeShootNum);//三分命中率
 			    double freeRate=cm.calRate(freeHitNum, freeNum);//罚球命中率
-			    double rate=cm.calEfficiency(rebTotalNum, assistNum, stealNum, blockNum, teamErrorNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum, pgSize);//效率
+			    double rate=cm.calEfficiency(rebTotalNum, assistNum, stealNum, blockNum, teamErrorNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//效率
 			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, teamErrorNum, foulNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//GmSc效率
 			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
 			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率

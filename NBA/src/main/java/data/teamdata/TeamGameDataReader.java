@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data.common.Monitor;
+
 import po.TeamAllGamePO;
 import po.TeamGamePO;
 
@@ -39,22 +41,57 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 	private int error=0;
 	private int foul=0;
 	
-	HashMap<String,TeamAllGamePO> map=new HashMap<String,TeamAllGamePO>();
+    static HashMap<String,TeamAllGamePO> map=new HashMap<String,TeamAllGamePO>();
+    static boolean First=true;
+    //private HashMap<String,TeamAllGamePO> myMap=new HashMap<String,TeamAllGamePO>();
 	
 	public HashMap<String, TeamAllGamePO> getTeamAllGamePo() {
 		// TODO Auto-generated method stub
+   		
+		if(First){
+		 // ts.convertFileToTxt();
+	      loadTeamData();
+	      First=false;
+	      if(Monitor.obNum==0){
+		  Monitor m=new Monitor();
+		  Thread dataTest=new Thread(m);
+		  dataTest.start();
+	      }
+		}
 		
+		return map;
+	}
+	public void loadTeamData(){
+		map.clear();
 		String path="data/matches";
 		File root=new File(path);
 		File array[]=root.listFiles();
-	    for(int i=0;i<array.length;i++)
+	    try{
+		for(int i=0;i<array.length;i++)
 	    {
-	       isDirty=false;
 	       File file=array[i];
-	       String fileName=file.getName();
-	       currentSeason=fileName.substring(0, 5);
-	       try {
-			FileReader inOne=new FileReader(file);
+	       processFile(file);
+	    }
+	    }catch(Exception e){
+	    	
+	    }
+	//	map=new HashMap<String,TeamAllGamePO>(myMap);
+	  
+	}
+	
+	
+	
+	public void processFile(File f){
+		
+		String fileName=f.getName();
+	
+		
+		isDirty=false;
+	     
+	    currentSeason=fileName.substring(0, 5);
+	     
+	     try {
+			FileReader inOne=new FileReader(f);
 			BufferedReader inTwo=new BufferedReader(inOne);
 			
 			String line=null;
@@ -82,8 +119,8 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 				}	
 				else if((line.length()<=4)&&(row!=3))
 				{
-                    po1=setTeamData(po1);
-                    
+                 po1=setTeamData(po1);
+                 
 					team2=line;
 					initPO(po2);
 					initData();
@@ -109,9 +146,7 @@ public class TeamGameDataReader implements TeamGameDataReadService {
 			e.printStackTrace();
 		}
 	  }
-		
-		return map;
-	}
+	
 	
 	
 	private void revertResult(TeamGamePO po){
