@@ -3,10 +3,16 @@ package businesslogic.playerbl;
 import java.util.ArrayList;
 
 import businesslogicservice.playerblservice.PlayerBLService;
+import test.data.PlayerHighInfo;
+import test.data.PlayerHotInfo;
+import test.data.PlayerKingInfo;
+import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
+import value.Value.Age;
+import value.Value.Field;
+import value.Value.League;
 import value.Value.Order;
-import value.Value.Zone;
-import vo.PlayerInfoVO;
+import value.Value.Position;
 import vo.PlayerVO;
 
 public class PlayerBLController implements PlayerBLService{
@@ -16,7 +22,9 @@ public class PlayerBLController implements PlayerBLService{
 	public PlayerBLController(){
 		pc=new PlayerCalculator();
 	}
-
+	
+	/*
+	 * old lines
 	public PlayerVO getPlayerTotalInfo(String name) {
 		// TODO Auto-generated method stub
 		PlayerVO pv=pc.getPlayerInfo(name);
@@ -50,6 +58,100 @@ public class PlayerBLController implements PlayerBLService{
 			ArrayList<PlayerInfoVO> res=pc.getTotalTopList(order, stan, pos, zone);
 			return res;
 		}
+		return null;
+	}
+	*
+	*/
+	
+	
+	/*
+	 * now begin new lines
+	 * @date 2015-4-13
+	 */
+	
+	/*
+	 * 获取进步最快球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerHotInfo>
+	 */
+	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取当天热点球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerKingInfo>
+	 */
+	public ArrayList<PlayerKingInfo> getSeasonKingPlayer(Field field,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取赛季热点球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerKingInfo>
+	 */
+	public ArrayList<PlayerKingInfo> getDailyKingPlayer(Field field,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取球员赛季高阶数据
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerHighInfo>
+	 */
+	public ArrayList<PlayerHighInfo> getPlayerHighInfo(PlayerStandard ps,Order order,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取球员赛季 平均 基本数据
+	 * @param pos 筛选条件：位置
+	 * @param lea 筛选条件：赛区
+	 * @param age 筛选条件：年龄
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerNormalInfo>
+	 */
+	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(Position pos,League lea,Age age,
+			PlayerStandard ps,Order order,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取球员赛季 总和 基本数据
+	 * @param pos 筛选条件：位置
+	 * @param lea 筛选条件：赛区
+	 * @param age 筛选条件：年龄
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerNormalInfo>
+	 */
+	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfo(Position pos,League lea,Age age,
+			PlayerStandard ps,Order order,int num){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取球员基本信息，如身高体重、照片等
+	 * @param name:球员名
+	 * @return PlayerVO
+	 */
+	public PlayerVO getPlayerInfo(String name){
 		return null;
 	}
 	

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import value.PlayerStandard;
 import value.Value.Order;
-import value.Value.Zone;
+import value.Value.league;
 import vo.PlayerInfoVO;
 import vo.PlayerVO;
 
@@ -29,7 +29,7 @@ public class palyermain {
 	
 	public static void test2(){
 		PlayerBLController p=new PlayerBLController();
-		ArrayList<PlayerInfoVO> lis=p.getPlayerTop_50(Order.DOWN, PlayerStandard.doub, "ALL", Zone.ALL);
+		ArrayList<PlayerInfoVO> lis=p.getPlayerTop_50(Order.dsec, PlayerStandard.doub, "ALL", league.All);
 		for(int i=0;i<lis.size();i++){
 			PlayerInfoVO pp=lis.get(i);
 			System.out.println(pp.getDoub()+" "+pp.getName()+" "+pp.getTeam());
@@ -38,7 +38,7 @@ public class palyermain {
 	
 	public static void test3(){
 		PlayerBLController p=new PlayerBLController();
-		ArrayList<PlayerInfoVO> lis=p.getPlayerAvgInOrder(Order.DOWN, PlayerStandard.score);
+		ArrayList<PlayerInfoVO> lis=p.getPlayerAvgInOrder(Order.dsec, PlayerStandard.score);
 		for(int i=0;i<lis.size();i++){
 			PlayerInfoVO pp=lis.get(i);
 			System.out.println(pp.getScore()+" "+pp.getName()+" "+pp.getTeam());

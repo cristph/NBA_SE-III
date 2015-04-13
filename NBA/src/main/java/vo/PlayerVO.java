@@ -21,13 +21,10 @@ public class PlayerVO {
     String school;
     Image pic;
     Image action;//动作图片
-    PlayerInfoVO  all;
-    PlayerInfoVO avg;//平均的
     
 	public PlayerVO(String name, String team, String number, String position,
 			String height, String weight, String birth, String age, String exp,
-			String school, Image pic, Image action, PlayerInfoVO all,
-			PlayerInfoVO avg) {
+			String school, Image pic, Image action) {
 		super();
 		this.name = name;
 		this.team = team;
@@ -41,8 +38,6 @@ public class PlayerVO {
 		this.school = school;
 		this.pic = pic;
 		this.action = action;
-		this.all = all;
-		this.avg = avg;
 	}
 	
 	public String getName() {
@@ -77,12 +72,6 @@ public class PlayerVO {
 	}
 	public Image getAction() {
 		return action;
-	}
-	public PlayerInfoVO getAll() {
-		return all;
-	}
-	public PlayerInfoVO getAvg() {
-		return avg;
 	}
 	public String getNumber() {
 		return number;
