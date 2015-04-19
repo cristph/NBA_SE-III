@@ -2,14 +2,17 @@ package presentation.control;
 
 import java.awt.Image;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 
 import presentation.ui.PlayerFrame;
+import test.data.PlayerHighInfo;
+import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
-import value.Value.Order;
+import value.Value.*;
 import vo.PlayerInfoVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
@@ -17,6 +20,18 @@ import businesslogicservice.playerblservice.PlayerBLService;
 public class PlayerOrderControl implements ControlService{
 
 	PlayerBLService ps = new PlayerBLController();
+	String title1[] = {"球员","球队","出场"
+			,"首发","时间/分钟","得分"
+			,"篮板","助攻","防守",
+			"盖帽","失误","犯规"
+			,"进攻数","抢断数","投篮命中数"
+			,"投篮命中率","三分命中率","效率"};
+	String title2[] = {"球员","球队","助攻率"
+			,"盖帽率","防守篮板率","进攻篮板率"
+			,"失误率","使用率","gmsc"
+			,"真实命中率","篮板率","投篮效率"
+			,"抢断率"};
+	String title[] = title1;
 	/*
 	 * (non-Javadoc)
 	 * @see presentation.control.ControlService#getOrder(int)
@@ -29,17 +44,17 @@ public class PlayerOrderControl implements ControlService{
 			return m;
 		}
 		if(i==2){
-			String title1[] = {"球员名称","所属球队","参赛场数"
+			String title1[] = {"得分","球员名称","所属球队","参赛场数"
 					,"先发场数","篮板数","助攻数","在场时间"
-					,"投篮命中率","三分命中率","罚球命中率"
-					,"进攻数","防守数","抢断数","盖帽数"
-					,"失误数","犯规数","得分","效率","GmSc"
+					,"投篮命中率","三分命中率",
+					"进攻数","防守数","抢断数","盖帽数"
+					,"失误数","犯规数","效率","GmSc"
 					,"真实命中率","投篮效率", "篮板率"
 					,"进攻篮板率","防守篮板率","助攻率","抢断率"
 					,"盖帽率","失误率","使用率"};
 			return title1;
 		}
-		String t[] ={"升序","降序"};
+		String t[] ={"降序","升序"};
 		return t;
 		
 		
@@ -47,62 +62,15 @@ public class PlayerOrderControl implements ControlService{
 
 
 	public String[] firstTitle() {
+				
 		
-		String title1[] = {"球员名称","所属球队","参赛场数"
-				,"先发场数","篮板数","助攻数","在场时间"
-				,"投篮命中率","三分命中率","罚球命中率"
-				,"进攻数","防守数","抢断数","盖帽数"
-				,"失误数","犯规数","得分","效率","GmSc"
-				,"真实命中率","投篮效率", "篮板率"
-				,"进攻篮板率","防守篮板率","助攻率","抢断率"
-				,"盖帽率","失误率","使用率"};
-		return title1;
+		return title;
 	}
 
 	public Object[][] firstObj() {
-		// 返回排序的列表
-		//变为百分数
-		NumberFormat nf = NumberFormat.getPercentInstance();
-		nf.setMinimumFractionDigits(2);//设置保留小数位
-		nf.setRoundingMode(RoundingMode.HALF_UP); //设置舍入模式
 		
-		//
-		ArrayList<PlayerInfoVO> info = ps.getPlayerAvgInOrder(Order.DOWN, PlayerStandard.score);
-		Object[][] t = new Object[info.size()][29];
-		for(int i=0;i<info.size();i++){
-			PlayerInfoVO temp = info.get(i);
-			t[i][0] = new JButton(temp.getName());
-			t[i][1] = temp.getTeam();
-			t[i][2] = Integer.toString(temp.getInTime());
-			t[i][3] = Integer.toString(temp.getFirstTime());
-			t[i][4] = Double.toString(temp.getRebTotalNum());
-			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime());
-			t[i][7] = nf.format(temp.getShooting());
-			t[i][8] = nf.format(temp.getThreeRate());
-			t[i][9] = nf.format(temp.getFreeRate());
-			t[i][10] =Double.toString(temp.getRebAttNum());
-			t[i][11] =Double.toString(temp.getRebDefNum());
-			t[i][12] =Double.toString(temp.getStealNum());
-			t[i][13] =Double.toString(temp.getBlockNum());
-			t[i][14] =Double.toString(temp.getErrorNum());
-			t[i][15] =Double.toString(temp.getFoulNum());
-			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =nf.format(temp.getRate());
-			t[i][18] =Double.toString(temp.getGMSC());
-			t[i][19] =nf.format(temp.getRealHitRate());
-			t[i][20] =nf.format(temp.getThrowRate());
-			t[i][21] =nf.format(temp.getRebRate());
-			t[i][22] =nf.format(temp.getAttRebRate());
-			t[i][23] =nf.format(temp.getDefRebRate());
-			t[i][24] =nf.format(temp.getAssistRate());
-			t[i][25] =nf.format(temp.getStealRate());
-			t[i][26] =nf.format(temp.getBlockRate());
-			t[i][27] =nf.format(temp.getErrorRate());
-			t[i][28] =nf.format(temp.getUsedRate());			
-			
-		}
-		return t;
+		
+		return getList("总数据","得分","降序");
 	}
 
 
@@ -111,78 +79,77 @@ public class PlayerOrderControl implements ControlService{
 	 * 三个String分别是第一项下拉框第二项下拉框第三项下拉框的选项
 	 * 见  getOrder
 	 */
+	
 	public Object[][] getList(String kind, String stand, String order) {
 		// 返回排序的列表
-		ArrayList<PlayerInfoVO> info;
-		Order or = Order.DOWN;
+		Order or = Order.dsec;
 		if(order.equals("升序")){
-			or = Order.UP;
+			or = Order.asc;
 		}
 		PlayerStandard stan = getStan(stand);
-		if(kind.equals("总数据")){
-			info = ps.getPlayerTotalInOrder(or, stan);
+		DecimalFormat df=new DecimalFormat(".##");
+		//对基本数据进行排序
+		if(stan!=null){
+		    ArrayList<PlayerNormalInfo> info;
+		    if(kind.equals("总数据")){
+			    info = ps.getPlayerTotalNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+		    }
+		    else{
+			    info = ps.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+		    }
+		    Object[][] t = new Object[info.size()][18];
+		    title = title1;
+		    for(int i=0;i<info.size();i++){
+			    PlayerNormalInfo temp = info.get(i);
+			    t[i][0] = new JButton(temp.getName());
+			    t[i][1] = temp.getTeamName();
+			    t[i][2] = temp.getNumOfGame();
+			    t[i][3] = temp.getStart();
+			    t[i][4] = df.format(temp.getMinute());
+			    t[i][5] = df.format(temp.getPoint());
+			    t[i][6] = df.format(temp.getRebound());
+			    t[i][7] = df.format(temp.getAssist());
+			    t[i][8] = df.format(temp.getDefend());
+			    t[i][9] = df.format(temp.getBlockShot());
+			    t[i][10]= df.format(temp.getFault());
+			    t[i][11]= df.format(temp.getFoul());
+			    t[i][12] =df.format(temp.getOffend());
+			    t[i][13] = df.format(temp.getSteal());
+			    t[i][14] = df.format(temp.getShot());
+			    t[i][15] = df.format(temp.getPenalty());
+							
+			
+		    }
+		    return t;
 		}
 		else{
-			info = ps.getPlayerAvgInOrder(or, stan);
-		}
-		Object[][] t = new Object[info.size()][29];
-		for(int i=0;i<info.size();i++){
-			PlayerInfoVO temp = info.get(i);
-			t[i][0] = new JButton(temp.getName());
-			t[i][1] = temp.getTeam();
-			t[i][2] = Integer.toString(temp.getInTime());
-			t[i][3] = Integer.toString(temp.getFirstTime());
-			t[i][4] = Double.toString(temp.getRebTotalNum());
-			t[i][5] = Double.toString(temp.getAssistNum());
-			t[i][6] = Double.toString(temp.getTime());
-			t[i][7] = temp.getShooting();
-			t[i][8] = temp.getThreeRate();
-			t[i][9] = temp.getFreeRate();
-			t[i][10] =Double.toString(temp.getRebAttNum());
-			t[i][11] =Double.toString(temp.getRebDefNum());
-			t[i][12] =Double.toString(temp.getStealNum());
-			t[i][13] =Double.toString(temp.getBlockNum());
-			t[i][14] =Double.toString(temp.getErrorNum());
-			t[i][15] =Double.toString(temp.getFoulNum());
-			t[i][16] =Double.toString(temp.getScore());
-			t[i][17] =temp.getRate();
-			t[i][18] =Double.toString(temp.getGMSC());
-			t[i][19] =temp.getRealHitRate();
-			t[i][20] =temp.getThrowRate();
-			t[i][21] =temp.getRebRate();
-			t[i][22] =temp.getAttRebRate();
-			t[i][23] =temp.getDefRebRate();
-			t[i][24] =temp.getAssistRate();
-			t[i][25] =temp.getStealRate();
-			t[i][26] =temp.getBlockRate();
-			t[i][27] =temp.getErrorRate();
-			t[i][28] =temp.getUsedRate();		
-			
-		}
-		if(kind.equals("平均数据")){
+			stan = getStan1(stand);
+			title = title2;
+			ArrayList<PlayerHighInfo> info = ps.getPlayerHighInfo(stan, or, -1);
+			Object[][] t = new Object[info.size()][13];
+			//百分数格式化
+			NumberFormat fmt = NumberFormat.getPercentInstance();
+			fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
 			for(int i=0;i<info.size();i++){
-				t[i][7] = "无";
-				t[i][8] = "无";
-				t[i][9] = "无";
-				t[i][17] ="无";
-				t[i][18] ="无";
-				t[i][19] ="无";
-				t[i][20] ="无";
-				t[i][21] ="无";
-				t[i][22] ="无";
-				t[i][23] ="无";
-				t[i][24] ="无";
-				t[i][25] ="无";
-				t[i][26] ="无";
-				t[i][27] ="无";
-				t[i][28] ="无";	
+				PlayerHighInfo temp = info.get(i);
+				t[i][0] = new JButton(temp.getName());
+				t[i][1] = temp.getTeamName();
+				t[i][2] = fmt.format(temp.getAssistEfficient());
+				t[i][3] = fmt.format(temp.getBlockShotEfficient());
+				t[i][4] = fmt.format(temp.getDefendReboundEfficient());
+				t[i][5] = fmt.format(temp.getOffendReboundEfficient());
+				t[i][6] = fmt.format(temp.getFaultEfficient());
+				t[i][7] = fmt.format(temp.getFrequency());
+				t[i][8] = df.format(temp.getGmSc());
+				t[i][9] = fmt.format(temp.getRealShot());
+				t[i][10]= fmt.format(temp.getReboundEfficient());
+				t[i][11]= fmt.format(temp.getShotEfficient());
+				t[i][12] =fmt.format(temp.getStealEfficient());
 			}
+			return t;
 		}
-		
-		return t;
 	
 	}
-
 	private PlayerStandard getStan(String stand) {
 		// 把排序标准变为枚举类
 		if(stand.equals("球员名称")){
@@ -206,7 +173,7 @@ public class PlayerOrderControl implements ControlService{
 		if(stand.equals("在场时间")){
 			return PlayerStandard.time;
 		}
-		//
+		
 		if(stand.equals("投篮命中率")){
 			return PlayerStandard.shooting;
 		}
@@ -214,9 +181,9 @@ public class PlayerOrderControl implements ControlService{
 			return PlayerStandard.threeRate;
 		}
 		
-		if(stand.equals("罚球命中率")){
+	   /*	if(stand.equals("罚球命中率")){
 			return PlayerStandard.freeRate;
-		}
+		}*/
 		if(stand.equals("进攻数")){
 			return PlayerStandard.rebAttNum;
 		}
@@ -241,6 +208,11 @@ public class PlayerOrderControl implements ControlService{
 		if(stand.equals("效率")){
 			return PlayerStandard.rate;
 		}
+			return null;
+			
+	}
+	
+	private PlayerStandard getStan1(String stand) {
 		if(stand.equals("GmSc")){
 			return PlayerStandard.GMSC;
 		}
@@ -271,9 +243,10 @@ public class PlayerOrderControl implements ControlService{
 		if(stand.equals("失误率")){
 			return PlayerStandard.errorRate;
 		}
-			return PlayerStandard.assistNum;
-			
+			return PlayerStandard.usedRate;
 	}
+	
+	
 
 
 	public void findAim(String name) {

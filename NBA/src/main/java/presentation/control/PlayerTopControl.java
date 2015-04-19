@@ -1,13 +1,15 @@
 package presentation.control;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 
 import presentation.ui.PlayerFrame;
+import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
 import value.Value.Order;
-import value.Value.Zone;
+import value.Value.*;
 import vo.PlayerInfoVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
@@ -36,105 +38,83 @@ public class PlayerTopControl implements ControlService{
 			return back;
 		}
 		if(i==2){
-			String back[] = {"前锋","中锋","后卫"};
+			String back[] = {"所有位置","前锋","中锋","后卫"};
 			return back;
 		}
-		    String back[] = {"得分","篮板","助攻","得分/篮板/助攻(1:1:1)","盖帽","抢断","犯规","失误","上场时间","效率","投篮","三分","罚球","两双"};
+		    String back[] = {"得分","篮板","助攻","盖帽","抢断","犯规","失误","上场时间","效率","投篮命中率","三分命中率"};
 		    
 		return back;
 	}
 
 	public String[] firstTitle() {
 		// 表头
-		String back[] = {"姓名","得分","篮板","助攻","三项综合","盖帽","抢断","犯规","失误","上场时间","效率","投篮","三分","罚球","两双"};
+		String back[] = {"球员","球队","得分","篮板","助攻","盖帽","抢断","犯规","失误","上场时间","效率","投篮","三分"};
 	    
 		return back;
 	}
 
 	public Object[][] firstObj() {
 		// 返回排序的列表
-		ArrayList<PlayerInfoVO> list = ps.getPlayerTop_50(Order.DOWN, PlayerStandard.score, "ALL", Zone.ALL);
-		Object[][] t = new Object[list.size()][15];
-		for(int i=0;i<list.size();i++){
-			PlayerInfoVO temp = list.get(i);
-			t[i][0] = new JButton(temp.getName());
-			t[i][1] = temp.getScore();
-			t[i][2] = temp.getRebTotalNum();
-			t[i][3] = temp.getAssistNum();
-			t[i][4] = temp.getPar();
-			t[i][5] = temp.getBlockNum();
-			t[i][6] = temp.getStealNum();
-			t[i][7] = temp.getFoulNum();
-			t[i][8] = temp.getErrorNum();
-			t[i][9] = temp.getTime();
-			t[i][10] = temp.getRate();
-			t[i][11] = temp.getShooting();
-			t[i][12] = temp.getThreePointNum();
-			t[i][13] = temp.getFreeHitNum();
-			t[i][14] = temp.getDoub();
-			
-		}
-		return t;
+		return getList("联盟","所有位置","得分");
 	}
 
 	public Object[][] getList(String zone, String position, String stan) {
 		// 返回排序的列表
-		String pos = getPos(position);
+		Position pos = getPos(position);
 		PlayerStandard stan1 = getStan(stan);
-		Zone zo = getZone(zone);
-		ArrayList<PlayerInfoVO> list = ps.getPlayerTop_50(Order.DOWN, stan1,pos , zo);
-		Object[][] t = new Object[list.size()][15];
+		League zo = getZone(zone);
+		ArrayList<PlayerNormalInfo> list = ps.getPlayerTotalNormalInfo(pos, zo, Age.All, stan1, Order.dsec, 50);
+		Object[][] t = new Object[list.size()][13];
+		DecimalFormat df=new DecimalFormat(".##");
 		for(int i=0;i<list.size();i++){
-			PlayerInfoVO temp = list.get(i);
+			PlayerNormalInfo temp = list.get(i);
 			t[i][0] = new JButton(temp.getName());
-			t[i][1] = temp.getScore();
-			t[i][2] = temp.getRebTotalNum();
-			t[i][3] = temp.getAssistNum();
-			t[i][4] = temp.getPar();
-			t[i][5] = temp.getBlockNum();
-			t[i][6] = temp.getStealNum();
-			t[i][7] = temp.getFoulNum();
-			t[i][8] = temp.getErrorNum();
-			t[i][9] = temp.getTime();
-			t[i][10] = temp.getRate();
-			t[i][11] = temp.getShooting();
-			t[i][12] = temp.getThreePointNum();
-			t[i][13] = temp.getFreeHitNum();
-			t[i][14] = temp.getDoub();
+			t[i][1] = temp.getTeamName();
+			t[i][2] = df.format(temp.getPoint());
+			t[i][3] = df.format(temp.getRebound());
+			t[i][4] = df.format(temp.getAssist());
+			t[i][5] = df.format(temp.getBlockShot());
+			t[i][6] = df.format(temp.getSteal());
+			t[i][7] = df.format(temp.getFoul());
+			t[i][8] = df.format(temp.getFault());
+			t[i][9] = df.format(temp.getMinute());
+			t[i][10] = df.format(temp.getEfficiency());
+			t[i][11] = df.format(temp.getPenalty());
+			t[i][12] = df.format(temp.getThree());
 			
 		}
 		return t;
 				
 	}
 
-	private Zone getZone(String zone) {
+	private League getZone(String zone) {
 		// 得到联盟
 		if(zone.equals("联盟")){
-			return Zone.ALL;
+			return League.All;
 		}
 		if(zone.equals("东部")){
-			return Zone.E;
+			return League.East;
 		}
 		if(zone.equals("西部")){
-			return Zone.W;
+			return League.West;
 		}
 		if(zone.equals("中区")){
-			return Zone.Central;
+			return League.Central;
 		}
 		if(zone.equals("大西洋区")){
-			return Zone.Atlantic;
+			return League.Atlantic;
 		}
 		if(zone.equals("东南区")){
-			return Zone.Southeast;
+			return League.Southeast;
 		}
 		if(zone.equals("西北区")){
-			return Zone.Northwest;
+			return League.Northwest;
 		}
 		if(zone.equals("太平洋区")){
-			return Zone.Pacific;
+			return League.Pacific;
 		}
 		
-			return Zone.Southwest;
+			return League.Southwest;
 		
 	}
 
@@ -183,16 +163,19 @@ public class PlayerTopControl implements ControlService{
 		return PlayerStandard.doub;
 	}
 
-	private String getPos(String position) {
+	private Position getPos(String position) {
 		// 位置
 		if(position.equals("前锋")){
-			return "F";
+			return Position.F;
 		}
 		if(position.equals("中锋")){
-			return "C";
+			return Position.C;
 		}
+		if(position.equals("后卫")){
 		
-		return "G";
+		    return Position.G;
+		}
+		return Position.All;
 	}
 
 	public String getBoxLabel(int i) {
