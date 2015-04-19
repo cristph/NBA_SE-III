@@ -45,7 +45,7 @@ public interface PlayerBLService {
 	
 	
 	/*
-	 * 获取当天热点球员
+	 * 获取赛季热点球员
 	 * @param field:排序依据，可取值Field枚举类
 	 * @param num:返回球员个数
 	 * @return ArrayList<PlayerKingInfo>
@@ -54,7 +54,7 @@ public interface PlayerBLService {
 	
 	
 	/*
-	 * 获取赛季热点球员
+	 * 获取当天热点球员
 	 * @param field:排序依据，可取值Field枚举类
 	 * @param num:返回球员个数
 	 * @return ArrayList<PlayerKingInfo>
@@ -107,4 +107,21 @@ public interface PlayerBLService {
 	 */
 	public PlayerVO getPlayerInfo(String name);
 	
+	
+	/*
+	 * 获取单个球员的基本  比赛数据
+	 * 取平均数
+	 * @param name:球员名
+	 * @return PlayerNormalInfo
+	 */
+	public PlayerNormalInfo getSinglePlayerNormalInfo(String name);
+	
+	
+	/*
+	 * 获取单个球员的高阶  比赛数据
+	 * 默认平均数
+	 * @param name:球员名
+	 * @return PlayerHighInfo
+	 */
+	public PlayerHighInfo getSinglePlayerHighInfo(String name);
 }

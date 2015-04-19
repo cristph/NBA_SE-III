@@ -86,4 +86,11 @@ public class CalMethod {
 		}
 		return 1.0*(shootNum+0.44*freeNum+errorNum)*T/(teamThrowNum+0.44*teamFreeNum+teamErrorNum);
 	}
+	
+	public double calUpgradeRate(double A,double B){
+		if(A==0){
+			return 0;
+		}
+		return (B-A)/A;
+	}
 }

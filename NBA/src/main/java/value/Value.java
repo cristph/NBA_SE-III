@@ -22,9 +22,14 @@ public class Value {
 	 * @score 得分
 	 * @rebound 篮板
 	 * @assist 助攻
+	 * @block 盖帽
+	 * @steal 抢断
+	 * @three 三分命中率
+	 * @shoot 投篮命中率
+	 * @free 罚球命中率 
 	 */
 	public enum Field{
-		score,rebound,assist
+		score,rebound,assist,block,steal,three,shoot,free
 	}
 	
 	/*
