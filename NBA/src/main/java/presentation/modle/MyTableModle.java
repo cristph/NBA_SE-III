@@ -41,12 +41,14 @@ public class MyTableModle extends AbstractTableModel{
 		return list[row][column];
 	}
 	
-	 public String getColumnName(int c) {
+	 @Override
+	public String getColumnName(int c) {
 		 //返回标题
 		 return title[c];
      }
 	 
-	 public Class<?> getColumnClass(int columnIndex) {
+	 @Override
+	public Class<?> getColumnClass(int columnIndex) {
 		 System.out.println("gggg"+columnIndex);
 		   return list[0][columnIndex].getClass();
       }

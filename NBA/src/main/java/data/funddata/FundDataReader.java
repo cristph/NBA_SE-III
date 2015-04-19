@@ -19,7 +19,7 @@ import po.TeamPO;
 
 public class FundDataReader implements FundDataReadService {
 
-	@Override
+	
 	public ArrayList<TeamPO> readTeamFile(File txtFile,File imgFold) {
 		// TODO Auto-generated method stub
         ArrayList<TeamPO> result=new ArrayList<TeamPO>();
@@ -66,7 +66,6 @@ public class FundDataReader implements FundDataReadService {
 		return result;
     }
 
-	@Override
 	public HashMap<String, Image> readTeamImgFile(File imgFold) {
 		// TODO Auto-generated method stub
 		HashMap<String,Image> imgMap=new HashMap<String,Image>();
@@ -87,7 +86,7 @@ public class FundDataReader implements FundDataReadService {
 		return imgMap;
 	}
 
-	@Override
+	
 	public PlayerPO readPlayerFile(File f,String acImgFold,String porImgFold) {
 		PlayerPO result=new PlayerPO();
 		Filter filter=new Filter();

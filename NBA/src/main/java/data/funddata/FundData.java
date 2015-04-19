@@ -57,14 +57,14 @@ public class FundData implements FundDataService {
 		playerFold=new File("data/players/info");
 	}
 	
-	@Override
+
 	public ArrayList<TeamPO> getTeamFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<TeamPO> list=fdrs.readTeamFile(txtFile, imgFold);
 		return list;
 	}
 
-	@Override
+	
 	public HashMap<String, Image> getTeamImage() {
 		// TODO Auto-generated method stub
 		HashMap<String,Image> imgMap=fdrs.readTeamImgFile(imgFold);
@@ -72,7 +72,7 @@ public class FundData implements FundDataService {
 		return imgMap;
 	}
 
-	@Override
+
 	public ArrayList<PlayerPO> getPlayerFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list=new ArrayList<PlayerPO>();

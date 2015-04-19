@@ -44,7 +44,7 @@ public class TeamFrame extends JFrame{
 		TeamBLService ps = new TeamController();
 		TeamVO tvo = ps.getTeamInfo(name);
 		Image temp = tvo.getTeamPic();
-		temp = temp.getScaledInstance(240, 240, temp.SCALE_DEFAULT);
+		temp = temp.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
 		ImageIcon action = new ImageIcon(temp);
 		JLabel omg = new JLabel(action);
 		JLabel name = new JLabel("队名");

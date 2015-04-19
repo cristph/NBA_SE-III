@@ -23,7 +23,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import presentation.control.ControlService;
 import presentation.control.PlayerOrderControl;
 import presentation.control.PlayerTopControl;
 import presentation.control.TeamControl;
@@ -76,6 +75,7 @@ class NbaFrame extends JFrame{
 		new java.util.Timer().scheduleAtFixedRate(
 				new TimerTask(){
 					DateFormat df = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+					@Override
 					public void run() {
 						stateBar.setText("当前时间：" + df.format(new Date()) + "  ");
 					}
@@ -86,6 +86,7 @@ class NbaFrame extends JFrame{
 
 		
 
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 				

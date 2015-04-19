@@ -52,10 +52,10 @@ public class PlayerFrame extends JFrame{
 		PlayerBLService ps = new PlayerBLController();
 		PlayerVO pvo = ps.getPlayerTotalInfo(name);
 		Image test = pvo.getPic();
-		test = test.getScaledInstance(140,120,test.SCALE_DEFAULT);
+		test = test.getScaledInstance(140,120,Image.SCALE_DEFAULT);
 		ImageIcon icon = new ImageIcon(test);
 		Image temp = pvo.getAction();
-		temp = temp.getScaledInstance(320,480,temp.SCALE_DEFAULT);
+		temp = temp.getScaledInstance(320,480,Image.SCALE_DEFAULT);
 		ImageIcon action = new ImageIcon(temp);
 		JLabel img = new JLabel(icon);
 		JLabel omg = new JLabel(action);

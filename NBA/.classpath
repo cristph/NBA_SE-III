@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA_SE-III/NBA/lib/testData.jar"/>
-	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA_SE-III/NBA/lib/batik-1.7/batik.jar"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA/lib/batik-1.7/batik.jar"/>
+	<classpathentry kind="lib" path="F:/Git Home/git/NBA_SE-III/NBA/lib/testData.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
