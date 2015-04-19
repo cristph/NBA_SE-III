@@ -49,7 +49,7 @@ public class Waiter {
 		else
 		{
 			month="9";
-			sb=sb.delete(0, 4);
+			sb=sb.delete(0, 3);
 		}
 			
 		

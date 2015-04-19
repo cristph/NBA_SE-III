@@ -107,12 +107,21 @@ public class FundDataReader implements FundDataReadService {
 	       
 			while((line=inTwo.readLine())!=null)
 			{
+			  String bufLine=line;
 			  line=filter.filtPlayer(line);
 			  StringBuffer sb=new StringBuffer(line);	
-		      if(row==4)           //第4行为球员号码
+			  if(row==2)
+			  {
+				StringBuffer sbb=new StringBuffer(bufLine);
+				sbb.delete(0, 8);
+				String name=filter.filtName(sbb.toString());
+				result.setName(name);
+				
+			  }
+			  if(row==4)           //第4行为球员号码
 		      {
-		    	 sb=sb.delete(0, 6);
-		    	 result.setNumber(sb.toString());
+				 sb.delete(0, 8);
+				 result.setNumber(sb.toString());
 		      }
 		      else if(row==6)
 		      {
@@ -177,11 +186,17 @@ public class FundDataReader implements FundDataReadService {
 			e.printStackTrace();
 		}
 		
+	  /*  
+	    String fileName=f.getName();
+	    StringBuffer sb=new StringBuffer(fileName);
+	    sb.delete(sb.length()-4,sb.length());
+	    //name=name[0].split("\\\\");
+	    String playerName=sb.toString();
 	    
-	    String name[]=f.toString().split("\\.");
-	    String playerName=name[0];
 		result.setName(playerName);
+		*/
 		
+		String playerName=result.getName();
 		String actionPng=acImgFold+"/"+playerName+".png";
 		String portraitImage=porImgFold+"/"+playerName+".png";
 		
