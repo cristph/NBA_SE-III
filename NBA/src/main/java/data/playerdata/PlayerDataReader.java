@@ -129,7 +129,7 @@ public class PlayerDataReader implements PlayerDataReadService {
 		StringBuffer sb=new StringBuffer(s);
 		String sMonth=sb.substring(0, 3);
 		String month=null;
-		if(!sMonth.equals("SEPT"))
+		if(!sMonth.equals("SEP"))
 		{
 			if(sMonth.equals("JAN"))
 	    	  month="1";
