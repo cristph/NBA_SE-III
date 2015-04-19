@@ -41,7 +41,7 @@ public class TeamAllPanel extends JPanel {
 		Border border = BorderFactory
 				.createBevelBorder(BevelBorder.LOWERED);
 		title.setBorder(border);
-		this.add(title, BorderLayout.NORTH);
+		//this.add(title, BorderLayout.NORTH);
 		
 		//title的内容
 		GroupLayout layout = new GroupLayout(title);
