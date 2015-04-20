@@ -801,18 +801,39 @@ public class PlayerCalculate {
 		return null;
 	}
 	
+	public ArrayList<PlayerNormalInfo> sortNormalMultiOrder(PlayerStandard ps,Order order,int num){
+		
+		return null;
+	}
+	
 	public ArrayList<PlayerHighInfo> sortHigh(PlayerStandard ps,Order order,int num){
 		
 		return HInfoList;
 	}
 	
 	public PlayerNormalInfo getSinglePlayerNormalInfo(String name){
-		
+		if(avg_NInfoList==null){
+			calAvgNormalInfo();
+		}
+		for(int i=0;i<avg_NInfoList.size();i++){
+			PlayerNormalInfo pni=avg_NInfoList.get(i).getPni();
+			if(pni.getName().equals(name)){
+				return pni;
+			}
+		}
 		return null;
 	}
 	
 	public PlayerHighInfo getSinglePlayerHighInfo(String name){
-		
+		if(HInfoList==null){
+			calHighInfo();
+		}
+		for(int i=0;i<HInfoList.size();i++){
+			PlayerHighInfo phi=new PlayerHighInfo();
+			if(phi.getName().equals(name)){
+				return phi;
+			}
+		}
 		return null;
 	}
 	
@@ -823,7 +844,50 @@ public class PlayerCalculate {
 	 * @return ArrayList<PlayerHotInfo>
 	 */
 	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
-		
+		ArrayList<PlayerHotInfo> result = null;
+		if(field.toString().equals("score")){
+			if(scoreList!=null){
+				//sort
+				if(num>=scoreList.size()){
+					result=scoreList;
+					return result;
+				}else{
+					result=new ArrayList<PlayerHotInfo>();
+					for(int i=0;i<num;i++){
+						result.add(scoreList.get(i));
+					}
+					return result;
+				}
+			}
+		}else if(field.toString().equals("rebound")){
+			if(rebList!=null){
+				//sort
+				if(num>=rebList.size()){
+					result=rebList;
+					return result;
+				}else{
+					result=new ArrayList<PlayerHotInfo>();
+					for(int i=0;i<num;i++){
+						result.add(rebList.get(i));
+					}
+					return result;
+				}
+			}
+		}else{
+			if(assistList!=null){
+				//sort
+				if(num>=assistList.size()){
+					result=assistList;
+					return result;
+				}else{
+					result=new ArrayList<PlayerHotInfo>();
+					for(int i=0;i<num;i++){
+						result.add(assistList.get(i));
+					}
+					return result;
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -847,8 +911,8 @@ public class PlayerCalculate {
 	 * @return ArrayList<PlayerKingInfo>
 	 */
 	public ArrayList<PlayerKingInfo> getDailyKingPlayer(Field field,int num){
-		return null;
 		
+		return null;
 	}
 	
 	
