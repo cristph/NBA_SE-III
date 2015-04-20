@@ -7,6 +7,7 @@ public class PlayerAllGamePO {
 	private String playerName;
 	private String teamName;
 	private ArrayList<PlayerGamePO> gameDataList;
+    
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}

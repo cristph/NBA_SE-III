@@ -6,9 +6,6 @@ import java.util.Scanner;
 
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
-import po.TeamAllGamePO;
-import po.TeamGamePO;
-import data.teamdata.TeamGameDataReader;
 
 public class PlayerTest {
 

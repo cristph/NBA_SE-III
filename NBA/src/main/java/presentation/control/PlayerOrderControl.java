@@ -1,7 +1,5 @@
 package presentation.control;
 
-import java.awt.Image;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
 import value.Value.*;
-import vo.PlayerInfoVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
 import businesslogicservice.teamblservice.TeamBLService;

@@ -6,7 +6,6 @@ import java.awt.Image;
 
 import value.TeamStandard;
 import value.Value.Order;
-import vo.TeamGameVO;
 import vo.TeamVO;
 
 public interface TeamBLService {

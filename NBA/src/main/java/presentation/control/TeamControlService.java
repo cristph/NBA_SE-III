@@ -1,7 +1,6 @@
 package presentation.control;
 
 import java.awt.Image;
-import java.util.HashMap;
 
 public interface TeamControlService {
 	public String findTeam(int line, int row); 

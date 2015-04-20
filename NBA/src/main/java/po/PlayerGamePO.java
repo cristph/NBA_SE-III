@@ -3,8 +3,13 @@
  */
 package po;
 
+import data.gamedata.TeamInfo;
+
 public class PlayerGamePO {
 	
+	String playerName;//球员姓名
+	
+
 	String position;//位置
 	String team;//所代表的球队
 	int time; //在场时间(秒)
@@ -38,6 +43,24 @@ public class PlayerGamePO {
     int twoNum; //球员自己两分球出手数（不是球队）
     
 	boolean isDirty=false;
+	
+	TeamInfo tif=null;
+	
+	public TeamInfo getTif() {
+		return tif;
+	}
+
+	public void setTif(TeamInfo tif) {
+		this.tif = tif;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 	
 	
 	public boolean isDirty() {
