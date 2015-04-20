@@ -6,7 +6,15 @@ import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import po.PlayerPO;
 import test.data.PlayerHighInfo;
+import test.data.PlayerHotInfo;
+import test.data.PlayerKingInfo;
 import test.data.PlayerNormalInfo;
+import value.PlayerStandard;
+import value.Value.Age;
+import value.Value.Field;
+import value.Value.League;
+import value.Value.Order;
+import value.Value.Position;
 
 public class PlayerCalculate {
 	
@@ -14,13 +22,12 @@ public class PlayerCalculate {
 	ArrayList<PlayerAllGamePO> playerGameList;
 	ArrayList<PlayerPO> playerList;
 	
-	ArrayList<PlayerNormalInfo> tot_NInfoList;
-	ArrayList<PlayerNormalInfo> avg_NInfoList;
+	ArrayList<PlayerNInfo> tot_NInfoList;
+	ArrayList<PlayerNInfo> avg_NInfoList;
 	
 	ArrayList<PlayerHighInfo> HInfoList;
 	
 	ArrayList<PlayerInfo> playerInfoList;
-	
 	
 	public PlayerCalculate(){
 		iniData();
@@ -32,10 +39,12 @@ public class PlayerCalculate {
 	 * 先计算PlayerNormalInfo
 	 */
 	public void calTotalNormalInfo(){
-		tot_NInfoList=new ArrayList<PlayerNormalInfo>();
+		tot_NInfoList=new ArrayList<PlayerNInfo>();
 		
 		int playerListSize=playerInfoList.size();
 		if(playerListSize>0){//若球员列表不为空
+			String position;
+			String league;
 			int age;
 			double assist;
 			double blockShot;
@@ -65,6 +74,8 @@ public class PlayerCalculate {
 				ArrayList<PlayerGamePO> gamelist=pi.getGameDataList();//获取该球员所有比赛列表
 				int gameListSize=gamelist.size();
 				//initialize values
+				position=pi.getPosition();
+				league="League";
 				age=pi.getAge();
 				assist=0;
 				blockShot=0;
@@ -140,7 +151,8 @@ public class PlayerCalculate {
 				pni.setTeamName(teamName);
 				pni.setThree(cm.calRate(threePointNum, threeShootNum));
 				
-				tot_NInfoList.add(pni);
+				PlayerNInfo info=new  PlayerNInfo(position,league,age,pni);
+				tot_NInfoList.add(info);
 			}
 		}
 		
@@ -151,9 +163,11 @@ public class PlayerCalculate {
 	 * 先计算PlayerNormalInfo
 	 */
 	public void calAvgNormalInfo(){
-		avg_NInfoList=new ArrayList<PlayerNormalInfo>();
+		avg_NInfoList=new ArrayList<PlayerNInfo>();
 		int playerListSize=playerInfoList.size();
 		if(playerListSize>0){//若球员列表不为空
+			String position;
+			String league;
 			int age;
 			double assist;
 			double blockShot;
@@ -165,14 +179,14 @@ public class PlayerCalculate {
 			String name;
 			int numOfGame;
 			double offend;
-			//double penalty;
+			double penalty;
 			double point;
 			double rebound;
-			//double shot;
+			double shot;
 			int start;
 			double steal;
 			String teamName;
-			//double three;
+			double three;
 			int hitShootNum; //投篮命中数
 			int shootNum; //投篮出手数
 			int threePointNum; //三分命中数
@@ -183,6 +197,8 @@ public class PlayerCalculate {
 				ArrayList<PlayerGamePO> gamelist=pi.getGameDataList();//获取该球员所有比赛列表
 				int gameListSize=gamelist.size();
 				//initialize values
+				position=pi.getPosition();
+				league="League";
 				age=pi.getAge();
 				assist=0;
 				blockShot=0;
@@ -194,18 +210,14 @@ public class PlayerCalculate {
 				name=pi.getName();
 				numOfGame=0;
 				offend=0;
-				//penalty=0;
+				penalty=0;
 				point=0;
 				rebound=0;
-				//shot=0;
+				shot=0;
 				start=0;
 				steal=0;
 				teamName=pi.getTeamName();
-				//three=0;
-				hitShootNum=0; //投篮命中数
-				shootNum=0; //投篮出手数
-				threePointNum=0; //三分命中数
-				threeShootNum=0; //三分出手数
+				three=0;
 				
 				if(gameListSize>0){//若比赛列表不为空
 					
@@ -230,37 +242,294 @@ public class PlayerCalculate {
 							start+=1;
 						}
 						steal+=pgp.getStealNum();
-						hitShootNum+=pgp.getHitShootNum(); //投篮命中数
-						shootNum+=pgp.getShootNum(); //投篮出手数
-						threePointNum+=pgp.getThreePointNum(); //三分命中数
-						threeShootNum+=pgp.getThreeShootNum(); //三分出手数
+						
+						hitShootNum=pgp.getHitShootNum(); //投篮命中数
+						shootNum=pgp.getShootNum(); //投篮出手数
+						threePointNum=pgp.getThreePointNum(); //三分命中数
+						threeShootNum=pgp.getThreeShootNum(); //三分出手数
+						shot+=cm.calRate(hitShootNum, shootNum);
+						penalty+=cm.calRate(hitShootNum, shootNum);
+						three+=cm.calRate(threePointNum, threeShootNum);
 					}
 				}
 				
 				PlayerNormalInfo pni=new PlayerNormalInfo();
 				pni.setAge(age);
-				pni.setAssist(assist);
-				pni.setBlockShot(blockShot);
-				pni.setDefend(defend);
-				pni.setEfficiency(efficiency);
-				pni.setFault(fault);
-				pni.setFoul(foul);
-				pni.setMinute(minute/60);
+				pni.setAssist(assist/gameListSize);
+				pni.setBlockShot(blockShot/gameListSize);
+				pni.setDefend(defend/gameListSize);
+				pni.setEfficiency(efficiency/gameListSize);
+				pni.setFault(fault/gameListSize);
+				pni.setFoul(foul/gameListSize);
+				pni.setMinute(minute/60/gameListSize);
 				pni.setName(name);
 				pni.setNumOfGame(numOfGame);
-				pni.setOffend(offend);
-				pni.setPenalty(cm.calRate(hitShootNum, shootNum));
-				pni.setPoint(point);
-				pni.setRebound(rebound);
-				pni.setShot(cm.calRate(hitShootNum, shootNum));
+				pni.setOffend(offend/gameListSize);
+				pni.setPenalty(penalty/gameListSize);
+				pni.setPoint(point/gameListSize);
+				pni.setRebound(rebound/gameListSize);
+				pni.setShot(shot/gameListSize);
 				pni.setStart(start);
-				pni.setSteal(steal);
+				pni.setSteal(steal/gameListSize);
 				pni.setTeamName(teamName);
-				pni.setThree(cm.calRate(threePointNum, threeShootNum));
+				pni.setThree(three/gameListSize);
 				
-				tot_NInfoList.add(pni);
+				PlayerNInfo info=new PlayerNInfo(position,league,age,pni);
+				avg_NInfoList.add(info);
 			}
 		}
+	}
+
+	
+	/*
+	 * 获取高阶数据
+	 */
+	public void calHighInfo(){
+		
+		HInfoList=new ArrayList<PlayerHighInfo>();
+		
+		int playerListSize=playerInfoList.size();
+		if(playerListSize>0){//若球员列表不为空
+			
+			String league;
+			String name;
+			String position;
+			String teamName;
+			
+			int time = 0; //在场时间(分钟:秒)
+		    int hitShootNum=0; //投篮命中数
+			int threePointNum=0; //三分命中数
+			int threeShootNum=0; //三分出手数
+			int freeHitNum=0; //罚球命中数
+			int freeNum=0; //罚球出手数
+			int rebAttNum=0; //进攻篮板数
+			int rebDefNum=0; //防守篮板数
+			int rebTotalNum=0; //总篮板数
+			int assistNum=0;//助攻数
+			int stealNum=0;//抢断数
+		    int blockNum=0;//盖帽数
+		    int errorNum=0;//失误数
+		    int foulNum=0;//犯规数
+		    
+		    int score=0; //个人得分
+		    
+		    int allPlayerTime=0; //球队所有队员上场时间（单位：秒）
+		    int teamRebNum=0; //球队总篮板数
+		    int oppTeamRebNum=0; //对手总篮板数
+		    int teamAttRebNum=0; //球队总进攻篮板数
+		    int oppTeamAttRebNum=0; //对手总进攻篮板数
+		    int teamDefRebNum=0; //球队总防守篮板数
+		    int oppTeamDefRebNum=0; //对手总防守篮板数
+		    int teamHitNum=0; //球队总进球数
+		    int oppAttNum=0; //对手进攻次数
+		    int oppTwoNum=0; //对手两分球出手次数
+		    int twoNum=0; //球员自己两分球出手数（不是球队）
+		    int teamThrowNum=0; //球队所有球员总出手次数
+		    int teamFreeNum=0; //球队所有球员罚球次数
+		    int teamErrorNum=0; //球队所有球员失误次数
+			
+			for(int i=0;i<playerListSize;i++){//遍历球员
+				PlayerInfo pi=playerInfoList.get(i);
+				ArrayList<PlayerGamePO> gamelist=pi.getGameDataList();//获取该球员所有比赛列表
+				int gameListSize=gamelist.size();
+				
+				name=pi.getName();
+				league="";
+				position=pi.getPosition();
+				teamName=pi.getTeamName();
+				
+				if(gameListSize>0){//若比赛列表不为空
+					
+					for(int j=0;j<gameListSize;j++){//遍历比赛
+						
+						PlayerGamePO pgp=gamelist.get(j);
+						
+						time += pgp.getTime(); //在场时间(分钟:秒)
+					    hitShootNum +=pgp.getHitShootNum(); //投篮命中数
+						threePointNum +=pgp.getThreePointNum(); //三分命中数
+						threeShootNum +=pgp.getThreeShootNum(); //三分出手数
+						freeHitNum +=pgp.getFreeHitNum(); //罚球命中数
+						freeNum +=pgp.getFreeNum(); //罚球出手数
+						rebAttNum +=pgp.getRebAttNum(); //进攻篮板数
+						rebDefNum +=pgp.getRebDefNum(); //防守篮板数
+						rebTotalNum +=pgp.getRebTotalNum(); //总篮板数
+						assistNum +=pgp.getAssistNum(); //助攻数
+						stealNum +=pgp.getStealNum(); //抢断数
+					    blockNum +=pgp.getBlockNum(); //盖帽数
+					    errorNum +=pgp.getErrorNum(); //失误数
+					    foulNum +=pgp.getFoulNum(); //犯规数
+					    
+					    score +=pgp.getScore(); //个人得分
+					    
+					    allPlayerTime +=0; //球队所有队员上场时间（单位：秒）
+					    teamRebNum=0; //球队总篮板数
+					    oppTeamRebNum=0; //对手总篮板数
+					    teamAttRebNum=0; //球队总进攻篮板数
+					    oppTeamAttRebNum=0; //对手总进攻篮板数
+					    teamDefRebNum=0; //球队总防守篮板数
+					    oppTeamDefRebNum=0; //对手总防守篮板数
+					    teamHitNum=0; //球队总进球数
+					    oppAttNum=0; //对手进攻次数
+					    oppTwoNum=0; //对手两分球出手次数
+					    twoNum=0; //球员自己两分球出手数（不是球队）
+					    teamThrowNum=0; //球队所有球员总出手次数
+					    teamFreeNum=0; //球队所有球员罚球次数
+					    teamErrorNum=0; //球队所有球员失误次数
+					}
+				}
+				PlayerHighInfo phi=new PlayerHighInfo();
+				
+				//计算比率
+			    double T=cm.calT(time, allPlayerTime);//用于计算的数据T
+			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, teamErrorNum, foulNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//GmSc效率
+			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
+			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率
+			    double rebRate=cm.calRebRate(rebTotalNum, T, teamRebNum, oppTeamRebNum);//篮板率
+			    double attRebRate=cm.calRebRate(rebAttNum, T, teamAttRebNum, oppTeamAttRebNum);//进攻篮板率
+			    double defRebRate=cm.calRebRate(rebDefNum, T, teamDefRebNum, oppTeamDefRebNum);//防守篮板率
+			    double assistRate=cm.calAssistRate(assistNum, teamHitNum, hitShootNum, T);//助攻率
+			    double stealRate=cm.calStealRate(stealNum, oppAttNum, T);//抢断率
+			    double blockRate=cm.calBlockRate(blockNum, oppTwoNum, T);//盖帽率
+			    double errorRate=cm.calErrorRate(teamErrorNum, twoNum, teamFreeNum);//失误率
+			    double usedRate=cm.calUseRate(threeShootNum, freeNum, errorNum, T, teamThrowNum, teamFreeNum, teamErrorNum);//使用率
+				
+				phi.setAssistEfficient(assistRate);
+				phi.setBlockShotEfficient(blockRate);
+				phi.setDefendReboundEfficient(defRebRate);
+				phi.setFaultEfficient(errorRate);
+				phi.setFrequency(usedRate);
+				phi.setGmSc(GMSC);
+				phi.setLeague(league);
+				phi.setName(name);
+				phi.setOffendReboundEfficient(attRebRate);
+				phi.setPosition(position);
+				phi.setRealShot(realHitRate);
+				phi.setReboundEfficient(rebRate);
+				phi.setShotEfficient(throwRate);
+				phi.setStealEfficient(stealRate);
+				phi.setTeamName(teamName);
+				
+				HInfoList.add(phi);
+			}	
+		}
+	}
+	
+	/*
+	 * 过滤操作
+	 * 取得满足对应属性的球员信息
+	 */
+	public ArrayList<PlayerNormalInfo> filterNormal(ArrayList<PlayerNInfo> plist,Position pos,
+			League lea,Age age){
+		ArrayList<PlayerNInfo> list=plist;
+		ArrayList<PlayerNormalInfo> result=new ArrayList<PlayerNormalInfo>();
+		for(int i=0;i<list.size();i++){
+			
+			PlayerNInfo pni=list.get(i);
+			
+			String position=pos.toString();
+			String league=lea.toString();
+			String ag=age.toString();
+			boolean match=true;
+			
+			if(!league.equals("All")){
+				if(!pni.getLeague().equals(league)){
+					match=false;
+					continue;
+				}
+			}
+			if(!position.equals("All")){
+				if(!pni.getPosition().equals(position)){
+					match=false;
+					continue;
+				}
+			}
+			if(!ag.equals("All")){
+				int n=pni.getAge();
+				if(ag.equals("lv1")){
+					if(n>22){
+						match=false;
+						continue;
+					}
+				}else if(ag.equals("lv2")){
+					if(n<=22||n>25){
+						match=false;
+						continue;
+					}
+				}else if(ag.equals("lv3")){
+					if(n<=25||n>30){
+						match=false;
+						continue;
+					}
+				}else if(ag.equals("lv4")){
+					if(n<=30){
+						match=false;
+						continue;
+					}
+				}
+			}
+			if(match){
+				PlayerNormalInfo info=pni.getPni();
+				result.add(info);
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<PlayerNormalInfo> sortNormal(PlayerStandard ps,Order order,int num){
+		Sort sort=new Sort();
+		
+		
+		return null;
+	}
+	
+	public ArrayList<PlayerHighInfo> sortHigh(PlayerStandard ps,Order order,int num){
+		return HInfoList;
+		
+	}
+	
+	public PlayerNormalInfo getSinglePlayerNormalInfo(String name){
+		return null;
+		
+	}
+	
+	public PlayerHighInfo getSinglePlayerHighInfo(String name){
+		return null;
+		
+	}
+	
+	/*
+	 * 获取进步最快球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerHotInfo>
+	 */
+	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
+		return null;
+		
+	}
+	
+	
+	/*
+	 * 获取赛季热点球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerKingInfo>
+	 */
+	public ArrayList<PlayerKingInfo> getSeasonKingPlayer(Field field,int num){
+		return null;
+		
+	}
+	
+	
+	/*
+	 * 获取当天热点球员
+	 * @param field:排序依据，可取值Field枚举类
+	 * @param num:返回球员个数
+	 * @return ArrayList<PlayerKingInfo>
+	 */
+	public ArrayList<PlayerKingInfo> getDailyKingPlayer(Field field,int num){
+		return null;
+		
 	}
 	
 	
