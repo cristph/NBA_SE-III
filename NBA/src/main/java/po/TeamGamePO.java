@@ -5,6 +5,8 @@ package po;
 
 public class TeamGamePO {
 	
+	String teamName;//球队名称
+	
 	String matchDate;//比赛日期
 	String matchPair;//比赛双方
 	String matchResult;//比赛结果 例如：100:99（本队在前）
@@ -35,6 +37,12 @@ public class TeamGamePO {
 
     boolean isDirty=false;
     
+    public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
     public boolean getIsDirty(){
     	return isDirty; 
     }
