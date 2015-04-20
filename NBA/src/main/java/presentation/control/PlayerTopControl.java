@@ -13,6 +13,7 @@ import value.Value.*;
 import vo.PlayerInfoVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
+import businesslogicservice.teamblservice.TeamBLService;
 
 /**
  * 
@@ -22,14 +23,21 @@ import businesslogicservice.playerblservice.PlayerBLService;
 
 public class PlayerTopControl implements ControlService{
 	
-	PlayerBLService ps = new PlayerBLController();
+	PlayerBLService ps;
+	TeamBLService ts;
+	public PlayerTopControl(PlayerBLService ps2, TeamBLService ts) {
+		// TODO Auto-generated constructor stub
+		this.ps = ps2;
+		this.ts = ts;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see presentation.control.ControlService#findAim(java.lang.String)
 	 * 进入球员界面
 	 */
 	public void findAim(String name) {
-		new PlayerFrame(name);
+		new PlayerFrame(name,ps,ts);
 	}
 
 	public String[] getOrder(int i) {

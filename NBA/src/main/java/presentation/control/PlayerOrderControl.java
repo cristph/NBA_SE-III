@@ -16,10 +16,12 @@ import value.Value.*;
 import vo.PlayerInfoVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
+import businesslogicservice.teamblservice.TeamBLService;
 
 public class PlayerOrderControl implements ControlService{
 
-	PlayerBLService ps = new PlayerBLController();
+	public PlayerBLService ps;
+	public TeamBLService ts;
 	String title1[] = {"球员","球队","出场"
 			,"首发","时间/分钟","得分"
 			,"篮板","助攻","防守",
@@ -32,6 +34,13 @@ public class PlayerOrderControl implements ControlService{
 			,"真实命中率","篮板率","投篮效率"
 			,"抢断率"};
 	String title[] = title1;
+	public PlayerOrderControl(PlayerBLService ps2, TeamBLService ts) {
+		// TODO Auto-generated constructor stub
+		this.ps = ps2;
+		this.ts = ts;
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * @see presentation.control.ControlService#getOrder(int)
@@ -251,7 +260,7 @@ public class PlayerOrderControl implements ControlService{
 
 	public void findAim(String name) {
 		//跳转到球员界面
-		PlayerFrame frame = new PlayerFrame(name);
+		PlayerFrame frame = new PlayerFrame(name,ps,ts);
 		
 	}
 

@@ -20,13 +20,12 @@ import businesslogicservice.teamblservice.TeamBLService;
 
 public class TeamFrame extends JFrame{
 	String name;
-	
-	public TeamFrame(String name){
+
+	public TeamFrame(String text, PlayerBLService ps, TeamBLService ts) {
 		this.name = name;
 		init();
 		this.setVisible(true);
 		this.setResizable(false);
-		
 	}
 
 	private void init() {

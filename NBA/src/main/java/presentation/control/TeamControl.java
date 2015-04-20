@@ -15,12 +15,20 @@ import value.Value.Order;
 import vo.TeamGameVO;
 import vo.TeamVO;
 import businesslogic.teambl.TeamController;
+import businesslogicservice.playerblservice.PlayerBLService;
 import businesslogicservice.teamblservice.TeamBLService;
 
 public class TeamControl implements ControlService,TeamControlService{
 
-	TeamBLService ts = new TeamController();
+	public TeamBLService ts ;
+	public PlayerBLService ps;
 	HashMap<String,Image> hash = ts.getAllTeam();
+	public TeamControl(PlayerBLService ps, TeamBLService ts2) {
+		// TODO Auto-generated constructor stub
+		this.ps = ps;
+		this.ts = ts2;
+	}
+
 	public String findTeam(int line, int row) {
 		// 得到球队的名称在显示层
 		String[][] list = {{"CHI","BKN","ATL","DEN","GSW","DAL"}
