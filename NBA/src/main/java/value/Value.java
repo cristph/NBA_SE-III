@@ -42,4 +42,7 @@ public class Value {
 	public enum Age{
 		lv1,lv2,lv3,lv4,All
 	}
+	public enum Field2{
+		score,rebound, assist, blockShot, steal, foul, fault, shot, three, penalty, defendRebound, offendRebound 
+	}
 }
