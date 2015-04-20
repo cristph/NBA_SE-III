@@ -30,6 +30,7 @@ public class GameData implements GameDataService {
 		File[] array=matchFold.listFiles();
 		for(int i=0;i<array.length;i++)
 		{
+			System.out.println("第"+i+"个文件");
 			GameInfo gif=gdrs.readMatchFile(array[i]);
 			TeamGamePO po1=gif.getTeamGame1();
 			addTeamGamePO(po1);
@@ -54,6 +55,7 @@ public class GameData implements GameDataService {
 		{
 			String teamName=po.getTeamName();
 			TeamAllGamePO allPo=new TeamAllGamePO();
+			allPo.setTeamName(teamName);
 			allPo.addGame(po);
 			teamMap.put(teamName, allPo);
 		}
@@ -69,6 +71,8 @@ public class GameData implements GameDataService {
 		{
 			String playerName=po.getPlayerName();
 			PlayerAllGamePO allPo=new PlayerAllGamePO();
+			allPo.setPlayerName(playerName);
+			allPo.setTeamName(po.getTeam());
 			allPo.addMatch(po);
 			playerMap.put(playerName, allPo);
 		}

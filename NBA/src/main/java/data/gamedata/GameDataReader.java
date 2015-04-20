@@ -35,6 +35,7 @@ public class GameDataReader implements GameDataReadService {
 	
 	public GameDataReader(){
 		playerList=new ArrayList<PlayerGamePO>();
+		
 	}
 	
 	
@@ -235,13 +236,14 @@ private GameInfo makeGameInfo(){
 		  po.setTif(info2);
 	}
 	gif.setGameList(playerList);
+
 	return gif;
 }
 
 	
 public GameInfo readMatchFile(File f) {
 		 
-		
+		playerList=new ArrayList<PlayerGamePO>();
 		if(f.isFile())
 		{
 			teamGame1=new TeamGamePO();
