@@ -154,5 +154,15 @@ public class PlayerBLController implements PlayerBLService{
 	public PlayerVO getPlayerInfo(String name){
 		return null;
 	}
+
+	public PlayerNormalInfo getSinglePlayerNormalInfo(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public PlayerHighInfo getSinglePlayerHighInfo(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
