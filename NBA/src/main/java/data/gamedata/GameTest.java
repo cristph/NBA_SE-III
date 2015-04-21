@@ -1,15 +1,20 @@
 package data.gamedata;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
+import data.teamdata.TeamGameDataReader;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
+import po.TeamAllGamePO;
+import po.TeamGamePO;
 
 public class GameTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        test2();
+        test5();
 	}
 
 	public static void test1(){
@@ -17,14 +22,6 @@ public class GameTest {
 		GameData gd=new GameData();
 		
 		ArrayList<PlayerAllGamePO> list=gd.getPlayerGameData();
-		
-		
-		/*for(int i=0;i<list.size();i++)
-		{
-			PlayerAllGamePO temp=list.get(i);
-			System.out.print(temp.getPlayerName()+" "+temp.getTeamName()+" "+"打了"+temp.getGameDataList().size()+"场比赛");
-			
-		}*/
 		
 	    PlayerAllGamePO temp=list.get(24);
 		System.out.println(temp.getPlayerName()+" "+temp.getTeamName()+" "+"打了"+temp.getGameDataList().size()+"场比赛"+" 他属于"+temp.getArea());
@@ -49,5 +46,73 @@ public class GameTest {
 			System.out.println(po.getPlayerName()+" "+po.getPosition()+" "+po.getMatchDate()+" "+po.getMatchPair());
 		}
 	}
+	public static void test3(){
+		GameData gd=new GameData();
+		ArrayList<TeamAllGamePO> result=gd.getTeamGameData();
+		System.out.println("共有"+result.size()+"球队");
+		for(int i=0;i<result.size();i++)
+		{
+			TeamAllGamePO po=result.get(i);
+			System.out.println("球队"+po.getTeamName()+"----------------------------------------------------");
+			ArrayList<TeamGamePO> tempList=po.getGameDataList();
+			for(int j=0;j<tempList.size();j++)
+			{
+				TeamGamePO tmpPo=tempList.get(j);
+				if(tmpPo.getIsDirty()==true){
+				System.out.println(tmpPo.getMatchDate()+" "+tmpPo.getMatchPair()+" "+tmpPo.getMatchResult());
+				System.out.println(tmpPo.getBlockNum()+" "+tmpPo.getAssistNum()+" "+tmpPo.getRebTotalNum());
+				System.out.println(tmpPo.getErrorNum()+" "+tmpPo.getFoulNum());
+				System.out.println(tmpPo.getIsDirty());
+				System.out.println("****************");
+				}
+			}
+		}
+     }
+	public static void test4(){
+		GameData gd=new GameData();
+		ArrayList<PlayerAllGamePO> allList=gd.getPlayerGameData();
+		//System.out.println("共有"+allList.size()+"球员参加本赛季的比赛");
+		for(int i=0;i<allList.size();i++)
+		{
+			PlayerAllGamePO po=allList.get(i);
+			System.out.println("球员"+po.getPlayerName()+"----------------------------------------------------");
+			ArrayList<PlayerGamePO> tempList=po.getGameDataList();
+			for(int j=0;j<tempList.size();j++)
+			{
+				PlayerGamePO tmpPo=tempList.get(j);
+				if(tmpPo.isDirty()==true)
+				{
+				System.out.println(tmpPo.getMatchDate()+" "+tmpPo.getMatchPair()+" "+tmpPo.getMatchResult());
+				System.out.println(tmpPo.getBlockNum()+" "+tmpPo.getAssistNum()+" "+tmpPo.getRebTotalNum());
+				System.out.println(tmpPo.getErrorNum()+" "+tmpPo.getFoulNum());
+				System.out.println(tmpPo.isDirty());
+				System.out.println("****************");
+				}
+			}
+		}
+	}
 	
+	public static void test5(){
+		Scanner sc=new Scanner(System.in);
+		GameData gd=new GameData();
+		
+		
+        while(true)
+        {
+		
+        int c=sc.nextInt();
+		double time1=System.currentTimeMillis();
+		ArrayList<PlayerAllGamePO> allList=gd.getPlayerGameData();
+		double time2=System.currentTimeMillis();
+		System.out.println("用户等待时间是"+(time2-time1));
+		
+	
+		PlayerAllGamePO temp=allList.get(1);
+		ArrayList<PlayerGamePO> list=temp.getGameDataList();
+		System.out.println(temp.getPlayerName()+"打了"+list.size()+"场比赛");
+	
+	}
+	}
+	
+		
 }

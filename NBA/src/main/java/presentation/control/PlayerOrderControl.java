@@ -23,8 +23,8 @@ public class PlayerOrderControl implements ControlService{
 			,"首发","时间/分钟","得分"
 			,"篮板","助攻","防守",
 			"盖帽","失误","犯规"
-			,"进攻数","抢断数","投篮命中数"
-			,"投篮命中率","三分命中率","效率"};
+			,"进攻数","抢断数","投篮命中率"
+			,"罚球命中率","三分命中率","效率"};
 	String title2[] = {"球员","球队","助攻率"
 			,"盖帽率","防守篮板率","进攻篮板率"
 			,"失误率","使用率","gmsc"
@@ -57,7 +57,7 @@ public class PlayerOrderControl implements ControlService{
 					,"失误数","犯规数","效率","GmSc"
 					,"真实命中率","投篮效率", "篮板率"
 					,"进攻篮板率","防守篮板率","助攻率","抢断率"
-					,"盖帽率","失误率","使用率"};
+					,"盖帽率","失误率","使用率","罚球命中率"};
 			return title1;
 		}
 		String t[] ={"降序","升序"};
@@ -106,6 +106,12 @@ public class PlayerOrderControl implements ControlService{
 		    Object[][] t = new Object[info.size()][18];
 		    title = title1;
 		    for(int i=0;i<info.size();i++){
+		    	/*"球员","球队","出场"
+				,"首发","时间/分钟","得分"
+				,"篮板","助攻","防守",
+				"盖帽","失误","犯规"
+				,"进攻数","抢断数","投篮命中率"
+				,"罚球命中率","三分命中率","效率"*/
 			    PlayerNormalInfo temp = info.get(i);
 			    t[i][0] = new JButton(temp.getName());
 			    t[i][1] = temp.getTeamName();
@@ -123,6 +129,8 @@ public class PlayerOrderControl implements ControlService{
 			    t[i][13] = df.format(temp.getSteal());
 			    t[i][14] = df.format(temp.getShot());
 			    t[i][15] = df.format(temp.getPenalty());
+			    t[i][16] = df.format(temp.getThree());
+			    t[i][17] = df.format(temp.getEfficiency());
 							
 			
 		    }
@@ -187,9 +195,9 @@ public class PlayerOrderControl implements ControlService{
 			return PlayerStandard.threeRate;
 		}
 		
-	   /*	if(stand.equals("罚球命中率")){
+	   if(stand.equals("罚球命中率")){
 			return PlayerStandard.freeRate;
-		}*/
+		}
 		if(stand.equals("进攻数")){
 			return PlayerStandard.rebAttNum;
 		}
