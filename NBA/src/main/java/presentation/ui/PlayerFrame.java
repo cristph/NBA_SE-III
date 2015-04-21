@@ -10,6 +10,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -21,11 +24,19 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import presentation.modle.MyTableModle;
+import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
+import value.PlayerStandard;
+import value.Value.Age;
+import value.Value.League;
+import value.Value.Position;
 import vo.PlayerVO;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
@@ -77,7 +88,7 @@ public class PlayerFrame extends NormalFrame{
 		JLabel ager = new JLabel(pvo.getAge());
 		JLabel expr = new JLabel(pvo.getExp());
 		JLabel schr = new JLabel(pvo.getSchool());
-		JLabel teamr = new JLabel(pvo.getTeam());
+		final JLabel teamr = new JLabel(pvo.getTeam());
 		JButton enter = new JButton("球队信息");
 		enter.addActionListener(new ActionListener(){
 
@@ -137,6 +148,51 @@ public class PlayerFrame extends NormalFrame{
 		
 		
 		//比赛信息
+		JPanel list = new JPanel();
+		list.setLayout(new BorderLayout());
+		
+		JPanel tab1 = new JPanel();
+		JPanel tab2 = new JPanel();
+		JPanel tab3 = new JPanel();
+		
+		tab1.setLayout(new BorderLayout());
+		tab2.setLayout(new BorderLayout());
+		tab3.setLayout(new BorderLayout());
+		
+		JLabel name1= new JLabel("平均数据");		
+		JLabel name2 = new JLabel("高级数据");
+		
+		
+		JTable table1 = new JTable(getObj(1),getTitle(1));
+		JTable table2 = new JTable(getObj(1),getTitle(2));
+
+		
+		tab1.add(name1,BorderLayout.NORTH);
+		tab2.add(name2,BorderLayout.NORTH);
+
+		
+		table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		JScrollPane pane1 = new JScrollPane(table1);
+		pane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		pane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		table2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		JScrollPane pane2 = new JScrollPane(table2);
+		pane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		pane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		
+		tab1.add(pane1,BorderLayout.CENTER);
+		tab2.add(pane2,BorderLayout.CENTER);
+
+		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/2));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/2));
+
+		
+		list.add(tab1,BorderLayout.NORTH);
+		list.add(tab2,BorderLayout.SOUTH);
+
+	
 		
 		
 		
@@ -145,7 +201,7 @@ public class PlayerFrame extends NormalFrame{
 		tabbedPane.addTab("球员基本信息",label);
 		tabbedPane.addTab("球员数据",list);
 		this.add(tabbedPane, BorderLayout.CENTER);
-		tabbedPane.setTabComponentAt(0, new JLabel("球员基本信息"));
+		tabbedPane.setTabComponentAt(0, new JLabel("球员风采"));
 		
       
 		
@@ -154,4 +210,137 @@ public class PlayerFrame extends NormalFrame{
 		
 	}
 
+	private Object[][] getObj(int i) {
+		//获取表格数据
+		DecimalFormat df=new DecimalFormat(".##");
+		//百分数格式化
+		NumberFormat fmt = NumberFormat.getPercentInstance();
+		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
+		if(i==1){
+			PlayerNormalInfo temp = ps.getSinglePlayerNormalInfo(name);
+			Object[][] t = new Object[1][18];
+			t[1][0] = temp.getName();
+		    t[1][1] = temp.getTeamName();
+		    t[1][2] = temp.getNumOfGame();
+		    t[1][3] = temp.getStart();
+		    t[1][4] = df.format(temp.getMinute());
+		    t[1][5] = df.format(temp.getPoint());
+		    t[1][6] = df.format(temp.getRebound());
+		    t[1][7] = df.format(temp.getAssist());
+		    t[1][8] = df.format(temp.getDefend());
+		    t[1][9] = df.format(temp.getBlockShot());
+		    t[1][10]= df.format(temp.getFault());
+		    t[1][11]= df.format(temp.getFoul());
+		    t[1][12] =df.format(temp.getOffend());
+		    t[1][13] = df.format(temp.getSteal());
+		    t[1][14] = fmt.format(temp.getShot());
+		    t[1][15] = fmt.format(temp.getPenalty());
+		    t[1][16] = fmt.format(temp.getThree());
+		    t[1][17] = fmt.format(temp.getEfficiency());
+		    return t;
+		}
+		    
+		PlayerHighInfo temp = ps.getSinglePlayerHighInfo(name);
+		Object[][] t = new Object[1][13];
+		t[1][0] = temp.getName();
+		t[1][1] = temp.getTeamName();
+		t[1][2] = fmt.format(temp.getAssistEfficient());
+		t[1][3] = fmt.format(temp.getBlockShotEfficient());
+		t[1][4] = fmt.format(temp.getDefendReboundEfficient());
+		t[1][5] = fmt.format(temp.getOffendReboundEfficient());
+		t[1][6] = fmt.format(temp.getFaultEfficient());
+		t[1][7] = fmt.format(temp.getFrequency());
+		t[1][8] = df.format(temp.getGmSc());
+		t[1][9] = fmt.format(temp.getRealShot());
+		t[1][10]= fmt.format(temp.getReboundEfficient());
+		t[1][11]= fmt.format(temp.getShotEfficient());
+		t[1][12] =fmt.format(temp.getStealEfficient());
+		return t;
+	}
+
+	private String[] getTitle(int i) {
+		//获取表头
+		String title1[] = {"球员","球队","出场"
+				,"首发","时间/分钟","得分"
+				,"篮板","助攻","防守",
+				"盖帽","失误","犯规"
+				,"进攻数","抢断数","投篮命中数"
+				,"投篮命中率","三分命中率","效率"};
+		String title2[] = {"球员","球队","助攻率"
+				,"盖帽率","防守篮板率","进攻篮板率"
+				,"失误率","使用率","gmsc"
+				,"真实命中率","篮板率","投篮效率"
+				,"抢断率"};
+		if(i==2){
+			return title2;
+		}
+		return title1;
+	}
+
 }
+/*JPanel all = new JPanel();
+all.setLayout(new BorderLayout());
+TeamBLService ps = new TeamController();
+TeamVO tvo = ps.getTeamInfo(name);
+Image temp = tvo.getTeamPic();
+temp = temp.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
+ImageIcon action = new ImageIcon(temp);
+JLabel omg = new JLabel(action);
+JLabel name = new JLabel("队名");
+JLabel shortName = new JLabel("简称");
+JLabel pos = new JLabel("位置");
+JLabel zone = new JLabel("分区");
+JLabel loc = new JLabel("赛区");
+JLabel main = new JLabel("主场");
+JLabel bir = new JLabel("建队时间");
+JLabel namer = new JLabel(tvo.getTeamName());
+JLabel shortNamer = new JLabel(tvo.getShortName());
+JLabel posr = new JLabel(tvo.getLocation());
+JLabel zoner = new JLabel(tvo.getZone());
+JLabel locr = new JLabel(tvo.getLocation());
+JLabel mainr = new JLabel(tvo.getHome());
+JLabel birr = new JLabel(tvo.getBirthday());
+JPanel label  = new JPanel();
+GroupLayout layout = new GroupLayout(label);
+label.setLayout(layout);
+//水平连续组
+GroupLayout.SequentialGroup hGroup = 
+		layout.createSequentialGroup();
+hGroup.addGap(20);
+hGroup.addGroup(layout.createParallelGroup());
+hGroup.addGap(20);
+hGroup.addGroup(layout.createParallelGroup().addComponent(name).addComponent(namer).addComponent(shortName).addComponent(shortNamer));
+hGroup.addGap(20);
+hGroup.addGroup(layout.createParallelGroup().addComponent(pos).addComponent(posr).addComponent(main).addComponent(mainr));
+hGroup.addGap(20);
+hGroup.addGroup(layout.createParallelGroup().addComponent(zone).addComponent(zoner).addComponent(loc).addComponent(locr));
+hGroup.addGap(20);
+hGroup.addGroup(layout.createParallelGroup().addComponent(bir).addComponent(birr));
+hGroup.addGap(20);
+//垂直连续组
+GroupLayout.SequentialGroup vGroup = 
+		layout.createSequentialGroup();
+vGroup.addGap(5);
+vGroup.addGroup(layout.createParallelGroup()
+		.addComponent(name).addComponent(pos).addComponent(zone).addComponent(bir));
+vGroup.addGap(20);
+vGroup.addGroup(layout.createParallelGroup()
+		.addComponent(namer).addComponent(posr).addComponent(zoner)
+		.addComponent(birr));
+vGroup.addGap(20);
+vGroup.addGroup(layout.createParallelGroup()
+		.addComponent(shortName).addComponent(main).addComponent(loc)
+		);
+vGroup.addGap(20);
+vGroup.addGroup(layout.createParallelGroup()
+		.addComponent(shortNamer).addComponent(mainr).addComponent(locr)
+		);
+vGroup.addGap(20);
+
+
+layout.setHorizontalGroup(vGroup);
+layout.setVerticalGroup(hGroup);
+all.add(omg,BorderLayout.WEST);
+all.add(label,BorderLayout.CENTER);
+
+*/

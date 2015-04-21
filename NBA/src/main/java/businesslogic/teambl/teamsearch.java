@@ -8,7 +8,7 @@ import vo.TeamVO;
 
 public class teamsearch {
 	public ArrayList<String> sort(ArrayList<TeamVO> v,Order order,TeamStandard stan){
-		if(order==Order.UP){
+		if(order==Order.asc){
 			if(stan==TeamStandard.allpoint){
 				upSortforallpoint.quicksort(v); //s=new upSortforallpoint();
 				//s.quicksort(v);
@@ -138,7 +138,7 @@ public class teamsearch {
 			}
 			
 		}
-		else if(order==Order.DOWN){
+		else if(order==Order.dsec){
 			if(stan==TeamStandard.allpoint){
 				downSortforallpoint.quicksort(v); //s=new upSortforallpoint();
 				//s.quicksort(v);

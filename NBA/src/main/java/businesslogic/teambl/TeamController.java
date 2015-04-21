@@ -9,20 +9,26 @@ import po.TeamGamePO;
 import po.TeamPO;
 import data.teamdata.TeamData;
 import dataservice.teamdataservice.TeamDataService;
+import test.data.TeamHighInfo;
+import test.data.TeamHotInfo;
+import test.data.TeamNormalInfo;
 import value.TeamStandard;
+import value.Value.Field2;
 import value.Value.Order;
-import vo.TeamVO;
-import businesslogicservice.teamblservice.TeamBLService;
-import businesslogicservice.teamblservice.TeamInfoProvider;
 
-public class TeamController implements TeamBLService, TeamInfoProvider{
+import businesslogic.teambl.teamcalculate;
+import businesslogic.teambl.teamsearch;
+import businesslogicservice.teamblservice.TeamBLService;
+
+
+public class TeamController implements TeamBLService{
 	teamsearch ts=new teamsearch();
 	TeamDataService t=new TeamData();
 	teamcalculate cal=new teamcalculate();
-	ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
-	ArrayList<TeamPO> p2=new ArrayList<TeamPO>();
-	ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
-	public TeamController(){
+	//ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
+	//ArrayList<TeamPO> p2=new ArrayList<TeamPO>();
+	//ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
+	/*public TeamController(){
 		//int count=0;
 		po=t.getTeamGameData();
 		p2=t.getTeamData();
@@ -32,22 +38,22 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 				TeamGamePO pp=pagp.getGameDataList().get(i);
 				//System.out.println(pagp.getGameDataList().size());
 				if(pp.getIsDirty()==true){
-					System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
+					//System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
 					pagp.getGameDataList().remove(pp);
 					i=i-1;
 				}
 			}
 		}
-		System.out.println("__________________________________________");
-		/*for(TeamAllGamePO ppp:po){
+		//System.out.println("__________________________________________");
+		//for(TeamAllGamePO ppp:po){
 			//System.out.println(ppp.getGameDataList().size());
 			
-				System.out.println(ppp.getGameDataList().size());
-				for(TeamGamePO pq:ppp.getGameDataList()){
-					System.out.println(pq.getMatchPair()+pq.getMatchDate());
-				}
+				//System.out.println(ppp.getGameDataList().size());
+				//for(TeamGamePO pq:ppp.getGameDataList()){
+					//System.out.println(pq.getMatchPair()+pq.getMatchDate());
+				//}
 			
-		}*/
+		//}
 		
 		for(TeamPO p:p2){
 			TeamVO v=new TeamVO();
@@ -130,21 +136,22 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
 		  	v.setFoulNumave(cal.getavefoulnum(thisteam));
 		  	pa.add(v);//System.out.println("asd");
 		}
-	}
-    public TeamVO getTeamInfo(String name){
-    	TeamVO result=new TeamVO();
-    	for(TeamVO v:pa){
-    		if(v.getShortName().equals(name)){
-    			result=v;
+	}*/
+    public TeamPO getTeamInfo(String name){
+    	TeamPO result=new TeamPO();
+    	ArrayList<TeamPO> p2=t.getTeamData();
+    	for(TeamPO p:p2){
+    		if(p.getShortName().equals(name)){
+    			result=p;
     			break;
     		}
     	}
     	return result;
     }
 	
-    public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan){
-    	return ts.sort(pa, order, stan);
-    }
+    //public ArrayList<String> getTeamInOrder(Order order,TeamStandard stan){
+    	//return ts.sort(pa, order, stan);
+    //}
     
     public HashMap<String,Image> getAllTeam(){
     	return t.getTeamImage();
@@ -152,6 +159,7 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     public TeamAllGamePO getoppgamedata(TeamAllGamePO p){
     	ArrayList<TeamGamePO> tgp=p.getGameDataList();
     	ArrayList<TeamGamePO> tgp2=new ArrayList<TeamGamePO>();
+    	ArrayList<TeamAllGamePO> po=t.getTeamGameData();
     	for(TeamGamePO tp:tgp){
     		String[] team=tp.getMatchPair().split("-");
     		String time=tp.getMatchDate();
@@ -171,7 +179,55 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	return result;
     	
     }
-    public TeamInfo getTeamInfo(String team, String date){
+    
+    public ArrayList<TeamHotInfo> getHotTeam(Field2 field2,int num){
+    	
+    	return null;
+    }
+    //得到热点球队信息，field2为筛选热门球队的属性，num为返回的球队数
+     
+     
+     
+	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard ts,Order order,int num){
+		return null;
+	}
+	//得到球队高级数据，均为平均值，teamstandard为排序依据，order为升降序，num为要的数目
+	
+	
+	public ArrayList<TeamNormalInfo> getTeamavgNormalInfo(TeamStandard ts,Order order,int num){
+		return null;
+	}
+	//得到球队基本数据的平均值，ts为排序依据，order为升降序，num为数目
+	
+	
+	public ArrayList<TeamNormalInfo> getTeamTotalNormalInfo(TeamStandard ts,Order order,int num){
+		return null;
+	}
+	//得到球队基本数据的总和，ts为排序依据，order为升降序，num为数目
+	
+	
+	
+	
+	public ArrayList<TeamGamePO> getGameInfo(String time,String matchpair){
+		return null;
+	}
+	
+	//得到某一场比赛数据
+	
+	public TeamNormalInfo getSingleTeamNormalInfo(String name){
+		return null;
+	}
+	//得到一支球队的基本信息，为平均值
+	
+	public TeamHighInfo getSingleTeamHighInfo(String name){
+		return null;
+	}
+	//得到一支球队的高级数据，为平均值
+	public TeamAllGamePO getRecentGame (String name){
+		return null;
+	}
+	//得到一支球队的最近5场比赛信息
+   /* public TeamInfo getTeamInfo(String team, String date){
     	TeamAllGamePO thisteam=new TeamAllGamePO();
     	TeamAllGamePO oppteam=new TeamAllGamePO();
     	
@@ -202,8 +258,8 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     	    f=new TeamInfo(p1.getAllPlayerTime(),p1.getRebTotalNum(),p2.getRebTotalNum(),p1.getRebAttNum(),p2.getRebAttNum(),p1.getRebDefNum(),p2.getRebDefNum(),p1.getHitShootNum(),p2.getRebAttNum(),p2.getShootNum()-p2.getThreeShootNum(),p1.getShootNum(),p1.getFreeNum(),p1.getErrorNum());
     	}
     	return f;
-    }
-    public String getArea(String teamName){
+    }*/
+    /*public String getArea(String teamName){
     	String s="";
     	for(TeamPO p:p2){
     		if(p.getShortName().equals(teamName)){
@@ -212,14 +268,14 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     		}
     	}
     	return s;
-    }
-    public static void main(String args[]){
+    }*/
+    /*public static void main(String args[]){
     	TeamController t=new TeamController();
-    	/*for(TeamVO v:t.pa){
+    	for(TeamVO v:t.pa){
     		if(v.getTeamName().equals("BOS")){
     			System.out.println("OK");
     		}
-    	}*/
+    	}
     	//TeamVO v=t.getTeamInfo("BOS");
     	//System.out.println(v.getAttackround());
     	ArrayList<String> s=t.getTeamInOrder(Order.UP, TeamStandard.allpoint);
@@ -227,6 +283,6 @@ public class TeamController implements TeamBLService, TeamInfoProvider{
     		System.out.println(s.get(i)+i);
     	}
     	System.out.println(t.getTeamInfo(s.get(29)).getAllpointave());
-    }
+    }*/
 
 }
