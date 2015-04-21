@@ -15,7 +15,8 @@ import test.data.TeamNormalInfo;
 import value.TeamStandard;
 import value.Value.Field2;
 import value.Value.Order;
-
+import vo.DateGameVO;
+import vo.TeamVO;
 import businesslogic.teambl.teamcalculate;
 import businesslogic.teambl.teamsearch;
 import businesslogicservice.teamblservice.TeamBLService;
@@ -25,10 +26,10 @@ public class TeamController implements TeamBLService{
 	teamsearch ts=new teamsearch();
 	TeamDataService t=new TeamData();
 	teamcalculate cal=new teamcalculate();
-	//ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
-	//ArrayList<TeamPO> p2=new ArrayList<TeamPO>();
-	//ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
-	/*public TeamController(){
+	ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
+	ArrayList<TeamPO> p2=new ArrayList<TeamPO>();
+	ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
+	public void getTeamVO(){
 		//int count=0;
 		po=t.getTeamGameData();
 		p2=t.getTeamData();
@@ -136,7 +137,7 @@ public class TeamController implements TeamBLService{
 		  	v.setFoulNumave(cal.getavefoulnum(thisteam));
 		  	pa.add(v);//System.out.println("asd");
 		}
-	}*/
+	}
     public TeamPO getTeamInfo(String name){
     	TeamPO result=new TeamPO();
     	ArrayList<TeamPO> p2=t.getTeamData();
@@ -181,8 +182,89 @@ public class TeamController implements TeamBLService{
     }
     
     public ArrayList<TeamHotInfo> getHotTeam(Field2 field2,int num){
-    	
-    	return null;
+    	ArrayList<TeamHotInfo> h=new ArrayList<TeamHotInfo>();
+    	getTeamVO();String fiel="";
+    	TeamStandard tst=TeamStandard.allpoint;
+    	if(field2==Field2.score){
+    		tst=TeamStandard.allpoint;fiel="score";
+    	}
+    	else if(field2==Field2.rebound){
+    		tst=TeamStandard.rebTotalNum;fiel="rebound";
+    	}
+    	else if(field2==Field2.assist){
+    		tst=TeamStandard.assistNum;fiel="assist";
+    	}
+    	else if(field2==Field2.blockShot){
+    		tst=TeamStandard.blockNum;fiel="blockShot";
+    	}
+    	else if(field2==Field2.steal){
+    		tst=TeamStandard.stealNum;fiel="steal";
+    	}
+    	else if(field2==Field2.foul){
+    		tst=TeamStandard.foulNum;fiel="foul";
+    	}
+    	else if(field2==Field2.fault){
+    		tst=TeamStandard.errorNum;fiel="fault";
+    	}
+    	else if(field2==Field2.shot){
+    		tst=TeamStandard.shootrate;fiel="shot";
+    	}
+    	else if(field2==Field2.three){
+    		tst=TeamStandard.threepointrate;fiel="three";
+    	}
+    	else if(field2==Field2.penalty){
+    		tst=TeamStandard.freehitrate;fiel="penalty";
+    	}
+    	else if(field2==Field2.defendRebound){
+    		tst=TeamStandard.rebDefNum;fiel="defendRebound";
+    	}
+    	else if(field2==Field2.offendRebound){
+    		tst=TeamStandard.rebAttNum;fiel="offendRebound";
+    	}
+    	ts.sort(pa, Order.asc, tst);
+    	for(int i=0;i<num;i++){
+    		TeamHotInfo hi=new TeamHotInfo();
+    		hi.setField(fiel);
+    		hi.setLeague(pa.get(i).getCompArea());
+    		hi.setTeamName(pa.get(i).getShortName());
+    		if(field2==Field2.score){
+        		hi.setValue(pa.get(i).getAllpointave());
+        	}
+        	else if(field2==Field2.rebound){
+        		tst=TeamStandard.rebTotalNum;fiel="rebound";
+        	}
+        	else if(field2==Field2.assist){
+        		tst=TeamStandard.assistNum;fiel="assist";
+        	}
+        	else if(field2==Field2.blockShot){
+        		tst=TeamStandard.blockNum;fiel="blockShot";
+        	}
+        	else if(field2==Field2.steal){
+        		tst=TeamStandard.stealNum;fiel="steal";
+        	}
+        	else if(field2==Field2.foul){
+        		tst=TeamStandard.foulNum;fiel="foul";
+        	}
+        	else if(field2==Field2.fault){
+        		tst=TeamStandard.errorNum;fiel="fault";
+        	}
+        	else if(field2==Field2.shot){
+        		tst=TeamStandard.shootrate;fiel="shot";
+        	}
+        	else if(field2==Field2.three){
+        		tst=TeamStandard.threepointrate;fiel="three";
+        	}
+        	else if(field2==Field2.penalty){
+        		tst=TeamStandard.freehitrate;fiel="penalty";
+        	}
+        	else if(field2==Field2.defendRebound){
+        		tst=TeamStandard.rebDefNum;fiel="defendRebound";
+        	}
+        	else if(field2==Field2.offendRebound){
+        		tst=TeamStandard.rebAttNum;fiel="offendRebound";
+        	}
+    	}
+    	return h;
     }
     //得到热点球队信息，field2为筛选热门球队的属性，num为返回的球队数
      
@@ -223,7 +305,7 @@ public class TeamController implements TeamBLService{
 		return null;
 	}
 	//得到一支球队的高级数据，为平均值
-	public TeamAllGamePO getRecentGame (String name){
+	public ArrayList<DateGameVO> getRecentGame (String name){
 		return null;
 	}
 	//得到一支球队的最近5场比赛信息
@@ -284,5 +366,9 @@ public class TeamController implements TeamBLService{
     	}
     	System.out.println(t.getTeamInfo(s.get(29)).getAllpointave());
     }*/
+	public ArrayList<DateGameVO> getGamebyDate(String time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

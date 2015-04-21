@@ -55,13 +55,13 @@ public interface TeamBLService {
 	public ArrayList<TeamGamePO> getGameInfo(String time,String matchpair);
 	
 	//得到某一场比赛数据
-	//public ArrayList<DateGameVO> getGamebyDate(String time);
-	
+	public ArrayList<DateGameVO> getGamebyDate(String time);
+	//得到某一日期的数据
 	public TeamNormalInfo getSingleTeamNormalInfo(String name);
 	//得到一支球队的基本信息，为平均值
 	
 	public TeamHighInfo getSingleTeamHighInfo(String name);
 	//得到一支球队的高级数据，为平均值
-	public TeamAllGamePO getRecentGame (String name);
+	public ArrayList<DateGameVO> getRecentGame (String name);
 	//得到一支球队的最近5场比赛信息
 }
