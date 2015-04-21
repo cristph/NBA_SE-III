@@ -9,7 +9,7 @@ public class GameTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        test1();
+        test2();
 	}
 
 	public static void test1(){
@@ -38,6 +38,16 @@ public class GameTest {
 		double time2=System.currentTimeMillis();
 		System.out.println("开机数据处理所用的时间"+(time2-time1));
 		
+	}
+	public static void test2(){
+		GameData gd=new GameData();
+		ArrayList<PlayerGamePO> result=gd.get_Latest_PlayerGameData();
+		System.out.println("今天共有"+result.size()+"名球员参赛");
+		for(int i=0;i<result.size();i++)
+		{
+			PlayerGamePO po=result.get(i);
+			System.out.println(po.getPlayerName()+" "+po.getPosition()+" "+po.getMatchDate()+" "+po.getMatchPair());
+		}
 	}
 	
 }

@@ -100,5 +100,30 @@ public class Waiter {
 		return true;
 	}
 	
+	/*
+	 * changeDate(String,String)
+	 *参数s ‘03-21’，currentSeason为‘12-13’，转换为‘2013-03-21’
+	 *
+	 */
+	public String changeDate(String s,String currentSeason){
+		String dateParts[]=s.split("-");
+		int month=Integer.parseInt(dateParts[0]);
+        String year[]=currentSeason.split("-");
+        String preYear=year[0];
+        String backYear=year[1];
+        String yyear=null;
+		if((month>0)&&(month<=4))
+		{
+			yyear="20"+backYear;
+		}
+		else
+		{
+			yyear="20"+preYear;
+		}
+		return yyear+"-"+s;
+			
+	}
+	
+	
 	
 }
