@@ -23,17 +23,13 @@ public class GameDataReader implements GameDataReadService {
 	
 	private int currentTeam=1;
 	
-	
 	private String teamName1=null;
 	private String teamName2=null;
 	
 	private TeamGamePO teamGame1=null;
 	private TeamGamePO teamGame2=null;
 	
-    
-	
-	
-	private ArrayList<PlayerGamePO> playerList=null;
+    private ArrayList<PlayerGamePO> playerList=null;
 	private Waiter waiter=null;
 	
 	public GameDataReader(){
@@ -65,7 +61,6 @@ public class GameDataReader implements GameDataReadService {
 			temp.setPosition("substitution");
 			isFirst=false;
 		}
-		
 		
 		String time[]=info[2].split(":");
 		
@@ -106,7 +101,6 @@ public class GameDataReader implements GameDataReadService {
 		temp.setFoulNum(data[12]);
 		temp.setErrorNum(data[13]);
 		temp.setScore(data[14]);
-		
 		temp.setFirst(isFirst);
 		
 		int twoShoot=temp.getShootNum()-temp.getThreeShootNum();
@@ -120,13 +114,9 @@ public class GameDataReader implements GameDataReadService {
 		else if(currentTeam==2)
 		temp.setTeam(teamName2);
 
-		
 		return temp;
-		
-	}
+}
 
-	
-	
 private void updateTeam(String line){
 	
 	TeamGamePO temp=null;
@@ -140,6 +130,7 @@ private void updateTeam(String line){
 	int time=0;
 	boolean isDirty=false;
 	String tim[]=info[2].split(":");
+
 	try{
 	if(tim.length==1)
 		time=Integer.parseInt(tim[0])*60;
@@ -220,12 +211,14 @@ private GameInfo makeGameInfo(){
 	
 	for(int i=0;i<playerList.size();i++)
 	{
-	  PlayerGamePO po=playerList.get(i);
-	  if(po.getTeam().equals(teamName1))
-		 po.setTif(info1);
-	  else
-		  po.setTif(info2);
+	    PlayerGamePO po=playerList.get(i);
+	    
+	    if(po.getTeam().equals(teamName1))
+		   po.setTif(info1);
+	    else
+		   po.setTif(info2);
 	}
+	
 	gif.setGameList(playerList);
 
 	return gif;
@@ -250,7 +243,6 @@ public GameInfo readMatchFile(File f) {
 				int row=1;
 				while((line=inTwo.readLine())!=null)
 				{
-					
 					if(row==1)
 					{
 						initCurrent(line);
@@ -297,34 +289,32 @@ public GameInfo readMatchFile(File f) {
 		        teamGame1=new TeamGamePO();
 				teamGame2=new TeamGamePO();
 		        return result;
-			
-		}
+			}
 		return new GameInfo();
 	}
     private void setTeamInfo(TeamGamePO po,int i){
     	po.setMatchDate(currentDate);
-    	po.setMatchPair(currentPair);
-    	po.setPartScore(partScore);
+       	po.setPartScore(partScore);
     	
     	String result[]=currentResult.split("-");
     	String currentResult2=result[1]+"-"+result[0];
+    	
+    	String pair[]=currentPair.split("-");
+    	String currentPair2=pair[1]+"-"+pair[0];
     	
     	if(i==1)
     	{
     		po.setMatchResult(currentResult);
     		po.setTeamName(teamName1);
+    		po.setMatchPair(currentPair);
     	}
     	else if(i==2)
     	{
     		po.setMatchResult(currentResult2);
     		po.setTeamName(teamName2);
+    		po.setMatchPair(currentPair2);
     	}	
-    	
-    
     }
-
-
-
 }	
 
 	

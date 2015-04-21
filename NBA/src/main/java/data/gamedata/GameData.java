@@ -14,21 +14,19 @@ import po.TeamGamePO;
 
 public class GameData implements GameDataService,Runnable{
 
-	
 	private static HashMap<String,TeamAllGamePO> teamMap=null;
 	private static HashMap<String,PlayerAllGamePO> playerMap=null;
 	private static File matchFold=null;
 	
-    static{
+    static
+    {
 		teamMap=new HashMap<String,TeamAllGamePO>();
 		playerMap=new HashMap<String,PlayerAllGamePO>();
 		matchFold=new File("data/matches");
 		initGameData();
-		
 	}
 	
-
-	private static void initGameData(){
+    private static void initGameData(){
 		teamMap=new HashMap<String,TeamAllGamePO>();
 		playerMap=new HashMap<String,PlayerAllGamePO>();
 		GameDataReadService gdrs=new GameDataReader();
@@ -36,12 +34,11 @@ public class GameData implements GameDataService,Runnable{
 		File[] array=matchFold.listFiles();
 		for(int i=0;i<array.length;i++)
 		{
-			System.out.println("第"+i+"个文件");
 			GameInfo gif=gdrs.readMatchFile(array[i]);
 			addGif(gif);
-			
 		}
 	}
+	
 	private static void addTeamGamePO(TeamGamePO po){
 		boolean b=teamMap.containsKey(po.getTeamName());
 		if(b)
@@ -60,6 +57,7 @@ public class GameData implements GameDataService,Runnable{
 	
 	private static void addPlayerGamePO(PlayerGamePO po){
 		boolean b=playerMap.containsKey(po.getPlayerName());
+	    
 		if(b)
 		{
 			playerMap.get(po.getPlayerName()).addMatch(po);
@@ -82,9 +80,11 @@ public class GameData implements GameDataService,Runnable{
 		addTeamGamePO(po2);
 		
 		ArrayList<PlayerGamePO> list=gif.getGameList(); 
+		//ArrayList<PlayerGamePO> playerList=playerList;
 		for(int j=0;j<list.size();j++)
 		{
 			addPlayerGamePO(list.get(j));
+			
 		}
 	}
 	
@@ -92,12 +92,11 @@ public class GameData implements GameDataService,Runnable{
 		new Thread(this).start();
 	}
 	
-
     public ArrayList<PlayerAllGamePO> getPlayerGameData() {
 		// TODO Auto-generated method stub
         java.util.Iterator<String> it=playerMap.keySet().iterator();
-		
 		ArrayList<PlayerAllGamePO> list=new ArrayList<PlayerAllGamePO>();
+
 		while(it.hasNext()){
 			PlayerAllGamePO temp=playerMap.get(it.next());
 			list.add(temp);
@@ -111,13 +110,13 @@ public class GameData implements GameDataService,Runnable{
         java.util.Iterator<String> it=teamMap.keySet().iterator();
 		
 		ArrayList<TeamAllGamePO> list=new ArrayList<TeamAllGamePO>();
-		while(it.hasNext()){
+		while(it.hasNext())
+		{
 			TeamAllGamePO temp=teamMap.get(it.next());
 			list.add(temp);
 		}
 		
 		return list;
-	
 	}
 
 	public ArrayList<PlayerGamePO> get_Latest_PlayerGameData() {
@@ -126,6 +125,7 @@ public class GameData implements GameDataService,Runnable{
 		Waiter waiter=new Waiter();
 		int maxDate=0;
 		GameDataReadService gdrs=new GameDataReader();
+		
 		for(int i=0;i<array.length;i++)
 		{
 			String name=array[i].getName();
@@ -138,7 +138,6 @@ public class GameData implements GameDataService,Runnable{
 				maxDate=temp;
 		}
 		
-		//PlayerGamePO po=null;
 		GameInfo gif=null;
 		ArrayList<PlayerGamePO> result=new ArrayList<PlayerGamePO>();
 		for(int i=0;i<array.length;i++)
@@ -155,12 +154,10 @@ public class GameData implements GameDataService,Runnable{
 				result.addAll(pList);
 		    }
 		}
-		
 		return result;
 	}
 	
-	
-	public void run() {
+    public void run() {
 		// TODO Auto-generated method stub
 		
 	      MatchFileList mfl=new MatchFileList();
@@ -204,9 +201,7 @@ public class GameData implements GameDataService,Runnable{
 	    			      initGameData();
 	    		  }
 	    	  }
-	    	 
-	    	  
-	        }
+	   }
 	}
 
 }
