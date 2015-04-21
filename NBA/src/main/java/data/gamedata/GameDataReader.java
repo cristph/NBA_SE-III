@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+
+import data.common.Waiter;
 import po.PlayerGamePO;
 import po.TeamGamePO;
 
@@ -32,36 +34,22 @@ public class GameDataReader implements GameDataReadService {
 	
 	
 	private ArrayList<PlayerGamePO> playerList=null;
+	private Waiter waiter=null;
 	
 	public GameDataReader(){
 		playerList=new ArrayList<PlayerGamePO>();
+		waiter=new Waiter();
+		teamGame1=new TeamGamePO();
+		teamGame2=new TeamGamePO();
 	}
 	
 	
 	private void initCurrent(String s){
 		String info[]=s.split(";");
-	    currentDate=changeDate(info[0]);
+	    currentDate=waiter.changeDate(info[0],currentSeason);
 	    currentPair=info[1];
 	    currentResult=info[2];
 	  }
-	private String changeDate(String s){
-		String dateParts[]=s.split("-");
-		int month=Integer.parseInt(dateParts[0]);
-        String year[]=currentSeason.split("-");
-        String preYear=year[0];
-        String backYear=year[1];
-        String yyear=null;
-		if((month>0)&&(month<=4))
-		{
-			yyear="20"+backYear;
-		}
-		else
-		{
-			yyear="20"+preYear;
-		}
-		return yyear+"-"+s;
-			
-	}
 	
 	private PlayerGamePO makePlayerPO(String line){
 		PlayerGamePO temp=new PlayerGamePO();
@@ -215,7 +203,11 @@ private void updateTeam(String line){
 
 private GameInfo makeGameInfo(){
 	GameInfo gif=new GameInfo();
-	gif.setTeamGame1(teamGame1);
+	
+	setTeamInfo(teamGame1,1);
+	setTeamInfo(teamGame2,2);
+	
+    gif.setTeamGame1(teamGame1);
 	gif.setTeamGame2(teamGame2);
 	
 	TeamInfo info1=new TeamInfo(teamGame1.getAllPlayerTime(),teamGame1.getRebTotalNum(),teamGame2.getRebTotalNum(),teamGame1.getRebAttNum(),
@@ -235,13 +227,14 @@ private GameInfo makeGameInfo(){
 		  po.setTif(info2);
 	}
 	gif.setGameList(playerList);
+
 	return gif;
 }
 
 	
 public GameInfo readMatchFile(File f) {
 		 
-		
+		playerList=new ArrayList<PlayerGamePO>();
 		if(f.isFile())
 		{
 			teamGame1=new TeamGamePO();
@@ -277,8 +270,7 @@ public GameInfo readMatchFile(File f) {
 					{
 						teamName2=line;
 						currentTeam=2;
-					}
-					
+				    }
 					else 
 					{
 		                PlayerGamePO temPo=makePlayerPO(line);
@@ -288,6 +280,7 @@ public GameInfo readMatchFile(File f) {
 		             }
 					row++;
 					}
+				
 				   inTwo.close();	
 	            }
 				catch (FileNotFoundException e) 
@@ -301,11 +294,36 @@ public GameInfo readMatchFile(File f) {
 			    }
 			
 		        GameInfo result=makeGameInfo();
+		        teamGame1=new TeamGamePO();
+				teamGame2=new TeamGamePO();
 		        return result;
 			
 		}
 		return new GameInfo();
 	}
+    private void setTeamInfo(TeamGamePO po,int i){
+    	po.setMatchDate(currentDate);
+    	po.setMatchPair(currentPair);
+    	po.setPartScore(partScore);
+    	
+    	String result[]=currentResult.split("-");
+    	String currentResult2=result[1]+"-"+result[0];
+    	
+    	if(i==1)
+    	{
+    		po.setMatchResult(currentResult);
+    		po.setTeamName(teamName1);
+    	}
+    	else if(i==2)
+    	{
+    		po.setMatchResult(currentResult2);
+    		po.setTeamName(teamName2);
+    	}	
+    	
+    
+    }
+
+
 
 }	
 
