@@ -17,52 +17,11 @@ import vo.PlayerVO;
 
 public class PlayerBLController implements PlayerBLService{
 	
-	PlayerCalculator pc;
+	PlayerCalculate pc;
 	
 	public PlayerBLController(){
-		pc=new PlayerCalculator();
+		pc=new PlayerCalculate();
 	}
-	
-	/*
-	 * old lines
-	public PlayerVO getPlayerTotalInfo(String name) {
-		// TODO Auto-generated method stub
-		PlayerVO pv=pc.getPlayerInfo(name);
-		return pv;
-	}
-	
-	public ArrayList<PlayerInfoVO> getPlayerAvgInOrder(Order order,
-			PlayerStandard stan) {
-		// TODO Auto-generated method stub
-		ArrayList<PlayerInfoVO> res=pc.avgSort(order, stan);
-		return res;
-	}
-
-	public ArrayList<PlayerInfoVO> getPlayerTotalInOrder(Order order,
-			PlayerStandard stan) {
-		// TODO Auto-generated method stub
-		ArrayList<PlayerInfoVO> res=pc.totalSort(order, stan);
-		return res;
-	}
-
-	public ArrayList<PlayerInfoVO> getPlayerTop_50(Order order,PlayerStandard stan,
-			String pos,Zone zone) {
-		// TODO Auto-generated method stub
-		if(stan==PlayerStandard.score||stan==PlayerStandard.rebTotalNum||stan==PlayerStandard.assistNum
-				||stan==PlayerStandard.par||stan==PlayerStandard.blockNum||stan==PlayerStandard.stealNum
-				||stan==PlayerStandard.foulNum||stan==PlayerStandard.errorNum||stan==PlayerStandard.time){
-			ArrayList<PlayerInfoVO> res=pc.getAvgTopList(order, stan, pos, zone);
-			return res;
-		}else if(stan==PlayerStandard.rate||stan==PlayerStandard.shooting||stan==PlayerStandard.threeRate
-				||stan==PlayerStandard.freeRate||stan==PlayerStandard.doub){
-			ArrayList<PlayerInfoVO> res=pc.getTotalTopList(order, stan, pos, zone);
-			return res;
-		}
-		return null;
-	}
-	*
-	*/
-	
 	
 	/*
 	 * now begin new lines
@@ -76,8 +35,8 @@ public class PlayerBLController implements PlayerBLService{
 	 * @return ArrayList<PlayerHotInfo>
 	 */
 	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
-		return null;
-		
+		ArrayList<PlayerHotInfo> list=pc.getHotPlayer(field, num);
+		return list;
 	}
 	
 	/*
@@ -87,8 +46,8 @@ public class PlayerBLController implements PlayerBLService{
 	 * @return ArrayList<PlayerKingInfo>
 	 */
 	public ArrayList<PlayerKingInfo> getSeasonKingPlayer(Field field,int num){
-		return null;
-		
+		ArrayList<PlayerKingInfo> list=pc.getSeasonKingPlayer(field, num);
+		return list;
 	}
 	
 	/*
@@ -98,8 +57,8 @@ public class PlayerBLController implements PlayerBLService{
 	 * @return ArrayList<PlayerKingInfo>
 	 */
 	public ArrayList<PlayerKingInfo> getDailyKingPlayer(Field field,int num){
-		return null;
-		
+		ArrayList<PlayerKingInfo> list=pc.getDailyKingPlayer(field, num);
+		return list;
 	}
 	
 	/*
@@ -110,8 +69,8 @@ public class PlayerBLController implements PlayerBLService{
 	 * @return ArrayList<PlayerHighInfo>
 	 */
 	public ArrayList<PlayerHighInfo> getPlayerHighInfo(PlayerStandard ps,Order order,int num){
-		return null;
-		
+		ArrayList<PlayerHighInfo> list=pc.getPlayerHighInfo(ps, order, num);
+		return list;
 	}
 	
 	/*
@@ -126,8 +85,8 @@ public class PlayerBLController implements PlayerBLService{
 	 */
 	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(Position pos,League lea,Age age,
 			PlayerStandard ps,Order order,int num){
-		return null;
-		
+		ArrayList<PlayerNormalInfo> list=pc.getPlayerAvgNormalInfo(pos, lea, age, ps, order, num);
+		return list;	
 	}
 	
 	/*
@@ -142,8 +101,8 @@ public class PlayerBLController implements PlayerBLService{
 	 */
 	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfo(Position pos,League lea,Age age,
 			PlayerStandard ps,Order order,int num){
-		return null;
-		
+		ArrayList<PlayerNormalInfo> list=pc.getPlayerTotalNormalInfo(pos, lea, age, ps, order, num);
+		return list;
 	}
 	
 	/*
@@ -152,17 +111,20 @@ public class PlayerBLController implements PlayerBLService{
 	 * @return PlayerVO
 	 */
 	public PlayerVO getPlayerInfo(String name){
-		return null;
+		PlayerVO pv=pc.getPlayerInfo(name);
+		return pv;
 	}
 
 	public PlayerNormalInfo getSinglePlayerNormalInfo(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		PlayerNormalInfo pni=pc.getSinglePlayerNormalInfo(name);
+		return pni;
 	}
 
 	public PlayerHighInfo getSinglePlayerHighInfo(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		PlayerHighInfo phi=pc.getSinglePlayerHighInfo(name);
+		return phi;
 	}
 	
 }

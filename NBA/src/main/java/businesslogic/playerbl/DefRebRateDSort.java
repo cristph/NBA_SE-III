@@ -2,39 +2,39 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
-import vo.PlayerInfoVO;
+import test.data.PlayerHighInfo;
 
 public class DefRebRateDSort {
 	public static final int CUTOFF = 11;
 	
-	public void quicksort( ArrayList<PlayerInfoVO> arr ) {
+	public void quicksort( ArrayList<PlayerHighInfo> arr ) {
 		quickSort( arr, 0, arr.size() - 1 ); 
 	}
 	
-	public PlayerInfoVO median( ArrayList<PlayerInfoVO> arr, int left, int right ) {
+	public PlayerHighInfo median( ArrayList<PlayerHighInfo> arr, int left, int right ) {
 		int center = ( left + right ) / 2;
 		
-		if ( arr.get(left).getDefRebRate()<arr.get(center).getDefRebRate() )
+		if ( arr.get(left).getDefendReboundEfficient()<arr.get(center).getDefendReboundEfficient() )
 			swapRef( arr, left, center );
-		if ( arr.get(left).getDefRebRate()<arr.get(right).getDefRebRate() )
+		if ( arr.get(left).getDefendReboundEfficient()<arr.get(right).getDefendReboundEfficient() )
 			swapRef( arr, left, right );
-		if ( arr.get(center).getDefRebRate()<arr.get(right).getDefRebRate() )
+		if ( arr.get(center).getDefendReboundEfficient()<arr.get(right).getDefendReboundEfficient() )
 			swapRef( arr, center, right );
  
 		swapRef( arr, center, right - 1 );
 		return arr.get( right - 1 );
       }
 	
-	private void quickSort( ArrayList<PlayerInfoVO> arr, int left, int right ) {
+	private void quickSort( ArrayList<PlayerHighInfo> arr, int left, int right ) {
 		
 		if ( left + CUTOFF <= right  ) {
 			//find the pivot
-			PlayerInfoVO pivot = median( arr, left, right );
+			PlayerHighInfo pivot = median( arr, left, right );
 			//start partitioning
 			int i = left, j = right - 1;
 			for ( ; ; ) {
-				while ( arr.get(++i).getDefRebRate()> pivot.getDefRebRate()  ) ;
-				while ( arr.get(--j).getDefRebRate()< pivot.getDefRebRate() ) ;
+				while ( arr.get(++i).getDefendReboundEfficient()> pivot.getDefendReboundEfficient()  ) ;
+				while ( arr.get(--j).getDefendReboundEfficient()< pivot.getDefendReboundEfficient() ) ;
 				if ( i < j )
 					swapRef( arr, i, j );
 				else
@@ -53,17 +53,17 @@ public class DefRebRateDSort {
 		}
 	}
 	
-	public void swapRef( ArrayList<PlayerInfoVO> arr, int idx1, int idx2 ) {  
-		PlayerInfoVO tmp = arr.get(idx1);
+	public void swapRef( ArrayList<PlayerHighInfo> arr, int idx1, int idx2 ) {  
+		PlayerHighInfo tmp = arr.get(idx1);
 		arr.set(idx1, arr.get(idx2));
 		arr.set(idx2, tmp);
       }
 	
-	public void insertionSort( ArrayList<PlayerInfoVO> arr, int start, int end ) {
+	public void insertionSort( ArrayList<PlayerHighInfo> arr, int start, int end ) {
 		int i;
 		for ( int j = start + 1; j <= end; j++ ) {
-			PlayerInfoVO tmp = arr.get(j);
-			for ( i = j; i > start && tmp.getDefRebRate()>arr.get(i - 1).getDefRebRate(); i-- ) {
+			PlayerHighInfo tmp = arr.get(j);
+			for ( i = j; i > start && tmp.getDefendReboundEfficient()>arr.get(i - 1).getDefendReboundEfficient(); i-- ) {
 				arr.set(i, arr.get(i-1));
 			}
 			arr.set(i, tmp);
