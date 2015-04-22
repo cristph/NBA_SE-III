@@ -186,25 +186,25 @@ public class TeamController implements TeamBLService{
     	getTeamVO();String fiel="";
     	TeamStandard tst=TeamStandard.allpoint;
     	if(field2==Field2.score){
-    		tst=TeamStandard.allpoint;fiel="score";
+    		tst=TeamStandard.allpointave;fiel="score";
     	}
     	else if(field2==Field2.rebound){
-    		tst=TeamStandard.rebTotalNum;fiel="rebound";
+    		tst=TeamStandard.rebTotalNumave;fiel="rebound";
     	}
     	else if(field2==Field2.assist){
-    		tst=TeamStandard.assistNum;fiel="assist";
+    		tst=TeamStandard.assistNumave;fiel="assist";
     	}
     	else if(field2==Field2.blockShot){
-    		tst=TeamStandard.blockNum;fiel="blockShot";
+    		tst=TeamStandard.blockNumave;fiel="blockShot";
     	}
     	else if(field2==Field2.steal){
-    		tst=TeamStandard.stealNum;fiel="steal";
+    		tst=TeamStandard.stealNumave;fiel="steal";
     	}
     	else if(field2==Field2.foul){
-    		tst=TeamStandard.foulNum;fiel="foul";
+    		tst=TeamStandard.foulNumave;fiel="foul";
     	}
     	else if(field2==Field2.fault){
-    		tst=TeamStandard.errorNum;fiel="fault";
+    		tst=TeamStandard.errorNumave;fiel="fault";
     	}
     	else if(field2==Field2.shot){
     		tst=TeamStandard.shootrate;fiel="shot";
@@ -216,10 +216,10 @@ public class TeamController implements TeamBLService{
     		tst=TeamStandard.freehitrate;fiel="penalty";
     	}
     	else if(field2==Field2.defendRebound){
-    		tst=TeamStandard.rebDefNum;fiel="defendRebound";
+    		tst=TeamStandard.rebDefNumave;fiel="defendRebound";
     	}
     	else if(field2==Field2.offendRebound){
-    		tst=TeamStandard.rebAttNum;fiel="offendRebound";
+    		tst=TeamStandard.rebAttNumave;fiel="offendRebound";
     	}
     	ts.sort(pa, Order.asc, tst);
     	for(int i=0;i<num;i++){
@@ -231,38 +231,39 @@ public class TeamController implements TeamBLService{
         		hi.setValue(pa.get(i).getAllpointave());
         	}
         	else if(field2==Field2.rebound){
-        		tst=TeamStandard.rebTotalNum;fiel="rebound";
+        		hi.setValue(pa.get(i).getRebTotalNumave());
         	}
         	else if(field2==Field2.assist){
-        		tst=TeamStandard.assistNum;fiel="assist";
+        		hi.setValue(pa.get(i).getAssistNumave());
         	}
         	else if(field2==Field2.blockShot){
-        		tst=TeamStandard.blockNum;fiel="blockShot";
+        		hi.setValue(pa.get(i).getBlockNumave());
         	}
         	else if(field2==Field2.steal){
-        		tst=TeamStandard.stealNum;fiel="steal";
+        		hi.setValue(pa.get(i).getStealNumave());
         	}
         	else if(field2==Field2.foul){
-        		tst=TeamStandard.foulNum;fiel="foul";
+        		hi.setValue(pa.get(i).getFoulNumave());
         	}
         	else if(field2==Field2.fault){
-        		tst=TeamStandard.errorNum;fiel="fault";
+        		hi.setValue(pa.get(i).getErrorNumave());
         	}
         	else if(field2==Field2.shot){
-        		tst=TeamStandard.shootrate;fiel="shot";
+        		hi.setValue(pa.get(i).getShootrate());
         	}
         	else if(field2==Field2.three){
-        		tst=TeamStandard.threepointrate;fiel="three";
+        		hi.setValue(pa.get(i).getThreepointrate());
         	}
         	else if(field2==Field2.penalty){
-        		tst=TeamStandard.freehitrate;fiel="penalty";
+        		hi.setValue(pa.get(i).getFreehitrate());
         	}
         	else if(field2==Field2.defendRebound){
-        		tst=TeamStandard.rebDefNum;fiel="defendRebound";
+        		hi.setValue(pa.get(i).getRebDefNumave());
         	}
         	else if(field2==Field2.offendRebound){
-        		tst=TeamStandard.rebAttNum;fiel="offendRebound";
+        		hi.setValue(pa.get(i).getRebAttNumave());
         	}
+    		h.add(hi);
     	}
     	return h;
     }
@@ -270,20 +271,80 @@ public class TeamController implements TeamBLService{
      
      
      
-	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard ts,Order order,int num){
-		return null;
+	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard tst,Order order,int num){
+		getTeamVO();
+		ArrayList<TeamHighInfo> h=new ArrayList<TeamHighInfo>();
+		ts.sort(pa, order, tst);
+		for(int i=0;i<num;i++){
+			TeamHighInfo thi=new TeamHighInfo();
+			thi.setAssistEfficient(pa.get(i).getAssistrate());
+			thi.setDefendEfficient(pa.get(i).getDefendrate());
+			thi.setDefendReboundEfficient(pa.get(i).getRebdefrate());
+			thi.setOffendEfficient(pa.get(i).getAttackrate());
+			thi.setOffendReboundEfficient(pa.get(i).getRebattrate());
+			thi.setOffendRound(pa.get(i).getAttackround());
+			thi.setStealEfficient(pa.get(i).getStealrate());
+			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setWinRate(pa.get(i).getWinrate());
+			h.add(thi);
+		}
+		return h;
 	}
 	//得到球队高级数据，均为平均值，teamstandard为排序依据，order为升降序，num为要的数目
 	
 	
-	public ArrayList<TeamNormalInfo> getTeamavgNormalInfo(TeamStandard ts,Order order,int num){
-		return null;
+	public ArrayList<TeamNormalInfo> getTeamavgNormalInfo(TeamStandard tst,Order order,int num){
+		getTeamVO();
+		ArrayList<TeamNormalInfo> h=new ArrayList<TeamNormalInfo>();
+		ts.sort(pa, order, tst);
+		for(int i=0;i<num;i++){
+			TeamNormalInfo thi=new TeamNormalInfo();
+			thi.setAssist(pa.get(i).getAssistNumave());
+			thi.setBlockShot(pa.get(i).getRebTotalNumave());
+			thi.setDefendRebound(pa.get(i).getRebDefNumave());
+			thi.setFault(pa.get(i).getErrorNumave());
+			thi.setFoul(pa.get(i).getFoulNumave());
+			thi.setNumOfGame(pa.get(i).getGamenum());
+			thi.setOffendRebound(pa.get(i).getRebAttNumave());
+			thi.setPenalty(pa.get(i).getFreehitrate());
+			thi.setPoint(pa.get(i).getAllpointave());
+			thi.setRebound(pa.get(i).getRebTotalNumave());
+			thi.setShot(pa.get(i).getShootrate());
+			thi.setSteal(pa.get(i).getStealNumave());
+			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setThree(pa.get(i).getThreepointrate());
+			h.add(thi);
+		}
+		return h;
+		
 	}
 	//得到球队基本数据的平均值，ts为排序依据，order为升降序，num为数目
 	
 	
-	public ArrayList<TeamNormalInfo> getTeamTotalNormalInfo(TeamStandard ts,Order order,int num){
-		return null;
+	public ArrayList<TeamNormalInfo> getTeamTotalNormalInfo(TeamStandard tst,Order order,int num){
+		getTeamVO();
+		ArrayList<TeamNormalInfo> h=new ArrayList<TeamNormalInfo>();
+		ts.sort(pa, order, tst);
+		for(int i=0;i<num;i++){
+			TeamNormalInfo thi=new TeamNormalInfo();
+			thi.setAssist(pa.get(i).getAssistNum());
+			thi.setBlockShot(pa.get(i).getRebTotalNum());
+			thi.setDefendRebound(pa.get(i).getRebDefNum());
+			thi.setFault(pa.get(i).getErrorNum());
+			thi.setFoul(pa.get(i).getFoulNum());
+			thi.setNumOfGame(pa.get(i).getGamenum());
+			thi.setOffendRebound(pa.get(i).getRebAttNum());
+			thi.setPenalty(pa.get(i).getFreehitrate());
+			thi.setPoint(pa.get(i).getAllpoint());
+			thi.setRebound(pa.get(i).getRebTotalNum());
+			thi.setShot(pa.get(i).getShootrate());
+			thi.setSteal(pa.get(i).getStealNum());
+			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setThree(pa.get(i).getThreepointrate());
+			h.add(thi);
+		}
+		return h;
+		
 	}
 	//得到球队基本数据的总和，ts为排序依据，order为升降序，num为数目
 	
@@ -291,12 +352,41 @@ public class TeamController implements TeamBLService{
 	
 	
 	public ArrayList<TeamGamePO> getGameInfo(String time,String matchpair){
-		return null;
+		po=t.getTeamGameData();ArrayList<TeamGamePO> resu=new ArrayList<TeamGamePO>();
+		String[] result=matchpair.split(":");
+		for(int i=0;i<po.size();i++){
+			if(po.get(i).getTeamName().equals(result[0])||po.get(i).getTeamName().equals(result[1])){
+				for(int j=0;j<po.get(i).getGameDataList().size();j++){
+					if(po.get(i).getGameDataList().get(j).getMatchDate().equals(time)){
+						resu.add(po.get(i).getGameDataList().get(j));
+						break;
+					}
+				}
+				if(resu.size()==2){
+					break;
+				}
+				
+			}
+		}
+		/*for(int i=0;i<po.size();i++){
+			if(po.get(i).getTeamName().equals(result[1])){
+				for(int j=0;j<po.get(i).getGameDataList().size();j++){
+					if(po.get(i).getGameDataList().get(j).getMatchDate().equals(time)){
+						resu.add(po.get(i).getGameDataList().get(j));
+						break;
+					}
+				}
+				break;
+			}
+		}*/
+		return resu;
 	}
 	
 	//得到某一场比赛数据
 	
 	public TeamNormalInfo getSingleTeamNormalInfo(String name){
+		po=t.getTeamGameData();
+		
 		return null;
 	}
 	//得到一支球队的基本信息，为平均值
