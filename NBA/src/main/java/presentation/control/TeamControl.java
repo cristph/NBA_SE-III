@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.swing.JButton;
 
@@ -25,7 +26,7 @@ public class TeamControl implements ControlService,TeamControlService{
 
 	public TeamBLService ts ;
 	public PlayerBLService ps;
-	HashMap<String,Image> hash = ts.getAllTeam();
+	HashMap<String,Image> hash;
 	String title1[] = {"球队简称","助攻效率","防守效率"
 			,"防守篮板效率","进攻效率","进攻篮板效率"
 			, "进攻回合","抢断效率","胜率"
@@ -36,12 +37,15 @@ public class TeamControl implements ControlService,TeamControlService{
 		// TODO Auto-generated constructor stub
 		this.ps = ps;
 		this.ts = ts2;
+		hash = ts.getAllTeam();
 	}
 
-	public String findTeam(int line, int row) {
+	public String findTeam(int line) {
 		// 得到球队的名称在显示层
-		String[] list = (String[])hash.keySet().toArray();
-		return list[(row-1)*6+line-1];
+		Set<String> list = hash.keySet();
+		Object[] list1 = list.toArray();
+		System.out.print(list1.length);
+		return (String)list1[line-1];
 	}
 
 	public Image getTeamPic(String name) {

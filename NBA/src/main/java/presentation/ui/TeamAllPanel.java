@@ -113,23 +113,22 @@ public class TeamAllPanel extends JPanel {
 		
 		GridLayout layout1 = new GridLayout(5,6,50,5);
 		team.setLayout(layout1);
-		for(int i=1;i<=6;i++){
-			for(int j=1;j<=5;j++){
-				//通过动态方法获取队伍的图片
-				JPanel test = getPanel(i,j);
+		for(int i=1;i<=30;i++){
+			
+				JPanel test = getPanel(i);
 				team.add(test);
-			}
+			
 		}
 	}
 
-	private JPanel getPanel(int line, int row) {
+	private JPanel getPanel(int line) {
 		//获取队伍的图片和名称
 		JPanel test = new JPanel();
 		Border border = BorderFactory
 				.createBevelBorder(BevelBorder.LOWERED);
 		test.setBorder(border);
 		test.setLayout(new BorderLayout());
-		final String name = cs.findTeam(line,row);
+		final String name = cs.findTeam(line);
 		Image temp = cs.getTeamPic(name) ;
 		JButton button = new JButton(name);
 		temp = temp.getScaledInstance(80, 80, Image.SCALE_DEFAULT);

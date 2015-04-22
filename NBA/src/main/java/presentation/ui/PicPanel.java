@@ -50,7 +50,7 @@ public class PicPanel extends JPanel {
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		table.setDefaultRenderer(JButton.class,new ComboBoxCellRenderer());
 		this.add(pane,BorderLayout.CENTER);
 		

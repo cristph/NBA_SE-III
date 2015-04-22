@@ -70,7 +70,7 @@ public class HotTeamControl implements HotControl{
 	}
 
 	public String[] getHead() {
-		String[] title={"球员","热门属性","球队","位置"};
+		String[] title={"球队","热门属性","联盟"};
 		title[1] = fld;
 		return title;
 	}
