@@ -203,6 +203,7 @@ public class GameData implements GameDataService,Runnable{
 	    		  {
 	    			      initGameData();
 	    		  }
+	    		  
 	    	  }
 	   }
 	}

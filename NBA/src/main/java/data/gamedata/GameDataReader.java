@@ -216,7 +216,7 @@ private GameInfo makeGameInfo(){
 	{
 	    PlayerGamePO po=playerList.get(i);
 	    
-	    if(po.getTeam().equals(teamName1))
+	    if(po.getTeam().equals(teamName1)) 
 		   po.setTif(info1);
 	    else
 		   po.setTif(info2);
