@@ -36,6 +36,7 @@ public class TeamController implements TeamBLService{
 	ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
 	public void getTeamVO(){
 		//int count=0;
+		pa=new ArrayList<TeamVO>();
 		po=gd.getTeamGameData();
 		p2=fd.getTeamFundData();
 		for(TeamAllGamePO pagp:po){
@@ -51,23 +52,23 @@ public class TeamController implements TeamBLService{
 			}
 		}
 		//System.out.println("__________________________________________");
-		for(TeamAllGamePO ppp:po){
-			System.out.println(ppp.getTeamName()+ppp.getGameDataList().size());
+		//for(TeamAllGamePO ppp:po){
+			//System.out.println(ppp.getTeamName()+ppp.getGameDataList().size());
 			
 				//System.out.println(ppp.getGameDataList().size());
 				//for(TeamGamePO pq:ppp.getGameDataList()){
 					//System.out.println(pq.getMatchPair()+pq.getMatchDate());
 				//}
 			
-		}
-		System.out.println("_____________");
+		//}
+		//System.out.println("_____________");
 		for(TeamPO p:p2){
 			TeamVO v=new TeamVO();
 			//System.out.println("ok");
 			TeamAllGamePO thisteam=new TeamAllGamePO();
 			for(TeamAllGamePO i:po){
 				if(i.getTeamName().equals(p.getShortName())){
-					System.out.println("opp");
+					//System.out.println("opp");
 					thisteam=i;//.setGameDataList(i.getGameDataList());
 				}
 			}
@@ -87,7 +88,7 @@ public class TeamController implements TeamBLService{
 			
 			v.setGamenum(cal.getgamenum(thisteam));
 			
-			System.out.println(p.getShortName()+cal.getgamenum(thisteam)+oppteam.getGameDataList().size());
+			//System.out.println(p.getShortName()+cal.getgamenum(thisteam)+oppteam.getGameDataList().size());
 			v.setAllpoint(cal.getallpoint(thisteam));
 			
 			v.setHitShootNum(cal.getHitshootnum(thisteam));
@@ -112,7 +113,7 @@ public class TeamController implements TeamBLService{
 		    v.setShootrate(cal.getshootrate(thisteam));
 		    v.setThreepointrate(cal.getthreepointrate(thisteam));
 		    v.setFreehitrate(cal.getfreeshootrate(thisteam));
-		    v.setWinrate(cal.getwinrate(thisteam));
+		    v.setWinrate(cal.getwinrate(thisteam));//System.out.println(cal.getwinrate(thisteam)+"as");
 		    v.setAttackround(cal.getattackround(thisteam, oppteam));
 		    v.setAttackrate(cal.getattrate(thisteam, oppteam));
 		    v.setDefendrate(cal.getdefrate(thisteam, oppteam));
@@ -279,9 +280,13 @@ public class TeamController implements TeamBLService{
      
      
 	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard tst,Order order,int num){
-		getTeamVO();
+		getTeamVO();System.out.println(pa.size()+"qwer");
+		//for(int i=0;i<pa.size();i++){
+			//System.out.println(pa.get(i).getWinrate()+"a");
+		//}
 		ArrayList<TeamHighInfo> h=new ArrayList<TeamHighInfo>();
 		ts.sort(pa, order, tst);
+		
 		for(int i=0;i<num;i++){
 			TeamHighInfo thi=new TeamHighInfo();
 			thi.setAssistEfficient(pa.get(i).getAssistrate());
@@ -522,10 +527,13 @@ public class TeamController implements TeamBLService{
 	public ArrayList<DateGameVO> getGamebyDate(String time) {
 		// TODO Auto-generated method stub
 		po=gd.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
+		System.out.println(po.size());
 		for(int i=0;i<po.size();i++){
 			
 				for(int j=0;j<po.get(i).getGameDataList().size();j++){
+					//System.out.println(po.get(i).getGameDataList().get(j).getMatchDate());
 					if(po.get(i).getGameDataList().get(j).getMatchDate().equals(time)){
+						//System.out.println("_____");
 					   DateGameVO dgv=new DateGameVO();
 					   dgv.setDate(po.get(i).getGameDataList().get(j).getMatchDate());
 					   String[] s1=po.get(i).getGameDataList().get(j).getMatchResult().split("-");
@@ -534,11 +542,15 @@ public class TeamController implements TeamBLService{
 					   String[] s2=po.get(i).getGameDataList().get(j).getMatchPair().split("-");
 					   dgv.setTeam1(s2[0]);
 					   dgv.setTeam2(s2[1]);
+					   
 					   result.add(dgv);
 					}
 				
 			    }
 		}
+		//for(int i=0;i<result.size();i++){
+			//System.out.println(result.get(i).getDate()+result.get(i).getTeam1()+result.get(i).getTeam2());
+		//}
 		ArrayList<DateGameVO> result2=new ArrayList<DateGameVO>();
 		for(int i=0;i<result.size();i++){
 			int isExist=0;
@@ -552,20 +564,34 @@ public class TeamController implements TeamBLService{
 				result2.add(result.get(i));
 			}
 		}
+		for(int i=0;i<result2.size();i++){
+			System.out.println(result2.get(i).getDate()+result2.get(i).getTeam1()+result2.get(i).getTeam2());
+		}
 		return result2;
 	}
 	public static void main(String[] args){
 		TeamController t=new TeamController();
 		//System.out.println("Asd");
-		ArrayList<TeamHotInfo> as=new ArrayList<TeamHotInfo>();
-		as=t.getHotTeam(Field2.defendRebound, 30);
+		/*ArrayList<TeamHotInfo> as=new ArrayList<TeamHotInfo>();
+		as=t.getHotTeam(Field2.assist, 30);
 		for(int i=0;i<as.size();i++){
 			System.out.println(as.get(i).getField());
 			System.out.println(as.get(i).getLeague());
 			System.out.println(as.get(i).getTeamName());
 			System.out.println(as.get(i).getValue());
 			System.out.println("____________");
+		}*/
+		ArrayList<TeamHighInfo> v=new ArrayList<TeamHighInfo>();
+		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
+		for(int i=0;i<v.size();i++){
+			System.out.println(v.get(i).getWinRate());
 		}
+		System.out.println("________________");
+		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
+		for(int i=0;i<v.size();i++){
+			System.out.println(v.get(i).getWinRate());
+		}
+		
 	}
 
 }
