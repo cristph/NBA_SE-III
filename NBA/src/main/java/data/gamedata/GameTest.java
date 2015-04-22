@@ -107,11 +107,24 @@ public class GameTest {
 		System.out.println("用户等待时间是"+(time2-time1));
 		
 	
-		PlayerAllGamePO temp=allList.get(1);
+		for(int i=0;i<allList.size();i++)
+		{
+		PlayerAllGamePO temp=allList.get(i);
 		ArrayList<PlayerGamePO> list=temp.getGameDataList();
 		System.out.println(temp.getPlayerName()+"打了"+list.size()+"场比赛");
-	
-	}
+		
+		for(int j=0;j<list.size();j++)
+		{
+			PlayerGamePO po=list.get(j);
+			System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getMatchResult());
+			
+		}
+		System.out.println("**************************************");
+		
+		
+		}
+	    }
+        
 	}
 	
 		
