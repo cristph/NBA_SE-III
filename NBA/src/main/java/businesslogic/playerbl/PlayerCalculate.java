@@ -93,7 +93,7 @@ public class PlayerCalculate {
 				int gameListSize=gamelist.size();
 				//initialize values
 				position=pi.getPosition();
-				league="League";
+				league=pi.getLeague();
 				age=pi.getAge();
 				assist=0;
 				blockShot=0;
@@ -216,7 +216,7 @@ public class PlayerCalculate {
 				int gameListSize=gamelist.size();
 				//initialize values
 				position=pi.getPosition();
-				league="League";
+				league=pi.getLeague();
 				age=pi.getAge();
 				assist=0;
 				blockShot=0;
@@ -520,7 +520,7 @@ public class PlayerCalculate {
 				int gameListSize=gamelist.size();
 				//initialize values
 				position=pi.getPosition();
-				league="League";
+				league=pi.getLeague();
 				age=pi.getAge();
 				assist=0;
 				blockShot=0;
@@ -599,7 +599,7 @@ public class PlayerCalculate {
 						fault+=pgp.getErrorNum();
 						foul+=pgp.getFoulNum();
 						minute+=pgp.getTime();//单位:秒
-						numOfGame=1;
+						numOfGame=gameListSize;
 						offend+=pgp.getRebAttNum();
 						point+=pgp.getScore();
 						rebound+=pgp.getRebTotalNum();
@@ -696,7 +696,13 @@ public class PlayerCalculate {
 				//high info
 				PlayerHighInfo phi=new PlayerHighInfo();
 			    double T=cm.calT(time, allPlayerTime);//用于计算的数据T
-			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, teamErrorNum, foulNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//GmSc效率
+			    if(name.equals("James Harden")){
+					System.out.println("《《《《《《《《《《《《《《《《《《《《《《");
+				}
+			    System.out.println(rebAttNum+" "+ rebDefNum+" "+ assistNum+" " +stealNum+" " +blockNum+ 
+			    		" "+errorNum+" "+foulNum+" "+score+" "+hitShootNum+" "+ 
+			    		shootNum+" "+ freeHitNum+" "+ freeNum);
+			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, errorNum, foulNum, score, hitShootNum, shootNum, freeHitNum, freeNum);//GmSc效率
 			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
 			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率
 			    double rebRate=cm.calRebRate(rebTotalNum, T, teamRebNum, oppTeamRebNum);//篮板率
@@ -1364,6 +1370,8 @@ public class PlayerCalculate {
 			PlayerAllGamePO pag=playerGameList.get(i);
 			String pagName=pag.getPlayerName();
 			String teamName=pag.getTeamName();
+			String lea=pag.getArea();
+			System.out.println(pagName+" "+lea);
 			ArrayList<PlayerGamePO> gameDataList=pag.getGameDataList();
 			
 			for(int j=0;j<temp_playerList.size();j++){//匹配其基本信息
@@ -1373,7 +1381,7 @@ public class PlayerCalculate {
 				if(pagName.equals(pName)){
 					String position=p.getPosition();
 					int age=Integer.parseInt(p.getAge());
-					PlayerInfo pi=new PlayerInfo(pagName, position, age, teamName, gameDataList);
+					PlayerInfo pi=new PlayerInfo(pagName, position, age, teamName, lea, gameDataList);
 					playerInfoList.add(pi);
 					
 					temp_playerList.remove(j);
@@ -1384,7 +1392,7 @@ public class PlayerCalculate {
 			}
 			if(!isExist){//若无基本信息与其匹配
 				String position=gameDataList.get(0).getPosition();
-				PlayerInfo pi=new PlayerInfo(pagName, position, -1, teamName, gameDataList);
+				PlayerInfo pi=new PlayerInfo(pagName, position, -1, teamName, lea, gameDataList);
 				playerInfoList.add(pi);
 			}
 			

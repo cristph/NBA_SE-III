@@ -400,7 +400,7 @@ public class TeamController implements TeamBLService{
 		getTeamVO();
 		TeamNormalInfo thi=new TeamNormalInfo();
 		for(int i=0;i<pa.size();i++){
-		   if(pa.get(i).getShortName().equals("name")){
+		   if(pa.get(i).getShortName().equals(name)){
 		
 		     thi.setAssist(pa.get(i).getAssistNumave());
 		     thi.setBlockShot(pa.get(i).getRebTotalNumave());
@@ -427,7 +427,8 @@ public class TeamController implements TeamBLService{
 		getTeamVO();
 		TeamHighInfo thi=new TeamHighInfo();
 		for(int i=0;i<pa.size();i++){
-			   if(pa.get(i).getShortName().equals("name")){
+			System.out.println(pa.get(i).getShortName());
+			   if(pa.get(i).getShortName().equals(name)){
 				    thi.setAssistEfficient(pa.get(i).getAssistrate());
 					thi.setDefendEfficient(pa.get(i).getDefendrate());
 					thi.setDefendReboundEfficient(pa.get(i).getRebdefrate());
@@ -438,6 +439,9 @@ public class TeamController implements TeamBLService{
 					thi.setTeamName(pa.get(i).getShortName());
 					thi.setWinRate(pa.get(i).getWinrate());
 			
+					
+					
+					//System.out.println("asd");
 			     
 			     break;
 			   }
@@ -527,7 +531,7 @@ public class TeamController implements TeamBLService{
 	public ArrayList<DateGameVO> getGamebyDate(String time) {
 		// TODO Auto-generated method stub
 		po=gd.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
-		System.out.println(po.size());
+		//System.out.println(po.size());
 		for(int i=0;i<po.size();i++){
 			
 				for(int j=0;j<po.get(i).getGameDataList().size();j++){
@@ -581,7 +585,7 @@ public class TeamController implements TeamBLService{
 			System.out.println(as.get(i).getValue());
 			System.out.println("____________");
 		}*/
-		ArrayList<TeamHighInfo> v=new ArrayList<TeamHighInfo>();
+		/*ArrayList<TeamHighInfo> v=new ArrayList<TeamHighInfo>();
 		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
 		for(int i=0;i<v.size();i++){
 			System.out.println(v.get(i).getWinRate());
@@ -590,8 +594,10 @@ public class TeamController implements TeamBLService{
 		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
 		for(int i=0;i<v.size();i++){
 			System.out.println(v.get(i).getWinRate());
-		}
-		
+		}*/
+		TeamHighInfo h=new TeamHighInfo();
+		h=t.getSingleTeamHighInfo("");
+		System.out.println(h.getAssistEfficient());
 	}
 
 }

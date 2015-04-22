@@ -68,36 +68,50 @@ public class playermain {
 	
 	public void test4(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerHighInfo> list=pbs.getPlayerHighInfo(PlayerStandard.stealRate,Order.dsec,10);
+		ArrayList<PlayerHighInfo> list=pbs.getPlayerHighInfo(PlayerStandard.GMSC,Order.dsec,200);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
 		for(int i=0;i<list.size();i++){
 			PlayerHighInfo phi=list.get(i);
+			
 			System.out.println(phi.getName()+" "+phi.getStealEfficient()+" "+phi.getGmSc());
 		}
 	}
 	
 	public void test5(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfo(Position.F, League.All, 
-				Age.lv1, PlayerStandard.score, Order.dsec, 10);
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfo(Position.All, League.All, 
+				Age.All, PlayerStandard.score, Order.dsec, 100);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
+		if(list==null){
+			System.out.println("nulllist");
+		}
+		if(list.size()==0){
+			System.out.println("zeroSize");
+		}
 		for(int i=0;i<list.size();i++){
 			PlayerNormalInfo pni=list.get(i);
-			System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getTeamName()+" "+pni.getPoint());
+			System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getTeamName()+" "+pni.getPoint()
+					+" "+pni.getStart());
 		}
 	}
 	
 	public void test6(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.F, League.All, 
-				Age.lv1, PlayerStandard.score, Order.dsec, 10);
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.F, League.West, 
+				Age.lv2, PlayerStandard.score, Order.dsec, 10);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
+		if(list==null){
+			System.out.println("nulllist");
+		}
+		if(list.size()==0){
+			System.out.println("zeroSize");
+		}
 		for(int i=0;i<list.size();i++){
 			PlayerNormalInfo pni=list.get(i);
 			System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getTeamName()+" "+pni.getPoint());
@@ -106,7 +120,7 @@ public class playermain {
 	
 	public void test7(){
 		long a=System.currentTimeMillis();
-		PlayerNormalInfo pni=pbs.getSinglePlayerNormalInfo("Kenyon Martin");
+		PlayerNormalInfo pni=pbs.getSinglePlayerNormalInfo("Kevin Durant");
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
@@ -134,6 +148,6 @@ public class playermain {
 	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test5();
+		pm.test7();
 	}
 }

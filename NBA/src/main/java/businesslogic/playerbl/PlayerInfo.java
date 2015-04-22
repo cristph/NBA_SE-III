@@ -10,14 +10,17 @@ public class PlayerInfo {
 	private String position; //位置
 	private int age;
 	private String teamName;
+	private String league;
 	private ArrayList<PlayerGamePO> gameDataList;
 
-	public PlayerInfo(String name, String position, int age,
-			String teamName, ArrayList<PlayerGamePO> gameDataList) {
+	public PlayerInfo(String name, String position, int age, String teamName,
+			String league, ArrayList<PlayerGamePO> gameDataList) {
+		super();
 		this.name = name;
 		this.position = position;
 		this.age = age;
 		this.teamName = teamName;
+		this.league = league;
 		this.gameDataList = gameDataList;
 	}
 
@@ -35,6 +38,10 @@ public class PlayerInfo {
 
 	public String getTeamName() {
 		return teamName;
+	}
+	
+	public String getLeague() {
+		return league;
 	}
 
 	public ArrayList<PlayerGamePO> getGameDataList() {
