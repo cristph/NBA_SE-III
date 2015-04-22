@@ -161,8 +161,7 @@ public class GameData implements GameDataService,Runnable{
 		// TODO Auto-generated method stub
 		
 	      MatchFileList mfl=new MatchFileList();
-	      String path="data/matches/";
-	      File dataFile=new File(path);
+	 
 	     
 	      while(true)
 	      {
@@ -175,7 +174,7 @@ public class GameData implements GameDataService,Runnable{
 				e.printStackTrace();
 			  }
 	    	  
-	    	  File[] f=dataFile.listFiles();
+	    	  File[] f=matchFold.listFiles();
 	    	  Signal sig=mfl.hasThese(f);
 	    	
 	    	  boolean change=sig.getChange();
