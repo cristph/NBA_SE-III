@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,6 +36,12 @@ import presentation.control.TeamControl;
 
 class NormalFrame extends JFrame{
 	
+	/*
+	 * new added lines
+	 */
+	private ImageIcon background;
+	private JPanel imgPanel;
+	
 	public NormalFrame(){
 		init();
 		this.setVisible(true);
@@ -50,6 +57,18 @@ class NormalFrame extends JFrame{
 		this.setBounds((DataInAll.screenSize.width-width)/2
 				, (DataInAll.screenSize.height-height)/2, width, height);
 		this.setLayout(new BorderLayout());
+		
+		/*
+		 * new added lines
+		 */
+		background=new ImageIcon("src/bg.jpeg");
+		JLabel backLabel=new JLabel(background);
+		backLabel.setBounds(0, 0, background.getIconWidth(), background.getIconHeight());
+		imgPanel=(JPanel)this.getContentPane();
+		imgPanel.setOpaque(false);
+		this.getLayeredPane().add(backLabel, new Integer(Integer.MIN_VALUE));
+		this.getLayeredPane().setLayout(null);
+		
 		JPanel panel = new JPanel();
 		Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
 		panel.setBorder(BorderFactory.createTitledBorder(border, 

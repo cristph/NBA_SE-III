@@ -1341,17 +1341,20 @@ public class PlayerCalculate {
 	 */
 	public void iniData(){
 		
-		long a=System.currentTimeMillis();
-		
 		playerInfoList=new ArrayList<PlayerInfo>();
+		
+		long a=System.currentTimeMillis();
 		GameDataService gds=new GameData();
 		playerGameList=gds.getPlayerGameData();
+		long b=System.currentTimeMillis();
 		FundDataService fd=new FundData();
 		ArrayList<PlayerPO> temp_playerList = fd.getPlayerFundData();
+		long c=System.currentTimeMillis();
 		
-		long b=System.currentTimeMillis();
-		long c=b-a;
-		System.out.println("iniData time: "+c);
+		long d=b-a;
+		System.out.println("iniData time1: "+d);
+		long e=c-b;
+		System.out.println("iniData time2: "+e);
 		
 		int playerListSize=playerGameList.size();
 		for(int i=0;i<playerListSize;i++){//对每一个参赛的选手
