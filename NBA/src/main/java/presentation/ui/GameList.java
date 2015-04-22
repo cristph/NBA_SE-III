@@ -63,6 +63,8 @@ public class GameList extends JPanel{
 		ImageIcon action1 = new ImageIcon(im1);
 		JLabel omg1 = new JLabel(action1);
 		Image im2 = t2.getTeamPic();
+		System.out.println(team2+"endt");
+		System.out.println(t2.getShortName()+"endt");
 		im2 = im2.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		ImageIcon action2 = new ImageIcon(im2);
 		JLabel omg2 = new JLabel(action2);

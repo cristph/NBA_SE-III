@@ -43,9 +43,7 @@ public class TeamFrame extends NormalFrame{
 		JPanel normal = new JPanel();
 		normal.setLayout(new BorderLayout());
 		TeamPO tvo = ts.getTeamInfo(teamName);
-		System.out.println(teamName+"end");
 		Image temp = tvo.getTeamPic();
-		System.out.println(temp.toString()+"end");
 		temp = temp.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
 		ImageIcon action = new ImageIcon(temp);
 		JLabel omg = new JLabel(action);
@@ -123,7 +121,7 @@ public class TeamFrame extends NormalFrame{
 		
 		
 		JTable table1 = new JTable(getObj(1),getTitle(1));
-		JTable table2 = new JTable(getObj(1),getTitle(2));
+		JTable table2 = new JTable(getObj(2),getTitle(2));
 
 		
 		tab1.add(name1,BorderLayout.NORTH);
@@ -144,12 +142,10 @@ public class TeamFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
-
-		
+		tab1.setPreferredSize(new Dimension(list.getWidth(), 200));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), 200));
 		list.add(tab1,BorderLayout.NORTH);
-		list.add(tab2,BorderLayout.SOUTH);
+		list.add(tab2,BorderLayout.CENTER);
 		
 		//比赛信息
 		ArrayList<DateGameVO> date = ts.getRecentGame(teamName);
@@ -169,12 +165,13 @@ public class TeamFrame extends NormalFrame{
 	}
 
 	private Object[][] getObj(int i) {
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//百分数格式化
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
 		if(i==1){
 			TeamNormalInfo temp = ts.getSingleTeamNormalInfo(teamName);
+			System.out.println(teamName+"tea");
 			Object[][] t = new Object[1][13];
 			t[0][0] = df.format(temp.getPoint());
 			t[0][1] = df.format(temp.getNumOfGame());

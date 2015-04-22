@@ -47,7 +47,7 @@ public class PlayerFrame extends NormalFrame{
 	PlayerBLService ps;
 	TeamBLService ts;
 	public PlayerFrame(String name2, PlayerBLService ps, TeamBLService ts) {
-		this.name = name;
+		this.name = name2;
 		this.ts = ts;
 		this.ps = ps;
 		init();
@@ -185,8 +185,8 @@ public class PlayerFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
+		tab1.setPreferredSize(new Dimension(list.getWidth(), 250));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), 250));
 
 		
 		list.add(tab1,BorderLayout.NORTH);
@@ -212,7 +212,7 @@ public class PlayerFrame extends NormalFrame{
 
 	private Object[][] getObj(int i) {
 		//获取表格数据
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//百分数格式化
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
