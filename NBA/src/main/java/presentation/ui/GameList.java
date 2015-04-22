@@ -74,7 +74,7 @@ public class GameList extends JPanel{
 		button.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				String a = temp1.getTeam1()+":"+temp1.getTeam2();
+				String a = temp1.getTeam1()+"-"+temp1.getTeam2();
 				String b = temp1.getDate();
 				String c = temp1.getScore1()+":"+temp1.getScore2();
 				new GameDFrame(a,b,c,ts);
@@ -82,11 +82,11 @@ public class GameList extends JPanel{
 			}
 			
 		});
-		panel.add(omg1);
-		panel.add(label);
-		panel.add(omg2);
-		panel.add(button);
-		return panel;
+		showP.add(omg1);
+		showP.add(label);
+		showP.add(omg2);
+		showP.add(button);
+		return showP;
 	}
 
 	public void update(ArrayList<DateGameVO> game) {
@@ -104,6 +104,7 @@ public class GameList extends JPanel{
 		this.add(scroll,BorderLayout.CENTER);
 		revalidate();
 		this.repaint();
+		System.out.print("today update"+game.size());
 	}
 	
 

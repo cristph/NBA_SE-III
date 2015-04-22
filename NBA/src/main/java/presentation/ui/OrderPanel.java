@@ -105,8 +105,10 @@ public class OrderPanel extends JPanel {
 				// 点击确认按钮的事件
 				
 				Object[][] list = cs.getList((String)(box1.getSelectedItem()),(String)box2.getSelectedItem(),(String)box3.getSelectedItem());
+				System.out.print("today"+list.length);
 				String title[] = cs.firstTitle();
 				modle.upd(list,title);
+				modle.fireTableStructureChanged();
 				table.repaint();
 			}
 			

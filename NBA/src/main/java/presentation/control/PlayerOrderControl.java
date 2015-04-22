@@ -50,14 +50,12 @@ public class PlayerOrderControl implements ControlService{
 			return m;
 		}
 		if(i==2){
-			String title1[] = {"得分","球员名称","所属球队","参赛场数"
-					,"先发场数","篮板数","助攻数","在场时间"
+			String title1[] = {"得分","篮板数","助攻数","在场时间"
 					,"投篮命中率","三分命中率",
-					"进攻数","防守数","抢断数","盖帽数"
+					"抢断数","盖帽数"
 					,"失误数","犯规数","效率","GmSc"
 					,"真实命中率","投篮效率", "篮板率"
-					,"进攻篮板率","防守篮板率","助攻率","抢断率"
-					,"盖帽率","失误率","使用率","罚球命中率"};
+					,"助攻率","盖帽率","失误率","使用率","罚球命中率"};
 			return title1;
 		}
 		String t[] ={"降序","升序"};
@@ -93,15 +91,17 @@ public class PlayerOrderControl implements ControlService{
 			or = Order.asc;
 		}
 		PlayerStandard stan = getStan(stand);
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//对基本数据进行排序
 		if(stan!=null){
 		    ArrayList<PlayerNormalInfo> info;
 		    if(kind.equals("总数据")){
-			    info = ps.getPlayerTotalNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+			    info = ps.getPlayerTotalNormalInfo(Position.All, League.All, Age.All, stan, or, 500);
+			
 		    }
 		    else{
-			    info = ps.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+			    info = ps.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, stan, or, 500);
+			
 		    }
 		    Object[][] t = new Object[info.size()][18];
 		    title = title1;
@@ -139,7 +139,8 @@ public class PlayerOrderControl implements ControlService{
 		else{
 			stan = getStan1(stand);
 			title = title2;
-			ArrayList<PlayerHighInfo> info = ps.getPlayerHighInfo(stan, or, -1);
+			ArrayList<PlayerHighInfo> info = ps.getPlayerHighInfo(stan, or, 500);
+			
 			Object[][] t = new Object[info.size()][13];
 			//百分数格式化
 			NumberFormat fmt = NumberFormat.getPercentInstance();
@@ -166,18 +167,10 @@ public class PlayerOrderControl implements ControlService{
 	}
 	private PlayerStandard getStan(String stand) {
 		// 把排序标准变为枚举类
-		if(stand.equals("球员名称")){
-			return PlayerStandard.name;
-		}
-		if(stand.equals("所属球队")){
-			return PlayerStandard.team;
-		}
-		if(stand.equals("参赛场数")){
-			return PlayerStandard.inTime;
-		}
-		if(stand.equals("先发场数")){
-			return PlayerStandard.firstTime;
-		}
+		
+	
+		
+		
 		if(stand.equals("篮板数")){
 			return PlayerStandard.rebTotalNum;
 		}
@@ -198,12 +191,7 @@ public class PlayerOrderControl implements ControlService{
 	   if(stand.equals("罚球命中率")){
 			return PlayerStandard.freeRate;
 		}
-		if(stand.equals("进攻数")){
-			return PlayerStandard.rebAttNum;
-		}
-		if(stand.equals("防守数")){
-			return PlayerStandard.rebDefNum;
-		}
+		
 		if(stand.equals("抢断数")){
 			return PlayerStandard.stealNum;
 		}
@@ -239,17 +227,9 @@ public class PlayerOrderControl implements ControlService{
 		if(stand.equals("篮板率")){
 			return PlayerStandard.rebRate;
 		}
-		if(stand.equals("进攻篮板率")){
-			return PlayerStandard.rebAttNum;
-		}
-		if(stand.equals("防守篮板率")){
-			return PlayerStandard.rebDefNum;
-		}
+		
 		if(stand.equals("助攻率")){
 			return PlayerStandard.assistRate;
-		}
-		if(stand.equals("抢断率")){
-			return PlayerStandard.stealRate;
 		}
 		if(stand.equals("盖帽率")){
 			return PlayerStandard.blockRate;
