@@ -70,7 +70,11 @@ public class GamePanel extends JPanel{
 		//选择新的日期的比赛
 		String date = (String)box1.getSelectedItem()+"-"+(String)box2.getSelectedItem()+"-"+(String)box3.getSelectedItem();
 		ArrayList<DateGameVO> game = ts.getGamebyDate(date);
-		list.update(game);
+		this.remove(list);
+		list = new GameList(game,ts);
+		this.add(list,BorderLayout.CENTER);
+		revalidate();
+		this.repaint();
 		
 	}
 

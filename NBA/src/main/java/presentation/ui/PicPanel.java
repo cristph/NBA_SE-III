@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.TableColumn;
 
 import presentation.control.HotControl;
 import presentation.modle.MyTableModle;
@@ -54,7 +55,13 @@ public class PicPanel extends JPanel {
 		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		table.setDefaultRenderer(JButton.class,new ComboBoxCellRenderer());
 		this.add(pane,BorderLayout.CENTER);
-		
+		TableColumn column = null;
+		for (int j = 0; j < i; j++) {
+		    column = table.getColumnModel().getColumn(j);
+		    
+		    column.setPreferredWidth(780/i);
+		    
+		}
 		sure.addActionListener(new ActionListener(){
 
 			

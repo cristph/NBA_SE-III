@@ -185,8 +185,8 @@ public class PlayerFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), 250));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), 250));
+		tab1.setPreferredSize(new Dimension(list.getWidth(), 150));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), 150));
 
 		
 		list.add(tab1,BorderLayout.NORTH);

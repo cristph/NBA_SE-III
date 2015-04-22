@@ -63,7 +63,7 @@ public class GameDFrame extends NormalFrame{
 		JScrollPane pane = new JScrollPane(obj);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		pane.setPreferredSize(new Dimension(table.getWidth(), 200));
+		pane.setPreferredSize(new Dimension(table.getWidth(), 150));
 		
 		return pane;
 	}

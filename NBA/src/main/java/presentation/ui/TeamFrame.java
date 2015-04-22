@@ -142,10 +142,10 @@ public class TeamFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), 200));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), 200));
+		tab1.setPreferredSize(new Dimension(list.getWidth(), 150));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), 150));
 		list.add(tab1,BorderLayout.NORTH);
-		list.add(tab2,BorderLayout.CENTER);
+		list.add(tab2,BorderLayout.SOUTH);
 		
 		//比赛信息
 		ArrayList<DateGameVO> date = ts.getRecentGame(teamName);
