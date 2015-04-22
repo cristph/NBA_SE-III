@@ -65,6 +65,7 @@ public class PicPanel extends JPanel {
 				Object[][] list =hc.getList((String)(box.getSelectedItem()));
 				String title[] = hc.getHead();
 				modle.upd(list,title);
+				modle.fireTableStructureChanged();
 				table.repaint();
 			}
 			

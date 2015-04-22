@@ -104,7 +104,7 @@ public class TeamControl implements ControlService,TeamControlService{
 	 */
 	public Object[][] getList(String kind, String stand, String order) {
 		// 返回排序的列表
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//百分数格式化
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
@@ -291,33 +291,3 @@ public class TeamControl implements ControlService,TeamControlService{
 
 
 }
-/*TeamVO temp = ts.getTeamInfo(list.get(i));
-t[i][0] = new JButton(temp.getShortName());
-t[i][1] = temp.getTeamName();
-t[i][2] = temp.getGamenum();
-t[i][3] = temp.getShootNum();
-t[i][4] = temp.getHitShootNum();
-t[i][5] = temp.getThreePointNum();
-t[i][6] = temp.getThreeShootNum();
-t[i][7] = temp.getFreeHitNum();
-t[i][8] = temp.getFreeNum();
-t[i][9] = temp.getRebAttNum();
-t[i][10] = temp.getRebDefNum();
-t[i][11] = temp.getRebTotalNum();
-t[i][12] = temp.getAssistNum();
-t[i][13] = temp.getStealNum();
-t[i][14] = temp.getBlockNum();
-t[i][15] = temp.getErrorNum();
-t[i][16] = temp.getFoulNum();
-t[i][17] = temp.getAllpoint();
-t[i][18] = temp.getShootrate();
-t[i][19] = temp.getThreepointrate();
-t[i][20] = temp.getFreehitrate();
-t[i][21] = temp.getWinrate();
-t[i][22] = temp.getAttackround();
-t[i][23] = temp.getAttackrate();
-t[i][24] = temp.getDefendrate();
-t[i][25] = temp.getRebattrate();
-t[i][26] = temp.getRebdefrate();
-t[i][27] = temp.getStealrate();
-t[i][28] = temp.getAssistrate();*/
