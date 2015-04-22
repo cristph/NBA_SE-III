@@ -148,7 +148,14 @@ public class teamcalculate {
     			win=win+1;
     		}
     	}
-    	double d=1.0*(win/getgamenum(p));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=1.0*(win/getgamenum(p));
+    	}
+    	
     	return d;
     }
     public double getattackround(TeamAllGamePO p,TeamAllGamePO p2){
@@ -156,8 +163,15 @@ public class teamcalculate {
     	//System.out.println(p.getGameDataList().size());
     	for(TeamGamePO tgp:p.getGameDataList()){
     		//System.out.println(p.getGameDataList().indexOf(tgp));
-    		double d=tgp.getShootNum()+0.4*tgp.getFreeNum()-1.07*(tgp.getRebAttNum()/(1.0*tgp.getRebAttNum()
+    		double d=0;
+    		if(1.0*tgp.getRebAttNum()+1.0*p2.getGameDataList().get(p.getGameDataList().indexOf(tgp)).getRebDefNum()==0){
+    			
+    		}
+    		else{
+    			d=tgp.getShootNum()+0.4*tgp.getFreeNum()-1.07*(tgp.getRebAttNum()/(1.0*tgp.getRebAttNum()
     				+1.0*p2.getGameDataList().get(p.getGameDataList().indexOf(tgp)).getRebDefNum())*(1.0*tgp.getShootNum()-1.0*tgp.getHitShootNum()))+1.07*tgp.getErrorNum(); 
+    		}
+    		
     		round=round+d;		
     	}
     	//System.out.println("qwe");
@@ -183,7 +197,13 @@ public class teamcalculate {
     	//System.out.println(p2.getGameDataList().size());
     	double d1=getattackround(p2,p);
     	double d2=getallpoint(p2)*1.0;
-    	double rate=d2/(d1/100);
+    	double rate=0;
+    	if(d1==0){
+    		
+    	}else{
+    		rate=d2/(d1/100);
+    	}
+    			
     	return rate;
     }
     /*public int getoppattreb(TeamAllGamePO p){
@@ -201,17 +221,43 @@ public class teamcalculate {
 		return all;
     }*/
     public double attrebrate(TeamAllGamePO p,TeamAllGamePO p2){
-    	return (getrebattnum(p)*1.0)/((getrebattnum(p)+getrebdefnum(p2))*1.0);
+    	double d=0;
+    	if((getrebattnum(p)+getrebdefnum(p2))*1.0==0){
+    		
+    	}
+    	else{
+    		d=(getrebattnum(p)*1.0)/((getrebattnum(p)+getrebdefnum(p2))*1.0);
+    	}
+    	return d;
     }
     public double defrebrate(TeamAllGamePO p,TeamAllGamePO p2){
-    	return (getrebdefnum(p)*1.0)/((getrebdefnum(p)+getrebattnum(p2))*1.0);
+    	double d=0;
+    	if((getrebdefnum(p)+getrebattnum(p2))*1.0==0){
+    		
+    	}else{
+    		d=(getrebdefnum(p)*1.0)/((getrebdefnum(p)+getrebattnum(p2))*1.0);
+    	}
+    	return d;
     }
     public double getstealrate(TeamAllGamePO p,TeamAllGamePO p2){
-    	
-    	return (getstealnum(p)*1.0)/(getattackround(p,p2)/100);
+    	double d=0;
+    	if(getattackround(p,p2)==0){
+    		
+    	}
+    	else{
+    		d=(getstealnum(p)*1.0)/(getattackround(p,p2)/100);
+    	}
+    	return d;
     }
     public double getassistrate(TeamAllGamePO p,TeamAllGamePO p2){//p2为不同对手对应每场比赛数据
-    	return (getassistnum(p)*1.0)/(getattackround(p2,p)/100);
+    	double d=0;
+    	if(getattackround(p2,p)==0){
+    		
+    	}
+    	else{
+    		d=(getassistnum(p)*1.0)/(getattackround(p2,p)/100);
+    	}
+    	return d;
     }
     //总数据
     
@@ -219,48 +265,153 @@ public class teamcalculate {
     
     //平均数据
     public double getavepoint(TeamAllGamePO p){
-    	return ((getallpoint(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getallpoint(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavehitshootnum(TeamAllGamePO p){
-    	return ((getHitshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getHitshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaveshootnum(TeamAllGamePO p){
-    	return ((getshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavethreepointnum(TeamAllGamePO p){
-    	return ((getthreepointnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getthreepointnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavethreeshootnum(TeamAllGamePO p){
-    	return ((getthreeshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getthreeshootnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavefreehitnum(TeamAllGamePO p){
-    	return ((getfreehitnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getfreehitnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavefreenum(TeamAllGamePO p){
-    	return ((getfreenum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getfreenum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaverebattnum(TeamAllGamePO p){
-    	return ((getrebattnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getrebattnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaverebdefnum(TeamAllGamePO p){
-    	return ((getrebdefnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getrebdefnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaverebtotalnum(TeamAllGamePO p){
-    	return ((getrebtotalnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getrebtotalnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaveassistnum(TeamAllGamePO p){
-    	return ((getassistnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getassistnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavestealnum(TeamAllGamePO p){
-    	return ((getstealnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getstealnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaveblocknum(TeamAllGamePO p){
-    	return ((getblocknum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getblocknum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getaveerrornum(TeamAllGamePO p){
-    	return ((geterrornum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((geterrornum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
     public double getavefoulnum(TeamAllGamePO p){
-    	return ((getfoulnum(p)*1.0)/(1.0*getgamenum(p)));
+    	double d=0;
+    	if(getgamenum(p)==0){
+    		
+    	}
+    	else{
+    		d=((getfoulnum(p)*1.0)/(1.0*getgamenum(p)));
+    	}
+    	return d;
     }
 }
