@@ -36,6 +36,7 @@ public class TeamController implements TeamBLService{
 	ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
 	public void getTeamVO(){
 		//int count=0;
+		pa=new ArrayList<TeamVO>();
 		po=gd.getTeamGameData();
 		p2=fd.getTeamFundData();
 		for(TeamAllGamePO pagp:po){
@@ -279,7 +280,7 @@ public class TeamController implements TeamBLService{
      
      
 	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard tst,Order order,int num){
-		getTeamVO();
+		getTeamVO();System.out.println(pa.size()+"qwer");
 		//for(int i=0;i<pa.size();i++){
 			//System.out.println(pa.get(i).getWinrate()+"a");
 		//}
@@ -582,9 +583,14 @@ public class TeamController implements TeamBLService{
 		}*/
 		ArrayList<TeamHighInfo> v=new ArrayList<TeamHighInfo>();
 		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
-		//for(int i=0;i<v.size();i++){
-			//System.out.println(v.get(i).getWinRate());
-		//}
+		for(int i=0;i<v.size();i++){
+			System.out.println(v.get(i).getWinRate());
+		}
+		System.out.println("________________");
+		v=t.getTeamHighInfo(TeamStandard.winrate,Order.dsec,30);
+		for(int i=0;i<v.size();i++){
+			System.out.println(v.get(i).getWinRate());
+		}
 		
 	}
 
