@@ -7,6 +7,8 @@ package presentation.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -60,11 +62,26 @@ public class PicPanel extends JPanel {
 				// 点击确认按钮的事件
 				
 				Object[][] list =hc.getList((String)(box.getSelectedItem()));
-				modle.upd(list);
+				String title[] = hc.getHead();
+				modle.upd(list,title);
 				table.repaint();
 			}
 			
 		});	
+		table.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				int row = table.getSelectedRow();
+				int line = table.getSelectedColumn();
+				if(line==0){
+					JButton m = (JButton)table.getValueAt(row,line);
+					String name = m.getText();
+					hc.findAim(name);
+					
+				}
+			}
+			
+		});
 		
 		
 	}

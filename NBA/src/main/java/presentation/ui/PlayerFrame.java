@@ -153,11 +153,11 @@ public class PlayerFrame extends NormalFrame{
 		
 		JPanel tab1 = new JPanel();
 		JPanel tab2 = new JPanel();
-		JPanel tab3 = new JPanel();
+
 		
 		tab1.setLayout(new BorderLayout());
 		tab2.setLayout(new BorderLayout());
-		tab3.setLayout(new BorderLayout());
+		
 		
 		JLabel name1= new JLabel("平均数据");		
 		JLabel name2 = new JLabel("高级数据");
@@ -185,8 +185,8 @@ public class PlayerFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/2));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/2));
+		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
 
 		
 		list.add(tab1,BorderLayout.NORTH);
@@ -278,69 +278,3 @@ public class PlayerFrame extends NormalFrame{
 	}
 
 }
-/*JPanel all = new JPanel();
-all.setLayout(new BorderLayout());
-TeamBLService ps = new TeamController();
-TeamVO tvo = ps.getTeamInfo(name);
-Image temp = tvo.getTeamPic();
-temp = temp.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
-ImageIcon action = new ImageIcon(temp);
-JLabel omg = new JLabel(action);
-JLabel name = new JLabel("队名");
-JLabel shortName = new JLabel("简称");
-JLabel pos = new JLabel("位置");
-JLabel zone = new JLabel("分区");
-JLabel loc = new JLabel("赛区");
-JLabel main = new JLabel("主场");
-JLabel bir = new JLabel("建队时间");
-JLabel namer = new JLabel(tvo.getTeamName());
-JLabel shortNamer = new JLabel(tvo.getShortName());
-JLabel posr = new JLabel(tvo.getLocation());
-JLabel zoner = new JLabel(tvo.getZone());
-JLabel locr = new JLabel(tvo.getLocation());
-JLabel mainr = new JLabel(tvo.getHome());
-JLabel birr = new JLabel(tvo.getBirthday());
-JPanel label  = new JPanel();
-GroupLayout layout = new GroupLayout(label);
-label.setLayout(layout);
-//水平连续组
-GroupLayout.SequentialGroup hGroup = 
-		layout.createSequentialGroup();
-hGroup.addGap(20);
-hGroup.addGroup(layout.createParallelGroup());
-hGroup.addGap(20);
-hGroup.addGroup(layout.createParallelGroup().addComponent(name).addComponent(namer).addComponent(shortName).addComponent(shortNamer));
-hGroup.addGap(20);
-hGroup.addGroup(layout.createParallelGroup().addComponent(pos).addComponent(posr).addComponent(main).addComponent(mainr));
-hGroup.addGap(20);
-hGroup.addGroup(layout.createParallelGroup().addComponent(zone).addComponent(zoner).addComponent(loc).addComponent(locr));
-hGroup.addGap(20);
-hGroup.addGroup(layout.createParallelGroup().addComponent(bir).addComponent(birr));
-hGroup.addGap(20);
-//垂直连续组
-GroupLayout.SequentialGroup vGroup = 
-		layout.createSequentialGroup();
-vGroup.addGap(5);
-vGroup.addGroup(layout.createParallelGroup()
-		.addComponent(name).addComponent(pos).addComponent(zone).addComponent(bir));
-vGroup.addGap(20);
-vGroup.addGroup(layout.createParallelGroup()
-		.addComponent(namer).addComponent(posr).addComponent(zoner)
-		.addComponent(birr));
-vGroup.addGap(20);
-vGroup.addGroup(layout.createParallelGroup()
-		.addComponent(shortName).addComponent(main).addComponent(loc)
-		);
-vGroup.addGap(20);
-vGroup.addGroup(layout.createParallelGroup()
-		.addComponent(shortNamer).addComponent(mainr).addComponent(locr)
-		);
-vGroup.addGap(20);
-
-
-layout.setHorizontalGroup(vGroup);
-layout.setVerticalGroup(hGroup);
-all.add(omg,BorderLayout.WEST);
-all.add(label,BorderLayout.CENTER);
-
-*/
