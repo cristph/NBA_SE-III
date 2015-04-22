@@ -3,8 +3,17 @@
  */
 package po;
 
-public class PlayerGamePO {
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import data.gamedata.TeamInfo;
+
+public class PlayerGamePO implements Comparable<PlayerGamePO>{
 	
+	String playerName;//球员姓名
+	
+
 	String position;//位置
 	String team;//所代表的球队
 	int time; //在场时间(秒)
@@ -38,6 +47,24 @@ public class PlayerGamePO {
     int twoNum; //球员自己两分球出手数（不是球队）
     
 	boolean isDirty=false;
+	
+	TeamInfo tif=null;
+	
+	public TeamInfo getTif() {
+		return tif;
+	}
+
+	public void setTif(TeamInfo tif) {
+		this.tif = tif;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 	
 	
 	public boolean isDirty() {
@@ -231,6 +258,22 @@ public class PlayerGamePO {
 
     public int getTwoNum() {
 		return twoNum;
+	}
+
+	
+
+	public int compareTo(PlayerGamePO po) {
+		String s1[]=this.matchDate.split("-");
+		String s2[]=po.getMatchDate().split("-");
+		
+		int date1=Integer.parseInt(s1[0]+s1[1]+s1[2]);
+		int date2=Integer.parseInt(s2[0]+s2[1]+s2[2]);
+		
+		if(date1>date2)
+			return -1;
+		else if(date1<date2)
+			return 1;
+		return 0;
 	}
 
 }

@@ -1,5 +1,6 @@
 package data.teamdata;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -11,8 +12,15 @@ public class TeamTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		TeamTest tt=new TeamTest();
-        tt.test1();
+		//;TeamTest tt=new TeamTest();
+      // ; tt.test1();
+        
+        String s="data boolean.txt";
+        //StringBuffer sb=new StringBuffer(s);
+      //  File f=new File(s);
+        String ss[]=s.split("\\.");
+        System.out.println(ss[0]);
+        
 	
 	}
 	public void test1(){

@@ -45,4 +45,27 @@ public class Filter {
 	       }
 	       return sb.toString();
 	}
+
+	public String filtName(String s)
+	{
+		
+		   char[] array=s.toCharArray();
+		   int tail=0;
+	       for(int i=0;i<array.length;i++)
+	       {
+	    	   char temp=array[i];
+	    	   boolean b1=(temp>='a')&&(temp<='z');
+	    	   boolean b2=(temp>='A')&&(temp<='Z');
+	    	   boolean b3=(temp>='0')&&(temp<='9');
+	    	   
+	    	   boolean b=b1||b2||b3;
+	    	   if(b)
+	    	   tail=i;
+	       }
+	       
+	       return s.substring(0, tail+1);
+	       
+	}
+    
+
 }

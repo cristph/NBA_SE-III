@@ -25,6 +25,9 @@ public class TeamAllGamePO {
 		this.gameDataList = gameDataList;
 	}
 	public void addGame(TeamGamePO po){
+		if(po!=null)
 		gameDataList.add(po);
+		gameDataList.sort(null);
+		
 	}
 }
