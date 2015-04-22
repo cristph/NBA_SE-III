@@ -135,7 +135,7 @@ private void updateTeam(String line){
 	if(tim.length==1)
 		time=Integer.parseInt(tim[0])*60;
 	else if(tim.length==2)
-		time=Integer.parseInt(tim[0])*60+Integer.parseInt(tim[1])+time;
+		time=Integer.parseInt(tim[0])*60+Integer.parseInt(tim[1]);
 	}catch(NumberFormatException e){
 		time=-1;
 		isDirty=true;
