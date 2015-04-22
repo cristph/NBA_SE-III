@@ -12,6 +12,7 @@ import value.Value.Field;
 import value.Value.League;
 import value.Value.Order;
 import value.Value.Position;
+import vo.PlayerVO;
 import businesslogicservice.playerblservice.PlayerBLService;
 
 public class playermain {
@@ -19,7 +20,11 @@ public class playermain {
 	PlayerBLService pbs;
 	
 	public playermain(){
+		long a=System.currentTimeMillis();
 		pbs=new PlayerBLController();
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("ini time: "+c);
 	}
 	
 	public void test1(){
@@ -86,8 +91,49 @@ public class playermain {
 		}
 	}
 	
+	public void test6(){
+		long a=System.currentTimeMillis();
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.F, League.All, 
+				Age.lv1, PlayerStandard.score, Order.dsec, 10);
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		for(int i=0;i<list.size();i++){
+			PlayerNormalInfo pni=list.get(i);
+			System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getTeamName()+" "+pni.getPoint());
+		}
+	}
+	
+	public void test7(){
+		long a=System.currentTimeMillis();
+		PlayerNormalInfo pni=pbs.getSinglePlayerNormalInfo("Kenyon Martin");
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getPoint()+" "+pni.getTeamName());
+	}
+	
+	public void test8(){
+		long a=System.currentTimeMillis();
+		PlayerHighInfo phi=pbs.getSinglePlayerHighInfo("Kenyon Martin");
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		System.out.println(phi.getName()+" "+phi.getAssistEfficient()
+				+" "+phi.getBlockShotEfficient()+" "+phi.getGmSc());
+	}
+	
+	public void test9(){
+		long a=System.currentTimeMillis();
+		PlayerVO pv=pbs.getPlayerInfo("Kenyon Martin");
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		System.out.println(pv.getName()+" "+pv.getAge()+" "+pv.getAction()+" "+pv.getPic());
+	}
+	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test4();
+		pm.test5();
 	}
 }
