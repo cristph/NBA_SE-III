@@ -2,39 +2,39 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
-import vo.PlayerInfoVO;
+import test.data.PlayerNormalInfo;
 
 public class ThreeRateDSort {
 	public static final int CUTOFF = 11;
 	
-	public void quicksort( ArrayList<PlayerInfoVO> arr ) {
+	public void quicksort( ArrayList<PlayerNormalInfo> arr ) {
 		quickSort( arr, 0, arr.size() - 1 ); 
 	}
 	
-	public PlayerInfoVO median( ArrayList<PlayerInfoVO> arr, int left, int right ) {
+	public PlayerNormalInfo median( ArrayList<PlayerNormalInfo> arr, int left, int right ) {
 		int center = ( left + right ) / 2;
 		
-		if ( arr.get(left).getThreeRate()<arr.get(center).getThreeRate() )
+		if ( arr.get(left).getThree()<arr.get(center).getThree() )
 			swapRef( arr, left, center );
-		if ( arr.get(left).getThreeRate()<arr.get(right).getThreeRate() )
+		if ( arr.get(left).getThree()<arr.get(right).getThree() )
 			swapRef( arr, left, right );
-		if ( arr.get(center).getThreeRate()<arr.get(right).getThreeRate() )
+		if ( arr.get(center).getThree()<arr.get(right).getThree() )
 			swapRef( arr, center, right );
  
 		swapRef( arr, center, right - 1 );
 		return arr.get( right - 1 );
       }
 	
-	private void quickSort( ArrayList<PlayerInfoVO> arr, int left, int right ) {
+	private void quickSort( ArrayList<PlayerNormalInfo> arr, int left, int right ) {
 		
 		if ( left + CUTOFF <= right  ) {
 			//find the pivot
-			PlayerInfoVO pivot = median( arr, left, right );
+			PlayerNormalInfo pivot = median( arr, left, right );
 			//start partitioning
 			int i = left, j = right - 1;
 			for ( ; ; ) {
-				while ( arr.get(++i).getThreeRate()> pivot.getThreeRate()  ) ;
-				while ( arr.get(--j).getThreeRate()< pivot.getThreeRate() ) ;
+				while ( arr.get(++i).getThree()> pivot.getThree()  ) ;
+				while ( arr.get(--j).getThree()< pivot.getThree() ) ;
 				if ( i < j )
 					swapRef( arr, i, j );
 				else
@@ -53,17 +53,17 @@ public class ThreeRateDSort {
 		}
 	}
 	
-	public void swapRef( ArrayList<PlayerInfoVO> arr, int idx1, int idx2 ) {  
-		PlayerInfoVO tmp = arr.get(idx1);
+	public void swapRef( ArrayList<PlayerNormalInfo> arr, int idx1, int idx2 ) {  
+		PlayerNormalInfo tmp = arr.get(idx1);
 		arr.set(idx1, arr.get(idx2));
 		arr.set(idx2, tmp);
       }
 	
-	public void insertionSort( ArrayList<PlayerInfoVO> arr, int start, int end ) {
+	public void insertionSort( ArrayList<PlayerNormalInfo> arr, int start, int end ) {
 		int i;
 		for ( int j = start + 1; j <= end; j++ ) {
-			PlayerInfoVO tmp = arr.get(j);
-			for ( i = j; i > start && tmp.getThreeRate()>arr.get(i - 1).getThreeRate(); i-- ) {
+			PlayerNormalInfo tmp = arr.get(j);
+			for ( i = j; i > start && tmp.getThree()>arr.get(i - 1).getThree(); i-- ) {
 				arr.set(i, arr.get(i-1));
 			}
 			arr.set(i, tmp);

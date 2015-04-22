@@ -1,7 +1,12 @@
 package businesslogic.playerbl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 
+import data.funddata.FundData;
+import data.funddata.FundDataService;
+import data.gamedata.GameData;
+import data.gamedata.GameDataService;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import po.PlayerPO;
@@ -15,6 +20,7 @@ import value.Value.Field;
 import value.Value.League;
 import value.Value.Order;
 import value.Value.Position;
+import vo.PlayerVO;
 
 public class PlayerCalculate {
 	
@@ -25,6 +31,9 @@ public class PlayerCalculate {
 	ArrayList<PlayerNInfo> tot_NInfoList;
 	ArrayList<PlayerNInfo> avg_NInfoList;
 	
+	ArrayList<PlayerNormalInfo> tot_normalInfoList;
+	ArrayList<PlayerNormalInfo> avg_normalInfoList;
+	
 	ArrayList<PlayerHighInfo> HInfoList;
 	
 	ArrayList<PlayerHotInfo> scoreList;
@@ -32,6 +41,9 @@ public class PlayerCalculate {
 	ArrayList<PlayerHotInfo> assistList;
 	
 	ArrayList<PlayerInfo> playerInfoList;
+	
+	ArrayList<PlayerNormalInfo> todayList;
+	ArrayList<PlayerGamePO> todayGameList;
 	
 	public PlayerCalculate(){
 		iniData();
@@ -429,6 +441,8 @@ public class PlayerCalculate {
 		scoreList=new ArrayList<PlayerHotInfo>();
 		rebList=new ArrayList<PlayerHotInfo>();
 		assistList=new ArrayList<PlayerHotInfo>();
+		tot_normalInfoList=new ArrayList<PlayerNormalInfo>();
+		avg_normalInfoList=new ArrayList<PlayerNormalInfo>();
 		
 		int playerListSize=playerInfoList.size();
 		if(playerListSize>0){//若球员列表不为空
@@ -645,6 +659,7 @@ public class PlayerCalculate {
 				t_pni.setTeamName(teamName);
 				t_pni.setThree(cm.calRate(threePointNum, threeShootNum));
 				PlayerNInfo t_info=new  PlayerNInfo(position,league,age,t_pni);
+				tot_normalInfoList.add(t_pni);
 				tot_NInfoList.add(t_info);
 				
 				//avg info
@@ -669,6 +684,7 @@ public class PlayerCalculate {
 				pni.setTeamName(teamName);
 				pni.setThree(cm.calRate(threePointNum, threeShootNum));
 				PlayerNInfo info=new PlayerNInfo(position,league,age,pni);
+				avg_normalInfoList.add(pni);
 				avg_NInfoList.add(info);
 				
 				//high info
@@ -794,11 +810,12 @@ public class PlayerCalculate {
 	
 	
 	
-	public ArrayList<PlayerNormalInfo> sortNormal(PlayerStandard ps,Order order,int num){
-		Sort sort=new Sort();
-		
-		
-		return null;
+	public ArrayList<PlayerNormalInfo> sortNormal(ArrayList<PlayerNormalInfo> list,
+			PlayerStandard ps,Order order){
+		SortNormalInfo sortMethod=new SortNormalInfo();
+		ArrayList<PlayerNormalInfo> temp=list;
+		sortMethod.sort(temp,order,ps);
+		return temp;
 	}
 	
 	public ArrayList<PlayerNormalInfo> sortNormalMultiOrder(PlayerStandard ps,Order order,int num){
@@ -806,10 +823,140 @@ public class PlayerCalculate {
 		return null;
 	}
 	
-	public ArrayList<PlayerHighInfo> sortHigh(PlayerStandard ps,Order order,int num){
-		
-		return HInfoList;
+	public ArrayList<PlayerHighInfo> sortHigh(ArrayList<PlayerHighInfo> list,
+			PlayerStandard ps,Order order){
+		SortHighInfo sortMethod=new SortHighInfo();
+		ArrayList<PlayerHighInfo> temp=list;
+		sortMethod.sort(temp,order,ps);
+		return temp;
 	}
+	
+	/*
+	 * 获取球员赛季高阶数据
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerHighInfo>
+	 */
+	public ArrayList<PlayerHighInfo> getPlayerHighInfo(PlayerStandard ps,Order order,int num){
+		if(HInfoList==null){
+			calHighInfo();
+		}
+		ArrayList<PlayerHighInfo> result=new ArrayList<PlayerHighInfo>();
+		sortHigh(HInfoList,ps,order);
+		if(num>=HInfoList.size()){
+			for(int i=0;i<HInfoList.size();i++){
+				result.add(HInfoList.get(i));
+			}
+			return result;
+		}else{
+			for(int i=0;i<num;i++){
+				result.add(HInfoList.get(i));
+			}
+			return result;
+		}
+	}
+	
+	/*
+	 * 获取球员赛季 平均 基本数据
+	 * @param pos 筛选条件：位置
+	 * @param lea 筛选条件：赛区
+	 * @param age 筛选条件：年龄
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerNormalInfo>
+	 */
+	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(Position pos,League lea,Age age,
+			PlayerStandard ps,Order order,int num){
+		if(avg_NInfoList==null){
+			calAllInfo();
+		}
+		ArrayList<PlayerNormalInfo> tempList=filterNormal(avg_NInfoList,pos,lea,age);
+		sortNormal(tempList,ps,order);
+		ArrayList<PlayerNormalInfo> result=new ArrayList<PlayerNormalInfo>();
+		if(num>=tempList.size()){
+			for(int i=0;i<tempList.size();i++){
+				result.add(tempList.get(i));
+			}
+			return result;
+		}else{
+			for(int i=0;i<num;i++){
+				result.add(tempList.get(i));
+			}
+			return result;
+		}
+	}
+	
+	/*
+	 * 获取球员赛季 总和 基本数据
+	 * @param pos 筛选条件：位置
+	 * @param lea 筛选条件：赛区
+	 * @param age 筛选条件：年龄
+	 * @param ps 排序依据，枚举类
+	 * @param order 排序方式（升序/降序）
+	 * @param num 返回 球员个数
+	 * @return ArrayList<PlayerNormalInfo>
+	 */
+	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfo(Position pos,League lea,Age age,
+			PlayerStandard ps,Order order,int num){
+		if(tot_NInfoList==null){
+			calAllInfo();
+		}
+		ArrayList<PlayerNormalInfo> tempList=filterNormal(tot_NInfoList,pos,lea,age);
+		sortNormal(tempList,ps,order);
+		ArrayList<PlayerNormalInfo> result=new ArrayList<PlayerNormalInfo>();
+		if(num>=tempList.size()){
+			for(int i=0;i<tempList.size();i++){
+				result.add(tempList.get(i));
+			}
+			return result;
+		}else{
+			for(int i=0;i<num;i++){
+				result.add(tempList.get(i));
+			}
+			return result;	
+		}
+	}
+	
+	
+	/*
+	 * 获取球员基本信息，如身高体重、照片等
+	 * @param name:球员名
+	 * @return PlayerVO
+	 */
+	public PlayerVO getPlayerInfo(String name){
+		FundDataService fd=new FundData();
+		playerList=fd.getPlayerFundData();
+		PlayerPO pp=null;
+		for(int i=0;i<playerList.size();i++){
+			pp=playerList.get(i);
+			if(pp.getName().equals(name)){
+				break;
+			}
+		}
+		if(pp!=null){
+			String na=pp.getName();
+			String team=null;
+			String number=pp.getNumber();
+			String position=pp.getPosition();
+			String height=pp.getHeight();
+			String weight=pp.getWeight();
+			String birth=pp.getBirth();
+			String age=pp.getAge();
+			String exp=pp.getExp();
+			String school=pp.getSchool();
+			Image pic=pp.getPortaitImage();
+			Image action=pp.getActionImage();
+			PlayerVO result=new PlayerVO(na, team, number, position,
+					height, weight, birth, age, exp, school, pic, action);
+			return result;
+		}else{
+			return null;
+		}
+	}
+	
+	
 	
 	public PlayerNormalInfo getSinglePlayerNormalInfo(String name){
 		if(avg_NInfoList==null){
@@ -848,6 +995,8 @@ public class PlayerCalculate {
 		if(field.toString().equals("score")){
 			if(scoreList!=null){
 				//sort
+				UpgradeRateDSort urs=new UpgradeRateDSort();
+				urs.quicksort(scoreList);
 				if(num>=scoreList.size()){
 					result=scoreList;
 					return result;
@@ -862,6 +1011,8 @@ public class PlayerCalculate {
 		}else if(field.toString().equals("rebound")){
 			if(rebList!=null){
 				//sort
+				UpgradeRateDSort urs=new UpgradeRateDSort();
+				urs.quicksort(rebList);
 				if(num>=rebList.size()){
 					result=rebList;
 					return result;
@@ -876,6 +1027,8 @@ public class PlayerCalculate {
 		}else{
 			if(assistList!=null){
 				//sort
+				UpgradeRateDSort urs=new UpgradeRateDSort();
+				urs.quicksort(assistList);
 				if(num>=assistList.size()){
 					result=assistList;
 					return result;
@@ -899,8 +1052,108 @@ public class PlayerCalculate {
 	 * @return ArrayList<PlayerKingInfo>
 	 */
 	public ArrayList<PlayerKingInfo> getSeasonKingPlayer(Field field,int num){
-		
-		return null;
+		ArrayList<PlayerKingInfo> result=new ArrayList<PlayerKingInfo>();
+		SortNormalInfo sni=new SortNormalInfo();
+		if(field==Field.score){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.score);
+		}else if(field==Field.block){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.blockNum);
+		}else if(field==Field.assist){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.assistNum);
+		}else if(field==Field.rebound){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.rebTotalNum);
+		}else if(field==Field.steal){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.stealNum);
+		}else if(field==Field.three){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.threeRate);
+		}else if(field==Field.free){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.freeRate);
+		}else if(field==Field.shoot){
+			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.shooting);
+		}
+		if(num>=avg_normalInfoList.size()){
+			for(int i=0;i<avg_normalInfoList.size();i++){
+				PlayerNormalInfo pni=avg_normalInfoList.get(i);
+				PlayerKingInfo pki=new PlayerKingInfo();
+				
+				
+				String name=pni.getName();
+				
+				pki.setField(field.toString());
+				pki.setName(name);
+				
+				PlayerInfo pi = null;
+				for(int j=0;j<playerInfoList.size();j++){
+					pi=playerInfoList.get(j);
+					if(pi.getName().equals(name)){
+						break;
+					}
+				}
+				pki.setPosition(pi.getPosition());
+				pki.setTeamName(pi.getTeamName());
+				
+				
+				if(field==Field.score){
+					pki.setValue(pni.getPoint());
+				}else if(field==Field.block){
+					pki.setValue(pni.getBlockShot());
+				}else if(field==Field.assist){
+					pki.setValue(pni.getAssist());
+				}else if(field==Field.rebound){
+					pki.setValue(pni.getRebound());
+				}else if(field==Field.steal){
+					pki.setValue(pni.getSteal());
+				}else if(field==Field.three){
+					pki.setValue(pni.getThree());
+				}else if(field==Field.free){
+					pki.setValue(pni.getPenalty());
+				}else if(field==Field.shoot){
+					pki.setValue(pni.getShot());
+				}
+				result.add(pki);
+			}
+			return result;
+		}else{
+			for(int i=0;i<num;i++){
+				PlayerNormalInfo pni=avg_normalInfoList.get(i);
+				PlayerKingInfo pki=new PlayerKingInfo();
+				
+				
+				String name=pni.getName();
+				
+				pki.setField(field.toString());
+				pki.setName(name);
+				
+				PlayerInfo pi = null;
+				for(int j=0;j<playerInfoList.size();j++){
+					pi=playerInfoList.get(j);
+					if(pi.getName().equals(name)){
+						break;
+					}
+				}
+				pki.setPosition(pi.getPosition());
+				pki.setTeamName(pi.getTeamName());
+				if(field==Field.score){
+					pki.setValue(pni.getPoint());
+				}else if(field==Field.block){
+					pki.setValue(pni.getBlockShot());
+				}else if(field==Field.assist){
+					pki.setValue(pni.getAssist());
+				}else if(field==Field.rebound){
+					pki.setValue(pni.getRebound());
+				}else if(field==Field.steal){
+					pki.setValue(pni.getSteal());
+				}else if(field==Field.three){
+					pki.setValue(pni.getThree());
+				}else if(field==Field.free){
+					pki.setValue(pni.getPenalty());
+				}else if(field==Field.shoot){
+					pki.setValue(pni.getShot());
+				}
+				result.add(pki);
+			}
+			return result;
+		}
 	}
 	
 	
@@ -911,10 +1164,120 @@ public class PlayerCalculate {
 	 * @return ArrayList<PlayerKingInfo>
 	 */
 	public ArrayList<PlayerKingInfo> getDailyKingPlayer(Field field,int num){
-		
-		return null;
+		calTodayData();
+		ArrayList<PlayerKingInfo> result=new ArrayList<PlayerKingInfo>();
+		SortNormalInfo sni=new SortNormalInfo();
+		if(field==Field.score){
+			sni.sort(todayList, Order.dsec, PlayerStandard.score);
+		}else if(field==Field.block){
+			sni.sort(todayList, Order.dsec, PlayerStandard.blockNum);
+		}else if(field==Field.assist){
+			sni.sort(todayList, Order.dsec, PlayerStandard.assistNum);
+		}else if(field==Field.rebound){
+			sni.sort(todayList, Order.dsec, PlayerStandard.rebTotalNum);
+		}else if(field==Field.steal){
+			sni.sort(todayList, Order.dsec, PlayerStandard.stealNum);
+		}
+		if(num>=todayList.size()){
+			for(int i=0;i<todayList.size();i++){
+				PlayerNormalInfo pni=todayList.get(i);
+				PlayerKingInfo pki=new PlayerKingInfo();
+				
+				
+				String name=pni.getName();
+				
+				pki.setField(field.toString());
+				pki.setName(name);
+				
+				PlayerInfo pi = null;
+				for(int j=0;j<playerInfoList.size();j++){
+					pi=playerInfoList.get(j);
+					if(pi.getName().equals(name)){
+						break;
+					}
+				}
+				pki.setPosition(pi.getPosition());
+				pki.setTeamName(pi.getTeamName());
+				
+				
+				if(field==Field.score){
+					pki.setValue(pni.getPoint());
+				}else if(field==Field.block){
+					pki.setValue(pni.getBlockShot());
+				}else if(field==Field.assist){
+					pki.setValue(pni.getAssist());
+				}else if(field==Field.rebound){
+					pki.setValue(pni.getRebound());
+				}else if(field==Field.steal){
+					pki.setValue(pni.getSteal());
+				}
+				result.add(pki);
+			}
+			return result;
+		}else{
+			for(int i=0;i<num;i++){
+				PlayerNormalInfo pni=todayList.get(i);
+				PlayerKingInfo pki=new PlayerKingInfo();
+				
+				
+				String name=pni.getName();
+				
+				pki.setField(field.toString());
+				pki.setName(name);
+				
+				PlayerInfo pi = null;
+				for(int j=0;j<playerInfoList.size();j++){
+					pi=playerInfoList.get(j);
+					if(pi.getName().equals(name)){
+						break;
+					}
+				}
+				pki.setPosition(pi.getPosition());
+				pki.setTeamName(pi.getTeamName());
+				if(field==Field.score){
+					pki.setValue(pni.getPoint());
+				}else if(field==Field.block){
+					pki.setValue(pni.getBlockShot());
+				}else if(field==Field.assist){
+					pki.setValue(pni.getAssist());
+				}else if(field==Field.rebound){
+					pki.setValue(pni.getRebound());
+				}else if(field==Field.steal){
+					pki.setValue(pni.getSteal());
+				}
+				result.add(pki);
+			}
+			return result;
+		}
 	}
 	
+	public void getTodayGame(){
+		//ini data
+		GameDataService gds=new GameData();
+		todayGameList=gds.get_Latest_PlayerGameData();
+	}
+	
+	public void calTodayData(){
+		
+		if(todayList!=null){
+			return;
+		}else{
+			todayList=new ArrayList<PlayerNormalInfo>();
+			if(todayGameList==null){
+				getTodayGame();
+				}
+			for(int i=0;i<todayGameList.size();i++){
+				PlayerGamePO po=todayGameList.get(i);
+				PlayerNormalInfo pni=new PlayerNormalInfo();
+				pni.setPoint(po.getScore());
+				pni.setRebound(po.getRebTotalNum());
+				pni.setAssist(po.getAssistNum());
+				pni.setSteal(po.getStealNum());
+				pni.setBlockShot(po.getBlockNum());
+				todayList.add(pni);
+				}
+		}
+	}
 	
 	/*
 	 * iniData()初始化数据
@@ -922,8 +1285,10 @@ public class PlayerCalculate {
 	 * 结果存储于ArrayList<PlayerAllGamePO> gameList中
 	 */
 	public void iniData(){
-		
-		ArrayList<PlayerPO> temp_playerList = null;
+		GameDataService gds=new GameData();
+		playerGameList=gds.getPlayerGameData();
+		FundDataService fd=new FundData();
+		ArrayList<PlayerPO> temp_playerList = fd.getPlayerFundData();
 		
 		int playerListSize=playerGameList.size();
 		for(int i=0;i<playerListSize;i++){//对每一个参赛的选手
