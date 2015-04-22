@@ -8,9 +8,9 @@ import vo.PlayerInfoVO;
 
 
 public class Sort {
-	
+	/*
 	public void sort(ArrayList<PlayerInfoVO> list,Order order, PlayerStandard ps){
-		if(order==Order.UP){
+		if(order==Order.asc){
 			if(ps==PlayerStandard.assistNum){
 				AssistNumUPSort ans=new AssistNumUPSort();
 				ans.quicksort(list);
@@ -202,4 +202,5 @@ public class Sort {
 			}
 		}
 	}
+	*/
 }
