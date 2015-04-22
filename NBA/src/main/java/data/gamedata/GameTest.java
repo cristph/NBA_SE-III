@@ -14,9 +14,14 @@ public class GameTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        test1();
+        test();
 		
 	}
+	
+	public static void test(){
+		GameData gd=new GameData();
+	}
+	
 
 	public static void test1(){
 		double time1=System.currentTimeMillis();
@@ -117,7 +122,7 @@ public class GameTest {
 		for(int j=0;j<list.size();j++)
 		{
 			PlayerGamePO po=list.get(j);
-			System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getMatchResult());
+			System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getPosition()+" "+po.isFirst());
 			
 		}
 		System.out.println("**************************************");
