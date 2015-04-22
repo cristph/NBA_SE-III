@@ -268,6 +268,7 @@ public class teamsearch {
 			//}
             else if(stan==TeamStandard.winrate){
             	downSortforwinrate.quicksort(v);
+            	
 			}
 			
 		}

@@ -114,7 +114,7 @@ public class teamcalculate {
 			
 		}
 		else{
-			result=1.0*(getHitshootnum(p)/getshootnum(p));
+			result=(1.0*getHitshootnum(p)/getshootnum(p));
 		}
 		return result;
 	
@@ -125,7 +125,7 @@ public class teamcalculate {
 			
 		}
 		else{
-			result=1.0*(getthreepointnum(p)/getthreeshootnum(p));
+			result=(1.0*getthreepointnum(p)/getthreeshootnum(p));
 		}
 		return result;
 	}
@@ -135,7 +135,7 @@ public class teamcalculate {
 			
 		}
 		else{
-			result=1.0*(getfreehitnum(p)/getfreenum(p));
+			result=(1.0*getfreehitnum(p)/getfreenum(p));
 		}
 		return result;
 	}
@@ -148,14 +148,16 @@ public class teamcalculate {
     			win=win+1;
     		}
     	}
-    	double d=0;
+    	double d=0;//System.out.println(win+"+"+getgamenum(p));
     	if(getgamenum(p)==0){
-    		
+    		//System.out.println("qwe");
     	}
     	else{
-    		d=1.0*(win/getgamenum(p));
+    		//System.out.println(win/getgamenum(p));
+    		d=((1.0*win)/getgamenum(p));
+    		//System.out.println("wer");
     	}
-    	
+    	//System.out.println(d);
     	return d;
     }
     public double getattackround(TeamAllGamePO p,TeamAllGamePO p2){
@@ -168,7 +170,7 @@ public class teamcalculate {
     			
     		}
     		else{
-    			d=tgp.getShootNum()+0.4*tgp.getFreeNum()-1.07*(tgp.getRebAttNum()/(1.0*tgp.getRebAttNum()
+    			d=1.0*tgp.getShootNum()+0.4*tgp.getFreeNum()-1.07*(1.0*tgp.getRebAttNum()/(1.0*tgp.getRebAttNum()
     				+1.0*p2.getGameDataList().get(p.getGameDataList().indexOf(tgp)).getRebDefNum())*(1.0*tgp.getShootNum()-1.0*tgp.getHitShootNum()))+1.07*tgp.getErrorNum(); 
     		}
     		
@@ -255,7 +257,7 @@ public class teamcalculate {
     		
     	}
     	else{
-    		d=(getassistnum(p)*1.0)/(getattackround(p2,p)/100);
+    		d=(getassistnum(p)*1.0)/(1.0*getattackround(p2,p)/100);
     	}
     	return d;
     }
