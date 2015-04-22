@@ -98,10 +98,12 @@ public class PlayerOrderControl implements ControlService{
 		if(stan!=null){
 		    ArrayList<PlayerNormalInfo> info;
 		    if(kind.equals("总数据")){
-			    info = ps.getPlayerTotalNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+			    info = ps.getPlayerTotalNormalInfo(Position.All, League.All, Age.All, stan, or, 500);
+			
 		    }
 		    else{
-			    info = ps.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, stan, or, -1);
+			    info = ps.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, stan, or, 500);
+			
 		    }
 		    Object[][] t = new Object[info.size()][18];
 		    title = title1;
@@ -139,7 +141,8 @@ public class PlayerOrderControl implements ControlService{
 		else{
 			stan = getStan1(stand);
 			title = title2;
-			ArrayList<PlayerHighInfo> info = ps.getPlayerHighInfo(stan, or, -1);
+			ArrayList<PlayerHighInfo> info = ps.getPlayerHighInfo(stan, or, 500);
+			
 			Object[][] t = new Object[info.size()][13];
 			//百分数格式化
 			NumberFormat fmt = NumberFormat.getPercentInstance();

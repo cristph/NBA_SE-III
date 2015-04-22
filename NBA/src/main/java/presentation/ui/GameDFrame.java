@@ -33,7 +33,7 @@ public class GameDFrame extends NormalFrame{
 		JLabel label = new JLabel(point);
 		Font font = new Font("TimesRoman",Font.BOLD,30);
 		label.setFont(font);
-		String[] teams = team.split(":");
+		String[] teams = team.split("-");
 		JLabel team1 = new JLabel(teams[0]);
 		JLabel team2 = new JLabel(teams[1]);
 		team1.setFont(font);

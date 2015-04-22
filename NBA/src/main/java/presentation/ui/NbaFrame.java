@@ -51,6 +51,7 @@ class NbaFrame extends NormalFrame{
 		tabbedPane.addTab("球队排序", new OrderPanel(cs));
 		tabbedPane.addTab("球员查看", new OrderPanel(os));
 		tabbedPane.addTab("前五十球员", new OrderPanel(pts));
+		tabbedPane.addTab("比赛查看", new GamePanel(ts));
 		tabbedPane.setTabComponentAt(0, new JLabel("热点"));
 		this.add(tabbedPane, BorderLayout.CENTER);
 		this.addWindowListener(new WindowAdapter(){
