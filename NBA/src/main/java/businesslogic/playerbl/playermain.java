@@ -2,8 +2,16 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
+import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
+import test.data.PlayerKingInfo;
+import test.data.PlayerNormalInfo;
+import value.PlayerStandard;
+import value.Value.Age;
 import value.Value.Field;
+import value.Value.League;
+import value.Value.Order;
+import value.Value.Position;
 import businesslogicservice.playerblservice.PlayerBLService;
 
 public class playermain {
@@ -16,7 +24,7 @@ public class playermain {
 	
 	public void test1(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerHotInfo> list=pbs.getHotPlayer(Field.score, 5);
+		ArrayList<PlayerHotInfo> list=pbs.getHotPlayer(Field.rebound, 5);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
@@ -28,11 +36,58 @@ public class playermain {
 	}
 	
 	public void test2(){
-		
+		long a=System.currentTimeMillis();
+		ArrayList<PlayerKingInfo> list=pbs.getDailyKingPlayer(Field.score, 100);
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		for(int i=0;i<list.size();i++){
+			PlayerKingInfo pki=list.get(i);
+			System.out.println(pki.getField()+" "+pki.getName()+" "+pki.getPosition()
+					+" "+pki.getTeamName()+" "+pki.getValue());
+		}
+	}
+	
+	public void test3(){
+		long a=System.currentTimeMillis();
+		ArrayList<PlayerKingInfo> list=pbs.getSeasonKingPlayer(Field.score, 10);
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		for(int i=0;i<list.size();i++){
+			PlayerKingInfo pki=list.get(i);
+			System.out.println(pki.getField()+" "+pki.getName()+" "+pki.getPosition()
+					+" "+pki.getTeamName()+" "+pki.getValue());
+		}
+	}
+	
+	public void test4(){
+		long a=System.currentTimeMillis();
+		ArrayList<PlayerHighInfo> list=pbs.getPlayerHighInfo(PlayerStandard.stealRate,Order.dsec,10);
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		for(int i=0;i<list.size();i++){
+			PlayerHighInfo phi=list.get(i);
+			System.out.println(phi.getName()+" "+phi.getStealEfficient()+" "+phi.getGmSc());
+		}
+	}
+	
+	public void test5(){
+		long a=System.currentTimeMillis();
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfo(Position.F, League.All, 
+				Age.lv1, PlayerStandard.score, Order.dsec, 10);
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("time: "+c);
+		for(int i=0;i<list.size();i++){
+			PlayerNormalInfo pni=list.get(i);
+			System.out.println(pni.getName()+" "+pni.getAge()+" "+pni.getTeamName()+" "+pni.getPoint());
+		}
 	}
 	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test1();
+		pm.test4();
 	}
 }

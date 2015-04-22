@@ -7,6 +7,7 @@ import data.funddata.FundData;
 import data.funddata.FundDataService;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
+import data.gamedata.TeamInfo;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import po.PlayerPO;
@@ -48,6 +49,7 @@ public class PlayerCalculate {
 	public PlayerCalculate(){
 		iniData();
 		cm=new CalMethod();
+		calAllInfo();
 	}
 	
 	
@@ -377,20 +379,21 @@ public class PlayerCalculate {
 					    
 					    score +=pgp.getScore(); //个人得分
 					    
-					    allPlayerTime +=0; //球队所有队员上场时间（单位：秒）
-					    teamRebNum=0; //球队总篮板数
-					    oppTeamRebNum=0; //对手总篮板数
-					    teamAttRebNum=0; //球队总进攻篮板数
-					    oppTeamAttRebNum=0; //对手总进攻篮板数
-					    teamDefRebNum=0; //球队总防守篮板数
-					    oppTeamDefRebNum=0; //对手总防守篮板数
-					    teamHitNum=0; //球队总进球数
-					    oppAttNum=0; //对手进攻次数
-					    oppTwoNum=0; //对手两分球出手次数
-					    twoNum=0; //球员自己两分球出手数（不是球队）
-					    teamThrowNum=0; //球队所有球员总出手次数
-					    teamFreeNum=0; //球队所有球员罚球次数
-					    teamErrorNum=0; //球队所有球员失误次数
+					    TeamInfo tif=pgp.getTif();
+					    allPlayerTime +=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
+					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
+					    oppTeamRebNum+=tif.getOppTeamRebNum(); //对手总篮板数
+					    teamAttRebNum+=tif.getTeamAttRebNum(); //球队总进攻篮板数
+					    oppTeamAttRebNum+=tif.getOppTeamAttRebNum(); //对手总进攻篮板数
+					    teamDefRebNum+=tif.getTeamDefRebNum(); //球队总防守篮板数
+					    oppTeamDefRebNum+=tif.getOppTeamDefRebNum(); //对手总防守篮板数
+					    teamHitNum+=tif.getTeamHitNum(); //球队总进球数
+					    oppAttNum+=tif.getOppAttNum(); //对手进攻次数
+					    oppTwoNum+=tif.getOppTwoNum(); //对手两分球出手次数
+					    twoNum+=(pgp.getShootNum()-pgp.getThreeShootNum()); //球员自己两分球出手数（不是球队）
+					    teamThrowNum+=tif.getTeamThrowNum(); //球队所有球员总出手次数
+					    teamFreeNum+=tif.getTeamFreeNum(); //球队所有球员罚球次数
+					    teamErrorNum+=tif.getTeamErrorNum(); //球队所有球员失误次数
 					}
 				}
 				PlayerHighInfo phi=new PlayerHighInfo();
@@ -443,8 +446,10 @@ public class PlayerCalculate {
 		assistList=new ArrayList<PlayerHotInfo>();
 		tot_normalInfoList=new ArrayList<PlayerNormalInfo>();
 		avg_normalInfoList=new ArrayList<PlayerNormalInfo>();
+		HInfoList=new ArrayList<PlayerHighInfo>();
 		
 		int playerListSize=playerInfoList.size();
+		System.out.println("size: "+playerListSize);
 		if(playerListSize>0){//若球员列表不为空
 			String position;
 			String league;
@@ -620,20 +625,23 @@ public class PlayerCalculate {
 					    
 					    score +=pgp.getScore(); //个人得分
 					    
-					    allPlayerTime +=0; //球队所有队员上场时间（单位：秒）
-					    teamRebNum=0; //球队总篮板数
-					    oppTeamRebNum=0; //对手总篮板数
-					    teamAttRebNum=0; //球队总进攻篮板数
-					    oppTeamAttRebNum=0; //对手总进攻篮板数
-					    teamDefRebNum=0; //球队总防守篮板数
-					    oppTeamDefRebNum=0; //对手总防守篮板数
-					    teamHitNum=0; //球队总进球数
-					    oppAttNum=0; //对手进攻次数
-					    oppTwoNum=0; //对手两分球出手次数
-					    twoNum=0; //球员自己两分球出手数（不是球队）
-					    teamThrowNum=0; //球队所有球员总出手次数
-					    teamFreeNum=0; //球队所有球员罚球次数
-					    teamErrorNum=0; //球队所有球员失误次数
+					    TeamInfo tif=pgp.getTif();
+					    allPlayerTime +=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
+					    System.out.println("allplayerTime:"+tif.getAllPlayerTime());
+					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
+					    System.out.println("all:"+tif.getTeamRebNum());
+					    oppTeamRebNum+=tif.getOppTeamRebNum(); //对手总篮板数
+					    teamAttRebNum+=tif.getTeamAttRebNum(); //球队总进攻篮板数
+					    oppTeamAttRebNum+=tif.getOppTeamAttRebNum(); //对手总进攻篮板数
+					    teamDefRebNum+=tif.getTeamDefRebNum(); //球队总防守篮板数
+					    oppTeamDefRebNum+=tif.getOppTeamDefRebNum(); //对手总防守篮板数
+					    teamHitNum+=tif.getTeamHitNum(); //球队总进球数
+					    oppAttNum+=tif.getOppAttNum(); //对手进攻次数
+					    oppTwoNum+=tif.getOppTwoNum(); //对手两分球出手次数
+					    twoNum+=(pgp.getShootNum()-pgp.getThreeShootNum()); //球员自己两分球出手数（不是球队）
+					    teamThrowNum+=tif.getTeamThrowNum(); //球队所有球员总出手次数
+					    teamFreeNum+=tif.getTeamFreeNum(); //球队所有球员罚球次数
+					    teamErrorNum+=tif.getTeamErrorNum(); //球队所有球员失误次数
 					}
 				}
 				
@@ -690,6 +698,7 @@ public class PlayerCalculate {
 				//high info
 				PlayerHighInfo phi=new PlayerHighInfo();
 			    double T=cm.calT(time, allPlayerTime);//用于计算的数据T
+			    System.out.println(">>>>>>>>>>>>>>cal T: "+time+" "+allPlayerTime);
 			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, teamErrorNum, foulNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//GmSc效率
 			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
 			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率
@@ -698,6 +707,7 @@ public class PlayerCalculate {
 			    double defRebRate=cm.calRebRate(rebDefNum, T, teamDefRebNum, oppTeamDefRebNum);//防守篮板率
 			    double assistRate=cm.calAssistRate(assistNum, teamHitNum, hitShootNum, T);//助攻率
 			    double stealRate=cm.calStealRate(stealNum, oppAttNum, T);//抢断率
+			    System.out.println(">>>>>>>>>>>>>>cal: "+stealNum+" "+oppAttNum+" "+T);
 			    double blockRate=cm.calBlockRate(blockNum, oppTwoNum, T);//盖帽率
 			    double errorRate=cm.calErrorRate(teamErrorNum, twoNum, teamFreeNum);//失误率
 			    double usedRate=cm.calUseRate(threeShootNum, freeNum, errorNum, T, teamThrowNum, teamFreeNum, teamErrorNum);//使用率
@@ -715,33 +725,76 @@ public class PlayerCalculate {
 				phi.setReboundEfficient(rebRate);
 				phi.setShotEfficient(throwRate);
 				phi.setStealEfficient(stealRate);
+				System.out.println(">>>>>>>>>>>>>>set: "+phi.getStealEfficient());
 				phi.setTeamName(teamName);
 				HInfoList.add(phi);
 				
 				//hot info
-				score_upgradeRate=recent_score/(point-recent_score);
-				reb_upgradeRate=recent_reb/(rebTotalNum-recent_reb);
-				assist_upgradeRate=recent_assist/(assistNum-recent_assist);
+				if(gameListSize>5){
+					if(recent_score==0){
+						score_upgradeRate=0;
+					}else{
+						double d_score=(point-recent_score)/(gameListSize-5);
+						if(d_score==0){
+							score_upgradeRate=0;
+						}else{
+							score_upgradeRate=( (recent_score/5)/d_score )-1;
+						}
+					}
+					
+					if(recent_reb==0){
+						reb_upgradeRate=0;
+					}else{
+						double d_reb=(point-recent_score)/(gameListSize-5);
+						if(d_reb==0){
+							reb_upgradeRate=0;
+						}else{
+							reb_upgradeRate=( (recent_reb/5)/d_reb )-1;
+						}
+					}
+					
+					if(recent_assist==0){
+						assist_upgradeRate=0;
+					}else{
+						double d_assist=(assist-recent_assist)/(gameListSize-5);
+						if(d_assist==0){
+							assist_upgradeRate=0;
+						}else{
+							assist_upgradeRate=( (recent_assist/5)/d_assist )-1;
+						}
+					}
+				}else{
+					score_upgradeRate=0;
+					reb_upgradeRate=0;
+					assist_upgradeRate=0;
+				}
 				
-				PlayerHotInfo ph=new PlayerHotInfo();
-				ph.setName(name);
-				ph.setPosition(position);
-				ph.setTeamName(teamName);
+				PlayerHotInfo ph1=new PlayerHotInfo();
+				ph1.setName(name);
+				ph1.setPosition(position);
+				ph1.setTeamName(teamName);
+				ph1.setField("score");
+				ph1.setUpgradeRate(score_upgradeRate);
+				ph1.setValue(point/gameListSize);
+				scoreList.add(ph1);
 				
-				ph.setField("score");
-				ph.setUpgradeRate(score_upgradeRate);
-				ph.setValue(point/gameListSize);
-				scoreList.add(ph);
+				PlayerHotInfo ph2=new PlayerHotInfo();
+				ph2.setName(name);
+				ph2.setPosition(position);
+				ph2.setTeamName(teamName);
+				ph2.setField("rebound");
+				ph2.setUpgradeRate(reb_upgradeRate);
+				ph2.setValue(rebTotalNum/gameListSize);
+				rebList.add(ph2);
 				
-				ph.setField("rebound");
-				ph.setUpgradeRate(reb_upgradeRate);
-				ph.setValue(rebTotalNum/gameListSize);
-				rebList.add(ph);
-				
-				ph.setField("assist");
-				ph.setUpgradeRate(assist_upgradeRate);
-				ph.setValue(assistNum/gameListSize);
-				assistList.add(ph);
+				PlayerHotInfo ph3=new PlayerHotInfo();
+				ph3.setName(name);
+				ph3.setPosition(position);
+				ph3.setTeamName(teamName);
+				ph3.setField("assist");
+				ph3.setUpgradeRate(assist_upgradeRate);
+				ph3.setValue(assistNum/gameListSize);
+				assistList.add(ph3);
 			}
 		}
 	}
@@ -779,7 +832,7 @@ public class PlayerCalculate {
 			if(!ag.equals("All")){
 				int n=pni.getAge();
 				if(ag.equals("lv1")){
-					if(n>22){
+					if(n>22||n<=0){
 						match=false;
 						continue;
 					}
@@ -844,6 +897,9 @@ public class PlayerCalculate {
 		}
 		ArrayList<PlayerHighInfo> result=new ArrayList<PlayerHighInfo>();
 		sortHigh(HInfoList,ps,order);
+		for(int i=0;i<HInfoList.size();i++){
+			System.out.println(HInfoList.get(i).getName()+" "+HInfoList.get(i).getStealEfficient());
+		}
 		if(num>=HInfoList.size()){
 			for(int i=0;i<HInfoList.size();i++){
 				result.add(HInfoList.get(i));
@@ -993,8 +1049,10 @@ public class PlayerCalculate {
 	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
 		ArrayList<PlayerHotInfo> result = null;
 		if(field.toString().equals("score")){
+			System.out.println("scr");
 			if(scoreList!=null){
 				//sort
+				System.out.println("scr-sort");
 				UpgradeRateDSort urs=new UpgradeRateDSort();
 				urs.quicksort(scoreList);
 				if(num>=scoreList.size()){
@@ -1009,6 +1067,7 @@ public class PlayerCalculate {
 				}
 			}
 		}else if(field.toString().equals("rebound")){
+			System.out.println("reb");
 			if(rebList!=null){
 				//sort
 				UpgradeRateDSort urs=new UpgradeRateDSort();
@@ -1024,7 +1083,8 @@ public class PlayerCalculate {
 					return result;
 				}
 			}
-		}else{
+		}else if(field.toString().equals("assist")){
+			System.out.println("ass");
 			if(assistList!=null){
 				//sort
 				UpgradeRateDSort urs=new UpgradeRateDSort();
@@ -1219,7 +1279,6 @@ public class PlayerCalculate {
 				PlayerNormalInfo pni=todayList.get(i);
 				PlayerKingInfo pki=new PlayerKingInfo();
 				
-				
 				String name=pni.getName();
 				
 				pki.setField(field.toString());
@@ -1269,6 +1328,7 @@ public class PlayerCalculate {
 			for(int i=0;i<todayGameList.size();i++){
 				PlayerGamePO po=todayGameList.get(i);
 				PlayerNormalInfo pni=new PlayerNormalInfo();
+				pni.setName(po.getPlayerName());
 				pni.setPoint(po.getScore());
 				pni.setRebound(po.getRebTotalNum());
 				pni.setAssist(po.getAssistNum());
@@ -1285,6 +1345,7 @@ public class PlayerCalculate {
 	 * 结果存储于ArrayList<PlayerAllGamePO> gameList中
 	 */
 	public void iniData(){
+		playerInfoList=new ArrayList<PlayerInfo>();
 		GameDataService gds=new GameData();
 		playerGameList=gds.getPlayerGameData();
 		FundDataService fd=new FundData();
