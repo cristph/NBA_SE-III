@@ -17,8 +17,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+
 import presentation.control.TeamControlService;
 
 public class TeamAllPanel extends JPanel {
@@ -41,27 +43,27 @@ public class TeamAllPanel extends JPanel {
 		Border border = BorderFactory
 				.createBevelBorder(BevelBorder.LOWERED);
 		title.setBorder(border);
-		this.add(title, BorderLayout.NORTH);
+		//this.add(title, BorderLayout.NORTH);
 		
 		//title的内容
 		GroupLayout layout = new GroupLayout(title);
 		title.setLayout(layout);
 		Font fon = new Font("TimesRoman",Font.BOLD,20);
-		JLabel area1 = new JLabel("   东部",JLabel.CENTER);
+		JLabel area1 = new JLabel("   东部",SwingConstants.CENTER);
 		area1.setFont(fon);
-		JLabel area2 = new JLabel("   西部",JLabel.CENTER);
+		JLabel area2 = new JLabel("   西部",SwingConstants.CENTER);
 		area2.setFont(fon);
-		JLabel position1 = new JLabel("中区",JLabel.CENTER);
+		JLabel position1 = new JLabel("中区",SwingConstants.CENTER);
 		position1.setFont(fon);
-		JLabel position2 = new JLabel("大西洋区",JLabel.CENTER);
+		JLabel position2 = new JLabel("大西洋区",SwingConstants.CENTER);
 		position2.setFont(fon);
-		JLabel position3 = new JLabel("东南区",JLabel.CENTER);
+		JLabel position3 = new JLabel("东南区",SwingConstants.CENTER);
 		position3.setFont(fon);
-		JLabel position4 = new JLabel("西北区",JLabel.CENTER);
+		JLabel position4 = new JLabel("西北区",SwingConstants.CENTER);
 		position4.setFont(fon);
-		JLabel position5 = new JLabel("太平洋区",JLabel.CENTER);
+		JLabel position5 = new JLabel("太平洋区",SwingConstants.CENTER);
 		position5.setFont(fon);
-		JLabel position6 = new JLabel("西南区",JLabel.CENTER);
+		JLabel position6 = new JLabel("西南区",SwingConstants.CENTER);
 		position6.setFont(fon);
 		
 		//创建GroupLayout的水平连续组，，越先加入的ParallelGroup，优先级级别越高。
@@ -130,7 +132,7 @@ public class TeamAllPanel extends JPanel {
 		final String name = cs.findTeam(line,row);
 		Image temp = cs.getTeamPic(name) ;
 		JButton button = new JButton(name);
-		temp = temp.getScaledInstance(80, 80, temp.SCALE_DEFAULT);
+		temp = temp.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		ImageIcon icon = new ImageIcon(temp);
 		button.setIcon(icon);
 		button.addActionListener(new ActionListener(){

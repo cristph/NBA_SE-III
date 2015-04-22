@@ -7,29 +7,19 @@ package presentation.ui;
 
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import presentation.control.ControlService;
 import presentation.modle.MyTableModle;
 
@@ -115,13 +105,15 @@ public class OrderPanel extends JPanel {
 				// 点击确认按钮的事件
 				
 				Object[][] list = cs.getList((String)(box1.getSelectedItem()),(String)box2.getSelectedItem(),(String)box3.getSelectedItem());
-				modle.upd(list);
+				String title[] = cs.firstTitle();
+				modle.upd(list,title);
 				table.repaint();
 			}
 			
 		});	
 		//table的监听
 		table.addMouseListener(new MouseAdapter(){
+			@Override
 			public void mouseClicked(MouseEvent e){
 				int row = table.getSelectedRow();
 				int line = table.getSelectedColumn();
