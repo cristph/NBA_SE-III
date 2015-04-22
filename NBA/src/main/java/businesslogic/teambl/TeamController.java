@@ -280,7 +280,7 @@ public class TeamController implements TeamBLService{
      
      
 	public ArrayList<TeamHighInfo> getTeamHighInfo(TeamStandard tst,Order order,int num){
-		getTeamVO();System.out.println(pa.size()+"qwer");
+		getTeamVO();//System.out.println(pa.size()+"qwer");
 		//for(int i=0;i<pa.size();i++){
 			//System.out.println(pa.get(i).getWinrate()+"a");
 		//}
@@ -296,7 +296,7 @@ public class TeamController implements TeamBLService{
 			thi.setOffendReboundEfficient(pa.get(i).getRebattrate());
 			thi.setOffendRound(pa.get(i).getAttackround());
 			thi.setStealEfficient(pa.get(i).getStealrate());
-			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setTeamName(pa.get(i).getShortName());
 			thi.setWinRate(pa.get(i).getWinrate());
 			h.add(thi);
 		}
@@ -323,7 +323,7 @@ public class TeamController implements TeamBLService{
 			thi.setRebound(pa.get(i).getRebTotalNumave());
 			thi.setShot(pa.get(i).getShootrate());
 			thi.setSteal(pa.get(i).getStealNumave());
-			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setTeamName(pa.get(i).getShortName());
 			thi.setThree(pa.get(i).getThreepointrate());
 			h.add(thi);
 		}
@@ -351,7 +351,7 @@ public class TeamController implements TeamBLService{
 			thi.setRebound(pa.get(i).getRebTotalNum());
 			thi.setShot(pa.get(i).getShootrate());
 			thi.setSteal(pa.get(i).getStealNum());
-			thi.setTeamName(pa.get(i).getTeamName());
+			thi.setTeamName(pa.get(i).getShortName());
 			thi.setThree(pa.get(i).getThreepointrate());
 			h.add(thi);
 		}
@@ -414,7 +414,7 @@ public class TeamController implements TeamBLService{
 		     thi.setRebound(pa.get(i).getRebTotalNumave());
 		     thi.setShot(pa.get(i).getShootrate());
 		     thi.setSteal(pa.get(i).getStealNumave());
-		     thi.setTeamName(pa.get(i).getTeamName());
+		     thi.setTeamName(pa.get(i).getShortName());
 		     thi.setThree(pa.get(i).getThreepointrate());
 		     break;
 		   }
@@ -435,7 +435,7 @@ public class TeamController implements TeamBLService{
 					thi.setOffendReboundEfficient(pa.get(i).getRebattrate());
 					thi.setOffendRound(pa.get(i).getAttackround());
 					thi.setStealEfficient(pa.get(i).getStealrate());
-					thi.setTeamName(pa.get(i).getTeamName());
+					thi.setTeamName(pa.get(i).getShortName());
 					thi.setWinRate(pa.get(i).getWinrate());
 			
 			     
@@ -564,9 +564,9 @@ public class TeamController implements TeamBLService{
 				result2.add(result.get(i));
 			}
 		}
-		for(int i=0;i<result2.size();i++){
-			System.out.println(result2.get(i).getDate()+result2.get(i).getTeam1()+result2.get(i).getTeam2());
-		}
+		//for(int i=0;i<result2.size();i++){
+			//System.out.println(result2.get(i).getDate()+result2.get(i).getTeam1()+result2.get(i).getTeam2());
+		//}
 		return result2;
 	}
 	public static void main(String[] args){
