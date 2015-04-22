@@ -49,7 +49,8 @@ public class FundDataReader implements FundDataReadService {
 				  temp.setBirthday(info[6]);
 				  Image teamImg=Toolkit.getDefaultToolkit().getImage(imgFold.toString()+"/"+info[1]
 						  +".png");
-				  temp.setTeamPic(teamImg);
+				
+				 temp.setTeamPic(teamImg);
 				  result.add(temp);
 				  }
 				row++;

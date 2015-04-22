@@ -156,18 +156,28 @@ private void updateTeam(String line){
 		   isDirty=true;
 		}
     }
+	
+	/*
+	 * 投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;进攻 （前场）篮板数;防守 （后场）篮板数;总篮板数;助攻数;盖帽数;失误数;犯规 数; 个人得分;
+	 */
+	 System.out.println("原罚球数="+temp.getFreeNum()+"-----------------------");
+	 System.out.println("新增罚球数="+data[5]+"-----------------------");
 	 
 	int allPlayerTime=temp.getAllPlayerTime()+time;
 	int hitNum=temp.getHitShootNum()+data[0];
     int shootNum=temp.getShootNum()+data[1];
+    
 	int threeHitNum=temp.getThreePointNum()+data[2];
     int threeShootNum=temp.getThreeShootNum()+data[3];
+    
     int freeHitNum=temp.getFreeHitNum()+data[4];
-    int freeShootNum=temp.getShootNum()+data[5];
+    int freeShootNum=temp.getFreeNum()+data[5];
+    
     int attReb=temp.getRebAttNum()+data[6];
 	int defReb=temp.getRebDefNum()+data[7];
-    int reb=temp.getRebTotalNum()+data[8];
-    int ass=temp.getAssistNum()+data[9];
+	int reb=temp.getRebTotalNum()+data[8];
+    
+	int ass=temp.getAssistNum()+data[9];
     int steal=temp.getStealNum()+data[10];
     int block=temp.getBlockNum()+data[11];
     int error=temp.getErrorNum()+data[12];
@@ -189,7 +199,10 @@ private void updateTeam(String line){
 	temp.setErrorNum(error);
 	temp.setFoulNum(foul);
 	
-	if(isDirty){
+	System.out.println("新罚球数="+temp.getFreeNum()+" "+currentPair+" "+currentDate);
+	 System.out.println("------------------------------------------");
+	
+	 if(isDirty){
 		temp.setIsDirty(isDirty);
 		if(currentTeam==2)
 			teamGame1.setIsDirty(isDirty);
@@ -213,6 +226,8 @@ private GameInfo makeGameInfo(){
 	TeamInfo info2=new TeamInfo(teamGame2.getAllPlayerTime(),teamGame2.getRebTotalNum(),teamGame1.getRebTotalNum(),teamGame2.getRebAttNum(),
 			teamGame1.getRebAttNum(),teamGame2.getRebDefNum(),teamGame1.getRebDefNum(),teamGame2.getFreeHitNum()+teamGame2.getHitShootNum(),teamGame1.getRebAttNum(),
 			teamGame1.getShootNum()-teamGame1.getThreeShootNum(),teamGame2.getShootNum(),teamGame2.getFreeNum(),teamGame2.getErrorNum());
+	
+	//System.out.println("罚球数="+info1.getTeamFreeNum()+" "+currentPair+" "+currentDate);
 	
 
 	for(int i=0;i<playerList.size();i++)

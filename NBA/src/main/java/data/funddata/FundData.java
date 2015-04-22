@@ -60,6 +60,10 @@ public class FundData implements FundDataService {
 	public ArrayList<TeamPO> getTeamFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<TeamPO> list=fdrs.readTeamFile(txtFile, imgFold);
+		/*for(int i=0;i<list.size();i++)
+		{
+			System.out.println(list.get(i).getTeamPic());
+		}*/
 		return list;
 	}
 
