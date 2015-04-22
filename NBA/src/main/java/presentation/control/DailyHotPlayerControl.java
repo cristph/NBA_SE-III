@@ -64,7 +64,7 @@ public class DailyHotPlayerControl implements HotControl{
 	}
 
 	public String[] getHead() {
-		String[] title={"球员","热门属性","球队","位置","提升率"};
+		String[] title={"球员","热门属性","球队","位置"};
 		title[1] = fld;
 		return title;
 	}

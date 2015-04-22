@@ -51,24 +51,8 @@ class NbaFrame extends NormalFrame{
 		tabbedPane.addTab("球队排序", new OrderPanel(cs));
 		tabbedPane.addTab("球员查看", new OrderPanel(os));
 		tabbedPane.addTab("前五十球员", new OrderPanel(pts));
-		this.add(tabbedPane, BorderLayout.CENTER);
-
 		tabbedPane.setTabComponentAt(0, new JLabel("热点"));
-		//状态栏
-		final JLabel stateBar = new JLabel("", SwingConstants.RIGHT);
-		stateBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-		//用定时任务来显示当前时间
-		new java.util.Timer().scheduleAtFixedRate(
-				new TimerTask(){
-					DateFormat df = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-					@Override
-					public void run() {
-						stateBar.setText("当前时间：" + df.format(new Date()) + "  ");
-					}
-				}, 0, 1000);
-		this.add(stateBar, BorderLayout.SOUTH); //把状态栏添加到窗体的南边
-		
-
+		this.add(tabbedPane, BorderLayout.CENTER);
 		this.addWindowListener(new WindowAdapter(){
 
 			

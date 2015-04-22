@@ -3,7 +3,7 @@ package presentation.control;
 import java.awt.Image;
 
 public interface TeamControlService {
-	public String findTeam(int line, int row); 
+	public String findTeam(int line); 
 		// 得到球队的名称在显示层
 
 
