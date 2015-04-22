@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class MatchFileList {
 
 	
-	static MyHashSet<File> fileSet=new MyHashSet<File>();
+	static MyHashSet<File> fileSet=null;
 	
 	public Signal hasThese(File[] f){
 		
@@ -28,12 +28,13 @@ public class MatchFileList {
 				op="ADD";
 				newSet.removeAll(fileSet);
 				sList=new ArrayList<File>(newSet);
-				fileSet=new MyHashSet<File>(tmpSet);
+				
 			}
 			else{
 				op="DEL";
 				sList=new ArrayList<File>();
 			}
+			fileSet=new MyHashSet<File>(tmpSet);
 		}
 		else
 		{
@@ -49,6 +50,11 @@ public class MatchFileList {
 		result.setNewFile(sList);
 		
 		return result;
+	}
+	
+	
+	public MatchFileList(File f[]){
+		fileSet=new MyHashSet<File>(f);
 	}
 	
    }

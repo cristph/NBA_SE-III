@@ -17,6 +17,7 @@ public class GameData implements GameDataService,Runnable{
 	private static HashMap<String,TeamAllGamePO> teamMap=null;
 	private static HashMap<String,PlayerAllGamePO> playerMap=null;
 	private static File matchFold=null;
+	private static int threadCount=0;
 	
     static
     {
@@ -89,8 +90,11 @@ public class GameData implements GameDataService,Runnable{
 	}
 	
 	public GameData(){
+		if(threadCount==0){
 		new Thread(this).start();
-	}
+		threadCount=1;
+		}
+    }
 	
     public ArrayList<PlayerAllGamePO> getPlayerGameData() {
 		// TODO Auto-generated method stub
@@ -159,10 +163,10 @@ public class GameData implements GameDataService,Runnable{
 	
     public void run() {
 		// TODO Auto-generated method stub
-		
-	      MatchFileList mfl=new MatchFileList();
+		  
+    	  File arr[]=matchFold.listFiles();
+	      MatchFileList mfl=new MatchFileList(arr);
 	 
-	     
 	      while(true)
 	      {
 	    	  try 
