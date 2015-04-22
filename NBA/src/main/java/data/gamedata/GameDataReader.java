@@ -157,11 +157,6 @@ private void updateTeam(String line){
 		}
     }
 	
-	/*
-	 * 投篮命中数;投篮出手数;三分命中数;三分出手数;罚球命中数;罚 球出手数;进攻 （前场）篮板数;防守 （后场）篮板数;总篮板数;助攻数;盖帽数;失误数;犯规 数; 个人得分;
-	 */
-	 System.out.println("原罚球数="+temp.getFreeNum()+"-----------------------");
-	 System.out.println("新增罚球数="+data[5]+"-----------------------");
 	 
 	int allPlayerTime=temp.getAllPlayerTime()+time;
 	int hitNum=temp.getHitShootNum()+data[0];
@@ -198,9 +193,6 @@ private void updateTeam(String line){
 	temp.setBlockNum(block);
 	temp.setErrorNum(error);
 	temp.setFoulNum(foul);
-	
-	System.out.println("新罚球数="+temp.getFreeNum()+" "+currentPair+" "+currentDate);
-	 System.out.println("------------------------------------------");
 	
 	 if(isDirty){
 		temp.setIsDirty(isDirty);
