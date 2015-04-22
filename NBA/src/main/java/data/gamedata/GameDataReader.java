@@ -124,7 +124,7 @@ private void updateTeam(String line){
 	TeamGamePO temp=null;
 	if(currentTeam==1)
 		temp=teamGame1;
-	else
+	else if(currentTeam==2)
 		temp=teamGame2;
 	
 	String info[]=line.split(";");
@@ -189,10 +189,11 @@ private void updateTeam(String line){
 	temp.setErrorNum(error);
 	temp.setFoulNum(foul);
 	
-	if(isDirty)
+	if(isDirty){
 		temp.setIsDirty(isDirty);
-	
-	
+		if(currentTeam==2)
+			teamGame1.setIsDirty(isDirty);
+	}
 }
 	
 
