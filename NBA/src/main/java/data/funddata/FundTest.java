@@ -9,7 +9,10 @@ public class FundTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-          testPlayerInfo();
+		double time1=System.currentTimeMillis(); 
+        testPlayerInfo();
+        double time2=System.currentTimeMillis();
+        System.out.println(time2-time1);
 		
 	}
 
