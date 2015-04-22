@@ -385,18 +385,74 @@ public class TeamController implements TeamBLService{
 	//得到某一场比赛数据
 	
 	public TeamNormalInfo getSingleTeamNormalInfo(String name){
-		po=t.getTeamGameData();
+		getTeamVO();
+		TeamNormalInfo thi=new TeamNormalInfo();
+		for(int i=0;i<pa.size();i++){
+		   if(pa.get(i).getTeamName().equals("name")){
 		
-		return null;
+		     thi.setAssist(pa.get(i).getAssistNumave());
+		     thi.setBlockShot(pa.get(i).getRebTotalNumave());
+		     thi.setDefendRebound(pa.get(i).getRebDefNumave());
+		     thi.setFault(pa.get(i).getErrorNumave());
+		     thi.setFoul(pa.get(i).getFoulNumave());
+		     thi.setNumOfGame(pa.get(i).getGamenum());
+		     thi.setOffendRebound(pa.get(i).getRebAttNumave());
+		     thi.setPenalty(pa.get(i).getFreehitrate());
+		     thi.setPoint(pa.get(i).getAllpointave());
+		     thi.setRebound(pa.get(i).getRebTotalNumave());
+		     thi.setShot(pa.get(i).getShootrate());
+		     thi.setSteal(pa.get(i).getStealNumave());
+		     thi.setTeamName(pa.get(i).getTeamName());
+		     thi.setThree(pa.get(i).getThreepointrate());
+		     break;
+		   }
+	    }
+		return thi;
 	}
 	//得到一支球队的基本信息，为平均值
 	
 	public TeamHighInfo getSingleTeamHighInfo(String name){
-		return null;
+		getTeamVO();
+		TeamHighInfo thi=new TeamHighInfo();
+		for(int i=0;i<pa.size();i++){
+			   if(pa.get(i).getTeamName().equals("name")){
+				    thi.setAssistEfficient(pa.get(i).getAssistrate());
+					thi.setDefendEfficient(pa.get(i).getDefendrate());
+					thi.setDefendReboundEfficient(pa.get(i).getRebdefrate());
+					thi.setOffendEfficient(pa.get(i).getAttackrate());
+					thi.setOffendReboundEfficient(pa.get(i).getRebattrate());
+					thi.setOffendRound(pa.get(i).getAttackround());
+					thi.setStealEfficient(pa.get(i).getStealrate());
+					thi.setTeamName(pa.get(i).getTeamName());
+					thi.setWinRate(pa.get(i).getWinrate());
+			
+			     
+			     break;
+			   }
+		    }
+		return thi;
 	}
 	//得到一支球队的高级数据，为平均值
 	public ArrayList<DateGameVO> getRecentGame (String name){
-		return null;
+		po=t.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
+		for(int i=0;i<po.size();i++){
+			if(po.get(i).getTeamName().equals(name)){
+				for(int j=0;j<5&&j<po.get(i).getGameDataList().size();j++){
+					DateGameVO dgv=new DateGameVO();
+					dgv.setDate(po.get(i).getGameDataList().get(j).getMatchDate());
+					String[] s1=po.get(i).getGameDataList().get(j).getMatchResult().split(":");
+					dgv.setScore1(s1[0]);
+					dgv.setScore2(s1[1]);
+					String[] s2=po.get(i).getGameDataList().get(j).getMatchPair().split(":");
+					dgv.setTeam1(s2[0]);
+					dgv.setTeam2(s2[1]);
+					result.add(dgv);
+					
+				}
+				break;
+			}
+		}
+		return result;
 	}
 	//得到一支球队的最近5场比赛信息
    /* public TeamInfo getTeamInfo(String team, String date){
@@ -458,7 +514,38 @@ public class TeamController implements TeamBLService{
     }*/
 	public ArrayList<DateGameVO> getGamebyDate(String time) {
 		// TODO Auto-generated method stub
-		return null;
+		po=t.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
+		for(int i=0;i<po.size();i++){
+			
+				for(int j=0;j<po.get(i).getGameDataList().size();j++){
+					if(po.get(i).getGameDataList().get(j).getMatchDate().equals(time)){
+					   DateGameVO dgv=new DateGameVO();
+					   dgv.setDate(po.get(i).getGameDataList().get(j).getMatchDate());
+					   String[] s1=po.get(i).getGameDataList().get(j).getMatchResult().split(":");
+					   dgv.setScore1(s1[0]);
+					   dgv.setScore2(s1[1]);
+					   String[] s2=po.get(i).getGameDataList().get(j).getMatchPair().split(":");
+					   dgv.setTeam1(s2[0]);
+					   dgv.setTeam2(s2[1]);
+					   result.add(dgv);
+					}
+				
+			    }
+		}
+		ArrayList<DateGameVO> result2=new ArrayList<DateGameVO>();
+		for(int i=0;i<result.size();i++){
+			int isExist=0;
+			for(int j=i+1;j<result.size();j++){
+				if(result.get(j).getDate().equals(result.get(i).getDate())&&result.get(j).getScore1().equals(result.get(i).getScore2())&&result.get(j).getScore2().equals(result.get(i).getScore1())&&result.get(j).getTeam1().equals(result.get(i).getTeam2())&&result.get(j).getTeam2().equals(result.get(i).getTeam1())){
+					isExist=1;
+					break;
+				}
+			}
+			if(isExist==0){
+				result2.add(result.get(i));
+			}
+		}
+		return result2;
 	}
 
 }
