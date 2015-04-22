@@ -627,9 +627,7 @@ public class PlayerCalculate {
 					    
 					    TeamInfo tif=pgp.getTif();
 					    allPlayerTime +=tif.getAllPlayerTime(); //球队所有队员上场时间（单位：秒）
-					    System.out.println("allplayerTime:"+tif.getAllPlayerTime());
 					    teamRebNum+=tif.getTeamRebNum(); //球队总篮板数
-					    System.out.println("all:"+tif.getTeamRebNum());
 					    oppTeamRebNum+=tif.getOppTeamRebNum(); //对手总篮板数
 					    teamAttRebNum+=tif.getTeamAttRebNum(); //球队总进攻篮板数
 					    oppTeamAttRebNum+=tif.getOppTeamAttRebNum(); //对手总进攻篮板数
@@ -698,7 +696,6 @@ public class PlayerCalculate {
 				//high info
 				PlayerHighInfo phi=new PlayerHighInfo();
 			    double T=cm.calT(time, allPlayerTime);//用于计算的数据T
-			    System.out.println(">>>>>>>>>>>>>>cal T: "+time+" "+allPlayerTime);
 			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, teamErrorNum, foulNum, score, hitShootNum, threeShootNum, freeHitNum, teamFreeNum);//GmSc效率
 			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
 			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率
@@ -707,7 +704,6 @@ public class PlayerCalculate {
 			    double defRebRate=cm.calRebRate(rebDefNum, T, teamDefRebNum, oppTeamDefRebNum);//防守篮板率
 			    double assistRate=cm.calAssistRate(assistNum, teamHitNum, hitShootNum, T);//助攻率
 			    double stealRate=cm.calStealRate(stealNum, oppAttNum, T);//抢断率
-			    System.out.println(">>>>>>>>>>>>>>cal: "+stealNum+" "+oppAttNum+" "+T);
 			    double blockRate=cm.calBlockRate(blockNum, oppTwoNum, T);//盖帽率
 			    double errorRate=cm.calErrorRate(teamErrorNum, twoNum, teamFreeNum);//失误率
 			    double usedRate=cm.calUseRate(threeShootNum, freeNum, errorNum, T, teamThrowNum, teamFreeNum, teamErrorNum);//使用率
@@ -725,7 +721,6 @@ public class PlayerCalculate {
 				phi.setReboundEfficient(rebRate);
 				phi.setShotEfficient(throwRate);
 				phi.setStealEfficient(stealRate);
-				System.out.println(">>>>>>>>>>>>>>set: "+phi.getStealEfficient());
 				phi.setTeamName(teamName);
 				HInfoList.add(phi);
 				
@@ -1032,7 +1027,7 @@ public class PlayerCalculate {
 			calHighInfo();
 		}
 		for(int i=0;i<HInfoList.size();i++){
-			PlayerHighInfo phi=new PlayerHighInfo();
+			PlayerHighInfo phi=HInfoList.get(i);
 			if(phi.getName().equals(name)){
 				return phi;
 			}
@@ -1345,11 +1340,18 @@ public class PlayerCalculate {
 	 * 结果存储于ArrayList<PlayerAllGamePO> gameList中
 	 */
 	public void iniData(){
+		
+		long a=System.currentTimeMillis();
+		
 		playerInfoList=new ArrayList<PlayerInfo>();
 		GameDataService gds=new GameData();
 		playerGameList=gds.getPlayerGameData();
 		FundDataService fd=new FundData();
 		ArrayList<PlayerPO> temp_playerList = fd.getPlayerFundData();
+		
+		long b=System.currentTimeMillis();
+		long c=b-a;
+		System.out.println("iniData time: "+c);
 		
 		int playerListSize=playerGameList.size();
 		for(int i=0;i<playerListSize;i++){//对每一个参赛的选手
