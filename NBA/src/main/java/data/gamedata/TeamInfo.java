@@ -22,20 +22,20 @@ public class TeamInfo {
 			this.teamErrorNum = teamErrorNum;
 		}
 		
-		int allPlayerTime; //球队所有队员上场时间（单位：秒）
-	    int teamRebNum; //球队总篮板数
-	    int oppTeamRebNum; //对手总篮板数
-	    int teamAttRebNum; //球队总进攻篮板数
-	    int oppTeamAttRebNum; //对手总进攻篮板数
-	    int teamDefRebNum; //球队总防守篮板数
-	    int oppTeamDefRebNum; //对手总防守篮板数
-	    int teamHitNum; //球队总进球数
-	    int oppAttNum; //对手进攻次数
-	    int oppTwoNum; //对手两分球出手次数
+		private int allPlayerTime; //球队所有队员上场时间（单位：秒）
+		private int teamRebNum; //球队总篮板数
+		private int oppTeamRebNum; //对手总篮板数
+		private int teamAttRebNum; //球队总进攻篮板数
+		private int oppTeamAttRebNum; //对手总进攻篮板数
+		private int teamDefRebNum; //球队总防守篮板数
+		private int oppTeamDefRebNum; //对手总防守篮板数
+		private int teamHitNum; //球队总进球数
+		private int oppAttNum; //对手进攻次数
+		private int oppTwoNum; //对手两分球出手次数
 	    
-	    int teamThrowNum; //球队所有球员总出手次数
-	    int teamFreeNum; //球队所有球员罚球次数
-	    int teamErrorNum; //球队所有球员失误次数
+		private int teamThrowNum; //球队所有球员总出手次数
+		private int teamFreeNum; //球队所有球员罚球次数
+		private int teamErrorNum; //球队所有球员失误次数
 	    
 		public int getAllPlayerTime() {
 			return allPlayerTime;

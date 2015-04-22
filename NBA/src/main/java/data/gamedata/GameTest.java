@@ -14,7 +14,7 @@ public class GameTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-        test5();
+        test1();
 	}
 
 	public static void test1(){
@@ -24,12 +24,12 @@ public class GameTest {
 		ArrayList<PlayerAllGamePO> list=gd.getPlayerGameData();
 		
 	    PlayerAllGamePO temp=list.get(24);
-		System.out.println(temp.getPlayerName()+" "+temp.getTeamName()+" "+"打了"+temp.getGameDataList().size()+"场比赛"+" 他属于"+temp.getArea());
+	//	System.out.println(temp.getPlayerName()+" "+temp.getTeamName()+" "+"打了"+temp.getGameDataList().size()+"场比赛"+" 他属于"+temp.getArea());
 		ArrayList<PlayerGamePO> llist=temp.getGameDataList();
 		for(int i=0;i<llist.size();i++)
 		{
 			PlayerGamePO po=llist.get(i);
-			System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getMatchResult());
+			//System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getMatchResult());
 		}
 		
 		double time2=System.currentTimeMillis();

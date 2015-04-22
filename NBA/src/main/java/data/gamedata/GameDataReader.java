@@ -155,6 +155,7 @@ private void updateTeam(String line){
 		}
     }
 	 
+	int allPlayerTime=temp.getAllPlayerTime()+time;
 	int hitNum=temp.getHitShootNum()+data[0];
     int shootNum=temp.getShootNum()+data[1];
 	int threeHitNum=temp.getThreePointNum()+data[2];
@@ -170,6 +171,7 @@ private void updateTeam(String line){
     int error=temp.getErrorNum()+data[12];
 	int foul=temp.getFoulNum()+data[13];
 	
+	temp.setAllPlayerTime(allPlayerTime);
 	temp.setHitShootNum(hitNum);
 	temp.setShootNum(shootNum);
 	temp.setThreePointNum(threeHitNum);
@@ -208,6 +210,10 @@ private GameInfo makeGameInfo(){
 	TeamInfo info2=new TeamInfo(teamGame2.getAllPlayerTime(),teamGame2.getRebTotalNum(),teamGame1.getRebTotalNum(),teamGame2.getRebAttNum(),
 			teamGame1.getRebAttNum(),teamGame2.getRebDefNum(),teamGame1.getRebDefNum(),teamGame2.getFreeHitNum()+teamGame2.getHitShootNum(),teamGame1.getRebAttNum(),
 			teamGame1.getShootNum()-teamGame1.getThreeShootNum(),teamGame2.getShootNum(),teamGame2.getFreeNum(),teamGame2.getErrorNum());
+	
+	
+	System.out.println(info1.getAllPlayerTime());
+	
 	
 	for(int i=0;i<playerList.size();i++)
 	{
