@@ -8,23 +8,22 @@ import javax.swing.JButton;
 
 import presentation.ui.PlayerFrame;
 import test.data.PlayerHotInfo;
-import test.data.PlayerKingInfo;
 import value.Value.Field;
 import businesslogicservice.playerblservice.PlayerBLService;
 import businesslogicservice.teamblservice.TeamBLService;
 
-public class KingControl implements HotControl{
+public class GoodPlayerControl implements HotControl{
 
 	PlayerBLService ps;
 	TeamBLService ts;
 	String fld;
-	public KingControl(PlayerBLService ps, TeamBLService ts) {
+	public GoodPlayerControl(PlayerBLService ps, TeamBLService ts) {
 		this.ps=ps;
 		this.ts=ts;
 	}
 
 	public String[] getTitle() {
-		String[] title={"得分","篮板","助攻","盖帽","抢断","三分命中", "投篮命中","罚球命中"};
+		String[] title={"得分","篮板","助攻"};
 		return title;
 	}
 
@@ -34,14 +33,15 @@ public class KingControl implements HotControl{
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
 		Field field = getF(x);
-		ArrayList<PlayerKingInfo> info = ps.getSeasonKingPlayer(field, 5);
-		Object[][] t = new Object[info.size()][4];
+		ArrayList<PlayerHotInfo> info = ps.getHotPlayer(field, 5);
+		Object[][] t = new Object[info.size()][5];
 		for(int i=0;i<info.size();i++){
-			PlayerKingInfo temp = info.get(i);
+			PlayerHotInfo temp = info.get(i);
 			t[i][0] = new JButton(temp.getName());
 			t[i][1] = df.format(temp.getValue());
 			t[i][2] = temp.getTeamName();
 			t[i][3] = temp.getPosition();
+			t[i][4] = fmt.format(temp.getUpgradeRate());
 			fld = temp.getField();
 		}
 		return t;
@@ -54,26 +54,13 @@ public class KingControl implements HotControl{
 		if(x.equals("篮板")){
 			return Field.rebound;
 		}
-		if(x.equals("助攻")){
-			return Field.assist;
-		}
-		if(x.equals("盖帽")){
-			return Field.block;
-		}
-		if(x.equals("投篮命中")){
-			return Field.shoot;
-		}
-		if(x.equals("三分命中")){
-			return Field.three;
-		}
-		if(x.equals("罚球命中")){
-			return Field.free;
-		}
-		return Field.steal;
+		return Field.assist;
+		
+		
 	}
 
 	public String[] getHead() {
-		String[] title={"球员","热门属性","球队","位置"};
+		String[] title={"球员","热门属性","球队","位置","提升率"};
 		title[1] = fld;
 		return title;
 	}

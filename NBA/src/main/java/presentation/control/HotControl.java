@@ -19,5 +19,10 @@ public interface HotControl {
 	 * 得到表头
 	 */
 	public String[] getHead();
+	/*
+	 * @param:null
+	 * 跳转界面
+	 */
+	public void findAim(String name);
 
 }

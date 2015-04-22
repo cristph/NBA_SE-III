@@ -54,8 +54,13 @@ public class MyTableModle extends AbstractTableModel{
 	   return true;
 	  }
 	
-	public void upd(Object[][] list){
+	public void upd(Object[][] list,String[] title){
 		//更新列表
+		this.title = title;
+		this.list = list;
+	}
+	public void upd(Object[][] list){
+		//更新列表重载
 		this.list = list;
 	}
 
