@@ -400,7 +400,7 @@ public class TeamController implements TeamBLService{
 		getTeamVO();
 		TeamNormalInfo thi=new TeamNormalInfo();
 		for(int i=0;i<pa.size();i++){
-		   if(pa.get(i).getTeamName().equals("name")){
+		   if(pa.get(i).getShortName().equals("name")){
 		
 		     thi.setAssist(pa.get(i).getAssistNumave());
 		     thi.setBlockShot(pa.get(i).getRebTotalNumave());
@@ -427,7 +427,7 @@ public class TeamController implements TeamBLService{
 		getTeamVO();
 		TeamHighInfo thi=new TeamHighInfo();
 		for(int i=0;i<pa.size();i++){
-			   if(pa.get(i).getTeamName().equals("name")){
+			   if(pa.get(i).getShortName().equals("name")){
 				    thi.setAssistEfficient(pa.get(i).getAssistrate());
 					thi.setDefendEfficient(pa.get(i).getDefendrate());
 					thi.setDefendReboundEfficient(pa.get(i).getRebdefrate());
