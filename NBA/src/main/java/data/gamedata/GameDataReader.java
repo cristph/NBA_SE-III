@@ -32,6 +32,8 @@ public class GameDataReader implements GameDataReadService {
     private ArrayList<PlayerGamePO> playerList=null;
 	private Waiter waiter=null;
 	
+	private boolean isDirty=false;
+	
 	public GameDataReader(){
 		playerList=new ArrayList<PlayerGamePO>();
 		waiter=new Waiter();
@@ -128,7 +130,7 @@ private void updateTeam(String line){
 	String info[]=line.split(";");
 	
 	int time=0;
-	boolean isDirty=false;
+	
 	String tim[]=info[2].split(":");
 
 	try{
@@ -235,6 +237,7 @@ public GameInfo readMatchFile(File f) {
 		{
 			teamGame1=new TeamGamePO();
 			teamGame2=new TeamGamePO();
+			isDirty=false;
 			
 			String name=f.getName();
 			String temp[]=name.split("_");
