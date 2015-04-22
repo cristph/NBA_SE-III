@@ -1,9 +1,5 @@
 package presentation.control;
 
-import java.awt.Image;
-
-import javax.swing.ComboBoxModel;
-
 public interface ControlService {
 	
 	public void findAim(String name) ;//跳转项
