@@ -211,10 +211,7 @@ private GameInfo makeGameInfo(){
 			teamGame1.getRebAttNum(),teamGame2.getRebDefNum(),teamGame1.getRebDefNum(),teamGame2.getFreeHitNum()+teamGame2.getHitShootNum(),teamGame1.getRebAttNum(),
 			teamGame1.getShootNum()-teamGame1.getThreeShootNum(),teamGame2.getShootNum(),teamGame2.getFreeNum(),teamGame2.getErrorNum());
 	
-	
-	System.out.println(info1.getAllPlayerTime());
-	
-	
+
 	for(int i=0;i<playerList.size();i++)
 	{
 	    PlayerGamePO po=playerList.get(i);
