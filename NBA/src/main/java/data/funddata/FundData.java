@@ -19,8 +19,7 @@ public class FundData implements FundDataService {
 	File playerFold=null;
 	
 	static{
-		convertImg();
-		
+		//convertImg();
 	}
 	/*
 	 * convertImg方法
