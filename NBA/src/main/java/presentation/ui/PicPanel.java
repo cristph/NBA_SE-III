@@ -47,6 +47,7 @@ public class PicPanel extends JPanel {
 		//添加表格
 		final MyTableModle modle = new MyTableModle(hc.getList((String)(box.getSelectedItem())),hc.getHead());
 		final JTable table = new JTable(modle);
+		int i = table.getColumnCount();
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -64,6 +65,7 @@ public class PicPanel extends JPanel {
 				Object[][] list =hc.getList((String)(box.getSelectedItem()));
 				String title[] = hc.getHead();
 				modle.upd(list,title);
+				modle.fireTableStructureChanged();
 				table.repaint();
 			}
 			

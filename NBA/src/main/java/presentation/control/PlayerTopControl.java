@@ -75,7 +75,7 @@ public class PlayerTopControl implements ControlService{
 		League zo = getZone(zone);
 		ArrayList<PlayerNormalInfo> list = ps.getPlayerTotalNormalInfo(pos, zo, Age.All, stan1, Order.dsec, 50);
 		Object[][] t = new Object[list.size()][14];
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		for(int i=0;i<list.size();i++){
 			PlayerNormalInfo temp = list.get(i);
 			t[i][0] = new JButton(temp.getName());
@@ -140,9 +140,6 @@ public class PlayerTopControl implements ControlService{
 		if(stan.equals("助攻")){
 			return PlayerStandard.assistNum;
 		}
-		if(stan.equals("得分/篮板/助攻(1:1:1)")){
-			return PlayerStandard.par;
-		}
 		if(stan.equals("盖帽")){
 			return PlayerStandard.blockNum;
 		}
@@ -168,10 +165,9 @@ public class PlayerTopControl implements ControlService{
 		if(stan.equals("三分")){
 			return PlayerStandard.threeRate;
 		}
-		if(stan.equals("罚球")){
+		
 			return PlayerStandard.freeRate;
-		}
-		return PlayerStandard.doub;
+		
 	}
 
 	private Position getPos(String position) {

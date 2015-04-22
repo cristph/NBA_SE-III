@@ -43,7 +43,9 @@ public class TeamFrame extends NormalFrame{
 		JPanel normal = new JPanel();
 		normal.setLayout(new BorderLayout());
 		TeamPO tvo = ts.getTeamInfo(teamName);
+		System.out.println(teamName+"end");
 		Image temp = tvo.getTeamPic();
+		System.out.println(temp.toString()+"end");
 		temp = temp.getScaledInstance(240, 240, Image.SCALE_DEFAULT);
 		ImageIcon action = new ImageIcon(temp);
 		JLabel omg = new JLabel(action);

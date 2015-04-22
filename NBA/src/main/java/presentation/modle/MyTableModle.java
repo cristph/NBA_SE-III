@@ -59,9 +59,5 @@ public class MyTableModle extends AbstractTableModel{
 		this.title = title;
 		this.list = list;
 	}
-	public void upd(Object[][] list){
-		//更新列表重载
-		this.list = list;
-	}
 
 }

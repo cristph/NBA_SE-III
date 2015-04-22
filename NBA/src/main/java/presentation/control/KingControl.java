@@ -29,7 +29,7 @@ public class KingControl implements HotControl{
 	}
 
 	public Object[][] getList(String x) {
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//百分数格式化
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
