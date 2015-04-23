@@ -6,6 +6,8 @@ package presentation.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
@@ -57,17 +59,6 @@ class NormalFrame extends JFrame{
 		this.setBounds((DataInAll.screenSize.width-width)/2
 				, (DataInAll.screenSize.height-height)/2, width, height);
 		this.setLayout(new BorderLayout());
-		
-		/*
-		 * new added lines
-		 */
-		background=new ImageIcon("src/bg.jpeg");
-		JLabel backLabel=new JLabel(background);
-		backLabel.setBounds(0, 0, background.getIconWidth(), background.getIconHeight());
-		imgPanel=(JPanel)this.getContentPane();
-		imgPanel.setOpaque(false);
-		this.getLayeredPane().add(backLabel, new Integer(Integer.MIN_VALUE));
-		this.getLayeredPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		Border border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);

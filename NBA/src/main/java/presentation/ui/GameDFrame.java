@@ -63,7 +63,7 @@ public class GameDFrame extends NormalFrame{
 		JScrollPane pane = new JScrollPane(obj);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		pane.setPreferredSize(new Dimension(table.getWidth(), table.getHeight()/3));
+		pane.setPreferredSize(new Dimension(table.getWidth(), 150));
 		
 		return pane;
 	}
@@ -89,15 +89,16 @@ public class GameDFrame extends NormalFrame{
 		double three = (double)tp.getThreePointNum()/(double)tp.getThreeShootNum();
 		double pen = (double)tp.getFreeHitNum()/(double)tp.getFreeNum();
 		Object[][] t = new Object[1][15];
-		t[0][1] = tp.getTeamName();
-		t[0][2] = tp.getMatchDate();
-		t[0][3] = points[0];
-		t[0][4] = points[1];
-		t[0][5] = points[2];
-		t[0][6] = points[3];
-		t[0][7] = tp.getRebTotalNum();
-		t[0][8] = tp.getAssistNum();
-		t[0][9] = tp.getStealNum();
+		t[0][0] = tp.getTeamName();
+		t[0][1] = tp.getMatchDate();
+		t[0][2] = points[0];
+		t[0][3] = points[1];
+		t[0][4] = points[2];
+		t[0][5] = points[3];
+		t[0][6] = tp.getRebTotalNum();
+		t[0][7] = tp.getAssistNum();
+		t[0][8] = tp.getStealNum();
+		t[0][9] = tp.getBlockNum();
 		t[0][10]= tp.getErrorNum();
 		t[0][11]= tp.getFoulNum();
 		t[0][12]= fmt.format(shot);

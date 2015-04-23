@@ -47,7 +47,7 @@ public class PlayerFrame extends NormalFrame{
 	PlayerBLService ps;
 	TeamBLService ts;
 	public PlayerFrame(String name2, PlayerBLService ps, TeamBLService ts) {
-		this.name = name;
+		this.name = name2;
 		this.ts = ts;
 		this.ps = ps;
 		init();
@@ -57,6 +57,8 @@ public class PlayerFrame extends NormalFrame{
 
 	private void init() {
 		PlayerVO pvo = ps.getPlayerInfo(name);
+		PlayerNormalInfo i = ps.getSinglePlayerNormalInfo(name);
+		String teamName = i.getTeamName();
 		//基本信息
 		Image test = pvo.getPic();
 		test = test.getScaledInstance(140,120,Image.SCALE_DEFAULT);
@@ -88,7 +90,7 @@ public class PlayerFrame extends NormalFrame{
 		JLabel ager = new JLabel(pvo.getAge());
 		JLabel expr = new JLabel(pvo.getExp());
 		JLabel schr = new JLabel(pvo.getSchool());
-		final JLabel teamr = new JLabel(pvo.getTeam());
+		final JLabel teamr = new JLabel(teamName);
 		JButton enter = new JButton("球队信息");
 		enter.addActionListener(new ActionListener(){
 
@@ -120,12 +122,13 @@ public class PlayerFrame extends NormalFrame{
 		hGroup.addGap(20);
 		hGroup.addGroup(layout.createParallelGroup().addComponent(sch).addComponent(schr).addComponent(exp).addComponent(expr));
 		hGroup.addGap(20);
+		hGroup.addGroup(layout.createParallelGroup().addComponent(enter));
 		//垂直组
 		GroupLayout.SequentialGroup vGroup = 
 				layout.createSequentialGroup();
 		vGroup.addGap(5);
 		vGroup.addGroup(layout.createParallelGroup()
-				.addComponent(info).addComponent(name).addComponent(pos).addComponent(hei).addComponent(age).addComponent(sch));
+				.addComponent(info).addComponent(name).addComponent(pos).addComponent(hei).addComponent(age).addComponent(sch).addComponent(enter));
 		vGroup.addGap(20);
 		vGroup.addGroup(layout.createParallelGroup()
 				.addComponent(namer).addComponent(posr).addComponent(heir)
@@ -185,8 +188,8 @@ public class PlayerFrame extends NormalFrame{
 		tab1.add(pane1,BorderLayout.CENTER);
 		tab2.add(pane2,BorderLayout.CENTER);
 
-		tab1.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
-		tab2.setPreferredSize(new Dimension(list.getWidth(), list.getHeight()/3));
+		tab1.setPreferredSize(new Dimension(list.getWidth(), 150));
+		tab2.setPreferredSize(new Dimension(list.getWidth(), 150));
 
 		
 		list.add(tab1,BorderLayout.NORTH);
@@ -212,7 +215,7 @@ public class PlayerFrame extends NormalFrame{
 
 	private Object[][] getObj(int i) {
 		//获取表格数据
-		DecimalFormat df=new DecimalFormat(".##");
+		DecimalFormat df = new DecimalFormat("0.00");
 		//百分数格式化
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
