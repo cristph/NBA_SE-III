@@ -121,9 +121,9 @@ public class FundDataReader implements FundDataReadService {
 			  }
 			  if(row==4)           //第4行为球员号码
 		      {
-				 sb.delete(0, 8);
+				 sb.delete(0, 6);
 				 result.setNumber(sb.toString());
-		      }
+			 }
 		      else if(row==6)
 		      {
 		    	  sb=sb.delete(0, 8);
