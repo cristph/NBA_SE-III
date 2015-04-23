@@ -573,8 +573,8 @@ public class TeamController implements TeamBLService{
 		//}
 		return result2;
 	}
-	public static void main(String[] args){
-		TeamController t=new TeamController();
+	//public static void main(String[] args){
+		//TeamController t=new TeamController();
 		//System.out.println("Asd");
 		/*ArrayList<TeamHotInfo> as=new ArrayList<TeamHotInfo>();
 		as=t.getHotTeam(Field2.assist, 30);
@@ -595,9 +595,13 @@ public class TeamController implements TeamBLService{
 		for(int i=0;i<v.size();i++){
 			System.out.println(v.get(i).getWinRate());
 		}*/
-		TeamHighInfo h=new TeamHighInfo();
-		h=t.getSingleTeamHighInfo("");
-		System.out.println(h.getAssistEfficient());
-	}
+		//TeamNormalInfo h=new TeamNormalInfo();
+		//h=t.getSingleTeamNormalInfo("WAS");
+		//h=t.getSingleTeamNormalInfo("CHI");
+		//System.out.println(h.getPoint());
+		//TeamPO p=new TeamPO();
+		//p=t.getTeamInfo("NOH");
+		//System.out.println(p.getShortName());
+	//}
 
 }
