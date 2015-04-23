@@ -18,6 +18,7 @@ public class GameData implements GameDataService,Runnable{
 	private static HashMap<String,PlayerAllGamePO> playerMap=null;
 	private static File matchFold=null;
 	private static int threadCount=0;
+	private static boolean dataChange=false;
 	
     static
     {
@@ -41,6 +42,7 @@ public class GameData implements GameDataService,Runnable{
 	}
 	
 	private static void addTeamGamePO(TeamGamePO po){
+		if(po!=null){
 		boolean b=teamMap.containsKey(po.getTeamName());
 		if(b)
 		{
@@ -53,6 +55,7 @@ public class GameData implements GameDataService,Runnable{
 			allPo.setTeamName(teamName);
 			allPo.addGame(po);
 			teamMap.put(teamName, allPo);
+		}
 		}
 	}
 	
@@ -88,6 +91,13 @@ public class GameData implements GameDataService,Runnable{
 			
 		}
 	}
+	
+	public static boolean getDataChange(){
+		boolean tmp=dataChange;
+		dataChange=false;
+		return tmp;
+	}
+	
 	
 	public GameData(){
 		if(threadCount==0){
@@ -185,7 +195,8 @@ public class GameData implements GameDataService,Runnable{
 	    	  if(!change)
 	    		  continue;
 	    	  else
-	    	  {
+	    	  {   
+	    		  dataChange=true;
 	    		  String op=sig.getOpration();
 	    		   
 	    		  if(op.equals("ADD"))
