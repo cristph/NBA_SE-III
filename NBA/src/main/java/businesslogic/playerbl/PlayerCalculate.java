@@ -23,7 +23,7 @@ import value.Value.Order;
 import value.Value.Position;
 import vo.PlayerVO;
 
-public class PlayerCalculate {
+public class PlayerCalculate{
 	
 	CalMethod cm;
 	ArrayList<PlayerAllGamePO> playerGameList;
@@ -1398,6 +1398,5 @@ public class PlayerCalculate {
 			
 		}
 	}
-	
 }
 

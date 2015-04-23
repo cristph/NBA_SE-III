@@ -2,6 +2,7 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
+import data.gamedata.GameData;
 import businesslogicservice.playerblservice.PlayerBLService;
 import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
@@ -15,12 +16,14 @@ import value.Value.Order;
 import value.Value.Position;
 import vo.PlayerVO;
 
-public class PlayerBLController implements PlayerBLService{
+public class PlayerBLController implements PlayerBLService,Runnable{
 	
 	PlayerCalculate pc;
 	
 	public PlayerBLController(){
 		pc=new PlayerCalculate();
+		Thread thread=new Thread();
+		thread.start();
 	}
 	
 	/*
@@ -126,5 +129,22 @@ public class PlayerBLController implements PlayerBLService{
 		PlayerHighInfo phi=pc.getSinglePlayerHighInfo(name);
 		return phi;
 	}
-	
+
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+			try {
+				Thread.sleep(2500);
+				if(GameData.getDataChange()){
+					PlayerCalculate new_pc=new PlayerCalculate();
+					new_pc.iniData();
+					new_pc.calAllInfo();
+					pc=new_pc;
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
