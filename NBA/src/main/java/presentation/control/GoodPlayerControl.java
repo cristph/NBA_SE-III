@@ -42,6 +42,7 @@ public class GoodPlayerControl implements HotControl{
 			t[i][2] = temp.getTeamName();
 			t[i][3] = temp.getPosition();
 			t[i][4] = fmt.format(temp.getUpgradeRate());
+		    System.out.print(temp.toString()+"endl");
 			fld = temp.getField();
 		}
 		return t;
