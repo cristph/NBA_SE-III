@@ -139,15 +139,15 @@ public class playermain {
 	
 	public void test9(){
 		long a=System.currentTimeMillis();
-		PlayerVO pv=pbs.getPlayerInfo("Kenyon Martin");
+		PlayerVO pv=pbs.getPlayerInfo("Kevin Durant");
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
-		System.out.println(pv.getName()+" "+pv.getAge()+" "+pv.getAction()+" "+pv.getPic());
+		System.out.println(pv.getName()+" "+pv.getNumber());
 	}
 	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test7();
+		pm.test9();
 	}
 }

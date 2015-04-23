@@ -656,7 +656,7 @@ public class PlayerCalculate {
 				t_pni.setName(name);
 				t_pni.setNumOfGame(numOfGame);
 				t_pni.setOffend(offend);
-				t_pni.setPenalty(cm.calRate(hitShootNum, shootNum));
+				t_pni.setPenalty(cm.calRate(freeHitNum, freeNum));
 				t_pni.setPoint(point);
 				t_pni.setRebound(rebound);
 				t_pni.setShot(cm.calRate(hitShootNum, shootNum));
@@ -681,7 +681,7 @@ public class PlayerCalculate {
 				pni.setName(name);
 				pni.setNumOfGame(numOfGame);
 				pni.setOffend(offend/gameListSize);
-				pni.setPenalty(cm.calRate(hitShootNum, shootNum));
+				pni.setPenalty(cm.calRate(freeHitNum, freeNum));
 				pni.setPoint(point/gameListSize);
 				pni.setRebound(rebound/gameListSize);
 				pni.setShot(cm.calRate(hitShootNum, shootNum));
