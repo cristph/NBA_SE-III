@@ -449,7 +449,6 @@ public class PlayerCalculate{
 		HInfoList=new ArrayList<PlayerHighInfo>();
 		
 		int playerListSize=playerInfoList.size();
-		System.out.println("size: "+playerListSize);
 		if(playerListSize>0){//若球员列表不为空
 			String position;
 			String league;
@@ -892,9 +891,6 @@ public class PlayerCalculate{
 		}
 		ArrayList<PlayerHighInfo> result=new ArrayList<PlayerHighInfo>();
 		sortHigh(HInfoList,ps,order);
-		for(int i=0;i<HInfoList.size();i++){
-			System.out.println(HInfoList.get(i).getName()+" "+HInfoList.get(i).getStealEfficient());
-		}
 		if(num>=HInfoList.size()){
 			for(int i=0;i<HInfoList.size();i++){
 				result.add(HInfoList.get(i));
@@ -1044,10 +1040,8 @@ public class PlayerCalculate{
 	public ArrayList<PlayerHotInfo> getHotPlayer(Field field,int num){
 		ArrayList<PlayerHotInfo> result = null;
 		if(field.toString().equals("score")){
-			System.out.println("scr");
 			if(scoreList!=null){
 				//sort
-				System.out.println("scr-sort");
 				UpgradeRateDSort urs=new UpgradeRateDSort();
 				urs.quicksort(scoreList);
 				if(num>=scoreList.size()){
@@ -1062,7 +1056,6 @@ public class PlayerCalculate{
 				}
 			}
 		}else if(field.toString().equals("rebound")){
-			System.out.println("reb");
 			if(rebList!=null){
 				//sort
 				UpgradeRateDSort urs=new UpgradeRateDSort();
@@ -1079,7 +1072,6 @@ public class PlayerCalculate{
 				}
 			}
 		}else if(field.toString().equals("assist")){
-			System.out.println("ass");
 			if(assistList!=null){
 				//sort
 				UpgradeRateDSort urs=new UpgradeRateDSort();
@@ -1343,18 +1335,18 @@ public class PlayerCalculate{
 		
 		playerInfoList=new ArrayList<PlayerInfo>();
 		
-		long a=System.currentTimeMillis();
+		//long a=System.currentTimeMillis();
 		GameDataService gds=new GameData();
 		playerGameList=gds.getPlayerGameData();
-		long b=System.currentTimeMillis();
+		//long b=System.currentTimeMillis();
 		FundDataService fd=new FundData();
 		ArrayList<PlayerPO> temp_playerList = fd.getPlayerFundData();
-		long c=System.currentTimeMillis();
+		//long c=System.currentTimeMillis();
 		
-		long d=b-a;
-		System.out.println("iniData time1: "+d);
-		long e=c-b;
-		System.out.println("iniData time2: "+e);
+		//long d=b-a;
+		//System.out.println("iniData time1: "+d);
+		//long e=c-b;
+		//System.out.println("iniData time2: "+e);
 		
 		int playerListSize=playerGameList.size();
 		for(int i=0;i<playerListSize;i++){//对每一个参赛的选手
@@ -1365,7 +1357,6 @@ public class PlayerCalculate{
 			String pagName=pag.getPlayerName();
 			String teamName=pag.getTeamName();
 			String lea=pag.getArea();
-			System.out.println(pagName+" "+lea);
 			ArrayList<PlayerGamePO> gameDataList=pag.getGameDataList();
 			
 			for(int j=0;j<temp_playerList.size();j++){//匹配其基本信息
