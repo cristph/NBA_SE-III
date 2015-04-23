@@ -29,7 +29,7 @@ public class playermain {
 	
 	public void test1(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerHotInfo> list=pbs.getHotPlayer(Field.rebound, 5);
+		ArrayList<PlayerHotInfo> list=pbs.getHotPlayer(Field.score, 5);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
@@ -148,6 +148,6 @@ public class playermain {
 	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test9();
+		pm.test1();
 	}
 }

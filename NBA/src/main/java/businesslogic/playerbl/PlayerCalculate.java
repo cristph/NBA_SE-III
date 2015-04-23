@@ -696,12 +696,6 @@ public class PlayerCalculate{
 				//high info
 				PlayerHighInfo phi=new PlayerHighInfo();
 			    double T=cm.calT(time, allPlayerTime);//用于计算的数据T
-			    if(name.equals("James Harden")){
-					System.out.println("《《《《《《《《《《《《《《《《《《《《《《");
-				}
-			    System.out.println(rebAttNum+" "+ rebDefNum+" "+ assistNum+" " +stealNum+" " +blockNum+ 
-			    		" "+errorNum+" "+foulNum+" "+score+" "+hitShootNum+" "+ 
-			    		shootNum+" "+ freeHitNum+" "+ freeNum);
 			    double GMSC=cm.calGmScEfficiency(rebAttNum, rebDefNum, assistNum, stealNum, blockNum, errorNum, foulNum, score, hitShootNum, shootNum, freeHitNum, freeNum);//GmSc效率
 			    double realHitRate=cm.calRealHitRate(score, threeShootNum, teamFreeNum);//真实命中率
 			    double throwRate=cm.calThrowRate(hitShootNum, threeShootNum, threePointNum);//投篮效率
