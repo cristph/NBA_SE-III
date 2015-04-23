@@ -22,7 +22,7 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 	
 	public PlayerBLController(){
 		pc=new PlayerCalculate();
-		Thread thread=new Thread();
+		Thread thread=new Thread(this);
 		thread.start();
 	}
 	
@@ -136,10 +136,13 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			try {
 				Thread.sleep(2500);
 				if(GameData.getDataChange()){
+					System.out.println("data changed!!!!!!!!!!!!!!!!!");
 					PlayerCalculate new_pc=new PlayerCalculate();
 					new_pc.iniData();
 					new_pc.calAllInfo();
 					pc=new_pc;
+				}else{
+					System.out.println("data not changed!!!!!!!!!!!!!!!!!");
 				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
