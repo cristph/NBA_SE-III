@@ -11,6 +11,10 @@ public class RebRateDSort {
 		quickSort( arr, 0, arr.size() - 1 ); 
 	}
 	
+	public void mulSort(ArrayList<PlayerHighInfo> arr,int beg,int end){
+		quickSort( arr, beg, end );
+	}
+	
 	public PlayerHighInfo median( ArrayList<PlayerHighInfo> arr, int left, int right ) {
 		int center = ( left + right ) / 2;
 		

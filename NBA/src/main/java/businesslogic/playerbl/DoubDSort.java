@@ -2,6 +2,7 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
+import test.data.PlayerHighInfo;
 import vo.PlayerInfoVO;
 
 public class DoubDSort {

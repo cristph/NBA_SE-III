@@ -394,15 +394,18 @@ public class Console {
 						
 						//ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfoMOrder(pos, lea, age, ps, order, num);
 						ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfo(pos, lea, age, ps[0], order[0], num);
+						/*
 						System.out.println("pos:"+pos.toString());
 						System.out.println("lea:"+lea.toString());
 						System.out.println("age:"+age.toString());
 						System.out.println("ps:"+ps[0]);
 						System.out.println("order:"+order[0]);
 						System.out.println("num:"+num);
+						*/
 						for(int i=0;i<list.size();i++){
 							out.println(list.get(i).toString());
-							//System.out.println(list.get(i).toString());
+							//System.out.println(list.get(i).getName()+" "+list.get(i).getPoint()+" "
+							//+list.get(i).getRebound()+" "+list.get(i).getAge());
 						}
 					}
 				}

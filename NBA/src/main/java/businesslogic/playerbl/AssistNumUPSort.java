@@ -2,6 +2,7 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
+import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
 
 public class AssistNumUPSort {
@@ -9,6 +10,10 @@ public static final int CUTOFF = 11;
 	
 	public void quicksort( ArrayList<PlayerNormalInfo> arr ) {
 		quickSort( arr, 0, arr.size() - 1 ); 
+	}
+	
+	public void mulSort(ArrayList<PlayerNormalInfo> arr,int beg,int end){
+		quickSort( arr, beg, end );
 	}
 	
 	public PlayerNormalInfo median( ArrayList<PlayerNormalInfo> arr, int left, int right ) {

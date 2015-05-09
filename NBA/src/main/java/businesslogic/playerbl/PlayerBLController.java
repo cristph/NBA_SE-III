@@ -151,20 +151,53 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 	public ArrayList<PlayerHighInfo> getPlayerHighInfoMOrder(PlayerStandard[] ps,
 			Order[] order, int num) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerHighInfo> list=pc.getPlayerHighInfo(ps[0], order[0], num);
+		if(ps.length==1){
+			return list;
+		}else{
+			MultiSort ms=new MultiSort();
+			
+			for(int j=1;j<ps.length;j++){
+				ms.mulHighSort(list, ps[j-1], ps[j], order[j]);
+			}
+			
+			return list;
+		}
 	}
 
 	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfoMOrder(
 			Position pos, League lea, Age age, PlayerStandard[] ps, Order[] order,
 			int num) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerNormalInfo> list=pc.getPlayerAvgNormalInfo(pos, lea, age, ps[0], order[0], num);
+		if(ps.length==1){
+			return list;
+		}else{
+			MultiSort ms=new MultiSort();
+			
+			for(int j=1;j<ps.length;j++){
+				ms.mulNormalSort(list, ps[j-1], ps[j], order[j]);
+			}
+			
+			return list;
+		}
 	}
 
 	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfoMOrder(
 			Position pos, League lea, Age age, PlayerStandard[] ps, Order[] order,
 			int num) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PlayerNormalInfo> list=pc.getPlayerTotalNormalInfo(pos, lea, age, ps[0], order[0], num);
+		if(ps.length==1){
+			return list;
+		}else{
+			MultiSort ms=new MultiSort();
+			
+			for(int j=1;j<ps.length;j++){
+				ms.mulNormalSort(list, ps[j-1], ps[j], order[j]);
+			}
+			
+			return list;
+		}
 	}
 }
