@@ -15,11 +15,34 @@ public class GameTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         test();
-		
+		/*String time="null";
+		int tim=Integer.parseInt(time);
+		System.out.println(tim);*/
 	}
 	
 	public static void test(){
 		GameData gd=new GameData();
+		ArrayList<PlayerAllGamePO> playerList=gd.getPlayerGameData();
+		for(int i=0;i<playerList.size();i++)
+		{
+			PlayerAllGamePO tmpPo=playerList.get(i);
+			ArrayList<PlayerGamePO> poList=tmpPo.getGameDataList();
+			for(int j=0;j<poList.size();j++)
+			{
+				PlayerGamePO po=poList.get(j);
+				if(po.getPlayerName().equals("Jared Sullinger"))
+				{
+				System.out.println("----------------");
+				System.out.println(po.isDirty());
+				System.out.println(po.getPlayerName());
+				System.out.println(po.getTime());
+				System.out.println(po.getScore());
+				System.out.println("----------------");
+				}
+			
+			}
+			
+		}
 	}
 	
 
