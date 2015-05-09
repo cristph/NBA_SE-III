@@ -124,4 +124,12 @@ public interface PlayerBLService {
 	 * @return PlayerHighInfo
 	 */
 	public PlayerHighInfo getSinglePlayerHighInfo(String name);
+	
+	public ArrayList<PlayerHighInfo> getPlayerHighInfoMOrder(PlayerStandard[] ps,Order[] order,int num);
+	
+	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfoMOrder(Position pos,League lea,Age age,
+			PlayerStandard[] ps,Order[] order,int num);
+	
+	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfoMOrder(Position pos,League lea,Age age,
+			PlayerStandard[] ps,Order[] order,int num);
 }

@@ -68,7 +68,7 @@ public class playermain {
 	
 	public void test4(){
 		long a=System.currentTimeMillis();
-		ArrayList<PlayerHighInfo> list=pbs.getPlayerHighInfo(PlayerStandard.GMSC,Order.dsec,200);
+		ArrayList<PlayerHighInfo> list=pbs.getPlayerHighInfo(PlayerStandard.GmSc,Order.desc,200);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
@@ -82,7 +82,7 @@ public class playermain {
 	public void test5(){
 		long a=System.currentTimeMillis();
 		ArrayList<PlayerNormalInfo> list=pbs.getPlayerTotalNormalInfo(Position.All, League.All, 
-				Age.All, PlayerStandard.score, Order.dsec, 100);
+				Age.All, PlayerStandard.point, Order.desc, 100);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);
@@ -102,7 +102,7 @@ public class playermain {
 	public void test6(){
 		long a=System.currentTimeMillis();
 		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.F, League.West, 
-				Age.lv2, PlayerStandard.score, Order.dsec, 10);
+				Age.lv2, PlayerStandard.point, Order.desc, 10);
 		long b=System.currentTimeMillis();
 		long c=b-a;
 		System.out.println("time: "+c);

@@ -147,4 +147,24 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			}
 		}
 	}
+
+	public ArrayList<PlayerHighInfo> getPlayerHighInfoMOrder(PlayerStandard[] ps,
+			Order[] order, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfoMOrder(
+			Position pos, League lea, Age age, PlayerStandard[] ps, Order[] order,
+			int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfoMOrder(
+			Position pos, League lea, Age age, PlayerStandard[] ps, Order[] order,
+			int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

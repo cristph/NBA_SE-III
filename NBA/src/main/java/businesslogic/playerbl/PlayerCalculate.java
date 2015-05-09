@@ -1102,21 +1102,21 @@ public class PlayerCalculate{
 		ArrayList<PlayerKingInfo> result=new ArrayList<PlayerKingInfo>();
 		SortNormalInfo sni=new SortNormalInfo();
 		if(field==Field.score){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.score);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.point);
 		}else if(field==Field.block){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.blockNum);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.blockShot);
 		}else if(field==Field.assist){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.assistNum);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.assist);
 		}else if(field==Field.rebound){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.rebTotalNum);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.rebound);
 		}else if(field==Field.steal){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.stealNum);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.steal);
 		}else if(field==Field.three){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.threeRate);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.threeRate);
 		}else if(field==Field.free){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.freeRate);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.freeRate);
 		}else if(field==Field.shoot){
-			sni.sort(avg_normalInfoList, Order.dsec, PlayerStandard.shooting);
+			sni.sort(avg_normalInfoList, Order.desc, PlayerStandard.shooting);
 		}
 		if(num>=avg_normalInfoList.size()){
 			for(int i=0;i<avg_normalInfoList.size();i++){
@@ -1215,15 +1215,15 @@ public class PlayerCalculate{
 		ArrayList<PlayerKingInfo> result=new ArrayList<PlayerKingInfo>();
 		SortNormalInfo sni=new SortNormalInfo();
 		if(field==Field.score){
-			sni.sort(todayList, Order.dsec, PlayerStandard.score);
+			sni.sort(todayList, Order.desc, PlayerStandard.point);
 		}else if(field==Field.block){
-			sni.sort(todayList, Order.dsec, PlayerStandard.blockNum);
+			sni.sort(todayList, Order.desc, PlayerStandard.blockShot);
 		}else if(field==Field.assist){
-			sni.sort(todayList, Order.dsec, PlayerStandard.assistNum);
+			sni.sort(todayList, Order.desc, PlayerStandard.assist);
 		}else if(field==Field.rebound){
-			sni.sort(todayList, Order.dsec, PlayerStandard.rebTotalNum);
+			sni.sort(todayList, Order.desc, PlayerStandard.rebound);
 		}else if(field==Field.steal){
-			sni.sort(todayList, Order.dsec, PlayerStandard.stealNum);
+			sni.sort(todayList, Order.desc, PlayerStandard.steal);
 		}
 		if(num>=todayList.size()){
 			for(int i=0;i<todayList.size();i++){

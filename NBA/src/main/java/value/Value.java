@@ -10,12 +10,14 @@ public class Value {
 		West,East,All,Southeast,Atlantic,Central,Northwest,Pacific,Southwest
 	}
 	
+	public enum Model{PLAYER, TEAM}
+	
 	/*
 	 * @param asc:升序 
 	 * @param dsec:降序
 	 */
 	public enum Order{
-		asc,dsec
+		asc,desc
 	}
 	
 	/*
