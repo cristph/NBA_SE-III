@@ -67,12 +67,18 @@ public class GameDataReader implements GameDataReadService {
 		String time[]=info[2].split(":");
 		
 		int tim=0;
+		try
+		{
 		if(time.length==2)
 		 tim=Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
-		else if(time.length==0)
-		 tim=Integer.parseInt(time[0])*60;	
-	    temp.setTime(tim);
-	    
+		else if(time.length==1)
+		 tim=Integer.parseInt(time[0])*60;
+		temp.setTime(tim);
+		}catch(NumberFormatException n){
+	       temp.setTime(-1);
+	       temp.setDirty(true);
+	    }
+		
 		int data[]=new int[15];
 		
 		for(int i=3;i<info.length;i++)
@@ -83,7 +89,7 @@ public class GameDataReader implements GameDataReadService {
 		}catch(NumberFormatException n)
 		{
 			data[i-3]=-1;
-			temp.setDirty(true);
+			temp.setDirty(true);//playerGamePo是否为脏数据只看信息行中是否有NULL，独立于TeamGamePO的isDirty
 		}
 		}
 		
@@ -157,8 +163,12 @@ private void updateTeam(String line){
 		}
     }
 	
-	 
-	int allPlayerTime=temp.getAllPlayerTime()+time;
+	
+	int allPlayerTime=temp.getAllPlayerTime();
+	if(time!=-1)
+		allPlayerTime+=time;
+	
+	
 	int hitNum=temp.getHitShootNum()+data[0];
     int shootNum=temp.getShootNum()+data[1];
     
@@ -219,9 +229,6 @@ private GameInfo makeGameInfo(){
 			teamGame1.getRebAttNum(),teamGame2.getRebDefNum(),teamGame1.getRebDefNum(),teamGame2.getFreeHitNum()+teamGame2.getHitShootNum(),teamGame1.getRebAttNum(),
 			teamGame1.getShootNum()-teamGame1.getThreeShootNum(),teamGame2.getShootNum(),teamGame2.getFreeNum(),teamGame2.getErrorNum());
 	
-	//System.out.println("罚球数="+info1.getTeamFreeNum()+" "+currentPair+" "+currentDate);
-	
-
 	for(int i=0;i<playerList.size();i++)
 	{
 	    PlayerGamePO po=playerList.get(i);
@@ -236,6 +243,9 @@ private GameInfo makeGameInfo(){
 
 	return gif;
 }
+
+
+
 
 	
 public GameInfo readMatchFile(File f) {
@@ -302,6 +312,8 @@ public GameInfo readMatchFile(File f) {
 		        GameInfo result=makeGameInfo();
 		        teamGame1=new TeamGamePO();
 				teamGame2=new TeamGamePO();
+				DirtyFilter df=new DirtyFilter();
+				result=df.filt(result);
 		        return result;
 			}
 		return new GameInfo();
