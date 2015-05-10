@@ -17,6 +17,7 @@ public class FundData implements FundDataService {
 	File acimgFold=null;
 	File portimgFold=null;
 	File playerFold=null;
+	private static String fundDataPath=null;
 	
 	static{
 		//convertImg();
@@ -45,15 +46,19 @@ public class FundData implements FundDataService {
 				ts.convertToPngByFIle(sourceImg+"/"+fileName,pngPath);
 			}
 		}
-	}	
+	}
+	
+	public static void setPath(String path){
+		fundDataPath=path;
+	}
 	
 	public FundData(){
 		fdrs=new FundDataReader();
-		imgFold=new File("data/teamPng");
-		txtFile=new File("data/teams/teams.txt");
-		acimgFold=new File("data/players/action");
-		portimgFold=new File("data/players/portrait");
-		playerFold=new File("data/players/info");
+		imgFold=new File(fundDataPath+"/teamPng");
+		txtFile=new File(fundDataPath+"/teams/teams.txt");
+		acimgFold=new File(fundDataPath+"/players/action");
+		portimgFold=new File(fundDataPath+"/players/portrait");
+		playerFold=new File(fundDataPath+"/players/info");
 	}
 	
 
