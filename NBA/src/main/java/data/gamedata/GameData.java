@@ -23,7 +23,7 @@ public class GameData implements GameDataService,Runnable{
 	
     
 	public static void setPath(String path){
-		dataPath=path;
+		dataPath=path+"/matches";
 	}
 	
 	static

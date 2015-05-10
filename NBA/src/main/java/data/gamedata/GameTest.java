@@ -1,6 +1,5 @@
 package data.gamedata;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,20 +12,11 @@ public class GameTest {
 
 	public static void main(String[] args) 
 	{
-		// TODO Auto-generated method stub
-        //test();
-		/*String time="null";
-		int tim=Integer.parseInt(time);
-		System.out.println(tim);*/
-		File matchFold=new File("data/matches/");
-		File arr[]=matchFold.listFiles();
-		for(int i=0;i<arr.length;i++)
-		{
-			System.out.println(arr[i].getName());
-		}
+	   test();
 	}
 	
 	public static void test(){
+		GameData.setPath("C://matches");
 		GameData gd=new GameData();
 		ArrayList<PlayerAllGamePO> playerList=gd.getPlayerGameData();
 		for(int i=0;i<playerList.size();i++)
@@ -36,15 +26,14 @@ public class GameTest {
 			for(int j=0;j<poList.size();j++)
 			{
 				PlayerGamePO po=poList.get(j);
-				if(po.getPlayerName().equals("Jared Sullinger"))
-				{
+				
 				System.out.println("----------------");
 				System.out.println(po.isDirty());
 				System.out.println(po.getPlayerName());
 				System.out.println(po.getTime());
 				System.out.println(po.getScore());
 				System.out.println("----------------");
-				}
+				
 			
 			}
 			
@@ -54,7 +43,7 @@ public class GameTest {
 
 	public static void test1(){
 		double time1=System.currentTimeMillis();
-		GameData gd=new GameData();
+	
 		
 		//ArrayList<PlayerAllGamePO> list=gd.getPlayerGameData();
 		
