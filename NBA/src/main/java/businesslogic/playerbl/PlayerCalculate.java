@@ -84,6 +84,8 @@ public class PlayerCalculate{
 			//double three;
 			int hitShootNum; //投篮命中数
 			int shootNum; //投篮出手数
+			int freeHitNum;
+			int freeNum;
 			int threePointNum; //三分命中数
 			int threeShootNum; //三分出手数
 			
@@ -115,6 +117,8 @@ public class PlayerCalculate{
 				//three=0;
 				hitShootNum=0; //投篮命中数
 				shootNum=0; //投篮出手数
+				freeHitNum=0;
+				freeNum=0;
 				threePointNum=0; //三分命中数
 				threeShootNum=0; //三分出手数
 				
@@ -143,6 +147,8 @@ public class PlayerCalculate{
 						steal+=pgp.getStealNum();
 						hitShootNum+=pgp.getHitShootNum(); //投篮命中数
 						shootNum+=pgp.getShootNum(); //投篮出手数
+						freeHitNum+=pgp.getFreeHitNum();
+						freeNum+=pgp.getFreeNum();
 						threePointNum+=pgp.getThreePointNum(); //三分命中数
 						threeShootNum+=pgp.getThreeShootNum(); //三分出手数
 					}
@@ -160,7 +166,7 @@ public class PlayerCalculate{
 				pni.setName(name);
 				pni.setNumOfGame(numOfGame);
 				pni.setOffend(offend);
-				pni.setPenalty(cm.calRate(hitShootNum, shootNum));
+				pni.setPenalty(cm.calRate(freeHitNum, freeNum));
 				pni.setPoint(point);
 				pni.setRebound(rebound);
 				pni.setShot(cm.calRate(hitShootNum, shootNum));
@@ -207,6 +213,8 @@ public class PlayerCalculate{
 			double three;
 			int hitShootNum; //投篮命中数
 			int shootNum; //投篮出手数
+			int freeHitNum;
+			int freeNum;
 			int threePointNum; //三分命中数
 			int threeShootNum; //三分出手数
 			
@@ -263,10 +271,12 @@ public class PlayerCalculate{
 						
 						hitShootNum=pgp.getHitShootNum(); //投篮命中数
 						shootNum=pgp.getShootNum(); //投篮出手数
+						freeHitNum=pgp.getFreeHitNum();
+						freeNum=pgp.getFreeNum();
 						threePointNum=pgp.getThreePointNum(); //三分命中数
 						threeShootNum=pgp.getThreeShootNum(); //三分出手数
 						shot+=cm.calRate(hitShootNum, shootNum);
-						penalty+=cm.calRate(hitShootNum, shootNum);
+						penalty+=cm.calRate(freeHitNum, freeNum);
 						three+=cm.calRate(threePointNum, threeShootNum);
 					}
 				}
