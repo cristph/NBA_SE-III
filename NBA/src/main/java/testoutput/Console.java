@@ -42,6 +42,7 @@ public class Console {
 		
 		PlayerBLService pbs=new PlayerBLController();
 		TeamBLService tbs=new TeamController();
+		
 		if(config.chosen==Model.PLAYER){//player
 			
 			if(config.hotField != null){//-hot
@@ -424,7 +425,8 @@ public class Console {
 					}
 				}
 			}
-		}else{//team
+		}else if(config.chosen==Model.TEAM){//team
+			
 			if(config.hotField!=null){//hot
 				int num=config.n;
 				Field2 teamhotfield=Field2.assist;
