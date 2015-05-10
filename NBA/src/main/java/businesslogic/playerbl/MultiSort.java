@@ -18,61 +18,110 @@ public class MultiSort {
 		int i=0;
 		int j=1;
 		
-		while(i<list.size()-1){
+		while(i<list.size()){
 			
 			double vai=(Double)getFieldValueByName(origin.toString(),list.get(i));
 			double vaj=(Double)getFieldValueByName(origin.toString(),list.get(j));
 			
 			if(vai!=vaj){
+				
 				i++;
 				if(j<list.size()-1){
 					j++;
 				}
+				
+				if(i==list.size()-1){
+					break;
+				}
 			}else{
 				
 				while(vai==vaj){
-					j++;
+					
+					if(j==list.size()-1){
+						break;
+					}
+					
+					if(j<list.size()-1){
+						j++;
+					}
 					vaj=(Double)getFieldValueByName(origin.toString(),list.get(j));
 				}//vai!=vaj sort (i,j-1)
 				
-				System.out.println("Swap "+i+"and "+(j-1));
-				sortN(list,ord,des,i,j-1);
+				
+				if(j==list.size()-1){
+					//System.out.println("Swap "+i+"and "+j);
+					sortN(list,ord,des,i,j);
+					break;
+				}else{
+					//System.out.println("Swap "+i+"and "+(j-1));
+					sortN(list,ord,des,i,j-1);	
+				}
 				
 				i=j;
-				j++;
+				if(j<list.size()-1){
+					j++;
+				}
+				
+				if(i==list.size()-1){
+					break;
+				}
 			}
-		}
-		
+		}//end of while
 	}
 	
 	public void mulHighSort(ArrayList<PlayerHighInfo> list,PlayerStandard origin,PlayerStandard des,Order ord){
 		int i=0;
 		int j=1;
 		
-		while(i<list.size()-1){
+		while(i<list.size()){
 			
 			double vai=(Double)getFieldValueByName(origin.toString(),list.get(i));
 			double vaj=(Double)getFieldValueByName(origin.toString(),list.get(j));
 			
 			if(vai!=vaj){
+				
 				i++;
 				if(j<list.size()-1){
 					j++;
 				}
+				
+				if(i==list.size()-1){
+					break;
+				}
 			}else{
 				
 				while(vai==vaj){
-					j++;
+					
+					if(j==list.size()-1){
+						break;
+					}
+					
+					if(j<list.size()-1){
+						j++;
+					}
 					vaj=(Double)getFieldValueByName(origin.toString(),list.get(j));
 				}//vai!=vaj sort (i,j-1)
 				
-				System.out.println("Swap "+i+"and "+(j-1));
-				sortH(list,ord,des,i,j-1);
+				
+				if(j==list.size()-1){
+					//System.out.println("Swap "+i+"and "+j);
+					sortH(list,ord,des,i,j);
+					break;
+				}else{
+					//System.out.println("Swap "+i+"and "+(j-1));
+					sortH(list,ord,des,i,j-1);
+				}
 				
 				i=j;
-				j++;
+				if(j<list.size()-1){
+					j++;
+				}
+				
+				if(i==list.size()-1){
+					break;
+				}
 			}
-		}
+		}//end of while
 	}
 	
 	private Object getFieldValueByName(String fieldName, Object o) {
