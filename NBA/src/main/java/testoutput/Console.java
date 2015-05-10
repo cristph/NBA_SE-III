@@ -16,6 +16,7 @@ import value.Value.League;
 import value.Value.Model;
 import value.Value.Order;
 import value.Value.Position;
+import data.funddata.FundData;
 import data.gamedata.GameData;
 import de.tototec.cmdoption.CmdOption;
 import de.tototec.cmdoption.CmdlineParser;
@@ -28,12 +29,14 @@ public class Console {
 		CmdlineParser parser = new CmdlineParser(config);
 		parser.parse(args);
 		
-		PlayerBLService pbs=new PlayerBLController();
-		
 		if(config.path!=null){
 			System.out.println("path:"+config.path);
+			FundData.setPath(config.path);
 			GameData.setPath(config.path);
 		}
+		
+		PlayerBLService pbs=new PlayerBLController();
+		
 		if(config.chosen==Model.PLAYER){//player
 			
 			if(config.hotField != null){//-hot

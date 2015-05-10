@@ -49,11 +49,13 @@ public class FundData implements FundDataService {
 	}
 	
 	public static void setPath(String path){
+		System.out.println("has set pat: "+path);
 		fundDataPath=path;
 	}
 	
 	public FundData(){
 		fdrs=new FundDataReader();
+		System.out.println("fundDataPath="+fundDataPath);
 		imgFold=new File(fundDataPath+"/teamPng");
 		txtFile=new File(fundDataPath+"/teams/teams.txt");
 		acimgFold=new File(fundDataPath+"/players/action");
@@ -84,7 +86,10 @@ public class FundData implements FundDataService {
 	public ArrayList<PlayerPO> getPlayerFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list=new ArrayList<PlayerPO>();
+		System.out.println(playerFold.getName());
 		File[] array=playerFold.listFiles();
+		System.out.println(array);
+		
 		for(int i=0;i<array.length;i++){
 		PlayerPO temp=fdrs.readPlayerFile(array[i], acimgFold.toString(), portimgFold.toString());
 		list.add(temp);
