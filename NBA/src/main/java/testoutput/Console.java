@@ -2,16 +2,21 @@ package testoutput;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import businesslogic.playerbl.PlayerBLController;
+import businesslogic.teambl.TeamController;
 import businesslogicservice.playerblservice.PlayerBLService;
+import businesslogicservice.teamblservice.TeamBLService;
 import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
 import test.data.PlayerKingInfo;
 import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
+import value.TeamStandard;
 import value.Value.Age;
 import value.Value.Field;
+import value.Value.Field2;
 import value.Value.League;
 import value.Value.Model;
 import value.Value.Order;
@@ -36,7 +41,7 @@ public class Console {
 		}
 		
 		PlayerBLService pbs=new PlayerBLController();
-		
+		TeamBLService tbs=new TeamController();
 		if(config.chosen==Model.PLAYER){//player
 			
 			if(config.hotField != null){//-hot
@@ -420,7 +425,237 @@ public class Console {
 				}
 			}
 		}else{//team
-			
+			if(config.hotField!=null){//hot
+				int num=config.n;
+				Field2 teamhotfield=Field2.assist;
+				if(num<0){
+					num=30;
+				}
+				if(config.hotField.equals("score")){
+			    	teamhotfield=Field2.score;
+			    }
+			    else if(config.hotField.equals("rebound")){
+			    	teamhotfield=Field2.rebound;
+			    }
+			    else if(config.hotField.equals("assist")){
+			    	teamhotfield=Field2.assist;
+			    }
+			    else if(config.hotField.equals("blockShot")){
+			    	teamhotfield=Field2.blockShot;
+			    }
+			    else if(config.hotField.equals("steal")){
+			    	teamhotfield=Field2.steal;
+			    }
+			    else if(config.hotField.equals("foul")){
+			    	teamhotfield=Field2.foul;
+			    }
+			    else if(config.hotField.equals("fault")){
+			    	teamhotfield=Field2.fault;
+			    }
+			    else if(config.hotField.equals("shot")){
+			    	teamhotfield=Field2.shot;
+			    }
+			    else if(config.hotField.equals("three")){
+			    	teamhotfield=Field2.three;
+			    	
+			    }
+			    else if(config.hotField.equals("penalty")){
+			    	teamhotfield=Field2.penalty;
+			    }
+			    else if(config.hotField.equals("defendRebound")){
+			    	teamhotfield=Field2.defendRebound;
+			    }
+			    else if(config.hotField.equals("offendRebound")){
+			    	teamhotfield=Field2.offendRebound;
+			    }
+				Arrays.stream(tbs.getHotTeam(teamhotfield, num).toArray()).forEach(out::println);
+				
+			}
+			else{//all team
+				if(config.isHigh){//highdata
+					int num=config.n;
+					if(num<0){
+						num=30;
+					}
+					Order teamord=Order.desc;String r1="";String r2="";
+					TeamStandard tst=TeamStandard.winrate;
+					if(config.sortField!=""){
+					    String[] result=config.sortField.split("\\.");
+					    r1=result[0];r2=result[1];
+					    if(r2.equals("desc")){
+						    teamord=Order.desc;
+						
+					    }
+					    else if(r2.equals("asc")){
+						    teamord=Order.asc;
+					    }
+					    
+					    if(r1.equals("winRate")){
+						    tst=TeamStandard.winrate;
+					    }
+					    else if(r1.equals("offendRound")){
+						    tst=TeamStandard.attackround;
+					    }
+					    else if(r1.equals("offendEfficient")){
+						    tst=TeamStandard.attackrate;
+					    }
+					    else if(r1.equals("defendEfficient")){
+						    tst=TeamStandard.defendrate;
+					    }
+					    else if(r1.equals("offendReboundEfficient")){
+						    tst=TeamStandard.rebattrate;
+					    }
+					    else if(r1.equals("defendReboundEfficient")){
+						    tst=TeamStandard.rebdefrate;
+					    }
+					    else if(r1.equals("stealEfficient")){
+						    tst=TeamStandard.stealrate;
+					    }
+					    else if(r1.equals("assistEfficient")){
+						    tst=TeamStandard.assistrate;
+					    }
+					    
+					}
+					Arrays.stream(tbs.getTeamHighInfo(tst, teamord, num).toArray()).forEach(out::println);
+				}
+				else{//normaldata
+					if(config.isAverage){//avg normal data
+						int num=config.n;
+						if(num<0){
+							num=30;
+						}
+						Order teamord=Order.desc;
+						TeamStandard tst=TeamStandard.allpointave;
+						String r1="";String r2="";
+						if(config.sortField!=""){
+							String[] result=config.sortField.split("\\.");
+							r1=result[0];r2=result[1];
+							if(r2.equals("desc")){
+								teamord=Order.desc;
+								
+							}
+							else if(r2.equals("asc")){
+								teamord=Order.asc;
+							}
+							if(r1.equals("point")){
+								tst=TeamStandard.allpointave;				
+								
+							}
+							else if(r1.equals("rebound")){
+								tst=TeamStandard.rebTotalNumave;
+									
+								
+							}
+							else if(r1.equals("assist")){
+								
+								tst=TeamStandard.assistNumave;
+								
+							}
+							else if(r1.equals("blockShot")){
+								
+								tst=TeamStandard.blockNumave;
+								
+							}
+							else if(r1.equals("steal")){
+								
+								
+								tst=TeamStandard.stealNumave;
+								
+							}
+							else if(r1.equals("foul")){
+								tst=TeamStandard.foulNumave;
+							}
+							else if(r1.equals("fault")){
+								tst=TeamStandard.errorNumave;
+							}
+							else if(r1.equals("shot")){
+								tst=TeamStandard.shootrate;
+							}
+							else if(r1.equals("three")){
+								tst=TeamStandard.threepointrate;
+							}
+							else if(r1.equals("penalty")){
+								tst=TeamStandard.freehitrate;
+							}
+							else if(r1.equals("defendRebound")){
+								tst=TeamStandard.rebDefNumave;
+							}
+							else if(r1.equals("offendRebound")){
+								tst=TeamStandard.rebAttNumave;
+							}
+						}
+						Arrays.stream(tbs.getTeamavgNormalInfo(tst, teamord, num).toArray()).forEach(out::println);
+						
+					}
+					else{//total normal data
+						int num=config.n;
+						if(num<0){
+							num=30;
+						}
+						Order teamord=Order.desc;
+						TeamStandard tst=TeamStandard.allpoint;
+						String r1="";String r2="";
+						if(config.sortField!=""){
+							String[] result=config.sortField.split("\\.");
+							r1=result[0];r2=result[1];
+							if(r2.equals("desc")){
+								teamord=Order.desc;
+								
+							}
+							else if(r2.equals("asc")){
+								teamord=Order.asc;
+							}
+							if(r1.equals("point")){
+								tst=TeamStandard.allpoint;				
+								
+							}
+							else if(r1.equals("rebound")){
+								tst=TeamStandard.rebTotalNum;
+									
+								
+							}
+							else if(r1.equals("assist")){
+								
+								tst=TeamStandard.assistNum;
+								
+							}
+							else if(r1.equals("blockShot")){
+								
+								tst=TeamStandard.blockNum;
+								
+							}
+							else if(r1.equals("steal")){
+								
+								
+								tst=TeamStandard.stealNum;
+								
+							}
+							else if(r1.equals("foul")){
+								tst=TeamStandard.foulNum;
+							}
+							else if(r1.equals("fault")){
+								tst=TeamStandard.errorNum;
+							}
+							else if(r1.equals("shot")){
+								tst=TeamStandard.shootrate;
+							}
+							else if(r1.equals("three")){
+								tst=TeamStandard.threepointrate;
+							}
+							else if(r1.equals("penalty")){
+								tst=TeamStandard.freehitrate;
+							}
+							else if(r1.equals("defendRebound")){
+								tst=TeamStandard.rebDefNum;
+							}
+							else if(r1.equals("offendRebound")){
+								tst=TeamStandard.rebAttNum;
+							}
+						}
+						Arrays.stream(tbs.getTeamTotalNormalInfo(tst, teamord, num).toArray()).forEach(out::println);
+					}
+				}
+			}
 		}
 	}
 	

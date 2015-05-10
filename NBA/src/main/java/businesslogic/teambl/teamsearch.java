@@ -141,7 +141,7 @@ public class teamsearch {
 			}
 			
 		}
-		else if(order==Order.dsec){
+		else if(order==Order.desc){
 			if(stan==TeamStandard.allpoint){
 				downSortforallpoint.quicksort(v); //s=new upSortforallpoint();
 				//s.quicksort(v);

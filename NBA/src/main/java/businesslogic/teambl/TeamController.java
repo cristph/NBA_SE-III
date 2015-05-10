@@ -229,7 +229,7 @@ public class TeamController implements TeamBLService{
     	else if(field2==Field2.offendRebound){
     		tst=TeamStandard.rebAttNumave;fiel="offendRebound";
     	}
-    	ts.sort(pa, Order.dsec, tst);
+    	ts.sort(pa, Order.desc, tst);
     	for(int i=0;i<num;i++){
     		TeamHotInfo hi=new TeamHotInfo();
     		hi.setField(fiel);
