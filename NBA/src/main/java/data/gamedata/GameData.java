@@ -19,13 +19,17 @@ public class GameData implements GameDataService,Runnable{
 	private static File matchFold=null;
 	private static int threadCount=0;
 	private static boolean dataChange=false;
+	private static String dataPath="data/matches";
 	
-    static
+    
+	public static void setPath(String path){
+		dataPath=path;
+	}
+	
+	static
     {
 		teamMap=new HashMap<String,TeamAllGamePO>();
 		playerMap=new HashMap<String,PlayerAllGamePO>();
-		matchFold=new File("data/matches");
-		initGameData();
 	}
 	
     private static void initGameData(){
@@ -100,10 +104,13 @@ public class GameData implements GameDataService,Runnable{
 	
 	
 	public GameData(){
+		matchFold=new File(dataPath);
+		initGameData();
 		if(threadCount==0){
 		new Thread(this).start();
 		threadCount=1;
 		}
+		
     }
 	
     public ArrayList<PlayerAllGamePO> getPlayerGameData() {

@@ -1,9 +1,8 @@
 package data.gamedata;
 
+import java.io.File;
 import java.util.ArrayList;
-
 import java.util.Scanner;
-
 
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
@@ -12,12 +11,19 @@ import po.TeamGamePO;
 
 public class GameTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		// TODO Auto-generated method stub
-        test();
+        //test();
 		/*String time="null";
 		int tim=Integer.parseInt(time);
 		System.out.println(tim);*/
+		File matchFold=new File("data/matches/");
+		File arr[]=matchFold.listFiles();
+		for(int i=0;i<arr.length;i++)
+		{
+			System.out.println(arr[i].getName());
+		}
 	}
 	
 	public static void test(){
