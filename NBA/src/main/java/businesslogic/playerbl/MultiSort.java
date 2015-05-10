@@ -125,6 +125,9 @@ public class MultiSort {
 			}else if(ps==PlayerStandard.freeRate){
 				FreeRateUPSort frs=new FreeRateUPSort();
 				frs.mulSort(list, beg, end);
+			}else if(ps==PlayerStandard.name){
+				NameUPSort nus=new NameUPSort();
+				nus.mulSort(list, beg, end);
 			}
 		}else{
 			if(ps==PlayerStandard.point){
@@ -163,6 +166,9 @@ public class MultiSort {
 			}else if(ps==PlayerStandard.freeRate){
 				FreeRateDSort frs=new FreeRateDSort();
 				frs.mulSort(list, beg, end);
+			}else if(ps==PlayerStandard.name){
+				NameDSort nds=new NameDSort();
+				nds.mulSort(list, beg, end);
 			}
 		}
 	}
@@ -199,6 +205,9 @@ public class MultiSort {
 			}else if(ps==PlayerStandard.frequency){
 				UsedRateUPSort urs=new UsedRateUPSort();
 				urs.mulSort(list, beg, end);
+			}else if(ps==PlayerStandard.name){
+				NameHUPSort nhs=new NameHUPSort();
+				nhs.mulSort(list, beg, end);
 			}
 		}else{
 			if(ps==PlayerStandard.realShot){
@@ -231,6 +240,9 @@ public class MultiSort {
 			}else if(ps==PlayerStandard.frequency){
 				UsedRateDSort urs=new UsedRateDSort();
 				urs.mulSort(list, beg, end);
+			}else if(ps==PlayerStandard.name){
+				NameHDSort nds=new NameHDSort();
+				nds.mulSort(list, beg, end);
 			}
 		}
 	}

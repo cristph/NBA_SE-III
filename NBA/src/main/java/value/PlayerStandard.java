@@ -4,7 +4,7 @@ public enum PlayerStandard {
 	point,rebound,assist,blockShot,steal,foul,fault,minute,efficient,shot,three,penalty,doubleTwo,
 	realShot,GmSc,shotEfficient,reboundEfficient,offendReboundEfficient,defendReboundEfficient,
 	assistEfficient,stealEfficient,blockShotEfficient,faultEfficient,frequency,
-	shooting,threeRate,freeRate
+	shooting,threeRate,freeRate,name
 }
 
 /*

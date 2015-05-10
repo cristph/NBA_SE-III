@@ -73,6 +73,8 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 	 */
 	public ArrayList<PlayerHighInfo> getPlayerHighInfo(PlayerStandard ps,Order order,int num){
 		ArrayList<PlayerHighInfo> list=pc.getPlayerHighInfo(ps, order, num);
+		MultiSort ms=new MultiSort();
+		ms.mulHighSort(list, ps, PlayerStandard.name, Order.asc);
 		return list;
 	}
 	
@@ -89,6 +91,8 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 	public ArrayList<PlayerNormalInfo> getPlayerAvgNormalInfo(Position pos,League lea,Age age,
 			PlayerStandard ps,Order order,int num){
 		ArrayList<PlayerNormalInfo> list=pc.getPlayerAvgNormalInfo(pos, lea, age, ps, order, num);
+		MultiSort ms=new MultiSort();
+		ms.mulNormalSort(list, ps, PlayerStandard.name, Order.asc);
 		return list;	
 	}
 	
@@ -105,6 +109,8 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 	public ArrayList<PlayerNormalInfo> getPlayerTotalNormalInfo(Position pos,League lea,Age age,
 			PlayerStandard ps,Order order,int num){
 		ArrayList<PlayerNormalInfo> list=pc.getPlayerTotalNormalInfo(pos, lea, age, ps, order, num);
+		MultiSort ms=new MultiSort();
+		ms.mulNormalSort(list, ps, PlayerStandard.name, Order.asc);
 		return list;
 	}
 	
@@ -160,7 +166,7 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			for(int j=1;j<ps.length;j++){
 				ms.mulHighSort(list, ps[j-1], ps[j], order[j]);
 			}
-			
+			ms.mulHighSort(list, ps[ps.length-1], PlayerStandard.name, Order.asc);
 			return list;
 		}
 	}
@@ -178,7 +184,7 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			for(int j=1;j<ps.length;j++){
 				ms.mulNormalSort(list, ps[j-1], ps[j], order[j]);
 			}
-			
+			ms.mulNormalSort(list, ps[ps.length-1], PlayerStandard.name, Order.asc);
 			return list;
 		}
 	}
@@ -196,7 +202,7 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			for(int j=1;j<ps.length;j++){
 				ms.mulNormalSort(list, ps[j-1], ps[j], order[j]);
 			}
-			
+			ms.mulNormalSort(list, ps[ps.length-1], PlayerStandard.name, Order.asc);
 			return list;
 		}
 	}

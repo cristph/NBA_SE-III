@@ -16,6 +16,7 @@ import value.Value.League;
 import value.Value.Model;
 import value.Value.Order;
 import value.Value.Position;
+import data.gamedata.GameData;
 import de.tototec.cmdoption.CmdOption;
 import de.tototec.cmdoption.CmdlineParser;
 
@@ -29,9 +30,13 @@ public class Console {
 		
 		PlayerBLService pbs=new PlayerBLController();
 		
+		if(config.path!=null){
+			System.out.println("path:"+config.path);
+			GameData.setPath(config.path);
+		}
 		if(config.chosen==Model.PLAYER){//player
 			
-			if(config.hotField != null){ // -hot
+			if(config.hotField != null){//-hot
 				String field=config.hotField;
 				int num=config.n;
 				if(num<0){
@@ -418,6 +423,9 @@ public class Console {
 	
 	class Config{
 		Model chosen;
+		
+		@CmdOption(names = { "--datasource" }, args={"path"})
+		String path=null;
 		
 		@CmdOption(names = { "-player" }, conflictsWith = { "-team" })
 		private void setPlayer() {chosen = Model.PLAYER;}
