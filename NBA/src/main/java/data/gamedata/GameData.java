@@ -32,7 +32,18 @@ public class GameData implements GameDataService,Runnable{
 		playerMap=new HashMap<String,PlayerAllGamePO>();
 	}
 	
-    private static void initGameData(){
+	public GameData(){
+		matchFold=new File(dataPath);
+		System.out.println("dataPath in GamdData="+dataPath);
+		initGameData();
+		if(threadCount==0){
+		new Thread(this).start();
+		threadCount=1;
+		}
+		
+    }
+	
+	private static void initGameData(){
 		teamMap=new HashMap<String,TeamAllGamePO>();
 		playerMap=new HashMap<String,PlayerAllGamePO>();
 		GameDataReadService gdrs=new GameDataReader();
@@ -41,6 +52,7 @@ public class GameData implements GameDataService,Runnable{
 		for(int i=0;i<array.length;i++)
 		{
 			GameInfo gif=gdrs.readMatchFile(array[i]);
+			
 			addGif(gif);
 		}
 	}
@@ -103,15 +115,7 @@ public class GameData implements GameDataService,Runnable{
 	}
 	
 	
-	public GameData(){
-		matchFold=new File(dataPath);
-		initGameData();
-		if(threadCount==0){
-		new Thread(this).start();
-		threadCount=1;
-		}
-		
-    }
+	
 	
     public ArrayList<PlayerAllGamePO> getPlayerGameData() {
 		// TODO Auto-generated method stub

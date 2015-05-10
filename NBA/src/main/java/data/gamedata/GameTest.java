@@ -12,7 +12,7 @@ public class GameTest {
 
 	public static void main(String[] args) 
 	{
-	   test();
+	   test6();
 	}
 	
 	public static void test(){
@@ -149,6 +149,28 @@ public class GameTest {
 		}
 	    }
         
+	}
+	
+	public static void test6(){
+		GameData.setPath("C://data");
+		GameData gd=new GameData();
+		ArrayList<PlayerAllGamePO> allList=gd.getPlayerGameData();
+		for(int i=0;i<allList.size();i++)
+		{
+		PlayerAllGamePO temp=allList.get(i);
+		ArrayList<PlayerGamePO> list=temp.getGameDataList();
+		System.out.println(temp.getPlayerName()+"打了"+list.size()+"场比赛");
+		
+		for(int j=0;j<list.size();j++)
+		{
+			PlayerGamePO po=list.get(j);
+			System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getPosition()+" "+po.isFirst());
+			
+		}
+		System.out.println("**************************************");
+		
+		
+		}
 	}
 	
 		

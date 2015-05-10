@@ -17,7 +17,7 @@ public class FundData implements FundDataService {
 	File acimgFold=null;
 	File portimgFold=null;
 	File playerFold=null;
-	private static String fundDataPath=null;
+	private static String fundDataPath="data";
 	
 	static{
 		//convertImg();
@@ -55,7 +55,6 @@ public class FundData implements FundDataService {
 	
 	public FundData(){
 		fdrs=new FundDataReader();
-		System.out.println("fundDataPath="+fundDataPath);
 		imgFold=new File(fundDataPath+"/teamPng");
 		txtFile=new File(fundDataPath+"/teams/teams.txt");
 		acimgFold=new File(fundDataPath+"/players/action");
@@ -67,10 +66,7 @@ public class FundData implements FundDataService {
 	public ArrayList<TeamPO> getTeamFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<TeamPO> list=fdrs.readTeamFile(txtFile, imgFold);
-		/*for(int i=0;i<list.size();i++)
-		{
-			System.out.println(list.get(i).getTeamPic());
-		}*/
+		
 		return list;
 	}
 
@@ -86,11 +82,8 @@ public class FundData implements FundDataService {
 	public ArrayList<PlayerPO> getPlayerFundData() {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list=new ArrayList<PlayerPO>();
-		System.out.println(playerFold.getName());
 		File[] array=playerFold.listFiles();
-		System.out.println(array);
-		
-		for(int i=0;i<array.length;i++){
+	    for(int i=0;i<array.length;i++){
 		PlayerPO temp=fdrs.readPlayerFile(array[i], acimgFold.toString(), portimgFold.toString());
 		list.add(temp);
 		}
