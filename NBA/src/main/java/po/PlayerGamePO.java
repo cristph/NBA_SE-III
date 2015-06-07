@@ -3,10 +3,6 @@
  */
 package po;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import data.gamedata.TeamInfo;
 
 public class PlayerGamePO implements Comparable<PlayerGamePO>{
@@ -252,17 +248,17 @@ public class PlayerGamePO implements Comparable<PlayerGamePO>{
 		return foulNum;
 	}
 
-	public int getScore() {
+	public int getScore(){
 		return score;
 	}
 
-    public int getTwoNum() {
+    public int getTwoNum(){
 		return twoNum;
 	}
 
 	
 
-	public int compareTo(PlayerGamePO po) {
+	public int compareTo(PlayerGamePO po){
 		String s1[]=this.matchDate.split("-");
 		String s2[]=po.getMatchDate().split("-");
 		

@@ -1,8 +1,6 @@
 package data.funddata;
 
 import java.util.ArrayList;
-
-import po.PlayerPO;
 import po.TeamPO;
 
 public class FundTest {
@@ -30,8 +28,8 @@ public class FundTest {
 	}
 	
 	public static void testPlayerInfo(){
-		FundData fd=new FundData();
-	    ArrayList<PlayerPO> list=fd.getPlayerFundData();
+		//FundData fd=new FundData();
+	    //ArrayList<PlayerPO> list=fd.getPlayerFundData();
 	  /*  System.out.println(list.size());
 	    for(int i=0;i<list.size();i++)
 	    {

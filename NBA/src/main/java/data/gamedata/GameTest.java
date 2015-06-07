@@ -1,4 +1,4 @@
-package data.gamedata;
+/*package data.gamedata;
 
 import java.util.ArrayList;
 
@@ -19,27 +19,27 @@ public class GameTest {
 	}
 	
 	public static void test(){
-		GameData gd=new GameData();
+	//	GameData gd=new GameData();
 	}
 	
 
 	public static void test1(){
-		double time1=System.currentTimeMillis();
-		GameData gd=new GameData();
+	//	double time1=System.currentTimeMillis();
+	//	GameData gd=new GameData();
 		
 		//ArrayList<PlayerAllGamePO> list=gd.getPlayerGameData();
 		
 	  //  PlayerAllGamePO temp=list.get(24);
 	//	System.out.println(temp.getPlayerName()+" "+temp.getTeamName()+" "+"打了"+temp.getGameDataList().size()+"场比赛"+" 他属于"+temp.getArea());
-		/*ArrayList<PlayerGamePO> llist=temp.getGameDataList();
+		ArrayList<PlayerGamePO> llist=temp.getGameDataList();
 		for(int i=0;i<llist.size();i++)
 		{
 			PlayerGamePO po=llist.get(i);
 			//System.out.println(po.getMatchDate()+" "+po.getMatchPair()+" "+po.getMatchResult());
-		}*/
+		}
 		
-		double time2=System.currentTimeMillis();
-		System.out.println("开机数据处理所用的时间"+(time2-time1));
+		//double time2=System.currentTimeMillis();
+		//System.out.println("开机数据处理所用的时间"+(time2-time1));
 		
 	}
 	public static void test2(){
@@ -135,3 +135,4 @@ public class GameTest {
 	
 		
 }
+*/

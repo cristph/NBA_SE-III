@@ -4,27 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Image;
 
-import po.TeamAllGamePO;
 import po.TeamGamePO;
 import po.TeamPO;
-import test.data.PlayerHighInfo;
-import test.data.PlayerHotInfo;
-import test.data.PlayerKingInfo;
-import test.data.PlayerNormalInfo;
 import test.data.TeamHighInfo;
 import test.data.TeamHotInfo;
 import test.data.TeamNormalInfo;
-import value.PlayerStandard;
 import value.TeamStandard;
-import value.Value.Age;
-import value.Value.Field;
 import value.Value.Field2;
-import value.Value.League;
 import value.Value.Order;
-import value.Value.Position;
 import vo.DateGameVO;
-import vo.PlayerVO;
-import vo.TeamVO;
 
 public interface TeamBLService {
 	//public TeamVO getTeamInfo(String name);
