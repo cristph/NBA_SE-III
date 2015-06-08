@@ -5,10 +5,8 @@ package po;
 
 import java.awt.Image;
 
-
 public class PlayerPO {
 	
-
 	String name; 
 	String number; //球衣号码
 	String position; //位置
@@ -19,10 +17,8 @@ public class PlayerPO {
 	String exp; //球龄
 	String school; //毕业院校
 	
-	
 	Image actionImage; //全身照
 	Image portaitImage; //球员头像
-	
 	
 	public void setName(String name) {
 		this.name = name;
@@ -58,7 +54,6 @@ public class PlayerPO {
 	public void setPortaitImage(Image portaitImage) {
 		this.portaitImage = portaitImage;
 	}
-	
 	
 	public String getName() {
 		return name;
