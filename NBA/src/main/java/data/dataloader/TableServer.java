@@ -67,20 +67,14 @@ public class TableServer {
 		DBUtil.close(conn);
 	}
 	
-	private void createTables(){
+	void createTables(){
 		processTables(c_tables);
 	}
-	private void dropTables(){
+	void dropTables(){
 		processTables(d_tables);
 	}
 	
-	boolean hasAllTables(){
-		return false;
-	}
+    	
 	
-    public static void main(String args[]){
-		
-		TableServer ts=new TableServer();
-		ts.dropTables();
-	}
+ 
 }

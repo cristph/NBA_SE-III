@@ -77,14 +77,15 @@ public class GameDataReader implements GameDataReadService {
 		
 		for(int i=3;i<info.length;i++)
 		{   
-		try{
+		   try
+		   {
 	    	data[i-3]=Integer.parseInt(info[i]);
-		
-		}catch(NumberFormatException n)
-		{
+		   }
+		   catch(NumberFormatException n)
+		   {
 			data[i-3]=-1;
 			temp.setDirty(true);
-		}
+		   }
 		}
 		
 		temp.setPlayerName(playerName);

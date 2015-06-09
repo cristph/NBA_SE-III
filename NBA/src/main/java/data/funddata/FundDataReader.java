@@ -187,16 +187,9 @@ public class FundDataReader implements FundDataReadService {
 			e.printStackTrace();
 		}
 		
-	  /*  
-	    String fileName=f.getName();
-	    StringBuffer sb=new StringBuffer(fileName);
-	    sb.delete(sb.length()-4,sb.length());
-	    //name=name[0].split("\\\\");
-	    String playerName=sb.toString();
-	    
-		result.setName(playerName);
-		*/
-		
+	
+		if((acImgFold!=null)&&(porImgFold!=null))
+		{
 		String playerName=result.getName();
 		String actionPng=acImgFold+"/"+playerName+".png";
 		String portraitImage=porImgFold+"/"+playerName+".png";
@@ -204,11 +197,12 @@ public class FundDataReader implements FundDataReadService {
 		Image actionImg=Toolkit.getDefaultToolkit().getImage(actionPng);
 		Image portraitImg=Toolkit.getDefaultToolkit().getImage(portraitImage);
 		
+		
 		result.setActionImage(actionImg);
 		result.setPortaitImage(portraitImg);
-		
+		}
 		return result;
 	}
-
+	
 	
 }
