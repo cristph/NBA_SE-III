@@ -1,10 +1,16 @@
 package data.funddata;
 
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data.sqlservice.DBUtil;
 import po.PlayerPO;
 import po.TeamPO;
 
@@ -17,35 +23,6 @@ public class FundData implements FundDataService {
 	File portimgFold=null;
 	File playerFold=null;
 	
-	static{
-		//convertImg();
-	}
-	/*
-	 * convertImg方法
-	 * 静态的图片转码方法
-	 * 在第一次新建对象的时候完成转码，之后不再转码
-	 */
-	/*private static void convertImg(){
-        Transverter ts=new Transverter();
-		
-		String sourceImg="data/teams";
-		String targetPath="data/teamPng";
-		
-		File sourceRoot=new File(sourceImg);
-		File array[]=sourceRoot.listFiles();
-		for(int i=0;i<array.length;i++)
-		{
-			String fileName=array[i].getName();
-			String backName=fileName.substring(fileName.indexOf('.')+1);
-			String preName=fileName.substring(0,fileName.indexOf('.'));
-			if(backName.equals("svg"))
-			{
-				String pngPath=targetPath+"/"+preName+".png";
-				ts.convertToPngByFIle(sourceImg+"/"+fileName,pngPath);
-			}
-		}
-	}	*/
-	
 	public FundData(){
 		fdrs=new FundDataReader();
 		imgFold=new File("data/teamPng");
@@ -56,11 +33,54 @@ public class FundData implements FundDataService {
 	}
 	
 
-	public ArrayList<TeamPO> getTeamFundData() {
+	/*public ArrayList<TeamPO> getTeamFundData() {
         ArrayList<TeamPO> list=fdrs.readTeamFile(txtFile, imgFold);
 	    return list;
-	}
+	}*/
 
+	public ArrayList<TeamPO> getTeamFundData() 
+	{
+	    String sql="select * from teamTbl";
+	    Connection conn=DBUtil.open();
+	    ArrayList<TeamPO> teamList=new ArrayList<TeamPO>();
+	    try 
+	    {
+			Statement stmt=conn.createStatement();
+			ResultSet rs=stmt.executeQuery(sql);
+			//TeamPO po=new TeamPO();
+			while(rs.next())
+			{
+			TeamPO po=new TeamPO();
+			String teamName=rs.getString(1);
+			String shortName=rs.getString(2);
+			String city=rs.getString(3);
+			String area=rs.getString(4);
+			String zone=rs.getString(5);
+			String home=rs.getString(6);
+			String birthYear=rs.getString(7);
+			String imgPath=rs.getString(8);
+			
+			po.setTeamName(teamName);
+			po.setShortName(shortName);
+			po.setLocation(city);
+			po.setCompArea(area);
+			po.setZone(zone);
+			po.setHome(home);
+			po.setBirthday(birthYear);
+			Image img=Toolkit.getDefaultToolkit().getImage(imgPath);
+			po.setTeamPic(img);
+			teamList.add(po);
+			}
+			DBUtil.close(conn);
+			
+		} 
+	    catch (SQLException e) 
+	    {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return teamList;
+    }
 	
 	public HashMap<String, Image> getTeamImage() 
 	{
@@ -69,16 +89,71 @@ public class FundData implements FundDataService {
 	}
 
 
-	public ArrayList<PlayerPO> getPlayerFundData() 
+	/*public ArrayList<PlayerPO> getPlayerFundData() 
 	{
 		// TODO Auto-generated method stub
 		ArrayList<PlayerPO> list=new ArrayList<PlayerPO>();
 		File[] array=playerFold.listFiles();
-		for(int i=0;i<array.length;i++){
+		for(int i=0;i<array.length;i++)
+		{
 		PlayerPO temp=fdrs.readPlayerFile(array[i], acimgFold.toString(), portimgFold.toString());
 		list.add(temp);
 		}
 		return list;
-	}
+	}*/
 
+	public ArrayList<PlayerPO> getPlayerFundData()
+	{
+		    String sql="select * from playerTbl";
+		    Connection conn=DBUtil.open();
+		    ArrayList<PlayerPO> teamList=new ArrayList<PlayerPO>();
+		    try 
+		    {
+				Statement stmt=conn.createStatement();
+				ResultSet rs=stmt.executeQuery(sql);
+				//TeamPO po=new TeamPO();
+				while(rs.next())
+				{
+				PlayerPO po=new PlayerPO();
+				String playerName=rs.getString(1);
+				String number=rs.getString(2);
+				String position=rs.getString(3);
+				String height=rs.getString(4);
+				String weight=rs.getString(5);
+				String birth=rs.getString(6);
+				String age=rs.getString(7);
+				String exp=rs.getString(8);
+				String school=rs.getString(9);
+				String actImgPath=rs.getString(10);
+				String porImgPath=rs.getString(11);
+				
+				po.setName(playerName);
+				po.setNumber(number);
+				po.setPosition(position);
+				po.setHeight(height);
+				po.setWeight(weight);
+				po.setBirth(birth);
+				po.setAge(age);
+				po.setExp(exp);
+				po.setSchool(school);
+				Image act=Toolkit.getDefaultToolkit().getImage(actImgPath);
+				Image por=Toolkit.getDefaultToolkit().getImage(porImgPath);
+				
+				po.setActionImage(act);
+				po.setPortaitImage(por);
+				//Image img=Toolkit.getDefaultToolkit().getImage(imgPath);
+				
+				teamList.add(po);
+				}
+				DBUtil.close(conn);
+				
+			} 
+		    catch (SQLException e) 
+		    {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return teamList;
+	}
+	
 }

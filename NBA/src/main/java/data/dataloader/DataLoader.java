@@ -24,6 +24,8 @@ public class DataLoader {
 	private String playerFold=null;
 	private String teamFold=null;
 	private String teamPngFold=null;
+	private String playerActImgFold=null;
+	private String playerPorImgFold=null;
 
 	public DataLoader(){
 		initFold();
@@ -49,6 +51,8 @@ public class DataLoader {
 		playerFold=dataFold+"players/info";
 		teamFold=dataFold+"teams/";
 	    teamPngFold=dataFold+"teamPng/";
+	    playerActImgFold=dataFold+"players/action/";
+	    playerPorImgFold=dataFold+"players/portrait/";
 	}
 	
 	public void initData()
@@ -70,7 +74,7 @@ public class DataLoader {
 		File teamPngs=new File(teamPngFold);
 		ArrayList<TeamPO> teamList=fdr.readTeamFile(teams, teamPngs);
 		
-		String sql="insert into TeamTbl(teamName,shortName,city,area,zone,home,birthyear) values(?,?,?,?,?,?,?);";
+		String sql="insert into TeamTbl(teamName,shortName,city,area,zone,home,birthyear,imgPath) values(?,?,?,?,?,?,?,?);";
 		Connection conn=DBUtil.open();
 		for(int i=0;i<teamList.size();i++)
 		{
@@ -85,6 +89,7 @@ public class DataLoader {
 			    pst.setString(5, tmp.getZone());
 			    pst.setString(6, tmp.getHome());
 			    pst.setString(7, tmp.getBirthday());
+			    pst.setString(8,teamPngFold+tmp.getTeamName()+".png");
 			  
 			    pst.executeUpdate();
 			 } 
@@ -105,7 +110,7 @@ public class DataLoader {
     	File players=new File(playerFold);
     	File[] p_arr=players.listFiles();
 
-    	String sql="insert into playerTbl(playerName,number,position,height,weight,birth,age,exp,school) values(?,?,?,?,?,?,?,?,?);";
+    	String sql="insert into playerTbl(playerName,number,position,height,weight,birth,age,exp,school,actImg,porImg) values(?,?,?,?,?,?,?,?,?,?,?);";
 
     	Connection conn=DBUtil.open();
     	for(int i=0;i<p_arr.length;i++)
@@ -123,6 +128,8 @@ public class DataLoader {
 			    pst.setString(7, tmp.getAge());
 			    pst.setString(8, tmp.getExp());
 			    pst.setString(9, tmp.getSchool());
+			    pst.setString(10, playerActImgFold+tmp.getName()+".png");
+			    pst.setString(11,playerPorImgFold+tmp.getName()+".png");
 				pst.executeUpdate();
 			} 
 		    catch (SQLException e) 

@@ -70,4 +70,7 @@ public class TeamPO {
 		this.teamPic = teamPic;
 	}
 	
+	public String toString(){
+	      return teamName+";"+shortName+";"+location+";"+compArea+";"+zone+";"+home+";"+birthday+";"+teamPic;	
+	}
 }

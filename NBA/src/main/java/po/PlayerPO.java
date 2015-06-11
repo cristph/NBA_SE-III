@@ -89,4 +89,7 @@ public class PlayerPO {
 	public Image getPortaitImage() {
 		return portaitImage;
 	}
+	public String toString(){
+		return name+";"+number+";"+age+";"+actionImage+";"+portaitImage;
+	}
 }
