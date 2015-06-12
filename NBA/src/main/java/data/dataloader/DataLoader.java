@@ -148,11 +148,11 @@ public class DataLoader {
         File fArr[]=matches.listFiles();
         String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
         		+ "chap4,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num,reb_Def_Num,reb_Num,"
-        		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,isDirty) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,isDirty,kind) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         String playerSql="insert into playerGameTbl(playerName,position,teamName,time, matchDate,matchPair"
         		+ ",matchResult,isFirst,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num"
-        		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty) values(?,"
-        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty,kind) values(?,"
+        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         
         Connection conn=DBUtil.open();
         try {
@@ -164,6 +164,10 @@ public class DataLoader {
 		        	TeamGamePO teamList[]=new TeamGamePO[2];
 		            teamList[0]=gif.getTeamGame1();
 		            teamList[1]=gif.getTeamGame2();
+		            
+		            String mdate=teamList[0].getMatchDate();
+		            String kind=Judger.judge(mdate);
+		            
 		            for(int j=0;j<2;j++)
 		            {
 		            	TeamGamePO tmp=teamList[j];
@@ -193,6 +197,9 @@ public class DataLoader {
 		            	t_pst.setInt(22, tmp.getFoulNum());
 		            	t_pst.setInt(23, tmp.getAllPlayerTime());
 		            	t_pst.setBoolean(24, tmp.getIsDirty());
+		            	t_pst.setString(25, kind);
+		            	
+		            	
 		            	t_pst.executeUpdate();
 		            }
 		            
@@ -230,6 +237,7 @@ public class DataLoader {
 		            	p_pst.setInt(23, tmp.getScore());
 		            	p_pst.setInt(24, tmp.getTwoNum());
 		            	p_pst.setBoolean(25, tmp.isDirty());
+		            	p_pst.setString(26, kind);
 		            	
 		            	p_pst.executeUpdate();
 		           }
@@ -241,4 +249,7 @@ public class DataLoader {
 		}
         DBUtil.close(conn);
    }
+    
+    
+    
 }

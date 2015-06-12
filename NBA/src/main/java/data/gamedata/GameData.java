@@ -118,6 +118,14 @@ public class GameData implements GameDataService,Runnable{
 		
 		return list;
      }
+	
+	public ArrayList<PlayerAllGamePO> getPlayerGameData(Selector st){
+		
+		
+		return null;
+		
+	}
+	
 
 	public ArrayList<TeamAllGamePO> getTeamGameData() {
 		// TODO Auto-generated method stub

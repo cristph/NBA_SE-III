@@ -112,7 +112,7 @@ public class Waiter {
         String preYear=year[0];
         String backYear=year[1];
         String yyear=null;
-		if((month>0)&&(month<=4))
+		if((month>0)&&(month<=6))
 		{
 			yyear="20"+backYear;
 		}
