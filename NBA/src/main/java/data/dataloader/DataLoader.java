@@ -121,7 +121,8 @@ public class DataLoader implements Runnable{
     	File players=new File(playerFold);
     	File[] p_arr=players.listFiles();
 
-    	String sql="insert into playerTbl(playerName,number,position,height,weight,birth,age,exp,school,actImg,porImg) values(?,?,?,?,?,?,?,?,?,?,?);";
+    	String sql="insert into playerTbl(playerName,number,position,height,"
+    			+ "weight,birth,age,exp,school,actImg,porImg) values(?,?,?,?,?,?,?,?,?,?,?);";
 
     	Connection conn=DBUtil.open();
     	for(int i=0;i<p_arr.length;i++)
@@ -232,7 +233,6 @@ public class DataLoader implements Runnable{
         	 {
 
         	     PlayerGamePO tmp=pList.get(j);
-        	     System.out.println(tmp.getPlayerName()+";"+tmp.getMatchDate());
         	     p_pst.setString(1, tmp.getPlayerName());
         	     p_pst.setString(2, tmp.getPosition());
         	     p_pst.setString(3, tmp.getTeam());

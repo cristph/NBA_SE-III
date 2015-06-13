@@ -6,6 +6,9 @@ public class Selector {
 		this.season = season;
 		this.kind = kind;
 	}
+	public Selector(){
+		
+	}
 	
 	private String season;
 	private String kind;
