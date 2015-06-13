@@ -7,6 +7,7 @@ import data.funddata.FundData;
 import data.funddata.FundDataService;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
+import data.gamedata.Selector;
 import data.gamedata.TeamInfo;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
@@ -47,7 +48,8 @@ public class PlayerCalculate{
 	ArrayList<PlayerGamePO> todayGameList;
 	
 	public PlayerCalculate(){
-		iniData();
+		Selector sel=new Selector("2014-2015","R");
+		iniData(sel);
 		cm=new CalMethod();
 		calAllInfo();
 	}
@@ -1331,13 +1333,13 @@ public class PlayerCalculate{
 	 * 匹配基本信息与比赛信息
 	 * 结果存储于ArrayList<PlayerAllGamePO> gameList中
 	 */
-	public void iniData(){
+	public void iniData(Selector sel){
 		
 		playerInfoList=new ArrayList<PlayerInfo>();
 		
 		//long a=System.currentTimeMillis();
 		GameDataService gds=new GameData();
-		playerGameList=gds.getPlayerGameData();
+		playerGameList=gds.getPlayerGameData(sel);
 		//long b=System.currentTimeMillis();
 		FundDataService fd=new FundData();
 		ArrayList<PlayerPO> temp_playerList = fd.getPlayerFundData();

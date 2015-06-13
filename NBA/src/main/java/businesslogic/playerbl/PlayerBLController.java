@@ -16,14 +16,14 @@ import value.Value.Order;
 import value.Value.Position;
 import vo.PlayerVO;
 
-public class PlayerBLController implements PlayerBLService,Runnable{
+public class PlayerBLController implements PlayerBLService{
 	
 	PlayerCalculate pc;
 	
 	public PlayerBLController(){
 		pc=new PlayerCalculate();
-		Thread thread=new Thread(this);
-		thread.start();
+		//Thread thread=new Thread(this);
+		//thread.start();
 	}
 	
 	/*
@@ -129,7 +129,8 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 		PlayerHighInfo phi=pc.getSinglePlayerHighInfo(name);
 		return phi;
 	}
-
+	
+	/*
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
@@ -147,4 +148,5 @@ public class PlayerBLController implements PlayerBLService,Runnable{
 			}
 		}
 	}
+	*/
 }
