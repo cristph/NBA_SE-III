@@ -1,7 +1,12 @@
 package data.gamedata;
 
 public class Selector {
-
+	
+	public Selector(String season, String kind) {
+		this.season = season;
+		this.kind = kind;
+	}
+	
 	private String season;
 	private String kind;
 	
