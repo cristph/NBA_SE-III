@@ -2,7 +2,7 @@ package businesslogic.playerbl;
 
 import java.util.ArrayList;
 
-import data.gamedata.GameData;
+import data.gamedata.Selector;
 import businesslogicservice.playerblservice.PlayerBLService;
 import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
@@ -128,6 +128,12 @@ public class PlayerBLController implements PlayerBLService{
 		// TODO Auto-generated method stub
 		PlayerHighInfo phi=pc.getSinglePlayerHighInfo(name);
 		return phi;
+	}
+
+	@Override
+	public void changeMatchSet(Selector sel) {
+		// TODO Auto-generated method stub
+		pc.changeMatchSet(sel);
 	}
 	
 	/*

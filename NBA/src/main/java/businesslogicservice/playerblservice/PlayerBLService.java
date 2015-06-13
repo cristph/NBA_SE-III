@@ -2,6 +2,7 @@ package businesslogicservice.playerblservice;
 
 import java.util.ArrayList;
 
+import data.gamedata.Selector;
 import test.data.PlayerHighInfo;
 import test.data.PlayerHotInfo;
 import test.data.PlayerKingInfo;
@@ -124,4 +125,13 @@ public interface PlayerBLService {
 	 * @return PlayerHighInfo
 	 */
 	public PlayerHighInfo getSinglePlayerHighInfo(String name);
+	
+	
+	/*
+	 *改变赛季
+	 * Selector指明赛季，季后赛/常规赛
+	 * Selector.seaon="2014-2015"
+	 * Selector.kind="P"/"R"
+	 */
+	public void changeMatchSet(Selector sel);
 }
