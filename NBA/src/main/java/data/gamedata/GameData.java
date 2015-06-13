@@ -53,5 +53,7 @@ public class GameData implements GameDataService{
     public ArrayList<PlayerGamePO> get_Latest_PlayerGameData(){
 		return gSql.getLatestPlayer();
 	}
+    
+    
 
 }

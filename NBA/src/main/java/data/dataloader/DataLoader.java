@@ -332,9 +332,4 @@ public class DataLoader implements Runnable{
 	    	  }
 	   }
 	}
- 	
- 	public static void main(String args[]){
- 		DataLoader dl=new DataLoader();
- 		//dl.loadGameData();
- 	}
 }
