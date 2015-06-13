@@ -12,13 +12,16 @@ import po.PlayerGamePO;
 import po.PlayerPO;
 import po.TeamGamePO;
 import po.TeamPO;
+import data.common.MatchFileList;
+import data.common.Signal;
 import data.funddata.FundDataReader;
+import data.gamedata.GameDataReadService;
 import data.gamedata.GameDataReader;
 import data.gamedata.GameInfo;
 import data.gamedata.TeamInfo;
 import data.sqlservice.DBUtil;
 
-public class DataLoader {
+public class DataLoader implements Runnable{
 
 	private String dataFold=null;
 	private String matchFold=null;
@@ -28,10 +31,18 @@ public class DataLoader {
 	private String playerActImgFold=null;
 	private String playerPorImgFold=null;
 
+	private int threadCount=0;
+	
 	public DataLoader(){
 		initFold();
+		if(threadCount==0)
+		{
+			new Thread(this).start();
+			threadCount++;
+		}
 	}
-	private void initFold()
+	
+    private void initFold()
 	{
 		Properties prop=new Properties();
 		try 
@@ -104,7 +115,6 @@ public class DataLoader {
 		
 	}
 	
-
     private void loadPlayerData()
     {
     	FundDataReader fdr=new FundDataReader();
@@ -147,7 +157,17 @@ public class DataLoader {
         GameDataReader gdr=new GameDataReader();
         File matches=new File(matchFold);
         File fArr[]=matches.listFiles();
-        String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
+        for(int i=0;i<fArr.length;i++)
+        {
+        GameInfo gif=gdr.readMatchFile(fArr[i]);
+        loadGif(gif);
+        }
+     }
+
+	
+    public void loadGif(GameInfo gif)
+    {
+    	String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
         		+ "chap4,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num,reb_Def_Num,reb_Num,"
         		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,twoNum,isDirty,kind,season) "
         		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -159,122 +179,162 @@ public class DataLoader {
 				+"oppTeamDefRebNum,teamHitNum,oppAttNum,oppTwoNum,"
 				+"teamThrowNum,teamFreeNum,teamErrorNum) values(?,"
         		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-        
-        Connection conn=DBUtil.open();
-        try {
-			PreparedStatement t_pst=conn.prepareStatement(teamSql);
-			PreparedStatement p_pst=conn.prepareStatement(playerSql);
-			 for(int i=0;i<fArr.length;i++)
-		        {
-		        	GameInfo gif=gdr.readMatchFile(fArr[i]);
-		        	TeamGamePO teamList[]=new TeamGamePO[2];
-		            teamList[0]=gif.getTeamGame1();
-		            teamList[1]=gif.getTeamGame2();
-		            
-		            String mdate=teamList[0].getMatchDate();
-		            String season=Judger.getSeason(mdate);
-		            String kind=Judger.judge(mdate);
-		            
-		            for(int j=0;j<2;j++)
-		            {
-		            	TeamGamePO tmp=teamList[j];
-		            	
-		            	t_pst.setString(1, tmp.getTeamName());
-		            	t_pst.setString(2, tmp.getMatchDate());
-		            	t_pst.setString(3, tmp.getMatchPair());
-		            	t_pst.setString(4, tmp.getMatchResult());
-		            	String score[]=tmp.getPartScore();
-		            	t_pst.setString(5, score[0]);
-		            	t_pst.setString(6, score[1]);
-		            	t_pst.setString(7, score[2]);
-		            	t_pst.setString(8, score[3]);
-		            	t_pst.setInt(9, tmp.getHitShootNum());
-		            	t_pst.setInt(10, tmp.getShootNum());
-		            	t_pst.setInt(11, tmp.getThreePointNum());
-		            	t_pst.setInt(12, tmp.getThreeShootNum());
-		            	t_pst.setInt(13, tmp.getFreeHitNum());
-		            	t_pst.setInt(14, tmp.getFreeNum());
-		            	t_pst.setInt(15, tmp.getRebAttNum());
-		            	t_pst.setInt(16, tmp.getRebDefNum());
-		            	t_pst.setInt(17, tmp.getRebTotalNum());
-		            	t_pst.setInt(18, tmp.getAllPlayerTime());
-		            	t_pst.setInt(19, tmp.getStealNum());
-		            	t_pst.setInt(20, tmp.getBlockNum());
-		            	t_pst.setInt(21, tmp.getErrorNum());
-		            	t_pst.setInt(22, tmp.getFoulNum());
-		            	t_pst.setInt(23, tmp.getAllPlayerTime());
-		            	t_pst.setInt(24, tmp.getShootNum()-tmp.getThreeShootNum());
-		            	t_pst.setBoolean(25, tmp.isDirty());
-		            	t_pst.setString(26, kind);
-		            	t_pst.setString(27, season);
-		            	
-		            	
-		            	t_pst.executeUpdate();
-		            }
-		            
-		            ArrayList<PlayerGamePO> pList=gif.getGameList();
-		            for(int j=0;j<pList.size();j++)
-		            {
-		
-		            	PlayerGamePO tmp=pList.get(j);
-                        System.out.println(tmp.getPlayerName()+";"+tmp.getMatchDate());
-		            	p_pst.setString(1, tmp.getPlayerName());
-		            	p_pst.setString(2, tmp.getPosition());
-		            	p_pst.setString(3, tmp.getTeam());
-		            	p_pst.setInt(4, tmp.getTime());
-		            	
-		            	p_pst.setString(5, tmp.getMatchDate());
-		            	p_pst.setString(6, tmp.getMatchPair());
-		            	p_pst.setString(7, tmp.getMatchResult());
-		            	p_pst.setBoolean(8, tmp.isFirst());
-		            	p_pst.setInt(9, tmp.getHitShootNum());
-		            	p_pst.setInt(10, tmp.getShootNum());
-		            	p_pst.setInt(11, tmp.getThreePointNum());
-		            	p_pst.setInt(12, tmp.getThreeShootNum());
-		            	p_pst.setInt(13, tmp.getFreeHitNum());
-		            	p_pst.setInt(14, tmp.getFreeNum());
-		            	p_pst.setInt(15, tmp.getRebAttNum());
-		            	p_pst.setInt(16, tmp.getRebDefNum());
-		            	p_pst.setInt(17, tmp.getRebTotalNum());
-		            	p_pst.setInt(18, tmp.getAssistNum());
-		            	p_pst.setInt(19, tmp.getStealNum());
-		            	p_pst.setInt(20, tmp.getBlockNum());
-		            	p_pst.setInt(21, tmp.getErrorNum());
-		            	p_pst.setInt(22, tmp.getFoulNum());
-		            	p_pst.setInt(23, tmp.getScore());
-		            	p_pst.setInt(24, tmp.getTwoNum());
-		            	p_pst.setBoolean(25, tmp.isDirty());
-		            	p_pst.setString(26, kind);
-		            	p_pst.setString(27, season);
-		            	
-		            	TeamInfo tif=tmp.getTif();
-		            	p_pst.setInt(28, tif.getAllPlayerTime());
-		            	p_pst.setInt(29, tif.getTeamRebNum());
-		            	p_pst.setInt(30, tif.getOppTeamRebNum());
-		            	p_pst.setInt(31, tif.getTeamAttRebNum());
-		            	p_pst.setInt(32, tif.getOppAttNum());
-		            	p_pst.setInt(33, tif.getTeamDefRebNum());
-		            	p_pst.setInt(34, tif.getOppTeamDefRebNum());
-		            	
-		            	
-		            	p_pst.setInt(35, tif.getTeamHitNum());
-		            	p_pst.setInt(36, tif.getOppAttNum());
-		            	p_pst.setInt(37, tif.getOppTwoNum());
-		            	p_pst.setInt(38, tif.getTeamThrowNum());
-		            	p_pst.setInt(39, tif.getTeamFreeNum());
-		            	p_pst.setInt(40, tif.getTeamErrorNum());
-		            	
-		            	p_pst.executeUpdate();
-		           }
-		        }
-		} 
-        catch (SQLException e) 
-        {
-			e.printStackTrace();
-		}
-        DBUtil.close(conn);
-   }
-    
-    
-    
+       Connection conn=DBUtil.open();
+       try {
+        	PreparedStatement t_pst=conn.prepareStatement(teamSql);
+        	PreparedStatement p_pst=conn.prepareStatement(playerSql);
+        	        
+        	TeamGamePO teamList[]=new TeamGamePO[2];
+        	teamList[0]=gif.getTeamGame1();
+        	teamList[1]=gif.getTeamGame2();
+        	        
+        	String mdate=teamList[0].getMatchDate();
+        	String season=Judger.getSeason(mdate);
+        	String kind=Judger.judge(mdate);
+        	        
+        	for(int j=0;j<2;j++)
+        	{
+        	    TeamGamePO tmp=teamList[j];
+        	    t_pst.setString(1, tmp.getTeamName());
+        	    t_pst.setString(2, tmp.getMatchDate());
+        	    t_pst.setString(3, tmp.getMatchPair());
+        	    t_pst.setString(4, tmp.getMatchResult());
+        	    String score[]=tmp.getPartScore();
+        	    t_pst.setString(5, score[0]);
+        	    t_pst.setString(6, score[1]);
+        	    t_pst.setString(7, score[2]);
+        	    t_pst.setString(8, score[3]);
+        	    t_pst.setInt(9, tmp.getHitShootNum());
+        	    t_pst.setInt(10, tmp.getShootNum());
+        	    t_pst.setInt(11, tmp.getThreePointNum());
+        	    t_pst.setInt(12, tmp.getThreeShootNum());
+        	    t_pst.setInt(13, tmp.getFreeHitNum());
+        	    t_pst.setInt(14, tmp.getFreeNum());
+        	    t_pst.setInt(15, tmp.getRebAttNum());
+        	    t_pst.setInt(16, tmp.getRebDefNum());
+        	    t_pst.setInt(17, tmp.getRebTotalNum());
+        	    t_pst.setInt(18, tmp.getAllPlayerTime());
+        	    t_pst.setInt(19, tmp.getStealNum());
+        	    t_pst.setInt(20, tmp.getBlockNum());
+        	    t_pst.setInt(21, tmp.getErrorNum());
+        	    t_pst.setInt(22, tmp.getFoulNum());
+        	    t_pst.setInt(23, tmp.getAllPlayerTime());
+        	    t_pst.setInt(24, tmp.getShootNum()-tmp.getThreeShootNum());
+        	    t_pst.setBoolean(25, tmp.isDirty());
+        	    t_pst.setString(26, kind);
+        	    t_pst.setString(27, season);
+        	        	
+        	    t_pst.executeUpdate();
+        	 }
+        	        
+        	 ArrayList<PlayerGamePO> pList=gif.getGameList();
+        	 for(int j=0;j<pList.size();j++)
+        	 {
+
+        	     PlayerGamePO tmp=pList.get(j);
+        	     System.out.println(tmp.getPlayerName()+";"+tmp.getMatchDate());
+        	     p_pst.setString(1, tmp.getPlayerName());
+        	     p_pst.setString(2, tmp.getPosition());
+        	     p_pst.setString(3, tmp.getTeam());
+        	     p_pst.setInt(4, tmp.getTime());
+        	        	
+        	     p_pst.setString(5, tmp.getMatchDate());
+        	     p_pst.setString(6, tmp.getMatchPair());
+        	     p_pst.setString(7, tmp.getMatchResult());
+        	     p_pst.setBoolean(8, tmp.isFirst());
+        	     p_pst.setInt(9, tmp.getHitShootNum());
+        	     p_pst.setInt(10, tmp.getShootNum());
+        	     p_pst.setInt(11, tmp.getThreePointNum());
+        	     p_pst.setInt(12, tmp.getThreeShootNum());
+        	     p_pst.setInt(13, tmp.getFreeHitNum());
+        	     p_pst.setInt(14, tmp.getFreeNum());
+        	     p_pst.setInt(15, tmp.getRebAttNum());
+        	     p_pst.setInt(16, tmp.getRebDefNum());
+        	     p_pst.setInt(17, tmp.getRebTotalNum());
+        	     p_pst.setInt(18, tmp.getAssistNum());
+        	     p_pst.setInt(19, tmp.getStealNum());
+        	     p_pst.setInt(20, tmp.getBlockNum());
+        	     p_pst.setInt(21, tmp.getErrorNum());
+        	     p_pst.setInt(22, tmp.getFoulNum());
+        	     p_pst.setInt(23, tmp.getScore());
+        	     p_pst.setInt(24, tmp.getTwoNum());
+        	     p_pst.setBoolean(25, tmp.isDirty());
+        	     p_pst.setString(26, kind);
+        	     p_pst.setString(27, season);
+        	        	
+        	     TeamInfo tif=tmp.getTif();
+        	     p_pst.setInt(28, tif.getAllPlayerTime());
+        	     p_pst.setInt(29, tif.getTeamRebNum());
+        	     p_pst.setInt(30, tif.getOppTeamRebNum());
+        	     p_pst.setInt(31, tif.getTeamAttRebNum());
+        	     p_pst.setInt(32, tif.getOppAttNum());
+        	     p_pst.setInt(33, tif.getTeamDefRebNum());
+        	     p_pst.setInt(34, tif.getOppTeamDefRebNum());
+        	        	
+        	     p_pst.setInt(35, tif.getTeamHitNum());
+        	     p_pst.setInt(36, tif.getOppAttNum());
+        	     p_pst.setInt(37, tif.getOppTwoNum());
+        	     p_pst.setInt(38, tif.getTeamThrowNum());
+        	     p_pst.setInt(39, tif.getTeamFreeNum());
+        	     p_pst.setInt(40, tif.getTeamErrorNum());
+        	     p_pst.executeUpdate();
+			}
+       }
+       catch (Exception e) 
+       {
+    	   System.out.println("DataLoader中的loadgif出现异常");
+       }
+}
+   
+ 	public void run() 
+ 	{
+		  File dataFold=new File(matchFold);
+		  File arr[]=dataFold.listFiles();
+	      MatchFileList mfl=new MatchFileList(arr);
+	 
+	      while(true)
+	      {
+	    	  try 
+	    	  {
+				Thread.sleep(2000);
+			  } 
+	    	  catch (InterruptedException e) 
+	    	  {
+				e.printStackTrace();
+			  }
+	    	  
+	    	  File[] f=dataFold.listFiles();
+	    	  Signal sig=mfl.hasThese(f);
+	    	  boolean change=sig.getChange();
+	    	  
+	    	  if(!change)
+	    		  continue;
+	    	  else
+	    	  {   
+	    		  String op=sig.getOpration();
+	    		  if(op.equals("ADD"))
+	    		  {
+	    			  ArrayList<File> listF=sig.getNewFile();
+	    			  System.out.println("新加入"+listF.size()+"个文件");
+	    			  for(int i=0;i<listF.size();i++)
+	    			  {
+	    				  File temp=listF.get(i);
+	    				  GameDataReadService gdrs=new GameDataReader();
+	    				  GameInfo gif=gdrs.readMatchFile(temp);
+	    				  loadGif(gif);
+	    			  }
+	    		  }
+	    		  else if(op.equals("DEL"))
+	    		  {
+	    			     loadGameData();
+	    		  }
+	    		  
+	    	  }
+	   }
+	}
+ 	
+ 	public static void main(String args[]){
+ 		DataLoader dl=new DataLoader();
+ 		//dl.loadGameData();
+ 	}
 }
