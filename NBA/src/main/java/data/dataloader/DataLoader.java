@@ -15,6 +15,7 @@ import po.TeamPO;
 import data.funddata.FundDataReader;
 import data.gamedata.GameDataReader;
 import data.gamedata.GameInfo;
+import data.gamedata.TeamInfo;
 import data.sqlservice.DBUtil;
 
 public class DataLoader {
@@ -148,11 +149,16 @@ public class DataLoader {
         File fArr[]=matches.listFiles();
         String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
         		+ "chap4,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num,reb_Def_Num,reb_Num,"
-        		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,isDirty,kind) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,twoNum,isDirty,kind,season) "
+        		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         String playerSql="insert into playerGameTbl(playerName,position,teamName,time, matchDate,matchPair"
         		+ ",matchResult,isFirst,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num"
-        		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty,kind) values(?,"
-        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty,kind,season,"
+        		+ "allPlayerTime,teamRebNum,"
+        		+"oppTeamRebNum,teamAttRebNum,oppTeamAttRebNum,teamDefRebNum,"
+				+"oppTeamDefRebNum,teamHitNum,oppAttNum,oppTwoNum,"
+				+"teamThrowNum,teamFreeNum,teamErrorNum) values(?,"
+        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         
         Connection conn=DBUtil.open();
         try {
@@ -166,6 +172,7 @@ public class DataLoader {
 		            teamList[1]=gif.getTeamGame2();
 		            
 		            String mdate=teamList[0].getMatchDate();
+		            String season=Judger.getSeason(mdate);
 		            String kind=Judger.judge(mdate);
 		            
 		            for(int j=0;j<2;j++)
@@ -196,8 +203,10 @@ public class DataLoader {
 		            	t_pst.setInt(21, tmp.getErrorNum());
 		            	t_pst.setInt(22, tmp.getFoulNum());
 		            	t_pst.setInt(23, tmp.getAllPlayerTime());
-		            	t_pst.setBoolean(24, tmp.getIsDirty());
-		            	t_pst.setString(25, kind);
+		            	t_pst.setInt(24, tmp.getShootNum()-tmp.getThreeShootNum());
+		            	t_pst.setBoolean(25, tmp.isDirty());
+		            	t_pst.setString(26, kind);
+		            	t_pst.setString(27, season);
 		            	
 		            	
 		            	t_pst.executeUpdate();
@@ -206,10 +215,8 @@ public class DataLoader {
 		            ArrayList<PlayerGamePO> pList=gif.getGameList();
 		            for(int j=0;j<pList.size();j++)
 		            {
-		   /*	String playerSql="insert into playerTbl(playerName,position,teamName,time, matchDate,matchPair"
-		               + ",matchResult,isFirst,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num"
-		                		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty
-*/		            	PlayerGamePO tmp=pList.get(j);
+		
+		            	PlayerGamePO tmp=pList.get(j);
                         System.out.println(tmp.getPlayerName()+";"+tmp.getMatchDate());
 		            	p_pst.setString(1, tmp.getPlayerName());
 		            	p_pst.setString(2, tmp.getPosition());
@@ -238,6 +245,24 @@ public class DataLoader {
 		            	p_pst.setInt(24, tmp.getTwoNum());
 		            	p_pst.setBoolean(25, tmp.isDirty());
 		            	p_pst.setString(26, kind);
+		            	p_pst.setString(27, season);
+		            	
+		            	TeamInfo tif=tmp.getTif();
+		            	p_pst.setInt(28, tif.getAllPlayerTime());
+		            	p_pst.setInt(29, tif.getTeamRebNum());
+		            	p_pst.setInt(30, tif.getOppTeamRebNum());
+		            	p_pst.setInt(31, tif.getTeamAttRebNum());
+		            	p_pst.setInt(32, tif.getOppAttNum());
+		            	p_pst.setInt(33, tif.getTeamDefRebNum());
+		            	p_pst.setInt(34, tif.getOppTeamDefRebNum());
+		            	
+		            	
+		            	p_pst.setInt(35, tif.getTeamHitNum());
+		            	p_pst.setInt(36, tif.getOppAttNum());
+		            	p_pst.setInt(37, tif.getOppTwoNum());
+		            	p_pst.setInt(38, tif.getTeamThrowNum());
+		            	p_pst.setInt(39, tif.getTeamFreeNum());
+		            	p_pst.setInt(40, tif.getTeamErrorNum());
 		            	
 		            	p_pst.executeUpdate();
 		           }

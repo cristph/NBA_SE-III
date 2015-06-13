@@ -13,6 +13,7 @@ public class Judger {
 	{
 		pMap=new HashMap<String,String>();
 		pMap.put("2012-2013", "2013-04-17");
+		
 	}
 	
 	public static String judge(String date)
@@ -42,7 +43,7 @@ public class Judger {
 	    }
 	    return "p";
 	}
-	private static String getSeason(String date){
+	public static String getSeason(String date){
 		String season=null;
 		String d_arr[]=date.split("-");
 		int month=Integer.parseInt(d_arr[1]);

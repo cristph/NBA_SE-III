@@ -3,7 +3,7 @@ package po;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class PlayerAllGamePO {
+public class PlayerAllGamePO{
 
 	private static HashSet<String> eastTeams=null;
 	
@@ -37,8 +37,6 @@ public class PlayerAllGamePO {
 		gameDataList=new ArrayList<PlayerGamePO>();
 	}
 	
-	
-	
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
@@ -54,7 +52,6 @@ public class PlayerAllGamePO {
 	public void setGameDataList(ArrayList<PlayerGamePO> gameDataList) {
 		this.gameDataList = gameDataList;
 	}
-	
 	
 	public String getPlayerName() {
 		return playerName;
@@ -77,8 +74,4 @@ public class PlayerAllGamePO {
 	public String getArea() {
 		return area;
 	}
-
-
-
-
 }

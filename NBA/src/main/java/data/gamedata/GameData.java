@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import data.common.MatchFileList;
 import data.common.Signal;
-import data.common.Waiter;
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
 import po.TeamAllGamePO;
@@ -17,8 +16,9 @@ public class GameData implements GameDataService,Runnable{
 	private static HashMap<String,TeamAllGamePO> teamMap=null;
 	private static HashMap<String,PlayerAllGamePO> playerMap=null;
 	private static File matchFold=null;
-	private static int threadCount=0;
 	private static boolean dataChange=false;
+	
+	private GameSqlServer gSql=null;
 	
     static
     {
@@ -88,7 +88,6 @@ public class GameData implements GameDataService,Runnable{
 		for(int j=0;j<list.size();j++)
 		{
 			addPlayerGamePO(list.get(j));
-			
 		}
 	}
 	
@@ -100,84 +99,49 @@ public class GameData implements GameDataService,Runnable{
 	
 	
 	public GameData(){
-		if(threadCount==0){
-		new Thread(this).start();
-		threadCount=1;
-		}
-    }
-	
-    public ArrayList<PlayerAllGamePO> getPlayerGameData() {
-		// TODO Auto-generated method stub
-        java.util.Iterator<String> it=playerMap.keySet().iterator();
-		ArrayList<PlayerAllGamePO> list=new ArrayList<PlayerAllGamePO>();
-
-		while(it.hasNext()){
-			PlayerAllGamePO temp=playerMap.get(it.next());
-			list.add(temp);
-		}
-		
-		return list;
-     }
-	
-	public ArrayList<PlayerAllGamePO> getPlayerGameData(Selector st){
-		
-		
-		return null;
-		
+		gSql=new GameSqlServer();
 	}
 	
-
-	public ArrayList<TeamAllGamePO> getTeamGameData() {
-		// TODO Auto-generated method stub
-        java.util.Iterator<String> it=teamMap.keySet().iterator();
+	public ArrayList<PlayerAllGamePO> getPlayerGameData(Selector st)
+	{
+		String kind=st.getKind();
+		String season=st.getSeason();
 		
-		ArrayList<TeamAllGamePO> list=new ArrayList<TeamAllGamePO>();
-		while(it.hasNext())
-		{
-			TeamAllGamePO temp=teamMap.get(it.next());
-			list.add(temp);
-		}
+		HashMap<String,PlayerAllGamePO> pMap=gSql.getPlayerGameData(season, kind);
+		java.util.Iterator<String> it=pMap.keySet().iterator();
 		
+		
+	    ArrayList<PlayerAllGamePO> list=new ArrayList<PlayerAllGamePO>();
+        while(it.hasNext())
+        {
+			PlayerAllGamePO temp=pMap.get(it.next());
+		    list.add(temp);
+	    }
+		return list;
+	}
+	
+	public ArrayList<TeamAllGamePO> getTeamGameData(Selector st) {
+		String kind=st.getKind();
+		String season=st.getSeason();
+		
+		HashMap<String,TeamAllGamePO> tMap=gSql.getTeamGameData(season, kind);
+		java.util.Iterator<String> it=tMap.keySet().iterator();
+		
+		
+	    ArrayList<TeamAllGamePO> list=new ArrayList<TeamAllGamePO>();
+        while(it.hasNext())
+        {
+        	TeamAllGamePO temp=tMap.get(it.next());
+		    list.add(temp);
+	    }
 		return list;
 	}
 
-	public ArrayList<PlayerGamePO> get_Latest_PlayerGameData() {
-		// TODO Auto-generated method stub
-		File[] array=matchFold.listFiles();
-		Waiter waiter=new Waiter();
-		int maxDate=0;
-		GameDataReadService gdrs=new GameDataReader();
-		
-		for(int i=0;i<array.length;i++)
-		{
-			String name=array[i].getName();
-			String names[]=name.split("_");
-			String date=waiter.changeDate(names[1], names[0]);
-			String time[]=date.split("-");
-			date=time[0]+time[1]+time[2];
-			int temp=Integer.parseInt(date);
-			if(temp>maxDate)
-				maxDate=temp;
-		}
-		
-		GameInfo gif=null;
-		ArrayList<PlayerGamePO> result=new ArrayList<PlayerGamePO>();
-		for(int i=0;i<array.length;i++)
-		{
-			String name=array[i].getName();
-			String names[]=name.split("_");
-			String date=waiter.changeDate(names[1], names[0]);
-			String time[]=date.split("-");
-			date=time[0]+time[1]+time[2];
-			int temp=Integer.parseInt(date);
-			if(temp==maxDate){
-				gif=gdrs.readMatchFile(array[i]);
-				ArrayList<PlayerGamePO> pList=gif.getGameList();
-				result.addAll(pList);
-		    }
-		}
-		return result;
+    public ArrayList<PlayerGamePO> get_Latest_PlayerGameData(){
+		return gSql.getLatestPlayer();
 	}
+	
+	
 	
     public void run() {
 		// TODO Auto-generated method stub
@@ -226,5 +190,6 @@ public class GameData implements GameDataService,Runnable{
 	    	  }
 	   }
 	}
+
 
 }

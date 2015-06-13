@@ -2,16 +2,14 @@ package po;
 
 import java.util.ArrayList;
 
-public class TeamAllGamePO {
+public class TeamAllGamePO{
 
 	String teamName;
 	ArrayList<TeamGamePO> gameDataList;
 	
 	public TeamAllGamePO(){
 		gameDataList=new ArrayList<TeamGamePO>();
-		
 	}
-	
 	public String getTeamName() {
 		return teamName;
 	}
@@ -28,6 +26,5 @@ public class TeamAllGamePO {
 		if(po!=null)
 		gameDataList.add(po);
 		gameDataList.sort(null);
-		
 	}
 }

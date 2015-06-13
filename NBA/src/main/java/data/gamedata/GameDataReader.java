@@ -196,9 +196,9 @@ private void updateTeam(String line){
 	temp.setFoulNum(foul);
 	
 	 if(isDirty){
-		temp.setIsDirty(isDirty);
+		temp.setDirty(isDirty);
 		if(currentTeam==2)
-			teamGame1.setIsDirty(isDirty);
+			teamGame1.setDirty(isDirty);
 	}
 }
 	

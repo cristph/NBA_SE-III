@@ -1,6 +1,6 @@
 package data.dataloader;
 
-public class Test 
+public class DataLoadDriver 
 {
     public static void main(String[] args) 
 	{
