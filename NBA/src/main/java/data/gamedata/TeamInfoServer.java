@@ -1,9 +1,6 @@
 package data.gamedata;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 
 import data.sqlservice.DBUtil;
@@ -15,8 +12,7 @@ public class TeamInfoServer {
 	private static HashMap<String,TeamInfo> tifs=null;
 	private static String currentPair=null;
 	private static String currentDate=null;
-	private static String team1=null;
-	private static String team2=null;
+
 	
 	public TeamInfoServer(){
 		conn=DBUtil.open();
