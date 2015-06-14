@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 
+
 import data.common.Waiter;
 import po.PlayerGamePO;
 import po.TeamGamePO;
@@ -220,8 +221,6 @@ private GameInfo makeGameInfo(){
 			teamGame1.getRebAttNum(),teamGame2.getRebDefNum(),teamGame1.getRebDefNum(),teamGame2.getFreeHitNum()+teamGame2.getHitShootNum(),teamGame1.getRebAttNum(),
 			teamGame1.getShootNum()-teamGame1.getThreeShootNum(),teamGame2.getShootNum(),teamGame2.getFreeNum(),teamGame2.getErrorNum());
 	
-	//System.out.println("罚球数="+info1.getTeamFreeNum()+" "+currentPair+" "+currentDate);
-	
 
 	for(int i=0;i<playerList.size();i++)
 	{
@@ -252,6 +251,7 @@ public GameInfo readMatchFile(File f) {
 			String temp[]=name.split("_");
 			currentSeason=temp[0];
 			try {
+			
 				FileReader inOne=new FileReader(f);
 				BufferedReader inTwo=new BufferedReader(inOne);
 				String line=null;

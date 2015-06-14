@@ -29,4 +29,11 @@ public class GameData implements GameDataService{
     public ArrayList<PlayerGamePO> get_Latest_PlayerGameData(){
 		return gSql.getLatestPlayer();
 	}
+
+	@Override
+	public ArrayList<PlayerGamePO> getPlayerGameData_BySeason(PlayerChoosor pcs) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
 }

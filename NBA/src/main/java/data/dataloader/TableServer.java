@@ -60,10 +60,11 @@ public class TableServer {
 				stat.execute(tables[i]);
 			}
 			
-			} catch (Exception e) {
+			} catch (Exception e) 
+		    {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			System.out.println("TableServer操作表格失败");
+		    }
 		DBUtil.close(conn);
 	}
 	

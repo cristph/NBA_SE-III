@@ -443,11 +443,15 @@ public class GameSqlServer {
 
     public static void main(String args[]){
     	GameSqlServer gss=new GameSqlServer();
-    	Selector st=new Selector("2012-2013","A");
-    	
+    	PlayerChoosor pcs=new PlayerChoosor("2013-2014","J. Harden");
+    	double time1=System.currentTimeMillis();
+    	ArrayList<PlayerGamePO> list=gss.getPlayerGameData_BySeason(pcs);
+    	double time2=System.currentTimeMillis();
+    	System.out.println(time2-time1);
+    	System.out.println(list.size());
+    	/*Selector st=new Selector("2012-2013","A");
     	for(int i=0;i<5;i++){
-      
-    	try 
+        try 
     	{
 			Thread.sleep(2000);
 		} 
@@ -456,7 +460,7 @@ public class GameSqlServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-       /* double time1=System.currentTimeMillis();
+        double time1=System.currentTimeMillis();
     	ArrayList<TeamAllGamePO> list=gss.getTeamGameData(st);
     	double time2=System.currentTimeMillis();
     	System.out.println(time2-time1);*/
@@ -464,7 +468,7 @@ public class GameSqlServer {
     	
     	}
     	
-    }
+    
     private boolean containKey(Updator up,Set<Updator> set){
     	Iterator<Updator> it=set.iterator();
     	while(it.hasNext())
@@ -473,7 +477,30 @@ public class GameSqlServer {
     			return true;
     	}
 		return false;
+    }
+    
+    public ArrayList<PlayerGamePO> getPlayerGameData_BySeason(PlayerChoosor pcs){
+    	String sql="select * from playergametbl where season=? and playername=?";
+    	ArrayList<PlayerGamePO> resultList=new ArrayList<PlayerGamePO>();
+    	try 
+    	{
+			PreparedStatement pst=conn.prepareStatement(sql);
+			pst.setString(1, pcs.getSeason());
+			pst.setString(2, pcs.getPlayerName());
+			ResultSet rs=pst.executeQuery();
+			while(rs.next())
+			{
+				PlayerGamePO po=makePlayerGamePO(rs);
+				resultList.add(po);
+			}
+		} 
+    	catch (SQLException e) 
+    	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
+		return resultList;
     }
     
 }
