@@ -16,6 +16,16 @@ def draw(IMG_PATH):
     plt.plot(x, 'b-')
     #show image
     plt.savefig(IMG_PATH)
+   
+    file_object = open(sys.argv[3], 'w')
+    file_object.write('klklklklklkl')
+    file_object.write('\r\n') 
+    file_object.write('koojijuhusahu')
+    file_object.close( )
+    print("lol");
+    #print("\n");
+    print("hihi");
+    #return 'kkkkkkkkkkkkkkkkkkkkkkkkkk'
 
 #the code should not be changed
 if __name__ == '__main__':

@@ -48,7 +48,7 @@ public class PlayerCalculate{
 	ArrayList<PlayerGamePO> todayGameList;
 	
 	public PlayerCalculate(){
-		Selector sel=new Selector("2014-2015","R");
+		Selector sel=new Selector("2012-2013","R");
 		iniData(sel);
 		cm=new CalMethod();
 		calAllInfo();
@@ -964,6 +964,8 @@ public class PlayerCalculate{
 		
 		playerInfoList=new ArrayList<PlayerInfo>();
 		
+		
+		
 		//long a=System.currentTimeMillis();
 		GameDataService gds=new GameData();
 		playerGameList=gds.getPlayerGameData(sel);
@@ -978,6 +980,9 @@ public class PlayerCalculate{
 		//System.out.println("iniData time2: "+e);
 		
 		int playerListSize=playerGameList.size();
+		
+		//System.out.println("playerListSize<<<<<"+playerListSize);
+		
 		for(int i=0;i<playerListSize;i++){//对每一个参赛的选手
 			
 			boolean isExist=false;
@@ -987,6 +992,8 @@ public class PlayerCalculate{
 			String teamName=pag.getTeamName();
 			String lea=pag.getArea();
 			ArrayList<PlayerGamePO> gameDataList=pag.getGameDataList();
+			
+			//System.out.println("playerList i<<<<<"+i+"<<<size"+gameDataList.size()+"<>"+pag.getPlayerName());
 			
 			for(int j=0;j<temp_playerList.size();j++){//匹配其基本信息
 				
