@@ -13,6 +13,8 @@ public class Judger {
 	{
 		pMap=new HashMap<String,String>();
 		pMap.put("2012-2013", "2013-04-17");
+		pMap.put("2013-2014", "2014-04-17");
+		pMap.put("2014-2015", "2015-04-17");
 		
 	}
 	

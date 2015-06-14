@@ -331,6 +331,3 @@ public GameInfo readMatchFile(File f) {
     	}	
     }
 }	
-
-	
-

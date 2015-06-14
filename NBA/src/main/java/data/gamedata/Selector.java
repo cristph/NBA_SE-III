@@ -6,9 +6,7 @@ public class Selector {
 		this.season = season;
 		this.kind = kind;
 	}
-	public Selector(){
-		
-	}
+	public Selector(){}
 	
 	private String season;
 	private String kind;
@@ -25,7 +23,12 @@ public class Selector {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	
+	public boolean equals(Selector st){
+		boolean b1=st.getKind().equals(kind);
+		boolean b2=st.getSeason().equals(season);
+		return b1&&b2;
+    }
+
 
 	
 }
