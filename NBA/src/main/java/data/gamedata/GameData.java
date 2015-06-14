@@ -16,28 +16,17 @@ public class GameData implements GameDataService{
 	
 	public ArrayList<PlayerAllGamePO> getPlayerGameData(Selector st)
 	{
-		String kind=st.getKind();
-		String season=st.getSeason();
-		
-		ArrayList<PlayerAllGamePO> list=gSql.getPlayerGameData(season, kind);
-	
-		return list;
+		ArrayList<PlayerAllGamePO> list=gSql.getPlayerGameData(st);
+	    return list;
 	}
 	
 	public ArrayList<TeamAllGamePO> getTeamGameData(Selector st) 
 	{
-		String kind=st.getKind();
-		String season=st.getSeason();
-		
-		ArrayList<TeamAllGamePO> list=gSql.getTeamGameData(season, kind);
-		
+		ArrayList<TeamAllGamePO> list=gSql.getTeamGameData(st);
 		return list;
      }
 
     public ArrayList<PlayerGamePO> get_Latest_PlayerGameData(){
 		return gSql.getLatestPlayer();
 	}
-    
-    
-
 }

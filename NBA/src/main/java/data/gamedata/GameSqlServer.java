@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import po.PlayerAllGamePO;
 import po.PlayerGamePO;
@@ -18,20 +20,111 @@ public class GameSqlServer {
 
 	private Connection conn=null;
 	//private TeamInfoServer tis=null;
+	private static HashMap<Updator,HashMap<String,PlayerAllGamePO>> playerGamemap=null;
+	private static HashMap<Updator,HashMap<String,TeamAllGamePO>>   teamGamemap=null;
+	private static int playerId=0;
+	private static int teamId=0;
+	
+	
+	static
+	{
+		playerGamemap=new HashMap<Updator,HashMap<String,PlayerAllGamePO>>();
+		teamGamemap=new HashMap<Updator,HashMap<String,TeamAllGamePO>>();
+	}
+	
 	public GameSqlServer(){
 		conn=DBUtil.open();
 	}
 	
-	public ArrayList<PlayerAllGamePO> getPlayerGameData(String season,String kind){
-		String sql="select * from playergametbl where season=? and kind=?";
+	public ArrayList<PlayerAllGamePO> getPlayerGameData(Selector st){
+		setMaxID();
+		Updator u=new Updator(st,playerId);
+		
+        if(containKey(u,playerGamemap.keySet()))
+        {
+        	Iterator<Updator> it=playerGamemap.keySet().iterator();
+        	while(it.hasNext())
+        	{
+        		Updator tmp=it.next();
+        		if(tmp.equals(u)&&(tmp.getMaxId()==u.getMaxId()))
+        		{
+        			 return MapToList.convertList(playerGamemap.get(tmp));
+        	    }
+        		else if(tmp.equals(u)&&(tmp.getMaxId()<u.getMaxId()))
+        		{
+        			 HashMap<String,PlayerAllGamePO> oldMap=playerGamemap.get(tmp);
+        			
+        			 HashMap<String,PlayerAllGamePO> newMap=updatePlayerGameData(tmp.getMaxId(),oldMap);
+        			 playerGamemap.put(u, newMap);
+        			 return MapToList.convertList(newMap);
+        		}
+        	}
+        }
+        else
+        {
+        	HashMap<String,PlayerAllGamePO> newMap=makePlayerGameData(st);
+        	playerGamemap.put(u, newMap);
+        	return MapToList.convertList(newMap);
+        }
+		return null;
+}
+	
+	private HashMap<String,PlayerAllGamePO> updatePlayerGameData(int id,HashMap<String,PlayerAllGamePO> oldMap)
+	{
+		String updateSql="select * from playergametbl where id >"+id;
+		try 
+		{
+			/*PreparedStatement pst=conn.prepareStatement(updateSql);
+			pst.setInt(1, id);*/
+			Statement stat=conn.createStatement();
+			ResultSet rs=stat.executeQuery(updateSql);
+			while(rs.next())
+			{
+				PlayerGamePO newPo=makePlayerGamePO(rs);
+				String playerName=newPo.getPlayerName();
+				if(oldMap.containsKey(playerName))
+				{
+				oldMap.get(newPo.getPlayerName()).addMatch(newPo);
+				}
+				else
+				{
+				 PlayerAllGamePO po=new PlayerAllGamePO();
+				 po.setPlayerName(playerName);
+				 po.setTeamName(newPo.getTeam());
+				 po.addMatch(newPo);
+				 oldMap.put(playerName, po);
+				}
+			}
+	      } 
+		    catch (SQLException e) 
+		 {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		return oldMap;
+	}
+	
+	private HashMap<String,PlayerAllGamePO> makePlayerGameData(Selector st){
+		String sql=null;
 		HashMap<String,PlayerAllGamePO> map=new HashMap<String,PlayerAllGamePO>();
 		
 		try 
 		{
-			PreparedStatement pst=conn.prepareStatement(sql);
-			pst.setString(1, season);
-			pst.setString(2, kind);
-			
+			PreparedStatement pst=null;
+			if(st.getKind().equals("A"))
+			{
+				sql="select * from playergametbl where season=?";
+				pst=conn.prepareStatement(sql);
+				pst.setString(1, st.getSeason());
+			}
+			else
+			{
+				sql="select * from playergametbl where season=? and kind=?";
+				pst=conn.prepareStatement(sql);
+				pst.setString(1, st.getSeason());
+				pst.setString(2, st.getKind());
+			}
+			 
 			ResultSet rs=pst.executeQuery();
 			while(rs.next())
 			{
@@ -58,19 +151,29 @@ public class GameSqlServer {
 			e.printStackTrace();
 		}
 		
-		ArrayList<PlayerAllGamePO> list=MapToList.convertList(map);
-		return list;
-}
+		return map;
+	}
 	
-	public ArrayList<TeamAllGamePO> getTeamGameData(String season,String kind){
-		String sql="select * from teamgametbl where season=? and kind=?";
+    private HashMap<String,TeamAllGamePO> makeTeamGameData(Selector st){
+    	String sql=null;
 		HashMap<String,TeamAllGamePO> map=new HashMap<String,TeamAllGamePO>();
 		
 		try 
 		{
-			PreparedStatement pst=conn.prepareStatement(sql);
-			pst.setString(1, season);
-			pst.setString(2, kind);
+			PreparedStatement pst=null;
+			if(st.getKind().equals("A"))
+			{
+				sql="select * from teamgametbl where season=?";
+				pst=conn.prepareStatement(sql);
+				pst.setString(1, st.getSeason());
+			}
+			else
+			{
+				sql="select * from teamgametbl where season=? and kind=?";
+				pst=conn.prepareStatement(sql);
+				pst.setString(1, st.getSeason());
+				pst.setString(2, st.getKind());
+			}
 			ResultSet rs=pst.executeQuery();
 			while(rs.next())
 			{
@@ -95,9 +198,77 @@ public class GameSqlServer {
 			e.printStackTrace();
 		}
 		
-        return MapToList.convertList(map);
-}
-	public ArrayList<PlayerGamePO> getLatestPlayer()
+        return map;
+    }
+	
+	public ArrayList<TeamAllGamePO> getTeamGameData(Selector st){
+		setMaxID();
+		Updator u=new Updator(st,teamId);
+		
+        if(containKey(u,teamGamemap.keySet()))
+        {
+        	Iterator<Updator> it=teamGamemap.keySet().iterator();
+        	while(it.hasNext())
+        	{
+        		Updator tmp=it.next();
+        		if(tmp.equals(u)&&(tmp.getMaxId()==u.getMaxId()))
+        		{
+        			 return MapToList.convertList(teamGamemap.get(tmp));
+        	    }
+        		else if(tmp.equals(u)&&(tmp.getMaxId()<u.getMaxId()))
+        		{
+        			 HashMap<String,TeamAllGamePO> oldMap=teamGamemap.get(tmp);
+        			
+        			 HashMap<String,TeamAllGamePO> newMap=updateTeamGameData(tmp.getMaxId(),oldMap);
+        			 teamGamemap.put(u, newMap);
+        			 return MapToList.convertList(newMap);
+        		}
+        	}
+        }
+        else
+        {
+        	HashMap<String,TeamAllGamePO> newMap=makeTeamGameData(st);
+        	teamGamemap.put(u, newMap);
+        	return MapToList.convertList(newMap);
+        }
+		return null;
+ }
+	private HashMap<String,TeamAllGamePO> updateTeamGameData(int id,HashMap<String,TeamAllGamePO> oldMap)
+	{
+		String updateSql="select * from teamgametbl where id >"+id;
+		try 
+		{
+			/*PreparedStatement pst=conn.prepareStatement(updateSql);
+			pst.setInt(1, id);*/
+			Statement stat=conn.createStatement();
+			ResultSet rs=stat.executeQuery(updateSql);
+			while(rs.next())
+			{
+				TeamGamePO newPo=makeTeamGamePO(rs);
+				String teamName=newPo.getTeamName();
+				if(oldMap.containsKey(teamName))
+				{
+				oldMap.get(newPo.getTeamName()).addGame(newPo);
+				}
+				else
+				{
+				 TeamAllGamePO po=new TeamAllGamePO();
+				 po.setTeamName(newPo.getTeamName());
+				 po.addGame(newPo);
+				 oldMap.put(teamName, po);
+				}
+			}
+	      } 
+		    catch (SQLException e) 
+		 {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		return oldMap;
+	}
+	
+	
+    public ArrayList<PlayerGamePO> getLatestPlayer()
 	{
 		String sql="select * from playergametbl where matchDate=(select max(matchDate) from playergametbl)";
 		ArrayList<PlayerGamePO> list=new ArrayList<PlayerGamePO>();
@@ -237,7 +408,6 @@ public class GameSqlServer {
 		
 	}
 	
-	
 	protected void finalize()
 	{
 		DBUtil.close(conn);
@@ -249,4 +419,61 @@ public class GameSqlServer {
 		}
 	}
 	
+	private void setMaxID(){
+		String pSql="select max(id) from playerGametbl";
+		String tSql="select max(id) from teamGametbl";
+		try 
+		{
+			Statement p_stmt = conn.createStatement();
+			ResultSet prs=p_stmt.executeQuery(pSql);
+			while(prs.next())
+			playerId=prs.getInt(1);
+			Statement t_stmt = conn.createStatement();
+			ResultSet trs=t_stmt.executeQuery(tSql);
+			while(trs.next())
+			teamId=trs.getInt(1);
+	    } 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+    public static void main(String args[]){
+    	GameSqlServer gss=new GameSqlServer();
+    	Selector st=new Selector("2012-2013","A");
+    	
+    	for(int i=0;i<5;i++){
+      
+    	try 
+    	{
+			Thread.sleep(2000);
+		} 
+    	catch (InterruptedException e) 
+    	{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       /* double time1=System.currentTimeMillis();
+    	ArrayList<TeamAllGamePO> list=gss.getTeamGameData(st);
+    	double time2=System.currentTimeMillis();
+    	System.out.println(time2-time1);*/
+    	
+    	
+    	}
+    	
+    }
+    private boolean containKey(Updator up,Set<Updator> set){
+    	Iterator<Updator> it=set.iterator();
+    	while(it.hasNext())
+    	{
+    		if(it.next().equals(up))
+    			return true;
+    	}
+		return false;
+    	
+    }
+    
 }
