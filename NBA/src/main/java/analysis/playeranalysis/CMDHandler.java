@@ -77,7 +77,7 @@ public class CMDHandler {
 	}
 	
 	public void cmdHandler(String funcPath){
-		String result="";
+		//String result="";
 		String order=null;
 		if(isWindowsOS()){
 			order="cmd /c python";
@@ -96,18 +96,18 @@ public class CMDHandler {
 		try {
 			//System.out.println(order);
 			pro=Runtime.getRuntime().exec(order);
-			InputStream is=pro.getInputStream();
-			BufferedReader buf=new BufferedReader(new InputStreamReader(is));
+			//InputStream is=pro.getInputStream();
+			//BufferedReader buf=new BufferedReader(new InputStreamReader(is));
 			
-			String line=buf.readLine();
+			//String line=buf.readLine();
 			//System.out.println(line);
-			result+=line;
-			while((line=buf.readLine())!=null){
+			//result+=line;
+			//while((line=buf.readLine())!=null){
 				//System.out.println(line);
-				result+=" ";
-				result+=line;
+				//result+=" ";
+				//result+=line;
 				//System.out.println("k");
-			}
+			//}
 			//pro.destroy();
 			
 		} catch (IOException e) {

@@ -134,13 +134,8 @@ def example_data():
     x=d1.split(";")
     td1= [float(num) for num in x]
 
-    d2=sys.argv[2]
-    y=d2.split(";")
-    td2= [float(num) for num in y]
-
     data['numset']=[]
     data['numset'].append(td1)
-    data['numset'].append(td2)
 
     print(data)
     return data
@@ -170,8 +165,8 @@ if __name__ == '__main__':
 
     # add legend relative to top-left plot
     #plt.subplot(2, 2, 1)
-    labels = (sys.argv[3], sys.argv[4])
-    legend = plt.legend(labels, loc=(0.9, .95), labelspacing=0.1)
+    label = (sys.argv[2],'')
+    legend = plt.legend(label, loc=(0.9, .95), labelspacing=0.1)
     plt.setp(legend.get_texts(), fontsize='small')
 
     plt.figtext(0.5, 0.965, 'NBA Players Data Comparation',

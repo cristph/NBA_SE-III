@@ -11,6 +11,12 @@ public interface PlayerAnalyseInter {
 	
 	
 	/*
+	 * 球员多指标 雷达图
+	 */
+	public void showRedar(String playerName);
+	
+	
+	/*
 	 *球员单指标区间估计 
 	 *field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
@@ -52,5 +58,11 @@ public interface PlayerAnalyseInter {
 	 */
 	public String getPlayersVarEvolveInfo(String field, String palyerANmae,String playerBName);
 	
+	
+	/*
+	 * 展示雷达图
+	 * 显示各项指标对比
+	 */
+	public void showRedar(String playerAName,String playerBName);
 	
 }

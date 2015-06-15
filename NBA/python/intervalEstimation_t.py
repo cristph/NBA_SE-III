@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from scipy.stats import t
 
 def get_data():
-    #x=sys.argv[2]
-    #y=x.split(";")
-    data = np.random.normal(0,1,28)
+    x=sys.argv[1]
+    y=x.split(";")
+    data = [float(num) for num in y]
     return data
 
 #you can write your code here

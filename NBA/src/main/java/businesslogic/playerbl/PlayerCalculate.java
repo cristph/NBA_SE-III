@@ -599,7 +599,7 @@ public class PlayerCalculate{
 		PlayerPO pp=null;
 		for(int i=0;i<playerList.size();i++){
 			pp=playerList.get(i);
-			if(pp.getName().equals(name)){
+			if(pp.getName().equalsIgnoreCase(name)){
 				break;
 			}
 		}
@@ -632,7 +632,7 @@ public class PlayerCalculate{
 		}
 		for(int i=0;i<avg_NInfoList.size();i++){
 			PlayerNormalInfo pni=avg_NInfoList.get(i).getPni();
-			if(pni.getName().equals(name)){
+			if(pni.getName().equalsIgnoreCase(name)){
 				return pni;
 			}
 		}
@@ -645,7 +645,7 @@ public class PlayerCalculate{
 		}
 		for(int i=0;i<HInfoList.size();i++){
 			PlayerHighInfo phi=HInfoList.get(i);
-			if(phi.getName().equals(name)){
+			if(phi.getName().equalsIgnoreCase(name)){
 				return phi;
 			}
 		}
@@ -999,7 +999,7 @@ public class PlayerCalculate{
 				
 				PlayerPO p=temp_playerList.get(j);
 				String pName=p.getName();
-				if(pagName.equals(pName)){
+				if(pagName.equalsIgnoreCase(pName)){
 					String position=p.getPosition();
 					int age=Integer.parseInt(p.getAge());
 					PlayerInfo pi=new PlayerInfo(pagName, position, age, teamName, lea, gameDataList);

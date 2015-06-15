@@ -8,7 +8,7 @@ public class PythonTest{
 	
 	public static void main(String args[]){
 		PythonTest t=new PythonTest();
-		t.test8();
+		t.test15();
 	}
 	
 	public void test1(){
@@ -75,5 +75,40 @@ public class PythonTest{
 		
 		ch.cmdHandler(funcPath1);
 		ch2.cmdHandler(funcPath2);
+	}
+	
+	public void test9(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.getSortInfo("得分", "");
+	}
+	
+	public void test10(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.getIntervalInfo("助攻", "Kevin Durant");
+	}
+	
+	public void test11(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.getAvgEvolveInfo("助攻", "James Harden");
+	}
+	
+	public void test12(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.getVarEvolveInfo("助攻", "James Harden");
+	}
+	
+	public void test13(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.getPlayersInfo("得分", "James Harden", "Lebron James");
+	}
+	
+	public void test14(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.showRedar("Lebron James", "Kevin Durant");
+	}
+	
+	public void test15(){
+		PlayerAnalyseController pac=new PlayerAnalyseController();
+		pac.showRedar("Lebron James");
 	}
 }

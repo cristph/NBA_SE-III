@@ -146,8 +146,18 @@ public class playermain {
 		System.out.println(pv.getName()+" "+pv.getNumber());
 	}
 	
+	public void test10(){
+		PlayerNormalInfo pb=pbs.getSinglePlayerNormalInfo("Lebron James");
+		System.out.println(pb.getName());
+		System.out.println(pb.getPoint());
+	}
+	
+	public void test11(){
+		
+	}
+	
 	public static void main(String []args){
 		playermain pm=new playermain();
-		pm.test1();
+		pm.test5();
 	}
 }

@@ -5,17 +5,25 @@ from scipy.stats import t
 from scipy.stats import f
 
 def get_data1():
+    x=sys.argv[1]
+    y=x.split(";")
+    data = [float(num) for num in y]
+    return data
     #x=sys.argv[2]
     #y=x.split(";")
-    data = np.random.normal(0,1,100)
+    #data = np.random.normal(0,1,100)
     #return data
-    return [78.1,72.4,76.2,74.3,77.4,78.4,76.0,75.5,76.7,77.3]
+    #return [78.1,72.4,76.2,74.3,77.4,78.4,76.0,75.5,76.7,77.3]
 
 
 def get_data2():
-    data = np.random.normal(0,1,100)
+    x=sys.argv[2]
+    y=x.split(";")
+    data = [float(num) for num in y]
+    return data
+    #data = np.random.normal(0,1,100)
     #return data
-    return [79.1,81.0,77.3,79.1,80.0,79.1,79.1,77.3,80.2,82.1]
+    #return [79.1,81.0,77.3,79.1,80.0,79.1,79.1,77.3,80.2,82.1]
 
 #amuse H0:theta1^2<=theta2^2
 #if F>= -Za,then deny H0
