@@ -21,10 +21,9 @@ public class Judger {
 	public static String judge(String date)
 	{
 		String season=getSeason(date);
-		System.out.println(date);
-	    String beginDate=pMap.get(season);
-	    System.out.println(beginDate);
-	    if(season!=null)
+		String beginDate=pMap.get(season);
+	    
+		if(season!=null)
 	    {
 	    String s1[]=beginDate.split("-");
 	    Calendar cal1=Calendar.getInstance();

@@ -30,6 +30,7 @@ public class DataLoader implements Runnable{
 	private String teamPngFold=null;
 	private String playerActImgFold=null;
 	private String playerPorImgFold=null;
+	private Connection conn=null;
 
 	private int threadCount=0;
 	
@@ -40,6 +41,7 @@ public class DataLoader implements Runnable{
 			new Thread(this).start();
 			threadCount++;
 		}
+		conn=DBUtil.open();
 	}
 	
     private void initFold()
@@ -87,7 +89,6 @@ public class DataLoader implements Runnable{
 		ArrayList<TeamPO> teamList=fdr.readTeamFile(teams, teamPngs);
 		
 		String sql="insert into TeamTbl(teamName,shortName,city,area,zone,home,birthyear,imgPath) values(?,?,?,?,?,?,?,?);";
-		Connection conn=DBUtil.open();
 		for(int i=0;i<teamList.size();i++)
 		{
 			TeamPO tmp=teamList.get(i);
@@ -111,8 +112,6 @@ public class DataLoader implements Runnable{
 			}
 		    	
 	     }
-		DBUtil.close(conn);
-		
 	}
 	
     private void loadPlayerData()
@@ -124,7 +123,6 @@ public class DataLoader implements Runnable{
     	String sql="insert into playerTbl(playerName,number,position,height,"
     			+ "weight,birth,age,exp,school,actImg,porImg) values(?,?,?,?,?,?,?,?,?,?,?);";
 
-    	Connection conn=DBUtil.open();
     	for(int i=0;i<p_arr.length;i++)
     	{
     		PlayerPO tmp=fdr.readPlayerFile(p_arr[i], null, null);
@@ -150,7 +148,7 @@ public class DataLoader implements Runnable{
 				e.printStackTrace();
 			}
     	}
-    	DBUtil.close(conn);
+    	
     }
     
     private void loadGameData()
@@ -180,7 +178,7 @@ public class DataLoader implements Runnable{
 				+"oppTeamDefRebNum,teamHitNum,oppAttNum,oppTwoNum,"
 				+"teamThrowNum,teamFreeNum,teamErrorNum) values(?,"
         		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-       Connection conn=DBUtil.open();
+      
        try {
         	PreparedStatement t_pst=conn.prepareStatement(teamSql);
         	PreparedStatement p_pst=conn.prepareStatement(playerSql);
@@ -229,6 +227,7 @@ public class DataLoader implements Runnable{
         	 }
         	        
         	 ArrayList<PlayerGamePO> pList=gif.getGameList();
+        	 
         	 for(int j=0;j<pList.size();j++)
         	 {
 
@@ -278,13 +277,25 @@ public class DataLoader implements Runnable{
         	     p_pst.setInt(39, tif.getTeamFreeNum());
         	     p_pst.setInt(40, tif.getTeamErrorNum());
         	     p_pst.executeUpdate();
+        	     
 			}
+        	System.out.println(mdate);
        }
        catch (Exception e) 
        {
     	   System.out.println("DataLoader中的loadgif出现异常");
        }
 }
+    protected void finalize()
+	{
+		DBUtil.close(conn);
+		try {
+			super.finalize();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
    
  	public void run() 
  	{
@@ -304,6 +315,7 @@ public class DataLoader implements Runnable{
 			  }
 	    	  
 	    	  File[] f=dataFold.listFiles();
+	    	  
 	    	  Signal sig=mfl.hasThese(f);
 	    	  boolean change=sig.getChange();
 	    	  
@@ -312,6 +324,7 @@ public class DataLoader implements Runnable{
 	    	  else
 	    	  {   
 	    		  String op=sig.getOpration();
+	    		  mfl=new MatchFileList(f);
 	    		  if(op.equals("ADD"))
 	    		  {
 	    			  ArrayList<File> listF=sig.getNewFile();
@@ -326,10 +339,10 @@ public class DataLoader implements Runnable{
 	    		  }
 	    		  else if(op.equals("DEL"))
 	    		  {
-	    			     loadGameData();
+	    			     initData();
 	    		  }
 	    		  
-	    	  }
+	    }
 	   }
 	}
 }
