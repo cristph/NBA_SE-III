@@ -1,28 +1,53 @@
 package analysis.playeranalysis;
 
-import java.util.ArrayList;
-
 public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
-	public PlayerSelfInfo getPlayerSelfInfo(String playerName) {
+	public String getSortInfo(String field, String playerName) {
 		// TODO Auto-generated method stub
-		PlayerSelfInfo psi=null;
+		String data=" ";
+		
 		
 		return null;
 	}
 
 	@Override
-	public PlayerCompareInfo getPlayerCompareInfo(String playerAName,
+	public String getIntervalInfo(String field, String playerName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getAvgEvolveInfo(String field, String playerName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getVarEvolveInfo(String field, String playerName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPlayersInfo(String field, String palyerANmae,
 			String playerBName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getPlayers(String position) {
+	public String getPlayersAvgEvolveInfo(String field, String palyerANmae,
+			String playerBName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public String getPlayersVarEvolveInfo(String field, String palyerANmae,
+			String playerBName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

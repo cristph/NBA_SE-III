@@ -8,7 +8,7 @@ public class PythonTest{
 	
 	public static void main(String args[]){
 		PythonTest t=new PythonTest();
-		t.test6();
+		t.test8();
 	}
 	
 	public void test1(){
@@ -65,5 +65,15 @@ public class PythonTest{
 	public void test7(){
 		PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
 		psa.doubleSampleFTest(100, "", 100, "");
+	}
+	
+	public void test8(){
+		CMDHandler ch=new CMDHandler();
+		CMDHandler ch2=new CMDHandler();
+		String funcPath1="python//leida.py";
+		String funcPath2="python//bar.py";
+		
+		ch.cmdHandler(funcPath1);
+		ch2.cmdHandler(funcPath2);
 	}
 }
