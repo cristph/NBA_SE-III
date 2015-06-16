@@ -12,13 +12,13 @@ import po.PlayerGamePO;
 import po.PlayerPO;
 import po.TeamGamePO;
 import po.TeamPO;
+import util.TeamInfo;
 import data.common.MatchFileList;
 import data.common.Signal;
 import data.funddata.FundDataReader;
 import data.gamedata.GameDataReadService;
 import data.gamedata.GameDataReader;
 import data.gamedata.GameInfo;
-import data.gamedata.TeamInfo;
 import data.sqlservice.DBUtil;
 
 public class DataLoader implements Runnable{

@@ -1,5 +1,7 @@
 package data.gamedata;
 
+import util.Selector;
+
 public class Updator {
 
 	private Selector selector=null;
