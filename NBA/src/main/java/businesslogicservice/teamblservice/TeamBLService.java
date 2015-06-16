@@ -51,5 +51,6 @@ public interface TeamBLService {
 	public TeamHighInfo getSingleTeamHighInfo(String name);
 	//得到一支球队的高级数据，为平均值
 	public ArrayList<DateGameVO> getRecentGame (String name);
+	public void setSeason(String seasonwant);
 	//得到一支球队的最近5场比赛信息
 }

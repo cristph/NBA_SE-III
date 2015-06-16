@@ -11,7 +11,7 @@ import data.funddata.FundData;
 import data.funddata.FundDataService;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
-
+import data.gamedata.Selector;
 import test.data.TeamHighInfo;
 import test.data.TeamHotInfo;
 import test.data.TeamNormalInfo;
@@ -27,24 +27,31 @@ import businesslogicservice.teamblservice.TeamBLService;
 
 public class TeamController implements TeamBLService{
 	teamsearch ts=new teamsearch();
-	
+	String season;
 	FundDataService fd=new FundData();
 	GameDataService gd=new GameData();
 	teamcalculate cal=new teamcalculate();
 	ArrayList<TeamAllGamePO> po=new ArrayList<TeamAllGamePO>();
 	ArrayList<TeamPO> p2=new ArrayList<TeamPO>();
 	ArrayList<TeamVO> pa=new ArrayList<TeamVO>();
+	public TeamController(String s){
+		season=s;
+	}
+	public void setSeason(String seasonwant){
+		season=seasonwant;
+	}
 	public void getTeamVO(){
 		//int count=0;
+		Selector s=new Selector(season,"A");
 		pa=new ArrayList<TeamVO>();
-		po=gd.getTeamGameData();
+		po=gd.getTeamGameData(s);
 		p2=fd.getTeamFundData();
 		for(TeamAllGamePO pagp:po){
 			//System.out.println("__________________________________________");
 			for(int i=0;i<pagp.getGameDataList().size();i++){
 				TeamGamePO pp=pagp.getGameDataList().get(i);
 				//System.out.println(pagp.getGameDataList().size());
-				if(pp.getIsDirty()==true){
+				if(pp.isDirty()==true){
 					//System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
 					pagp.getGameDataList().remove(pp);
 					i=i-1;
@@ -168,7 +175,7 @@ public class TeamController implements TeamBLService{
     public TeamAllGamePO getoppgamedata(TeamAllGamePO p){
     	ArrayList<TeamGamePO> tgp=p.getGameDataList();
     	ArrayList<TeamGamePO> tgp2=new ArrayList<TeamGamePO>();
-    	ArrayList<TeamAllGamePO> po=gd.getTeamGameData();
+    	//ArrayList<TeamAllGamePO> po=gd.getTeamGameData();
     	for(TeamGamePO tp:tgp){
     		String[] team=tp.getMatchPair().split("-");
     		String time=tp.getMatchDate();
@@ -191,7 +198,8 @@ public class TeamController implements TeamBLService{
     
     public ArrayList<TeamHotInfo> getHotTeam(Field2 field2,int num){
     	ArrayList<TeamHotInfo> h=new ArrayList<TeamHotInfo>();
-    	getTeamVO();String fiel="";System.out.println("ger");
+    	
+    	getTeamVO();String fiel="";//System.out.println("ger");
     	TeamStandard tst=TeamStandard.allpointave;
     	if(field2==Field2.score){
     		tst=TeamStandard.allpointave;fiel="score";
@@ -364,7 +372,8 @@ public class TeamController implements TeamBLService{
 	
 	
 	public ArrayList<TeamGamePO> getGameInfo(String time,String matchpair){
-		po=gd.getTeamGameData();ArrayList<TeamGamePO> resu=new ArrayList<TeamGamePO>();
+		Selector sel=new Selector(season,"A");
+		po=gd.getTeamGameData(sel);ArrayList<TeamGamePO> resu=new ArrayList<TeamGamePO>();
 		String[] result=matchpair.split("-");
 		for(int i=0;i<po.size();i++){
 			if(po.get(i).getTeamName().equals(result[0])||po.get(i).getTeamName().equals(result[1])){
@@ -450,7 +459,8 @@ public class TeamController implements TeamBLService{
 	}
 	//得到一支球队的高级数据，为平均值
 	public ArrayList<DateGameVO> getRecentGame (String name){
-		po=gd.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
+		Selector sel=new Selector(season,"A");
+		po=gd.getTeamGameData(sel);ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
 		for(int i=0;i<po.size();i++){
 			if(po.get(i).getTeamName().equals(name)){
 				for(int j=0;j<5&&j<po.get(i).getGameDataList().size();j++){
@@ -530,7 +540,8 @@ public class TeamController implements TeamBLService{
     }*/
 	public ArrayList<DateGameVO> getGamebyDate(String time) {
 		// TODO Auto-generated method stub
-		po=gd.getTeamGameData();ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
+		Selector sel=new Selector(season,"A");
+		po=gd.getTeamGameData(sel);ArrayList<DateGameVO> result=new ArrayList<DateGameVO>();
 		//System.out.println(po.size());
 		for(int i=0;i<po.size();i++){
 			
