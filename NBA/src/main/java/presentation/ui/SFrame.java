@@ -77,7 +77,7 @@ public class SFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			String m[] = name.split("-");
-			String s = "20"+m[0]+"-"+"20"+m[1];
+			String s = "20"+m[0].trim()+"-"+"20"+m[1].trim();
 			Selector sel = new Selector();
 			sel.setKind("A");
 			sel.setSeason(s);
