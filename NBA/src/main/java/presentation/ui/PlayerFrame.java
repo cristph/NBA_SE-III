@@ -15,9 +15,11 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -25,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -33,21 +36,30 @@ import javax.swing.border.TitledBorder;
 import presentation.modle.MyTableModle;
 import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
+import util.Selector;
 import value.PlayerStandard;
 import value.Value.Age;
 import value.Value.League;
 import value.Value.Position;
 import vo.PlayerVO;
+import analysis.playeranalysis.PlayerAnalyseController;
+import analysis.playeranalysis.PlayerAnalyseInter;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogicservice.playerblservice.PlayerBLService;
 import businesslogicservice.teamblservice.TeamBLService;
 
 public class PlayerFrame extends NormalFrame{
-	String name;
+	String pname;
 	PlayerBLService ps;
 	TeamBLService ts;
+	PlayerAnalyseInter pai = new PlayerAnalyseController();
+	JComboBox kind;
+	JComboBox box;
+	JComboBox sea;
+	DoubleField poin;
+	JTextArea area;
 	public PlayerFrame(String name2, PlayerBLService ps, TeamBLService ts) {
-		this.name = name2;
+		this.pname = name2;
 		this.ts = ts;
 		this.ps = ps;
 		init();
@@ -56,8 +68,8 @@ public class PlayerFrame extends NormalFrame{
 	}
 
 	private void init() {
-		PlayerVO pvo = ps.getPlayerInfo(name);
-		PlayerNormalInfo i = ps.getSinglePlayerNormalInfo(name);
+		PlayerVO pvo = ps.getPlayerInfo(pname);
+		PlayerNormalInfo i = ps.getSinglePlayerNormalInfo(pname);
 		String teamName = i.getTeamName();
 		//基本信息
 		Image test = pvo.getPic();
@@ -196,13 +208,105 @@ public class PlayerFrame extends NormalFrame{
 		list.add(tab2,BorderLayout.SOUTH);
 
 	
-		
-		
-		
+		//球员分析
+		JPanel analy = new JPanel();
+		analy.setLayout(new BoxLayout(analy,BoxLayout.Y_AXIS));
+		// 单项分析
+		JPanel atitle = new JPanel();
+		JLabel aname1 = new JLabel("分析指标");
+		JLabel aname2 = new JLabel("分析依据");
+		JLabel aname3 = new JLabel("赛季");
+		JLabel aname4 = new JLabel("置信区间");
+		final String[] str1 = {"球员单指标排名分析","球员多指标","球员单指标区间估计 ","球员均值演变分析","球员方差演变分析"};
+		kind = new JComboBox(str1);
+		String[] str2 = {"得分","篮板","助攻","抢断","盖帽"};
+		box = new JComboBox(str2);
+		String str3[] = {"14-15","13-14","12-13"};
+		sea = new JComboBox(str3);
+		poin = new DoubleField("0.95");
+	    area = new JTextArea();
+	    area.setEditable(false);
+	    JButton butt = new JButton("分析");
+	    butt.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				//改变area
+				if (((String)kind.getSelectedItem()).endsWith(str1[0])){
+					String fi = (String)box.getSelectedItem();
+					String n = pname;
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					area.setText(pai.getSortInfo(a,fi,n));
+					area.repaint();
+				}
+				if (((String)kind.getSelectedItem()).endsWith(str1[1])){
+					String fi = (String)box.getSelectedItem();
+					String n = pname;
+					area.setText("详情见图，无图则为样本容量过小");
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					pai.showRedar(a,pname);
+					area.repaint();
+				}
+				if (((String)kind.getSelectedItem()).endsWith(str1[2])){
+					String fi = (String)box.getSelectedItem();
+					String n = pname;
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					area.setText(pai.getIntervalInfo(a,fi,n,Double.parseDouble(poin.getText())));
+					area.repaint();
+				}
+				if (((String)kind.getSelectedItem()).endsWith(str1[3])){
+					String fi = (String)box.getSelectedItem();
+					String n = pname;
+					area.setText(pai.getAvgEvolveInfo(fi, n));
+					area.repaint();
+				}
+				if (((String)kind.getSelectedItem()).endsWith(str1[4])){
+					String fi = (String)box.getSelectedItem();
+					String n = pname;
+					area.setText(pai.getVarEvolveInfo(fi, n));
+					area.repaint();
+				}
+				
+			}
+	    	
+	    });
+	    
+	    GroupLayout layout1 = new GroupLayout(atitle);
+		atitle.setLayout(layout1);
+		//水平连续组
+		GroupLayout.SequentialGroup hGroup1 = 
+				layout1.createSequentialGroup();
+		hGroup1.addGap(10);
+		hGroup1.addGroup(layout1.createParallelGroup().addComponent(aname1).addComponent(aname2).addComponent(aname3).addComponent(aname4));
+		hGroup1.addGap(10);
+		hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(box).addComponent(sea).addComponent(poin).addComponent(butt));
+	  //垂直组
+	  	GroupLayout.SequentialGroup vGroup1 = 
+	  				layout1.createSequentialGroup();
+	  	vGroup1.addGap(5);
+	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname1).addComponent(kind));
+	  	vGroup1.addGap(5);
+	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname2).addComponent(box));
+	  	vGroup1.addGap(5);
+	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname3).addComponent(sea));
+	  	vGroup1.addGap(5);
+	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname4).addComponent(poin));
+		vGroup1.addGap(5);
+		vGroup1.addGroup(layout1.createParallelGroup().addComponent(butt));
+	  	layout1.setHorizontalGroup(vGroup1);
+		layout1.setVerticalGroup(hGroup1);
+		analy.add(area,BorderLayout.CENTER);
+		analy.add(atitle,BorderLayout.NORTH);
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("球员风采", omg);
 		tabbedPane.addTab("球员基本信息",label);
 		tabbedPane.addTab("球员数据",list);
+		tabbedPane.addTab("球员分析", analy);
 		this.add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.setTabComponentAt(0, new JLabel("球员风采"));
 		
@@ -220,7 +324,7 @@ public class PlayerFrame extends NormalFrame{
 		NumberFormat fmt = NumberFormat.getPercentInstance();
 		fmt.setMaximumFractionDigits(2);//最多两位百分小数，如25.23%
 		if(i==1){
-			PlayerNormalInfo temp = ps.getSinglePlayerNormalInfo(name);
+			PlayerNormalInfo temp = ps.getSinglePlayerNormalInfo(pname);
 			Object[][] t = new Object[1][18];
 			t[0][0] = temp.getName();
 		    t[0][1] = temp.getTeamName();
@@ -243,7 +347,7 @@ public class PlayerFrame extends NormalFrame{
 		    return t;
 		}
 		    
-		PlayerHighInfo temp = ps.getSinglePlayerHighInfo(name);
+		PlayerHighInfo temp = ps.getSinglePlayerHighInfo(pname);
 		Object[][] t = new Object[1][13];
 		t[0][0] = temp.getName();
 		t[0][1] = temp.getTeamName();

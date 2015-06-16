@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
@@ -17,6 +19,7 @@ import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,6 +46,7 @@ class NormalFrame extends JFrame{
 	 */
 	private ImageIcon background;
 	private JPanel imgPanel;
+	public static String season ="14-15"; 
 	
 	public NormalFrame(){
 		init();
@@ -73,16 +77,36 @@ class NormalFrame extends JFrame{
 		
 		
 		//状态栏
+		JPanel lay = new JPanel();
+		lay.setBounds(0, 600, 768, 40);
 		final JLabel stateBar = new JLabel("", SwingConstants.RIGHT);
+		JButton button = new JButton("切换赛季");
+		button.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				// 切换赛季
+				SFrame frame = new SFrame();
+			}
+			
+		});
 		stateBar.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		//用定时任务来显示当前时间
 		new java.util.Timer().scheduleAtFixedRate(
 				new TimerTask(){
-					DateFormat df = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 					public void run() {
-						stateBar.setText("当前时间：" + df.format(new Date()) + "  ");
+						stateBar.setText("当前赛季：" +NormalFrame.season );
+						
 					}
 				}, 0, 1000);
-		this.add(stateBar, BorderLayout.SOUTH); //把状态栏添加到窗体的南边
+		lay.add(button);
+		lay.add(new JLabel("        "));
+		lay.add(new JLabel("        "));
+		lay.add(new JLabel("        "));
+		lay.add(stateBar);
+		this.add(lay, BorderLayout.SOUTH); //把状态栏添加到窗体的南边
+	}
+	
+	public static void main(String[] args){
+		NormalFrame a =new NormalFrame();
 	}
 }

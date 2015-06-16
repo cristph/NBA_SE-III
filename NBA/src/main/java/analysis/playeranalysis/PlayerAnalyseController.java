@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import po.PlayerGamePO;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
-import data.gamedata.PlayerChoosor;
 import test.data.PlayerNormalInfo;
+import util.PlayerChoosor;
+import util.Selector;
 import value.PlayerStandard;
 import value.Value.Age;
 import value.Value.League;
@@ -27,14 +28,15 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getSortInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getSortInfo(Selector sel,String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data="";
 		
+		pbs.changeMatchSet(sel);
+		
 		//所有球员得分
 		if(field.equals("得分")){
-			
 			ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 					PlayerStandard.score, Order.dsec, 1000);
 			for(int i=0;i<list.size();i++){
@@ -195,14 +197,14 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getIntervalInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getIntervalInfo(Selector sel,String field, String playerName,double escredit) {
 		// TODO Auto-generated method stub
 		GameDataService gds=new GameData();
 		String txtResult="";
 		
 		String data="";
 		
-		PlayerChoosor pcs=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs=new PlayerChoosor(sel.getSeason(),playerName);
 		ArrayList<PlayerGamePO> list=gds.getPlayerGameData_BySeason(pcs);
 		
 		//所有球员得分
@@ -221,7 +223,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("篮板")){
@@ -239,7 +241,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("助攻")){
@@ -257,7 +259,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
@@ -275,7 +277,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("盖帽")){
@@ -294,7 +296,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}
@@ -302,7 +304,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getAvgEvolveInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getAvgEvolveInfo(String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -478,7 +480,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getVarEvolveInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getVarEvolveInfo(String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -654,8 +656,8 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersInfo(String field, String playerAName,
-			String playerBName, int sampleANum, int sampleBNum, double credit) {
+	public String getPlayersInfo(Selector sel,String field, String playerAName,
+			String playerBName) {
 		// TODO Auto-generated method stub
 		
 		String txtResult="";
@@ -664,10 +666,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -844,7 +846,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
 	public String getPlayersAvgEvolveInfo(String field, String playerAName,
-			String playerBName, int sampleANum, int sampleBNum, double credit) {
+			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -1021,7 +1023,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
 	public String getPlayersVarEvolveInfo(String field, String playerAName,
-			String playerBName,int sampleANum, int sampleBNum, double credit) {
+			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -1197,9 +1199,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public void showRedar(String playerAName, String playerBName) {
+	public void showRedar(Selector sel,String playerAName, String playerBName) {
 		// TODO Auto-generated method stub
-		
+		pbs.changeMatchSet(sel);
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 				PlayerStandard.score, Order.dsec, 1000);
 		ArrayList<PlayerNormalInfo> reblist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
@@ -1265,8 +1267,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public void showRedar(String playerName) {
+	public void showRedar(Selector sel,String playerName) {
 		// TODO Auto-generated method stub
+		pbs.changeMatchSet(sel);
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 				PlayerStandard.score, Order.dsec, 1000);
 		ArrayList<PlayerNormalInfo> reblist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
@@ -1308,6 +1311,18 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		System.out.println(data1);
 		System.out.println(name);
 		psa.getRedar_1(data1, name);
+	}
+
+	@Override
+	public ArrayList<String> getPlayerNames() {
+		// TODO Auto-generated method stub
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.All, 
+				League.All, Age.All, PlayerStandard.score, Order.dsec, 1000);
+		ArrayList<String> result=new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			result.add(list.get(i).getName());
+		}
+		return result;
 	}
 	
 }

@@ -27,7 +27,8 @@ import presentation.control.TeamControl;
 
 
 class NbaFrame extends NormalFrame{
-	
+	static PlayerBLService ps = new PlayerBLController();
+	static TeamBLService ts = new TeamController("2014-2015");
 	public NbaFrame(){
 		init();
 		this.setVisible(true);
@@ -39,8 +40,6 @@ class NbaFrame extends NormalFrame{
 		
 		
 		//声明一个controler作为控制
-		PlayerBLService ps = new PlayerBLController();
-		TeamBLService ts = new TeamController();
 		TeamControl cs = new TeamControl(ps,ts);
 		PlayerOrderControl os = new PlayerOrderControl(ps,ts);
 		PlayerTopControl pts = new PlayerTopControl(ps,ts);
