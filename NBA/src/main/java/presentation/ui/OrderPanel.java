@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 import presentation.control.ControlService;
 import presentation.modle.MyTableModle;
 
-public class OrderPanel extends JPanel implements Runnable{
+public class OrderPanel extends JPanel{
 	ControlService cs;
 	JComboBox box1;
 	JComboBox box2;
@@ -36,8 +36,8 @@ public class OrderPanel extends JPanel implements Runnable{
 	public OrderPanel(ControlService cs) {
 		this.cs = cs;
 		init();//初始化界面
-		Thread thread=new Thread(this);
-		thread.start();
+		/*Thread thread=new Thread(this);
+		thread.start();*/
 	}
 
 	private void init() {
@@ -145,7 +145,7 @@ public class OrderPanel extends JPanel implements Runnable{
 		modle.fireTableStructureChanged();
 		table.repaint();
 	}
-
+/*
 	public void run() {
 		//定时刷新
 		while(true){
@@ -159,6 +159,7 @@ public class OrderPanel extends JPanel implements Runnable{
 		}
 		
 	}
+	*/
 	
 
 	
