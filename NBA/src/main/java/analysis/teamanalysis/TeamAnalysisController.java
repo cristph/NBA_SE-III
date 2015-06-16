@@ -24,7 +24,7 @@ public class TeamAnalysisController implements TeamAnaInterface{
 		tbs.getTeamVO();
 		String path="";
 		String word="";
-		
+		System.out.println("_________________"+team1+team2+st+season);
 		
 		path="cmd /c python python//compare.py ";
 		ArrayList<TeamVO> pvo=tbs.getVO();
@@ -386,7 +386,7 @@ public class TeamAnalysisController implements TeamAnaInterface{
 	}
 	public static void main(String[] args){
 		TeamAnalysisController t=new TeamAnalysisController("2014-2015");
-		String s=t.linregress(Std.score);
+		String s=t.teamCompare("GSW","LAC",Std.score);
 		System.out.println(s);
 	}
 

@@ -95,7 +95,7 @@ public class TeamCom extends JPanel {
 				}
 				
 				if(pa.equals(str3[1])){
-					String m =pas.getPlayersVarEvolveInfo(fi, n1, n2);
+					String m =pas.getPlayersAvgEvolveInfo(fi, n1, n2);
 					area1.setText(m);
 					return;
 				}
@@ -154,12 +154,12 @@ public class TeamCom extends JPanel {
 		JLabel label2 = new JLabel("<html>球<br>队<br>比<br>较</html>");
 		tpanel.add(label2,BorderLayout.WEST);
 		label2.setFont(font);
-		JLabel tname1 = new JLabel("球员名");
-		JLabel tname2 = new JLabel("球员名");
+		JLabel tname1 = new JLabel("球队名");
+		JLabel tname2 = new JLabel("球队名");
 		JLabel ttime = new JLabel("赛季");
 		JLabel tfield = new JLabel("比较依据");
 		JButton butt2 = new JButton("比较");
-		String[] str4 = {"14-15","13-14","12-13","all"};
+		String[] str4 = {"14-15","13-14","12-13"};
 		final String[] str5 = {"得分","篮板","助攻","失误"};
 		Set<String> list = tai.getAllTeam().keySet();
 		Object[] str6 = list.toArray();
@@ -178,7 +178,7 @@ public class TeamCom extends JPanel {
 				String time = (String)sea2.getSelectedItem();
 				String fi = (String)field2.getSelectedItem();
 				String temp[] = time.split("-");
-				time = "20"+temp[0]+"-"+temp[1]+"20";
+				time = "20"+temp[0]+"-"+"20"+temp[1];
 				tai.setSeason(time);
 				Std sta = Std.score;
 				if (fi.equals(str5[0])){
@@ -194,6 +194,7 @@ public class TeamCom extends JPanel {
 					sta = Std.foul;
 				}
 				String m = tai.teamCompare(t1, t2, sta);
+				System.out.println("ggg"+t1+t2+sta.toString());
 				area2.setText(m);
 				area2.repaint();
 				
