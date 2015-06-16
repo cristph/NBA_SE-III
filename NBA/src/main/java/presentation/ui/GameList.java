@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -59,12 +60,18 @@ public class GameList extends JPanel{
 		TeamPO t1 = ts.getTeamInfo(team1);
 		TeamPO t2 = ts.getTeamInfo(team2);
 		Image im1 = t1.getTeamPic();
+		if(im1 == null){
+			im1 = Toolkit.getDefaultToolkit().getImage("data/teamPng/CHA.png");
+		}
 		im1 = im1.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		ImageIcon action1 = new ImageIcon(im1);
 		JLabel omg1 = new JLabel(action1);
 		Image im2 = t2.getTeamPic();
 		System.out.println(team2+"endt");
 		System.out.println(t2.getShortName()+"endt");
+		if(im2 == null){
+			im2 = Toolkit.getDefaultToolkit().getImage("data/teamPng/CHA.png");
+		}
 		im2 = im2.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		ImageIcon action2 = new ImageIcon(im2);
 		JLabel omg2 = new JLabel(action2);
