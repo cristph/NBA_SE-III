@@ -990,17 +990,23 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerAName);
-		PlayerChoosor pcs3=new PlayerChoosor("2014-2015",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs3=new PlayerChoosor("2013-2014",playerAName);
+		PlayerChoosor pcs5=new PlayerChoosor("2014-2015",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		ArrayList<PlayerGamePO> list3=gds.getPlayerGameData_BySeason(pcs3);
+		ArrayList<PlayerGamePO> list5=gds.getPlayerGameData_BySeason(pcs5);
 		list1.addAll(list3);
+		list1.addAll(list5);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2013-2014",playerBName);
-		PlayerChoosor pcs4=new PlayerChoosor("2014-2015",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs4=new PlayerChoosor("2013-2014",playerBName);
+		PlayerChoosor pcs6=new PlayerChoosor("2014-2015",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		ArrayList<PlayerGamePO> list4=gds.getPlayerGameData_BySeason(pcs4);
+		ArrayList<PlayerGamePO> list6=gds.getPlayerGameData_BySeason(pcs6);
 		list2.addAll(list4);
+		list2.addAll(list6);
 		
 		
 		if(field.equals("得分")){
@@ -1188,17 +1194,23 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerAName);
-		PlayerChoosor pcs3=new PlayerChoosor("2014-2015",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs3=new PlayerChoosor("2013-2014",playerAName);
+		PlayerChoosor pcs5=new PlayerChoosor("2014-2015",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		ArrayList<PlayerGamePO> list3=gds.getPlayerGameData_BySeason(pcs3);
+		ArrayList<PlayerGamePO> list5=gds.getPlayerGameData_BySeason(pcs5);
 		list1.addAll(list3);
+		list1.addAll(list5);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2013-2014",playerBName);
-		PlayerChoosor pcs4=new PlayerChoosor("2014-2015",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs4=new PlayerChoosor("2013-2014",playerBName);
+		PlayerChoosor pcs6=new PlayerChoosor("2014-2015",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		ArrayList<PlayerGamePO> list4=gds.getPlayerGameData_BySeason(pcs4);
+		ArrayList<PlayerGamePO> list6=gds.getPlayerGameData_BySeason(pcs6);
 		list2.addAll(list4);
+		list2.addAll(list6);
 		
 		
 		if(field.equals("得分")){
