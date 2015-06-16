@@ -12,13 +12,13 @@ import po.PlayerGamePO;
 import po.PlayerPO;
 import po.TeamGamePO;
 import po.TeamPO;
+import util.TeamInfo;
 import data.common.MatchFileList;
 import data.common.Signal;
 import data.funddata.FundDataReader;
 import data.gamedata.GameDataReadService;
 import data.gamedata.GameDataReader;
 import data.gamedata.GameInfo;
-import data.gamedata.TeamInfo;
 import data.sqlservice.DBUtil;
 
 public class DataLoader implements Runnable{
@@ -199,6 +199,9 @@ public class DataLoader implements Runnable{
         	    t_pst.setString(3, tmp.getMatchPair());
         	    t_pst.setString(4, tmp.getMatchResult());
         	    String score[]=tmp.getPartScore();
+        	  /*  System.out.println(score.length);
+        	    System.out.println(score);
+        	    System.out.println(tmp.getMatchDate()+";"+tmp.getMatchPair());*/
         	    t_pst.setString(5, score[0]);
         	    t_pst.setString(6, score[1]);
         	    t_pst.setString(7, score[2]);
@@ -284,6 +287,7 @@ public class DataLoader implements Runnable{
        catch (Exception e) 
        {
     	   System.out.println("DataLoader中的loadgif出现异常");
+    	  // e.printStackTrace();
        }
 }
     protected void finalize()

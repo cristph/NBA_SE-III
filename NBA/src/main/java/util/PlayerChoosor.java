@@ -1,4 +1,4 @@
-package data.gamedata;
+package util;
 
 public class PlayerChoosor {
 

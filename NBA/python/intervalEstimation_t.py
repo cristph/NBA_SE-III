@@ -8,6 +8,7 @@ def get_data():
     y=x.split(";")
     data = [float(num) for num in y]
     return data
+    #return [78.1,72.4,76.2,74.3,77.4,78.4,76.0,75.5,76.7,77.3]
 
 #you can write your code here
 def cal(IMG_PATH):
@@ -33,7 +34,7 @@ def cal(IMG_PATH):
     print sign
     print x_avg
     print S
-    print t.interval(alpha=0.1, df=sign-1, loc=x_avg, scale=S)
+    print t.interval(alpha=float(sys.argv[2]), df=sign-1, loc=x_avg, scale=S)
 
 #the code should not be changed
 if __name__ == '__main__':

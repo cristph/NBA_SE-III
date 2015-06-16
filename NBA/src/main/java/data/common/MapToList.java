@@ -1,4 +1,4 @@
-package data.gamedata;
+package data.common;
 
 import java.util.ArrayList;
 import java.util.HashMap;
