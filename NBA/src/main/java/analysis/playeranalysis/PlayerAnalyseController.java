@@ -845,7 +845,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersAvgEvolveInfo(Selector sel,String field, String playerAName,
+	public String getPlayersAvgEvolveInfo(String field, String playerAName,
 			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
@@ -854,10 +854,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -1022,7 +1022,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersVarEvolveInfo(Selector sel,String field, String playerAName,
+	public String getPlayersVarEvolveInfo(String field, String playerAName,
 			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
@@ -1031,10 +1031,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
