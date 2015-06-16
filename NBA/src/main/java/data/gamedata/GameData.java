@@ -36,7 +36,7 @@ public class GameData implements GameDataService{
 	@Override
 	public ArrayList<PlayerGamePO> getPlayerGameData_BySeason(PlayerChoosor pcs) {
 		// TODO Auto-generated method stub
-		return null;
+		return gSql.getPlayerGameData_BySeason(pcs);
 	}
     
 }
