@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,19 +21,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+
 import presentation.control.ControlService;
 import presentation.modle.MyTableModle;
 
-public class OrderPanel extends JPanel {
+public class OrderPanel extends JPanel implements Runnable{
 	ControlService cs;
 	JComboBox box1;
 	JComboBox box2;
 	JComboBox box3;
+	MyTableModle modle;
+    JTable table;
 
 	public OrderPanel(ControlService cs) {
 		this.cs = cs;
 		init();//初始化界面
-		
+		Thread thread=new Thread(this);
+		thread.start();
 	}
 
 	private void init() {
@@ -87,8 +92,8 @@ public class OrderPanel extends JPanel {
 		this.add(title,BorderLayout.NORTH);
 		
 		//展示的列表
-		final MyTableModle modle=new MyTableModle(cs.firstObj(),cs.firstTitle());
-		final JTable table = new JTable(modle);
+		modle=new MyTableModle(cs.firstObj(),cs.firstTitle());
+		table = new JTable(modle);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		JScrollPane pane = new JScrollPane(table);
 		pane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -103,7 +108,6 @@ public class OrderPanel extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				// 点击确认按钮的事件
-				
 				Object[][] list = cs.getList((String)(box1.getSelectedItem()),(String)box2.getSelectedItem(),(String)box3.getSelectedItem());
 				System.out.print("today"+list.length);
 				String title[] = cs.firstTitle();
@@ -128,6 +132,32 @@ public class OrderPanel extends JPanel {
 			}
 			
 		});
+	}
+	
+
+
+	protected void update() {
+		// TODO Auto-generated method stub
+		Object[][] list = cs.getList((String)(box1.getSelectedItem()),(String)box2.getSelectedItem(),(String)box3.getSelectedItem());
+		System.out.print("today"+list.length);
+		String title[] = cs.firstTitle();
+		modle.upd(list,title);
+		modle.fireTableStructureChanged();
+		table.repaint();
+	}
+
+	public void run() {
+		//定时刷新
+		while(true){
+			try {
+				Thread.sleep(2500);
+				update();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 
