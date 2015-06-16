@@ -280,7 +280,7 @@ public class DataLoader implements Runnable{
         	    team_pst.setInt(15, tmp.getRebAttNum());
         	    team_pst.setInt(16, tmp.getRebDefNum());
         	    team_pst.setInt(17, tmp.getRebTotalNum());
-        	    team_pst.setInt(18, tmp.getAllPlayerTime());
+        	    team_pst.setInt(18, tmp.getAssistNum());
         	    team_pst.setInt(19, tmp.getStealNum());
         	    team_pst.setInt(20, tmp.getBlockNum());
         	    team_pst.setInt(21, tmp.getErrorNum());
