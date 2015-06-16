@@ -45,4 +45,7 @@ public class Value {
 	public enum Field2{
 		score,rebound, assist, blockShot, steal, foul, fault, shot, three, penalty, defendRebound, offendRebound 
 	}
+	public enum Std{
+		score,rebound,assist,foul
+	}
 }
