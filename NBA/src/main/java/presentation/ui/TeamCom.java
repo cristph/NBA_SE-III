@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -18,8 +19,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import util.Selector;
+import value.Value.Std;
 import analysis.playeranalysis.PlayerAnalyseController;
 import analysis.playeranalysis.PlayerAnalyseInter;
+import analysis.teamanalysis.TeamAnaInterface;
+import analysis.teamanalysis.TeamAnalysisController;
 import businesslogicservice.teamblservice.TeamBLService;
 
 public class TeamCom extends JPanel {
@@ -144,6 +148,7 @@ public class TeamCom extends JPanel {
 		ppanel.add(title1,BorderLayout.NORTH);
 		pane.add(ppanel,BorderLayout.NORTH);
 		//球队
+		final TeamAnaInterface tai = new TeamAnalysisController("2014-2015");
 		JPanel tpanel = new JPanel();
 		tpanel.setLayout(new BorderLayout());
 		JLabel label2 = new JLabel("<html>球<br>队<br>比<br>较</html>");
@@ -155,13 +160,46 @@ public class TeamCom extends JPanel {
 		JLabel tfield = new JLabel("比较依据");
 		JButton butt2 = new JButton("比较");
 		String[] str4 = {"14-15","13-14","12-13","all"};
-		String[] str5 = {"得分","篮板","助攻","失误"};
-		team1 = new JComboBox();
-		team2 = new JComboBox();
+		final String[] str5 = {"得分","篮板","助攻","失误"};
+		Set<String> list = tai.getAllTeam().keySet();
+		Object[] str6 = list.toArray();
+		team1 = new JComboBox(str6);
+		team2 = new JComboBox(str6);
 		sea2 = new JComboBox(str4);
 		field2 = new JComboBox(str5);
 		area2 = new JTextArea();
 		area2.setEditable(false);
+		
+		butt2.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				String t1 = (String)team1.getSelectedItem();
+				String t2 = (String)team2.getSelectedItem();
+				String time = (String)sea2.getSelectedItem();
+				String fi = (String)field2.getSelectedItem();
+				String temp[] = time.split("-");
+				time = "20"+temp[0]+"-"+temp[1]+"20";
+				tai.setSeason(time);
+				Std sta = Std.score;
+				if (fi.equals(str5[0])){
+					sta = Std.score;
+				}
+				if (fi.equals(str5[1])){
+					sta = Std.rebound;
+				}
+				if (fi.equals(str5[2])){
+					sta = Std.assist;
+				}
+				if (fi.equals(str5[3])){
+					sta = Std.foul;
+				}
+				String m = tai.teamCompare(t1, t2, sta);
+				area2.setText(m);
+				area2.repaint();
+				
+			}
+			
+		});
 		tpanel.add(area2,BorderLayout.CENTER);
 		JPanel title2 = new JPanel();
 		GroupLayout layout2 = new GroupLayout(title2);

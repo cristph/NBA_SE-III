@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -38,10 +39,10 @@ public class TeamFrame extends NormalFrame{
 	PlayerBLService ps;
 	TeamBLService ts;
 	JComboBox kind;
-	JComboBox tna;
 	JComboBox stan;
 	JComboBox sea;
 	JTextArea area;
+	JComboBox sea2;
 	public TeamFrame(String name2, PlayerBLService ps, TeamBLService ts) {
 		this.teamName = name2;
 		this.ts = ts;
@@ -166,19 +167,20 @@ public class TeamFrame extends NormalFrame{
 		GameList game = new GameList(date,ts);
 		
 		//球队分析
-		final TeamAnaInterface tai = new TeamAnalysisController();
+		final TeamAnaInterface tai = new TeamAnalysisController("2014-2015");
 		JPanel anylize = new JPanel();
 		anylize.setLayout(new BorderLayout());
 		JPanel tpanel = new JPanel();
 		JLabel tname1 = new JLabel("分析类型");
 		JLabel tname2 = new JLabel("分析依据");
-		JLabel tname3 = new JLabel("球队");
+		JLabel tname4 = new JLabel("赛季");
 		
 		final String[] str1 = {"球队回归分析","球队基本分析"};
 		final String[] str2 = {"得分","篮板","助攻","失误"};
+		final String[] str4 = {"14-15","13-14","12-13"};
 		kind = new JComboBox(str1);
 		stan = new JComboBox(str2);
-		tna = new JComboBox();
+		sea2 = new JComboBox(str4);
 		JButton butt = new JButton("分析");
 		area = new JTextArea("");
 		area.setEditable(false);
@@ -186,8 +188,12 @@ public class TeamFrame extends NormalFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				//得到String显示
-				String n = (String)tna.getSelectedItem();
+				String time = (String)sea2.getSelectedItem();
+				String temp[] = time.split("-");
+				time = "20"+temp[0]+"-"+"20"+temp[1];
+				String n = teamName;
 				Std st = Std.score;
+				tai.setSeason(time);
 				if(((String)stan.getSelectedItem()).equals(str2[0])){
 					//得分
 					st = Std.score;
@@ -206,7 +212,7 @@ public class TeamFrame extends NormalFrame{
 					st = Std.foul;
 				}
 				if (((String)kind.getSelectedItem()).equals(str1[0])){
-					String back = tai.linregress(n, st);
+					String back = tai.linregress(st);
 					area.setText(back);
 					area.repaint();
 					
@@ -227,9 +233,9 @@ public class TeamFrame extends NormalFrame{
 			GroupLayout.SequentialGroup hGroup1 = 
 					layout1.createSequentialGroup();
 			hGroup1.addGap(10);
-			hGroup1.addGroup(layout1.createParallelGroup().addComponent(tname1).addComponent(tname2).addComponent(tname3));
+			hGroup1.addGroup(layout1.createParallelGroup().addComponent(tname1).addComponent(tname2).addComponent(tname4));
 			hGroup1.addGap(10);
-			hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(stan).addComponent(tna).addComponent(butt));
+			hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(stan).addComponent(sea2).addComponent(butt));
 		  //垂直组
 		  	GroupLayout.SequentialGroup vGroup1 = 
 		  				layout1.createSequentialGroup();
@@ -238,9 +244,9 @@ public class TeamFrame extends NormalFrame{
 		  	vGroup1.addGap(5);
 		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname2).addComponent(stan));
 		  	vGroup1.addGap(5);
-		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname3).addComponent(tna));
+		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname4).addComponent(sea2));
 		  	vGroup1.addGap(5);
-			vGroup1.addGroup(layout1.createParallelGroup().addComponent(butt));
+		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(butt));
 		  	layout1.setHorizontalGroup(vGroup1);
 			layout1.setVerticalGroup(hGroup1);
 			
