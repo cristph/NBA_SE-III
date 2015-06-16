@@ -6,13 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-
-
-
 import data.common.Waiter;
 import po.PlayerGamePO;
 import po.TeamGamePO;
+
 
 public class GameDataReader implements GameDataReadService {
 
@@ -34,10 +31,13 @@ public class GameDataReader implements GameDataReadService {
 	private Waiter waiter=null;
 	
 	private boolean isDirty=false;
+	private FileFilter fft=null;
+	
 	
 	public GameDataReader(){
 		playerList=new ArrayList<PlayerGamePO>();
 		waiter=new Waiter();
+		fft=new FileFilter();
 		teamGame1=new TeamGamePO();
 		teamGame2=new TeamGamePO();
 	}
@@ -152,7 +152,8 @@ private void updateTeam(String line){
 		try
 		{
 		   data[i]=Integer.parseInt(info[i+3]);
-		}catch(NumberFormatException n)
+		}
+		catch(NumberFormatException n)
 		{
 		   data[i]=-1;
 		   isDirty=true;
@@ -239,9 +240,10 @@ private GameInfo makeGameInfo(){
 
 	
 public GameInfo readMatchFile(File f) {
-		 
+		
+	    boolean isGoodFile=fft.isGoodFile(f.getName());
 		playerList=new ArrayList<PlayerGamePO>();
-		if(f.isFile())
+		if(isGoodFile)
 		{
 			teamGame1=new TeamGamePO();
 			teamGame2=new TeamGamePO();
@@ -258,15 +260,20 @@ public GameInfo readMatchFile(File f) {
 				int row=1;
 				while((line=inTwo.readLine())!=null)
 				{
+					System.out.println(line);
+					System.out.println(row);
 					if(row==1)
 					{
 						initCurrent(line);
+						//System.out.println(line);
 					}
 				    else if(row==2)
 				    {
 				    	row++;
 				    	partScore=line.split(";");
-						continue;
+				    	/*System.out.println(line);
+				    	System.out.println(partScore.length);*/
+				    	continue;
 				    }
 					else if(row==3)
 					{
