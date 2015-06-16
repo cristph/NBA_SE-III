@@ -23,7 +23,9 @@ import util.Selector;
 
 public class SFrame extends JFrame{
 
+	JFrame f;
 	public SFrame(){
+		f = this;
 		init();
 		this.setVisible(true);
 		this.setResizable(false);
@@ -77,13 +79,14 @@ public class SFrame extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			String m[] = name.split("-");
-			String s = "20"+m[0]+"-"+"20"+m[1];
+			String s = "20"+m[0].trim()+"-"+"20"+m[1].trim();
 			Selector sel = new Selector();
 			sel.setKind("A");
 			sel.setSeason(s);
 			NbaFrame.ps.changeMatchSet(sel);
 			NbaFrame.ts.setSeason(s);
 			NormalFrame.season = name;
+			f.dispose();
 		}
 		
 	}

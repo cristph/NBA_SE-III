@@ -58,7 +58,7 @@ class NormalFrame extends JFrame{
 		// 初始化查看界面
 		this.setTitle("NBA数据库");
 		int height = 640;
-		int width = 768;
+		int width = 780;
 		System.out.println(height+" "+width);
 		this.setBounds((DataInAll.screenSize.width-width)/2
 				, (DataInAll.screenSize.height-height)/2, width, height);
