@@ -231,7 +231,7 @@ public class PlayerFrame extends NormalFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				//改变area
-				Font font =new  Font("TimesRoman",Font.BOLD,20);
+				Font font =new  Font("TimesRoman",Font.BOLD,15);
 				if (((String)kind.getSelectedItem()).equals(str1[0])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
