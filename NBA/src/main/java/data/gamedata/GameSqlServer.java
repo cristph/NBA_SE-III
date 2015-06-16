@@ -192,6 +192,7 @@ public class GameSqlServer {
 				else
 				{
 					TeamAllGamePO newPo=new TeamAllGamePO();
+					newPo.addGame(gamePo);
 					newPo.setTeamName(teamName);
 					map.put(teamName, newPo);
 				}
