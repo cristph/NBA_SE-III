@@ -1,6 +1,8 @@
 package analysis.playeranalysis;
 
-import data.gamedata.Selector;
+import util.Selector;
+
+
 
 public interface PlayerAnalyseInter {
 	
