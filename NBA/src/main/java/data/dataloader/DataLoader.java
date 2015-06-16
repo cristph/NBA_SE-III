@@ -195,11 +195,28 @@ public class DataLoader implements Runnable{
         GameInfo gif=gdr.readMatchFile(fArr[i]);
         loadGif(gif);
         sqlCount++;
-        if(sqlCount==10){
-        	try {
+        if(sqlCount==10)
+        {
+        	try 
+        	{
 				team_pst.executeBatch();
 				player_pst.executeBatch();
 				conn.commit();
+				team_pst.clearBatch();
+				player_pst.clearBatch();
+				sqlCount=0;
+			} catch (SQLException e) 
+        	{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        }
+        if(sqlCount!=0)
+        {
+        	try {
+				team_pst.executeBatch();
+				player_pst.executeBatch();
 				team_pst.clearBatch();
 				player_pst.clearBatch();
 			} catch (SQLException e) {
@@ -207,7 +224,7 @@ public class DataLoader implements Runnable{
 				e.printStackTrace();
 			}
         }
-        }
+        
      }
 
 	
