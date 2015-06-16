@@ -104,11 +104,11 @@ public class PythonTest{
 	
 	public void test14(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.showRedar("Lebron James", "Kevin Durant");
+		//pac.showRedar("Lebron James", "Kevin Durant");
 	}
 	
 	public void test15(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.showRedar("Lebron James");
+		//pac.showRedar("Lebron James");
 	}
 }

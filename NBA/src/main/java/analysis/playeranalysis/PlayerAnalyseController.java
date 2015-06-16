@@ -7,6 +7,7 @@ import po.PlayerGamePO;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
 import data.gamedata.PlayerChoosor;
+import data.gamedata.Selector;
 import test.data.PlayerNormalInfo;
 import value.PlayerStandard;
 import value.Value.Age;
@@ -27,14 +28,14 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getSortInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getSortInfo(Selector sel,String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data="";
 		
 		//所有球员得分
 		if(field.equals("得分")){
-			
+			//pbs.changeMatchSet(sel);
 			ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 					PlayerStandard.score, Order.dsec, 1000);
 			for(int i=0;i<list.size();i++){
@@ -195,7 +196,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getIntervalInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getIntervalInfo(Selector sel,String field, String playerName,double escredit) {
 		// TODO Auto-generated method stub
 		GameDataService gds=new GameData();
 		String txtResult="";
@@ -302,7 +303,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getAvgEvolveInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getAvgEvolveInfo(String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -478,7 +479,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getVarEvolveInfo(String field, String playerName, int sampleNum, double credit) {
+	public String getVarEvolveInfo(String field, String playerName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -654,8 +655,8 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersInfo(String field, String playerAName,
-			String playerBName, int sampleANum, int sampleBNum, double credit) {
+	public String getPlayersInfo(Selector sel,String field, String playerAName,
+			String playerBName) {
 		// TODO Auto-generated method stub
 		
 		String txtResult="";
@@ -843,8 +844,8 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersAvgEvolveInfo(String field, String playerAName,
-			String playerBName, int sampleANum, int sampleBNum, double credit) {
+	public String getPlayersAvgEvolveInfo(Selector sel,String field, String playerAName,
+			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -1020,8 +1021,8 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getPlayersVarEvolveInfo(String field, String playerAName,
-			String playerBName,int sampleANum, int sampleBNum, double credit) {
+	public String getPlayersVarEvolveInfo(Selector sel,String field, String playerAName,
+			String playerBName) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -1197,7 +1198,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public void showRedar(String playerAName, String playerBName) {
+	public void showRedar(Selector sel,String playerAName, String playerBName) {
 		// TODO Auto-generated method stub
 		
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
@@ -1265,7 +1266,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public void showRedar(String playerName) {
+	public void showRedar(Selector sel,String playerName) {
 		// TODO Auto-generated method stub
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 				PlayerStandard.score, Order.dsec, 1000);
