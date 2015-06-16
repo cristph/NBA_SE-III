@@ -6,8 +6,10 @@ public interface PlayerAnalyseInter {
 	/*
 	 *球员单指标排名分析
 	 *field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
+	 *sampleNum样本容量
+	 *credit置信度
 	 */
-	public String getSortInfo(String field, String playerName);
+	public String getSortInfo(String field, String playerName, int sampleNum, double credit);
 	
 	
 	/*
@@ -20,21 +22,21 @@ public interface PlayerAnalyseInter {
 	 *球员单指标区间估计 
 	 *field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getIntervalInfo(String field, String playerName);
+	public String getIntervalInfo(String field, String playerName, int sampleNum, double credit);
 	
 	
 	/*
 	 *球员单指标 均值 演变分析
 	 *field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getAvgEvolveInfo(String field, String playerName);
+	public String getAvgEvolveInfo(String field, String playerName, int sampleNum, double credit);
 	
 	
 	/*
 	 *球员单指标 方差 演变分析
 	 *field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getVarEvolveInfo(String field, String playerName);
+	public String getVarEvolveInfo(String field, String playerName, int sampleNum, double credit);
 	
 	
 	/******************球员比较***********************************/
@@ -42,21 +44,24 @@ public interface PlayerAnalyseInter {
 	 * 球员单指标 对比分析
 	 * field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getPlayersInfo(String field, String palyerANmae,String playerBName);
+	public String getPlayersInfo(String field, String palyerANmae, String playerBName, 
+			int sampleANum, int sampleBNum, double credit);
 	
 	
 	/*
 	 * 球员单指标 均值 对比分析
 	 * field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getPlayersAvgEvolveInfo(String field, String palyerANmae,String playerBName);
+	public String getPlayersAvgEvolveInfo(String field, String palyerANmae,String playerBName, 
+			int sampleANum, int sampleBNum, double credit);
 	
 	
 	/*
 	 * 球员单指标 方差 对比分析
 	 * field 为指标，可能的值为{"得分","篮板","助攻","抢断","盖帽"}
 	 */
-	public String getPlayersVarEvolveInfo(String field, String palyerANmae,String playerBName);
+	public String getPlayersVarEvolveInfo(String field, String palyerANmae,String playerBName, 
+			int sampleANum, int sampleBNum, double credit);
 	
 	
 	/*

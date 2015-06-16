@@ -79,27 +79,27 @@ public class PythonTest{
 	
 	public void test9(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.getSortInfo("得分", "");
+		//pac.getSortInfo("得分", "");
 	}
 	
 	public void test10(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.getIntervalInfo("助攻", "Kevin Durant");
+		//pac.getIntervalInfo("助攻", "Kevin Durant");
 	}
 	
 	public void test11(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.getAvgEvolveInfo("助攻", "James Harden");
+		//pac.getAvgEvolveInfo("助攻", "James Harden");
 	}
 	
 	public void test12(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.getVarEvolveInfo("助攻", "James Harden");
+		//pac.getVarEvolveInfo("助攻", "James Harden");
 	}
 	
 	public void test13(){
 		PlayerAnalyseController pac=new PlayerAnalyseController();
-		pac.getPlayersInfo("得分", "James Harden", "Lebron James");
+		//pac.getPlayersInfo("得分", "James Harden", "Lebron James");
 	}
 	
 	public void test14(){

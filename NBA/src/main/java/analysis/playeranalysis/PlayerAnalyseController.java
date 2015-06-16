@@ -27,7 +27,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getSortInfo(String field, String playerName) {
+	public String getSortInfo(String field, String playerName, int sampleNum, double credit) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data="";
@@ -195,7 +195,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getIntervalInfo(String field, String playerName) {
+	public String getIntervalInfo(String field, String playerName, int sampleNum, double credit) {
 		// TODO Auto-generated method stub
 		GameDataService gds=new GameData();
 		String txtResult="";
@@ -302,7 +302,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getAvgEvolveInfo(String field, String playerName) {
+	public String getAvgEvolveInfo(String field, String playerName, int sampleNum, double credit) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -478,7 +478,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	}
 
 	@Override
-	public String getVarEvolveInfo(String field, String playerName) {
+	public String getVarEvolveInfo(String field, String playerName, int sampleNum, double credit) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -655,7 +655,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
 	public String getPlayersInfo(String field, String playerAName,
-			String playerBName) {
+			String playerBName, int sampleANum, int sampleBNum, double credit) {
 		// TODO Auto-generated method stub
 		
 		String txtResult="";
@@ -844,7 +844,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
 	public String getPlayersAvgEvolveInfo(String field, String playerAName,
-			String playerBName) {
+			String playerBName, int sampleANum, int sampleBNum, double credit) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";
@@ -1021,7 +1021,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 
 	@Override
 	public String getPlayersVarEvolveInfo(String field, String playerAName,
-			String playerBName) {
+			String playerBName,int sampleANum, int sampleBNum, double credit) {
 		// TODO Auto-generated method stub
 		String txtResult="";
 		String data1="";

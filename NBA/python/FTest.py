@@ -26,7 +26,7 @@ def get_data2():
     #return [79.1,81.0,77.3,79.1,80.0,79.1,79.1,77.3,80.2,82.1]
 
 #amuse H0:theta1^2<=theta2^2
-#if F>= -Za,then deny H0
+#if F>= Fa,then deny H0
 #you can write your code here
 def cal(IMG_PATH):
     #get input data
