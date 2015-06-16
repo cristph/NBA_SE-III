@@ -990,11 +990,17 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerAName);
+		PlayerChoosor pcs3=new PlayerChoosor("2014-2015",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
+		ArrayList<PlayerGamePO> list3=gds.getPlayerGameData_BySeason(pcs3);
+		list1.addAll(list3);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2013-2014",playerBName);
+		PlayerChoosor pcs4=new PlayerChoosor("2014-2015",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
+		ArrayList<PlayerGamePO> list4=gds.getPlayerGameData_BySeason(pcs4);
+		list2.addAll(list4);
 		
 		
 		if(field.equals("得分")){
@@ -1025,6 +1031,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" score";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1056,6 +1065,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" rebound";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1087,6 +1099,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" assist";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1118,6 +1133,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" steal";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1150,6 +1168,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" block";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 		}
@@ -1167,11 +1188,17 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerAName);
+		PlayerChoosor pcs3=new PlayerChoosor("2014-2015",playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
+		ArrayList<PlayerGamePO> list3=gds.getPlayerGameData_BySeason(pcs3);
+		list1.addAll(list3);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor("2013-2014",playerBName);
+		PlayerChoosor pcs4=new PlayerChoosor("2014-2015",playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
+		ArrayList<PlayerGamePO> list4=gds.getPlayerGameData_BySeason(pcs4);
+		list2.addAll(list4);
 		
 		
 		if(field.equals("得分")){
@@ -1202,6 +1229,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" score";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1233,6 +1263,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" rebound";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1264,6 +1297,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" assist";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1295,6 +1331,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" steal";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -1327,6 +1366,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+playerAName.replace(' ', '_')
+					+" " + playerBName.replace(' ', '_')+" Bar_Sheet"+" block";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 		}
