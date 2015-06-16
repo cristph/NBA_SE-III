@@ -11,7 +11,7 @@ import data.sqlservice.DBUtil;
 public class GetData {
 	public GetData(){
 		
-		String order = "cmd /c python python//getInWin.py "+getMaxDate()+" "+"data//";
+		String order = "cmd /c python python//getInWin.py "+getMaxDate()+" "+"data//matches";
 		Process pro=null;
 		System.out.println(order);
 		try {

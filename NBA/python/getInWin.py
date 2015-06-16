@@ -313,7 +313,19 @@ class WriteAll():
 #get1.WriteAll('2014-10-01','2015-06-13','/Users/xinlin/Documents/python-place/match/')
 
 if __name__ == '__main__':
-    WriteAll('2015-06-01',sys.argv[1],sys.argv[2])
+    #WriteAll('2015-06-01',sys.argv[1],sys.argv[2])
+
+    start = sys.argv[1]
+    l1 = start.split('-')
+    d1 = datetime.datetime(int(l1[0]),int(l1[1]),int(l1[2]))
+    d2 = datetime.datetime.now()
+    d1 = d1 +datetime.datetime.timedelta(days = 1)
+    string1 = str(d1).split(' ')
+    str1 = string1[0]
+    string2 = str(d2).split(' ')
+    str2 = string2[0]
+    div = sys.argv[2]
+    WriteAll(str1,str2,div)
 
 
 
