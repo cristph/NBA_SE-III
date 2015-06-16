@@ -1,6 +1,8 @@
-package data.gamedata;
+package data.gamedataReader;
 
 import java.io.File;
+
+import data.gamedata.GameInfo;
 
 public interface GameDataReadService {
 

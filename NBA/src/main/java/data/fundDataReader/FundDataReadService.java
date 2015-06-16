@@ -1,4 +1,4 @@
-package data.funddata;
+package data.fundDataReader;
 
 import java.awt.Image;
 import java.io.File;

@@ -1,4 +1,4 @@
-package data.gamedata;
+package data.gamedataReader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import data.common.FileFilter;
 import data.common.Waiter;
+import data.gamedata.GameInfo;
 import po.PlayerGamePO;
 import po.TeamGamePO;
 import util.TeamInfo;
@@ -36,7 +37,6 @@ public class GameDataReader implements GameDataReadService {
 	private boolean isDirty=false;
 	private FileFilter fft=null;
 	
-	
 	public GameDataReader(){
 		playerList=new ArrayList<PlayerGamePO>();
 		waiter=new Waiter();
@@ -44,7 +44,6 @@ public class GameDataReader implements GameDataReadService {
 		teamGame1=new TeamGamePO();
 		teamGame2=new TeamGamePO();
 	}
-	
 	
 	private void initCurrent(String s){
 		String info[]=s.split(";");
@@ -263,8 +262,6 @@ public GameInfo readMatchFile(File f) {
 				int row=1;
 				while((line=inTwo.readLine())!=null)
 				{
-					System.out.println(line);
-					System.out.println(row);
 					if(row==1)
 					{
 						initCurrent(line);

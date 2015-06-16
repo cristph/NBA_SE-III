@@ -15,10 +15,10 @@ import po.TeamPO;
 import util.TeamInfo;
 import data.common.MatchFileList;
 import data.common.Signal;
-import data.funddata.FundDataReader;
-import data.gamedata.GameDataReadService;
-import data.gamedata.GameDataReader;
+import data.fundDataReader.FundDataReader;
 import data.gamedata.GameInfo;
+import data.gamedataReader.GameDataReadService;
+import data.gamedataReader.GameDataReader;
 import data.sqlservice.DBUtil;
 
 public class DataLoader implements Runnable{
