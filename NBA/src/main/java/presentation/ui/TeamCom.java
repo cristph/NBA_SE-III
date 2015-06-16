@@ -87,6 +87,7 @@ public class TeamCom extends JPanel {
 				if(pa.equals(str3[1])){
 					String m =pas.getPlayersVarEvolveInfo(fi, n1, n2);
 					area1.setText(m);
+					return;
 				}
 				if(se.equals("all")){
 					//查看所有赛季的
@@ -94,6 +95,7 @@ public class TeamCom extends JPanel {
 					if(pa.equals(str3[0])){
 						String m = pas.getPlayersAvgEvolveInfo(fi, n1, n2);
 						area1.setText(m);
+						return;
 					}
 					else{
 						se = "14-15";
