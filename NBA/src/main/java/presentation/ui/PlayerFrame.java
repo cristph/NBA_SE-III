@@ -231,6 +231,7 @@ public class PlayerFrame extends NormalFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				//改变area
+				Font font =new  Font("TimesRoman",Font.BOLD,25);
 				if (((String)kind.getSelectedItem()).equals(str1[0])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
@@ -242,6 +243,7 @@ public class PlayerFrame extends NormalFrame{
 					System.out.println(fi);
 					System.out.println(n);
 					area.setText(pai.getSortInfo(a,fi,n));
+					area.setFont(font);
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).equals(str1[1])){
@@ -253,6 +255,7 @@ public class PlayerFrame extends NormalFrame{
 					String m[] = ((String)sea.getSelectedItem()).split("-");
 					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
 					pai.showRedar(a,pname);
+					area.setFont(font);
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).equals(str1[2])){
@@ -263,18 +266,21 @@ public class PlayerFrame extends NormalFrame{
 					String m[] = ((String)sea.getSelectedItem()).split("-");
 					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
 					area.setText(pai.getIntervalInfo(a,fi,n,Double.parseDouble(poin.getText())));
+					area.setFont(font);
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).equals(str1[3])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText(pai.getAvgEvolveInfo(fi, n));
+					area.setFont(font);
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).equals(str1[4])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText(pai.getVarEvolveInfo(fi, n));
+					area.setFont(font);
 					area.repaint();
 				}
 				
