@@ -217,7 +217,7 @@ public class PlayerFrame extends NormalFrame{
 		JLabel aname2 = new JLabel("分析依据");
 		JLabel aname3 = new JLabel("赛季");
 		JLabel aname4 = new JLabel("置信区间");
-		final String[] str1 = {"球员单指标排名分析","球员多指标","球员单指标区间估计 ","球员均值演变分析","球员方差演变分析"};
+		final String[] str1 = {"球员单指标排名分析","球员多指标","球员单指标区间估计 ","球员均值演变分析(全赛季)","球员方差演变分析(全赛季)"};
 		kind = new JComboBox(str1);
 		String[] str2 = {"得分","篮板","助攻","抢断","盖帽"};
 		box = new JComboBox(str2);
@@ -231,7 +231,7 @@ public class PlayerFrame extends NormalFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				//改变area
-				Font font =new  Font("TimesRoman",Font.BOLD,25);
+				Font font =new  Font("TimesRoman",Font.BOLD,20);
 				if (((String)kind.getSelectedItem()).equals(str1[0])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
