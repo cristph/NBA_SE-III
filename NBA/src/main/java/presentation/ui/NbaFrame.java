@@ -14,9 +14,12 @@ import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+
+import data.dataloader.DataLoader;
 import businesslogic.playerbl.PlayerBLController;
 import businesslogic.teambl.TeamController;
 import businesslogicservice.playerblservice.PlayerBLService;
@@ -71,6 +74,7 @@ class NbaFrame extends NormalFrame{
 	
 	
 	public static void main(String[] args){
+		DataLoader dl=new DataLoader();
 		NbaFrame f= new NbaFrame();
 	}
 }
