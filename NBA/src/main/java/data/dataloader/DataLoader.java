@@ -135,7 +135,7 @@ public class DataLoader implements Runnable{
 			    pst.setString(5, tmp.getZone());
 			    pst.setString(6, tmp.getHome());
 			    pst.setString(7, tmp.getBirthday());
-			    pst.setString(8,teamPngFold+tmp.getTeamName()+".png");
+			    pst.setString(8,teamPngFold+tmp.getShortName()+".png");
 			  
 			    pst.executeUpdate();
 			 } 
@@ -280,7 +280,7 @@ public class DataLoader implements Runnable{
         	    team_pst.setInt(15, tmp.getRebAttNum());
         	    team_pst.setInt(16, tmp.getRebDefNum());
         	    team_pst.setInt(17, tmp.getRebTotalNum());
-        	    team_pst.setInt(18, tmp.getAllPlayerTime());
+        	    team_pst.setInt(18, tmp.getAssistNum());
         	    team_pst.setInt(19, tmp.getStealNum());
         	    team_pst.setInt(20, tmp.getBlockNum());
         	    team_pst.setInt(21, tmp.getErrorNum());
