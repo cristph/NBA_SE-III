@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import data.gamedata.Selector;
+import util.Selector;
 
 public class SFrame extends JFrame{
 
