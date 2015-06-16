@@ -244,6 +244,16 @@ private GameInfo makeGameInfo(){
 public GameInfo readMatchFile(File f) {
 		
 	    boolean isGoodFile=fft.isGoodFile(f.getName());
+	    System.out.println(isGoodFile);
+	    /*System.out.println(f.getName());*/
+	    if(!isGoodFile){
+	    	try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 		playerList=new ArrayList<PlayerGamePO>();
 		if(isGoodFile)
 		{
