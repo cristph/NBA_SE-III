@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data.fundDataReader.FundDataReadService;
+import data.fundDataReader.FundDataReader;
 import data.sqlservice.DBUtil;
 import po.PlayerPO;
 import po.TeamPO;
@@ -32,11 +34,6 @@ public class FundData implements FundDataService {
 		playerFold=new File("data/players/info");
 	}
 	
-
-	/*public ArrayList<TeamPO> getTeamFundData() {
-        ArrayList<TeamPO> list=fdrs.readTeamFile(txtFile, imgFold);
-	    return list;
-	}*/
 
 	public ArrayList<TeamPO> getTeamFundData() 
 	{
@@ -88,19 +85,6 @@ public class FundData implements FundDataService {
 		return imgMap;
 	}
 
-
-	/*public ArrayList<PlayerPO> getPlayerFundData() 
-	{
-		// TODO Auto-generated method stub
-		ArrayList<PlayerPO> list=new ArrayList<PlayerPO>();
-		File[] array=playerFold.listFiles();
-		for(int i=0;i<array.length;i++)
-		{
-		PlayerPO temp=fdrs.readPlayerFile(array[i], acimgFold.toString(), portimgFold.toString());
-		list.add(temp);
-		}
-		return list;
-	}*/
 
 	public ArrayList<PlayerPO> getPlayerFundData()
 	{

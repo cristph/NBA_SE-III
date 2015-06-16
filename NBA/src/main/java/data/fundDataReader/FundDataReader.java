@@ -1,4 +1,4 @@
-package data.funddata;
+package data.fundDataReader;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -50,7 +50,6 @@ public class FundDataReader implements FundDataReadService {
 				  Image teamImg=Toolkit.getDefaultToolkit().getImage(imgFold.toString()+"/"+info[1]
 						  +".png");
 				  
-				
 				  temp.setTeamPic(teamImg);
 				  result.add(temp);
 				  }

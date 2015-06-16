@@ -22,7 +22,9 @@ public class FileFilter {
 		try
 		{
         String names[]=fileName.split("_");
-        String matchPair=names[2];
+        String matchPair=names[2].substring(0,names[2].indexOf('.'));
+        System.out.println(matchPair);
+        
         String dates[]=names[1].split("-");
         int date=Integer.parseInt(dates[0]+dates[1]);
         

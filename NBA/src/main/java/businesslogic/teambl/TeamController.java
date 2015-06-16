@@ -11,7 +11,7 @@ import data.funddata.FundData;
 import data.funddata.FundDataService;
 import data.gamedata.GameData;
 import data.gamedata.GameDataService;
-import data.gamedata.Selector;
+import util.Selector;
 import test.data.TeamHighInfo;
 import test.data.TeamHotInfo;
 import test.data.TeamNormalInfo;

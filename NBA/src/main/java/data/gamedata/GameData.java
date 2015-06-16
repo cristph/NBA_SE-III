@@ -27,7 +27,7 @@ public class GameData implements GameDataService{
 	{
 		ArrayList<TeamAllGamePO> list=gSql.getTeamGameData(st);
 		return list;
-     }
+	}
 
     public ArrayList<PlayerGamePO> get_Latest_PlayerGameData(){
 		return gSql.getLatestPlayer();
