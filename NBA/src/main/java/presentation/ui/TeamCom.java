@@ -110,6 +110,7 @@ public class TeamCom extends JPanel {
 				}
 				else{
 					pas.showRedar(sel, n1, n2);
+					area1.setText("");
 				}
 				
 					
