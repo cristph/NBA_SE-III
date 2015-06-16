@@ -33,7 +33,7 @@ def cal(IMG_PATH):
     print sign
     print x_avg
     print S
-    print norm.interval(alpha=0.1, loc=x_avg, scale=S)
+    print norm.interval(alpha=float(sys.argv[2]), loc=x_avg, scale=S)
 
 #the code should not be changed
 if __name__ == '__main__':

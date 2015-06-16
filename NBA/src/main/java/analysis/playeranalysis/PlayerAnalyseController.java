@@ -223,7 +223,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("篮板")){
@@ -241,7 +241,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("助攻")){
@@ -259,7 +259,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
@@ -277,7 +277,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("盖帽")){
@@ -296,7 +296,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			txtResult=psa.intervalEstimation(list.size(), data);
+			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}

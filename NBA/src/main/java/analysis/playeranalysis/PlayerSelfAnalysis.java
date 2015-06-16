@@ -47,14 +47,14 @@ public class PlayerSelfAnalysis {
 	 * sample_num>=30,Normal distribution
 	 * sample_num<30,t distribution
 	 */
-	public String intervalEstimation(int sample_num,String dataSet){
+	public String intervalEstimation(int sample_num,String dataSet,double credit){
 		
 		String txtResult="";
 		if(sample_num>=30){
 			//have a limit of normal
 			//a=0.1
 			String funcPath="python//intervalEstimation_Z.py";
-			String res=ch.cmdHandler(funcPath, dataSet);
+			String res=ch.cmdHandler(funcPath, dataSet, String.valueOf(credit));
 			txtResult+="样本数大于30，我们认为样本均值的抽样分布近似服从于正态分布"+"\r\n"
 					+"我怕们对其进行但总体均值区间估计，得到均值有95%的概率落在以下区间"+"\r\n";
 			txtResult+=res;
@@ -66,7 +66,7 @@ public class PlayerSelfAnalysis {
 				//use t distribution
 				//a=0.1
 				String funcPath="python//intervalEstimation_t.py";
-				String res=ch.cmdHandler(funcPath, dataSet);
+				String res=ch.cmdHandler(funcPath, dataSet, String.valueOf(credit));
 				txtResult+="样本数大于30，我们认为样本均值的抽样分布近似服从于正态分布"+"\r\n"
 						+"我怕们对其进行但总体均值区间估计，得到均值有95%的概率落在以下区间"+"\r\n";
 				txtResult+=res;

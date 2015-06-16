@@ -49,12 +49,12 @@ public class PythonTest{
 	
 	public void test4(){
 		PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-		psa.intervalEstimation(1000, "");
+		//psa.intervalEstimation(1000, "");
 	}
 	
 	public void test5(){
 		PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-		psa.intervalEstimation(28, "");
+		//psa.intervalEstimation(28, "");
 	}
 	
 	public void test6(){
