@@ -30,9 +30,9 @@ def cal(IMG_PATH):
     S=(sign/(sign-1))*(sum_2-sum)
     S=S**0.5
 
-    print sign
-    print x_avg
-    print S
+    #print sign
+    #print x_avg
+    #print S
     print norm.interval(alpha=float(sys.argv[2]), loc=x_avg, scale=S)
 
 #the code should not be changed

@@ -33,6 +33,8 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		String txtResult="";
 		String data="";
 		
+		int ord=0;
+		
 		pbs.changeMatchSet(sel);
 		
 		//所有球员得分
@@ -49,20 +51,36 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		        if(i!=list.size()-1){
 		        	data+=";";
 		        }
+		        
+		        if(pni.getName().equals(playerName)){
+		        	ord=i+1;
+		        }
 				//System.out.println(i + " "+pni.getName()+" "+value1+" "+intime);
 				
 			}
 			//System.out.println("data: "+data);
 			
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			String ksResult=psa.KSTest(data);
+			double mea=psa.getMean(data);
+			double std=psa.getStd(data);
+			String ksResult=psa.KSTest(data,mea,std);
+			txtResult+="我们可以得到 所有球员场均得分 的 均值 为 "+mea+" ;"
+					+"\r\n"+"所有球员的场均得分 的 标准差 为 "+std+"\r\n";
+			psa.getSingleBar(data, "Players Score All_Players_Score_Distribution_In_This_Season");
 			if(psa.testKS(ksResult)){
 				//do with normal pdf
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
+						+"而K-S检验结果为："+ksResult+"\r\n"
+						+"由于P值大于5%，我们不能拒绝原假设H0,即认为所有球员的场均得分服从正态分布";
 			}else{
-				txtResult="我们做单总体K-S检验，作出假设："+ "\r\n"
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
 						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
 						+"而K-S检验结果为："+ksResult+"\r\n"
 						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均得分并不服从正态分布";
+				
+				txtResult+="\r\n"+"但是我们可以得到"+playerName+"在本赛季中场均得分排名为第"+ord+"名";
+				
 			}
 			System.out.println(txtResult);
 			
@@ -80,21 +98,34 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		        if(i!=list.size()-1){
 		        	data+=";";
 		        }
+		        if(pni.getName().equals(playerName)){
+		        	ord=i+1;
+		        }
 				//System.out.println(i + " "+pni.getName()+" "+value1+" "+intime);
 				
 			}
 			//System.out.println("data: "+data);
 			
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			String ksResult=psa.KSTest(data);
-			
+			double mea=psa.getMean(data);
+			double std=psa.getStd(data);
+			String ksResult=psa.KSTest(data,mea,std);
+			txtResult+="我们可以得到 所有球员场均篮板 的 均值 为 "+mea+" ;"
+					+"\r\n"+"所有球员的场均篮板 的 标准差 为 "+std+"\r\n";
+			psa.getSingleBar(data, "Players Rebound All_Players_Rebound_Distribution_In_This_Season");
 			if(psa.testKS(ksResult)){
 				//do with normal pdf
-			}else{
-				txtResult="我们做单总体K-S检验，作出假设："+ "\r\n"
-						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均篮板服从正态分布，H1:所有球员的场均篮板不服从正态分布"+"\r\n"
 						+"而K-S检验结果为："+ksResult+"\r\n"
-						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均得分并不服从正态分布";
+						+"由于P值大于5%，我们不能拒绝原假设H0,即认为所有球员的篮板得分服从正态分布";
+			}else{
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均篮板服从正态分布，H1:所有球员的场均篮板不服从正态分布"+"\r\n"
+						+"而K-S检验结果为："+ksResult+"\r\n"
+						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的篮板得分并不服从正态分布";
+				txtResult+="\r\n"+"但是我们可以得到"+playerName+"在本赛季中场均篮板排名为第"+ord+"名";
+				
 			}
 			System.out.println(txtResult);
 			
@@ -112,20 +143,34 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		        if(i!=list.size()-1){
 		        	data+=";";
 		        }
+		        if(pni.getName().equals(playerName)){
+		        	ord=i+1;
+		        }
 				//System.out.println(i + " "+pni.getName()+" "+value1+" "+intime);
 				
 			}
 			//System.out.println("data: "+data);
 			
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			String ksResult=psa.KSTest(data);
+			double mea=psa.getMean(data);
+			double std=psa.getStd(data);
+			String ksResult=psa.KSTest(data,mea,std);
+			txtResult+="我们可以得到 所有球员场均助攻 的 均值 为 "+mea+" ;"
+					+"\r\n"+"所有球员的场均助攻 的 标准差 为 "+std+"\r\n";
+			psa.getSingleBar(data, "Players Assist All_Players_Assist_Distribution_In_This_Season");
 			if(psa.testKS(ksResult)){
 				//do with normal pdf
-			}else{
-				txtResult="我们做单总体K-S检验，作出假设："+ "\r\n"
-						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均助攻服从正态分布，H1:所有球员的场均助攻不服从正态分布"+"\r\n"
 						+"而K-S检验结果为："+ksResult+"\r\n"
-						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均得分并不服从正态分布";
+						+"由于P值大于5%，我们不能拒绝原假设H0,即认为所有球员的场均助攻服从正态分布";
+			}else{
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均助攻服从正态分布，H1:所有球员的场均助攻不服从正态分布"+"\r\n"
+						+"而K-S检验结果为："+ksResult+"\r\n"
+						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均助攻并不服从正态分布";
+				txtResult+="\r\n"+"但是我们可以得到"+playerName+"在本赛季中场均助攻排名为第"+ord+"名";
+				
 			}
 			System.out.println(txtResult);
 			
@@ -143,20 +188,33 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		        if(i!=list.size()-1){
 		        	data+=";";
 		        }
+		        if(pni.getName().equals(playerName)){
+		        	ord=i+1;
+		        }
 				//System.out.println(i + " "+pni.getName()+" "+value1+" "+intime);
 				
 			}
 			//System.out.println("data: "+data);
 			
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			String ksResult=psa.KSTest(data);
+			double mea=psa.getMean(data);
+			double std=psa.getStd(data);
+			String ksResult=psa.KSTest(data,mea,std);
+			txtResult+="我们可以得到 所有球员场均抢断 的 均值 为 "+mea+" ;"
+					+"\r\n"+"所有球员的场均抢断 的 标准差 为 "+std+"\r\n";
+			psa.getSingleBar(data, "Players Steal All_Players_Steal_Distribution_In_This_Season");
 			if(psa.testKS(ksResult)){
 				//do with normal pdf
-			}else{
-				txtResult="我们做单总体K-S检验，作出假设："+ "\r\n"
-						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均抢断服从正态分布，H1:所有球员的场均抢断不服从正态分布"+"\r\n"
 						+"而K-S检验结果为："+ksResult+"\r\n"
-						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均得分并不服从正态分布";
+						+"由于P值大于5%，我们不能拒绝原假设H0,即认为所有球员的场均抢断服从正态分布";
+			}else{
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均抢断服从正态分布，H1:所有球员的场均抢断不服从正态分布"+"\r\n"
+						+"而K-S检验结果为："+ksResult+"\r\n"
+						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均抢断并不服从正态分布";
+				txtResult+="\r\n"+"但是我们可以得到"+playerName+"在本赛季中场均抢断排名为第"+ord+"名";
 			}
 			System.out.println(txtResult);
 			
@@ -174,20 +232,33 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		        if(i!=list.size()-1){
 		        	data+=";";
 		        }
+		        if(pni.getName().equals(playerName)){
+		        	ord=i+1;
+		        }
 				//System.out.println(i + " "+pni.getName()+" "+value1+" "+intime);
 				
 			}
 			//System.out.println("data: "+data);
 			
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-			String ksResult=psa.KSTest(data);
+			double mea=psa.getMean(data);
+			double std=psa.getStd(data);
+			String ksResult=psa.KSTest(data,mea,std);
+			txtResult+="但是我们可以得到 所有球员场均盖帽 的 均值 为 "+mea+" ;"
+					+"\r\n"+"所有球员的场均盖帽 的 标准差 为 "+std+"\r\n";
+			psa.getSingleBar(data, "Players Block All_Players_Block_Distribution_In_This_Season");
 			if(psa.testKS(ksResult)){
 				//do with normal pdf
-			}else{
-				txtResult="我们做单总体K-S检验，作出假设："+ "\r\n"
-						+"	H0:所有球员的场均得分服从正态分布，H1:所有球员的场均得分不服从正态分布"+"\r\n"
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均盖帽服从正态分布，H1:所有球员的场均盖帽不服从正态分布"+"\r\n"
 						+"而K-S检验结果为："+ksResult+"\r\n"
-						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均得分并不服从正态分布";
+						+"由于P值大于5%，我们不能拒绝原假设H0,即认为所有球员的场均盖帽服从正态分布";
+			}else{
+				txtResult+="我们做单总体K-S检验，作出假设："+ "\r\n"
+						+"	H0:所有球员的场均盖帽服从正态分布，H1:所有球员的场均盖帽不服从正态分布"+"\r\n"
+						+"而K-S检验结果为："+ksResult+"\r\n"
+						+"由于P值小于5%，我们拒绝原假设H0,即认为所有球员的场均盖帽并不服从正态分布";
+				txtResult+="\r\n"+"但是我们可以得到"+playerName+"在本赛季中场均盖帽排名为第"+ord+"名";
 			}
 			System.out.println(txtResult);
 			
@@ -223,6 +294,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			psa.getSingleBar(data, playerName.replace(' ', '_')+" Score Score_Distribution_In_This_Season");
 			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
@@ -241,6 +313,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			psa.getSingleBar(data, playerName.replace(' ', '_')+" Rebound Rebound_Distribution_In_This_Season");
 			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
@@ -259,13 +332,14 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			psa.getSingleBar(data, playerName.replace(' ', '_')+" Assist Assist_Distribution_In_This_Season");
 			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
 			for(int i=0;i<list.size();i++){
 				PlayerGamePO pgp=list.get(i);
-				double value=pgp.getAssistNum();
+				double value=pgp.getStealNum();
 				//double intime=pni.getNumOfGame();
 				BigDecimal bg = new BigDecimal(value);
 		        double value1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -277,6 +351,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			psa.getSingleBar(data, playerName.replace(' ', '_')+" Steal Steal_Distribution_In_This_Season");
 			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
@@ -296,6 +371,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			}
 			System.out.println(data);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			psa.getSingleBar(data, playerName.replace(' ', '_')+" Block Block_Distribution_In_This_Season");
 			txtResult=psa.intervalEstimation(list.size(), data,escredit);
 			System.out.println(txtResult);
 			
@@ -312,10 +388,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs2=new PlayerChoosor("2014-2015",playerName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -347,6 +423,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Score_Bar_Sheet"+" score";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -378,6 +457,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Rebound_Bar_Sheet"+" rebound";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -409,13 +491,16 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Assist_Bar_Sheet"+" assist";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
 			for(int i=0;i<list1.size();i++){
 				PlayerGamePO pgp=list1.get(i);
-				double value=pgp.getAssistNum();
+				double value=pgp.getStealNum();
 				//double intime=pni.getNumOfGame();
 				BigDecimal bg = new BigDecimal(value);
 		        double value1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -428,7 +513,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			for(int j=0;j<list2.size();j++){
 				PlayerGamePO pgp=list2.get(j);
-				double value=pgp.getAssistNum();
+				double value=pgp.getStealNum();
 				//double intime=pni.getNumOfGame();
 				BigDecimal bg = new BigDecimal(value);
 		        double value1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -440,6 +525,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Steal_Bar_Sheet"+" steal";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -472,6 +560,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Block_Bar_Sheet"+" block";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleZTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 		}
@@ -488,10 +579,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs1=new PlayerChoosor("2013-2014",playerName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs2=new PlayerChoosor("2014-2015",playerName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -523,6 +614,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Score_Bar_Sheet"+" score";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -554,6 +648,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Rebound_Bar_Sheet"+" rebound";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -585,13 +682,16 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Assist_Bar_Sheet"+" assist";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
 			for(int i=0;i<list1.size();i++){
 				PlayerGamePO pgp=list1.get(i);
-				double value=pgp.getAssistNum();
+				double value=pgp.getStealNum();
 				//double intime=pni.getNumOfGame();
 				BigDecimal bg = new BigDecimal(value);
 		        double value1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -604,7 +704,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			for(int j=0;j<list2.size();j++){
 				PlayerGamePO pgp=list2.get(j);
-				double value=pgp.getAssistNum();
+				double value=pgp.getStealNum();
 				//double intime=pni.getNumOfGame();
 				BigDecimal bg = new BigDecimal(value);
 		        double value1 = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -616,6 +716,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Steal_Bar_Sheet"+" steal";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 			
@@ -648,6 +751,9 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			
 			System.out.println(data1+"\r\n"+data2);
 			PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
+			String name=" "+"history"
+					+" " + "2014-2015" + " Block_Bar_Sheet"+" block";
+			psa.getTwoBars(data1, data2, name);
 			txtResult=psa.doubleSampleFTest(list1.size(), data1, list2.size(), data2);
 			System.out.println(txtResult);
 		}
@@ -704,6 +810,12 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			String name=" "+playerAName.replace(' ', '_')
 					+" " + playerBName.replace(' ', '_')+" Score_Bar_Sheet"+" score";
 			psa.getTwoBars(data1, data2, name);
+			double mean1=psa.getMean(data1);
+			double mean2=psa.getMean(data2);
+			double std1=psa.getStd(data1);
+			double std2=psa.getStd(data2);
+			txtResult+=playerAName+"指标均值为"+mean1+"而"+playerBName+"指标均值为"+mean2+"\r\n";
+			txtResult+=playerAName+"指标标准差为"+mean1+"而"+playerBName+"指标标准差为"+mean2+"\r\n";
 			//System.out.println(txtResult);
 			
 		}else if(field.equals("篮板")){
@@ -737,6 +849,12 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			String name=" "+playerAName.replace(' ', '_')
 					+" " + playerBName.replace(' ', '_')+" Rebound_Bar_Sheet"+" rebound";
 			psa.getTwoBars(data1, data2, name);
+			double mean1=psa.getMean(data1);
+			double mean2=psa.getMean(data2);
+			double std1=psa.getStd(data1);
+			double std2=psa.getStd(data2);
+			txtResult+=playerAName+"指标均值为"+mean1+"而"+playerBName+"指标均值为"+mean2+"\r\n";
+			txtResult+=playerAName+"指标标准差为"+mean1+"而"+playerBName+"指标标准差为"+mean2+"\r\n";
 			//System.out.println(txtResult);
 			
 		}else if(field.equals("助攻")){
@@ -770,6 +888,12 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			String name=" "+playerAName.replace(' ', '_')
 					+" " + playerBName.replace(' ', '_')+" Assist_Bar_Sheet"+" assist";
 			psa.getTwoBars(data1, data2, name);
+			double mean1=psa.getMean(data1);
+			double mean2=psa.getMean(data2);
+			double std1=psa.getStd(data1);
+			double std2=psa.getStd(data2);
+			txtResult+=playerAName+"指标均值为"+mean1+"而"+playerBName+"指标均值为"+mean2+"\r\n";
+			txtResult+=playerAName+"指标标准差为"+mean1+"而"+playerBName+"指标标准差为"+mean2+"\r\n";
 			//System.out.println(txtResult);
 			
 		}else if(field.equals("抢断")){
@@ -803,6 +927,12 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 			String name=" "+playerAName.replace(' ', '_')
 					+" " + playerBName.replace(' ', '_')+" Steal_Bar_Sheet"+" steal";
 			psa.getTwoBars(data1, data2, name);
+			double mean1=psa.getMean(data1);
+			double mean2=psa.getMean(data2);
+			double std1=psa.getStd(data1);
+			double std2=psa.getStd(data2);
+			txtResult+=playerAName+"指标均值为"+mean1+"而"+playerBName+"指标均值为"+mean2+"\r\n";
+			txtResult+=playerAName+"指标标准差为"+mean1+"而"+playerBName+"指标标准差为"+mean2+"\r\n";
 			//System.out.println(txtResult);
 			
 		}else if(field.equals("盖帽")){
@@ -838,6 +968,12 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 					+" " + playerBName.replace(' ', '_')+" block_Bar_Sheet"+" block";
 			System.out.println(name);
 			psa.getTwoBars(data1, data2, name);
+			double mean1=psa.getMean(data1);
+			double mean2=psa.getMean(data2);
+			double std1=psa.getStd(data1);
+			double std2=psa.getStd(data2);
+			txtResult+=playerAName+"指标均值为 "+mean1+"， 而"+playerBName+"指标均值为 "+mean2+"\r\n";
+			txtResult+=playerAName+"指标标准差为 "+mean1+"， 而"+playerBName+"指标标准差为 "+mean2+"\r\n";
 			//System.out.println(txtResult);
 		}
 		
