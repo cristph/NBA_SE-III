@@ -73,6 +73,14 @@ public class PicPanel extends JPanel {
 				String title[] = hc.getHead();
 				modle.upd(list,title);
 				modle.fireTableStructureChanged();
+				int i = table.getColumnCount();
+				TableColumn column = null;
+				for (int j = 0; j < i; j++) {
+				    column = table.getColumnModel().getColumn(j);
+				    
+				    column.setPreferredWidth(780/i);
+				    
+				}
 				table.repaint();
 			}
 			
