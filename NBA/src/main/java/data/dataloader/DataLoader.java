@@ -135,7 +135,7 @@ public class DataLoader implements Runnable{
 			    pst.setString(5, tmp.getZone());
 			    pst.setString(6, tmp.getHome());
 			    pst.setString(7, tmp.getBirthday());
-			    pst.setString(8,teamPngFold+tmp.getTeamName()+".png");
+			    pst.setString(8,teamPngFold+tmp.getShortName()+".png");
 			  
 			    pst.executeUpdate();
 			 } 

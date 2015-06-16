@@ -65,6 +65,7 @@ public class FundData implements FundDataService {
 			po.setHome(home);
 			po.setBirthday(birthYear);
 			Image img=Toolkit.getDefaultToolkit().getImage(imgPath);
+			System.out.println(img);
 			po.setTeamPic(img);
 			teamList.add(po);
 			}
