@@ -68,9 +68,9 @@ public class TeamCom extends JPanel {
 		Object[] str = pas.getPlayerNames().toArray();
 		player1 = new JComboBox(str);
 		player2 = new JComboBox(str);
-		String[] str1 = {"14-15","13-14","12-13","all"};
+		String[] str1 = {"14-15","13-14","12-13"};
 		String[] str2 = {"得分","篮板","助攻","抢断","盖帽"};
-		final String[] str3 = {"球员单指标均值对比","球员单指标方差对比","球员多项指标对比"};
+		final String[] str3 = {"球员单指标分析","球员单指标均值对比(全赛季)","球员单指标方差对比(全赛季)","球员多项指标对比"};
 		sea = new JComboBox(str1);
 		field = new JComboBox(str2);
 		kind = new JComboBox(str3);
@@ -84,36 +84,32 @@ public class TeamCom extends JPanel {
 				String se = (String)(sea.getSelectedItem());
 				String pa = (String)kind.getSelectedItem();
 				String fi = (String)field.getSelectedItem();
+				if(pa.equals(str3[2])){
+					String m =pas.getPlayersVarEvolveInfo(fi, n1, n2);
+					area1.setText(m);
+					return;
+				}
+				
 				if(pa.equals(str3[1])){
 					String m =pas.getPlayersVarEvolveInfo(fi, n1, n2);
 					area1.setText(m);
 					return;
 				}
-				if(se.equals("all")){
-					//查看所有赛季的
-					
-					if(pa.equals(str3[0])){
-						String m = pas.getPlayersAvgEvolveInfo(fi, n1, n2);
-						area1.setText(m);
-						return;
-					}
-					else{
-						se = "14-15";
-					}			
-				}
-				String[] temp = se.split("-");
+				String temp[] = se.split("-");
 				se = "20"+temp[0]+"-"+"20"+temp[1];
 				Selector sel = new Selector();
 				sel.setKind("A");
 				sel.setSeason(se);
 				if(pa.equals(str3[0])){
 					String m = pas.getPlayersInfo(sel, fi, n1, n2);
-					area1.setText(m);					
+					area1.setText(m);
 				}
-				if(pa.equals(str3[2])){
+				else{
 					pas.showRedar(sel, n1, n2);
-					area1.setText("");
 				}
+				
+					
+
 				
 			}
 			
