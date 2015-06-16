@@ -3,6 +3,43 @@ package vo;
 import java.awt.Image;
 
 public class TeamVO {
+	double pointvar;
+	double reboundvar;
+	double assistvar;
+	double foulvar;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public double getPointvar() {
+		return pointvar;
+	}
+	public void setPointvar(double pointvar) {
+		this.pointvar = pointvar;
+	}
+	public double getReboundvar() {
+		return reboundvar;
+	}
+	public void setReboundvar(double reboundvar) {
+		this.reboundvar = reboundvar;
+	}
+	public double getAssistvar() {
+		return assistvar;
+	}
+	public void setAssistvar(double assistvar) {
+		this.assistvar = assistvar;
+	}
+	public double getFoulvar() {
+		return foulvar;
+	}
+	public void setFoulvar(double foulvar) {
+		this.foulvar = foulvar;
+	}
 	String teamName; //球队全名
     String shortName; //缩写
 	

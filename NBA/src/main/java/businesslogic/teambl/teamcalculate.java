@@ -407,6 +407,7 @@ public class teamcalculate {
     	return d;
     }
     public double getavefoulnum(TeamAllGamePO p){
+
     	double d=0;
     	if(getgamenum(p)==0){
     		
@@ -416,4 +417,51 @@ public class teamcalculate {
     	}
     	return d;
     }
+    
+    public double getpointvar(TeamAllGamePO p){
+    	double d=0;
+    	double mean=getavepoint(p);
+    	for(TeamGamePO tgp: p.getGameDataList()){
+    		String result=tgp.getMatchResult();
+    		String[] result2=result.split("-");
+    		double m=Integer.parseInt(result2[0]);
+    		d=d+(m-mean)*(m-mean);
+    	}
+    	d=d/getgamenum(p);
+    	return d;
+    }
+    public double getreboundvar(TeamAllGamePO p){
+    	double d=0;
+    	double mean=getaverebtotalnum(p);
+    	for(TeamGamePO tgp: p.getGameDataList()){
+    		d=d+(tgp.getRebTotalNum()-mean)*(tgp.getRebTotalNum()-mean);
+    	}
+    	d=d/getgamenum(p);
+    	return d;
+    }
+    public double getassistvar(TeamAllGamePO p){
+    	double d=0;
+    	double mean=getaveassistnum(p);
+    	for(TeamGamePO tgp: p.getGameDataList()){
+    		d=d+(tgp.getAssistNum()-mean)*(tgp.getAssistNum()-mean);
+    	}
+    	d=d/getgamenum(p);
+    	return d;
+    	
+    }
+    public double getfoulvar(TeamAllGamePO p){
+    	double d=0;
+    	double mean=getavefoulnum(p);
+    	for(TeamGamePO tgp: p.getGameDataList()){
+    		d=d+(tgp.getFoulNum()-mean)*(tgp.getFoulNum()-mean);
+    	}
+    	d=d/getgamenum(p);
+    	return d;
+    	
+    }
+    
+    
+    
+    
+    
 }

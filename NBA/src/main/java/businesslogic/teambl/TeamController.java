@@ -37,6 +37,12 @@ public class TeamController implements TeamBLService{
 	public TeamController(String s){
 		season=s;
 	}
+	public ArrayList<TeamVO> getVO(){
+		return pa;
+	}
+	public ArrayList<TeamAllGamePO> getPO(){
+		return po;
+	}
 	public void setSeason(String seasonwant){
 		season=seasonwant;
 	}
@@ -53,11 +59,23 @@ public class TeamController implements TeamBLService{
 				//System.out.println(pagp.getGameDataList().size());
 				if(pp.isDirty()==true){
 					//System.out.println(pp.getMatchPair()+pp.getMatchDate()+pagp.getTeamName());
+					//System.out.println("_______________________");
 					pagp.getGameDataList().remove(pp);
 					i=i-1;
 				}
 			}
 		}
+		/*System.out.println("__________________");
+		for(TeamAllGamePO pagp2:po){
+			if(pagp2.getTeamName().equals("PHI")){
+				for(int i=0;i<pagp2.getGameDataList().size();i++){
+					if(pagp2.getGameDataList().get(i).getMatchDate().equals("2015-01-03")){
+						System.out.println(pagp2.getGameDataList().get(i).getMatchPair()+pagp2.getGameDataList().get(i).getMatchDate());
+					}
+				}
+			}
+		}
+		System.out.println("__________________");*/
 		//System.out.println("__________________________________________");
 		//for(TeamAllGamePO ppp:po){
 			//System.out.println(ppp.getTeamName()+ppp.getGameDataList().size());
@@ -80,6 +98,10 @@ public class TeamController implements TeamBLService{
 				}
 			}
 			//thisteam.setTeamName(p.getTeamName());
+			for(TeamGamePO wc:thisteam.getGameDataList()){
+				//System.out.println(wc.getMatchPair()+wc.getMatchDate());
+			}
+			//System.out.println("__");
 			TeamAllGamePO oppteam=getoppgamedata(thisteam);
 			
 			//System.out.println(thisteam.getGameDataList().size());
@@ -150,6 +172,13 @@ public class TeamController implements TeamBLService{
 		  	v.setBlockNumave(cal.getaveblocknum(thisteam));
 		  	v.setErrorNumave(cal.getaveerrornum(thisteam));
 		  	v.setFoulNumave(cal.getavefoulnum(thisteam));
+		  	
+		  	
+		  	v.setPointvar(cal.getpointvar(thisteam));
+		  	v.setReboundvar(cal.getreboundvar(thisteam));
+		  	v.setAssistvar(cal.getassistvar(thisteam));
+		  	v.setFoulvar(cal.getfoulvar(thisteam));
+		  	
 		  	pa.add(v);//System.out.println("asd");
 		}
 	}
@@ -179,10 +208,14 @@ public class TeamController implements TeamBLService{
     	for(TeamGamePO tp:tgp){
     		String[] team=tp.getMatchPair().split("-");
     		String time=tp.getMatchDate();
+    		//System.out.println(time);
     		for(TeamAllGamePO tagp:po){
     			if(tagp.getTeamName().equals(team[1])){
     				for(TeamGamePO tp2:tagp.getGameDataList()){
+    					
     					if(tp2.getMatchDate().equals(time)){
+    						
+    						//System.out.println(tp2.getMatchPair()+tp2.getMatchDate());
     						tgp2.add(tp2);
     					}
     				}
@@ -584,8 +617,8 @@ public class TeamController implements TeamBLService{
 		//}
 		return result2;
 	}
-	//public static void main(String[] args){
-		//TeamController t=new TeamController();
+	public static void main(String[] args){
+		TeamController t=new TeamController("2014-2015");
 		//System.out.println("Asd");
 		/*ArrayList<TeamHotInfo> as=new ArrayList<TeamHotInfo>();
 		as=t.getHotTeam(Field2.assist, 30);
@@ -613,6 +646,26 @@ public class TeamController implements TeamBLService{
 		//TeamPO p=new TeamPO();
 		//p=t.getTeamInfo("NOH");
 		//System.out.println(p.getShortName());
-	//}
+		
+	/*	
+		//t.getTeamVO();
+		//ArrayList<TeamAllGamePO> p=t.getPO();
+		//for(TeamAllGamePO tp:p){
+			//if(tp.getTeamName().equals("GSW")){
+				//for(int i=0;i<tp.getGameDataList().size();i++){
+					//System.out.println(tp.getGameDataList().get(i).getAssistNum());
+				//}
+			//}
+*/		//}
+		
+		
+		t.getTeamVO();
+		ArrayList<TeamAllGamePO> p=t.getPO();
+		for(TeamAllGamePO po:p){
+			if(po.getTeamName().equals("NOH")){
+				System.out.println(po.getGameDataList().size());
+			}
+		}
+	}
 
 }
