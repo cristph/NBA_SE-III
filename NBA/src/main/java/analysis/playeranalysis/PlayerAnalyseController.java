@@ -33,9 +33,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		String txtResult="";
 		String data="";
 		
+		pbs.changeMatchSet(sel);
+		
 		//所有球员得分
 		if(field.equals("得分")){
-			//pbs.changeMatchSet(sel);
 			ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 					PlayerStandard.score, Order.dsec, 1000);
 			for(int i=0;i<list.size();i++){
@@ -203,7 +204,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		String data="";
 		
-		PlayerChoosor pcs=new PlayerChoosor("2012-2013",playerName);
+		PlayerChoosor pcs=new PlayerChoosor(sel.getSeason(),playerName);
 		ArrayList<PlayerGamePO> list=gds.getPlayerGameData_BySeason(pcs);
 		
 		//所有球员得分
@@ -665,10 +666,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -853,10 +854,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -1030,10 +1031,10 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		
 		GameDataService gds=new GameData();
 		
-		PlayerChoosor pcs1=new PlayerChoosor("2012-2013",playerAName);
+		PlayerChoosor pcs1=new PlayerChoosor(sel.getSeason(),playerAName);
 		ArrayList<PlayerGamePO> list1=gds.getPlayerGameData_BySeason(pcs1);
 		
-		PlayerChoosor pcs2=new PlayerChoosor("2012-2013",playerBName);
+		PlayerChoosor pcs2=new PlayerChoosor(sel.getSeason(),playerBName);
 		ArrayList<PlayerGamePO> list2=gds.getPlayerGameData_BySeason(pcs2);
 		
 		
@@ -1200,7 +1201,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	@Override
 	public void showRedar(Selector sel,String playerAName, String playerBName) {
 		// TODO Auto-generated method stub
-		
+		pbs.changeMatchSet(sel);
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 				PlayerStandard.score, Order.dsec, 1000);
 		ArrayList<PlayerNormalInfo> reblist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
@@ -1268,6 +1269,7 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 	@Override
 	public void showRedar(Selector sel,String playerName) {
 		// TODO Auto-generated method stub
+		pbs.changeMatchSet(sel);
 		ArrayList<PlayerNormalInfo> scorelist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
 				PlayerStandard.score, Order.dsec, 1000);
 		ArrayList<PlayerNormalInfo> reblist=pbs.getPlayerAvgNormalInfo(Position.All, League.All, Age.All, 
@@ -1309,6 +1311,18 @@ public class PlayerAnalyseController implements PlayerAnalyseInter{
 		System.out.println(data1);
 		System.out.println(name);
 		psa.getRedar_1(data1, name);
+	}
+
+	@Override
+	public ArrayList<String> getPlayerNames() {
+		// TODO Auto-generated method stub
+		ArrayList<PlayerNormalInfo> list=pbs.getPlayerAvgNormalInfo(Position.All, 
+				League.All, Age.All, PlayerStandard.score, Order.dsec, 1000);
+		ArrayList<String> result=new ArrayList<String>();
+		for(int i=0;i<list.size();i++){
+			result.add(list.get(i).getName());
+		}
+		return result;
 	}
 	
 }

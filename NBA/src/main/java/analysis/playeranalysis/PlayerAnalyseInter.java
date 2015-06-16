@@ -1,10 +1,13 @@
 package analysis.playeranalysis;
 
+import java.util.ArrayList;
 import util.Selector;
 
 
 
 public interface PlayerAnalyseInter {
+	
+	public ArrayList<String> getPlayerNames();
 	
 	/*******************单个球员分析 ******************************/
 	/*
