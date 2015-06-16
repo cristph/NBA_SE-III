@@ -3,17 +3,22 @@ package presentation.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -21,7 +26,10 @@ import javax.swing.table.TableModel;
 import po.TeamPO;
 import test.data.TeamHighInfo;
 import test.data.TeamNormalInfo;
+import value.Value.Std;
 import vo.DateGameVO;
+import analysis.teamanalysis.TeamAnaInterface;
+import analysis.teamanalysis.TeamAnalysisController;
 import businesslogicservice.playerblservice.PlayerBLService;
 import businesslogicservice.teamblservice.TeamBLService;
 
@@ -29,6 +37,11 @@ public class TeamFrame extends NormalFrame{
 	String teamName;
 	PlayerBLService ps;
 	TeamBLService ts;
+	JComboBox kind;
+	JComboBox tna;
+	JComboBox stan;
+	JComboBox sea;
+	JTextArea area;
 	public TeamFrame(String name2, PlayerBLService ps, TeamBLService ts) {
 		this.teamName = name2;
 		this.ts = ts;
@@ -151,12 +164,94 @@ public class TeamFrame extends NormalFrame{
 		ArrayList<DateGameVO> date = ts.getRecentGame(teamName);
 		GameList game = new GameList(date,ts);
 		
+		//球队分析
+		final TeamAnaInterface tai = new TeamAnalysisController();
+		JPanel anylize = new JPanel();
+		anylize.setLayout(new BorderLayout());
+		JPanel tpanel = new JPanel();
+		JLabel tname1 = new JLabel("分析类型");
+		JLabel tname2 = new JLabel("分析依据");
+		JLabel tname3 = new JLabel("球队");
+		
+		final String[] str1 = {"球队回归分析","球队基本分析"};
+		final String[] str2 = {"得分","篮板","助攻","失误"};
+		kind = new JComboBox(str1);
+		stan = new JComboBox(str2);
+		tna = new JComboBox();
+		JButton butt = new JButton("分析");
+		area = new JTextArea("");
+		area.setEditable(false);
+		butt.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				//得到String显示
+				String n = (String)tna.getSelectedItem();
+				Std st = Std.score;
+				if(((String)stan.getSelectedItem()).equals(str2[0])){
+					//得分
+					st = Std.score;
+					
+				}
+				if(((String)stan.getSelectedItem()).equals(str2[1])){
+					//篮板
+					st = Std.rebound;
+				}
+				if(((String)stan.getSelectedItem()).equals(str2[2])){
+					//助攻
+					st = Std.assist;
+				}
+				if(((String)stan.getSelectedItem()).equals(str2[3])){
+					//失误
+					st = Std.foul;
+				}
+				if (((String)kind.getSelectedItem()).equals(str1[0])){
+					String back = tai.linregress(n, st);
+					area.setText(back);
+					area.repaint();
+					
+				}
+				else{
+					String back = tai.oneTeamAna(n, st);
+					area.setText(back);
+					area.repaint();
+				}
+				
+			}
+			
+		});
+		
+		  GroupLayout layout1 = new GroupLayout(tpanel);
+			tpanel.setLayout(layout1);
+			//水平连续组
+			GroupLayout.SequentialGroup hGroup1 = 
+					layout1.createSequentialGroup();
+			hGroup1.addGap(10);
+			hGroup1.addGroup(layout1.createParallelGroup().addComponent(tname1).addComponent(tname2).addComponent(tname3));
+			hGroup1.addGap(10);
+			hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(stan).addComponent(tna).addComponent(butt));
+		  //垂直组
+		  	GroupLayout.SequentialGroup vGroup1 = 
+		  				layout1.createSequentialGroup();
+		  	vGroup1.addGap(5);
+		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname1).addComponent(kind));
+		  	vGroup1.addGap(5);
+		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname2).addComponent(stan));
+		  	vGroup1.addGap(5);
+		  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(tname3).addComponent(tna));
+		  	vGroup1.addGap(5);
+			vGroup1.addGroup(layout1.createParallelGroup().addComponent(butt));
+		  	layout1.setHorizontalGroup(vGroup1);
+			layout1.setVerticalGroup(hGroup1);
+			
+			anylize.add(tpanel,BorderLayout.NORTH);
+			anylize.add(area,BorderLayout.CENTER);
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 
 		tabbedPane.addTab("球队基本信息",normal);
 		tabbedPane.addTab("球队数据",list);
 		tabbedPane.add("近期比赛",game);
+		tabbedPane.add("球队分析",anylize);
 		this.add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.setTabComponentAt(0, new JLabel("球队基本信息"));
 		this.add(tabbedPane,BorderLayout.CENTER);

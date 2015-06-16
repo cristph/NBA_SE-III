@@ -19,7 +19,7 @@ import analysis.playeranalysis.PlayerAnalyseController;
 import analysis.playeranalysis.PlayerAnalyseInter;
 import businesslogicservice.teamblservice.TeamBLService;
 
-public class TeamCom extends NormalFrame {
+public class TeamCom extends JPanel {
 	JComboBox kind;
 	JComboBox player1;
 	JComboBox player2;
@@ -27,10 +27,13 @@ public class TeamCom extends NormalFrame {
 	JComboBox sea;
 	JTextArea area1;
 	JTextArea area2;
+	JComboBox sea2;
+	JComboBox team1;
+	JComboBox team2;
+	JComboBox field2;
 	public TeamCom() {
 		init();
 		this.setVisible(true);
-		this.setResizable(false);
 		
 	}
 	
@@ -99,8 +102,55 @@ public class TeamCom extends NormalFrame {
 		layout1.setVerticalGroup(hGroup1);
 		
 		ppanel.add(title1,BorderLayout.NORTH);
-		
 		pane.add(ppanel,BorderLayout.NORTH);
+		//球队
+		JPanel tpanel = new JPanel();
+		tpanel.setLayout(new BorderLayout());
+		JLabel label2 = new JLabel("<html>球<br>队<br>比<br>较</html>");
+		tpanel.add(label2,BorderLayout.WEST);
+		label2.setFont(font);
+		JLabel tname1 = new JLabel("球员名");
+		JLabel tname2 = new JLabel("球员名");
+		JLabel ttime = new JLabel("赛季");
+		JLabel tfield = new JLabel("比较依据");
+		JButton butt2 = new JButton("比较");
+		String[] str4 = {"14-15","13-14","12-13","all"};
+		String[] str5 = {"得分","篮板","助攻","失误"};
+		team1 = new JComboBox();
+		team2 = new JComboBox();
+		sea2 = new JComboBox(str4);
+		field2 = new JComboBox(str5);
+		area2 = new JTextArea();
+		area2.setEditable(false);
+		tpanel.add(area2,BorderLayout.CENTER);
+		JPanel title2 = new JPanel();
+		GroupLayout layout2 = new GroupLayout(title2);
+		title2.setLayout(layout2);
+		//水平连续
+		GroupLayout.SequentialGroup hGroup2 = 
+						layout2.createSequentialGroup();
+		hGroup2.addGap(10);
+		hGroup2.addGroup(layout2.createParallelGroup().addComponent(tname1).addComponent(tname2).addComponent(ttime).addComponent(tfield));
+		hGroup2.addGap(10);
+		hGroup2.addGroup(layout2.createParallelGroup().addComponent(team1).addComponent(team2).addComponent(sea2).addComponent(field2).addComponent(butt2));
+		hGroup2.addGap(10);
+		GroupLayout.SequentialGroup vGroup2 = 
+  				layout2.createSequentialGroup();
+		vGroup2.addGap(5);
+		vGroup2.addGroup(layout2.createParallelGroup().addComponent(tname1).addComponent(team1));
+		vGroup2.addGap(5);
+		vGroup2.addGroup(layout2.createParallelGroup().addComponent(tname2).addComponent(team2));
+		vGroup2.addGap(5);
+		vGroup2.addGroup(layout2.createParallelGroup().addComponent(ttime).addComponent(sea2));
+		vGroup2.addGap(5);
+		vGroup2.addGroup(layout2.createParallelGroup().addComponent(tfield).addComponent(field2));
+		vGroup2.addGap(5);
+		vGroup2.addGroup(layout2.createParallelGroup().addComponent(butt2));
+		layout2.setHorizontalGroup(vGroup2);
+		layout2.setVerticalGroup(hGroup2);
+		tpanel.add(title2,BorderLayout.NORTH);
+		pane.add(tpanel,BorderLayout.SOUTH);
+		//end
 		this.add(pane,BorderLayout.CENTER);
 		pane.repaint();
 	}

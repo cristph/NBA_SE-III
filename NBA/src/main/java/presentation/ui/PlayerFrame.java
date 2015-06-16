@@ -213,7 +213,7 @@ public class PlayerFrame extends NormalFrame{
 		analy.setLayout(new BoxLayout(analy,BoxLayout.Y_AXIS));
 		// 单项分析
 		JPanel atitle = new JPanel();
-		JLabel aname1 = new JLabel("分析指标");
+		JLabel aname1 = new JLabel("分析类型");
 		JLabel aname2 = new JLabel("分析依据");
 		JLabel aname3 = new JLabel("赛季");
 		JLabel aname4 = new JLabel("置信区间");
@@ -231,41 +231,47 @@ public class PlayerFrame extends NormalFrame{
 
 			public void actionPerformed(ActionEvent e) {
 				//改变area
-				if (((String)kind.getSelectedItem()).endsWith(str1[0])){
+				if (((String)kind.getSelectedItem()).equals(str1[0])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					Selector a = new Selector();
+					a.setKind("A");
 					String m[] = ((String)sea.getSelectedItem()).split("-");
 					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					System.out.println(a.getSeason());
+					System.out.println(fi);
+					System.out.println(n);
 					area.setText(pai.getSortInfo(a,fi,n));
 					area.repaint();
 				}
-				if (((String)kind.getSelectedItem()).endsWith(str1[1])){
+				if (((String)kind.getSelectedItem()).equals(str1[1])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText("详情见图，无图则为样本容量过小");
 					Selector a = new Selector();
+					a.setKind("A");
 					String m[] = ((String)sea.getSelectedItem()).split("-");
 					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
 					pai.showRedar(a,pname);
 					area.repaint();
 				}
-				if (((String)kind.getSelectedItem()).endsWith(str1[2])){
+				if (((String)kind.getSelectedItem()).equals(str1[2])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					Selector a = new Selector();
+					a.setKind("A");
 					String m[] = ((String)sea.getSelectedItem()).split("-");
 					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
 					area.setText(pai.getIntervalInfo(a,fi,n,Double.parseDouble(poin.getText())));
 					area.repaint();
 				}
-				if (((String)kind.getSelectedItem()).endsWith(str1[3])){
+				if (((String)kind.getSelectedItem()).equals(str1[3])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText(pai.getAvgEvolveInfo(fi, n));
 					area.repaint();
 				}
-				if (((String)kind.getSelectedItem()).endsWith(str1[4])){
+				if (((String)kind.getSelectedItem()).equals(str1[4])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText(pai.getVarEvolveInfo(fi, n));
