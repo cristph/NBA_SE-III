@@ -36,6 +36,7 @@ import javax.swing.border.TitledBorder;
 import presentation.modle.MyTableModle;
 import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
+import util.Selector;
 import value.PlayerStandard;
 import value.Value.Age;
 import value.Value.League;
@@ -54,7 +55,7 @@ public class PlayerFrame extends NormalFrame{
 	PlayerAnalyseInter pai = new PlayerAnalyseController();
 	JComboBox kind;
 	JComboBox box;
-	IntField numb;
+	JComboBox sea;
 	DoubleField poin;
 	JTextArea area;
 	public PlayerFrame(String name2, PlayerBLService ps, TeamBLService ts) {
@@ -214,13 +215,14 @@ public class PlayerFrame extends NormalFrame{
 		JPanel atitle = new JPanel();
 		JLabel aname1 = new JLabel("分析指标");
 		JLabel aname2 = new JLabel("分析依据");
-		JLabel aname3 = new JLabel("样本容量");
+		JLabel aname3 = new JLabel("赛季");
 		JLabel aname4 = new JLabel("置信区间");
 		final String[] str1 = {"球员单指标排名分析","球员多指标","球员单指标区间估计 ","球员均值演变分析","球员方差演变分析"};
 		kind = new JComboBox(str1);
 		String[] str2 = {"得分","篮板","助攻","抢断","盖帽"};
 		box = new JComboBox(str2);
-		numb = new IntField("100");
+		String str3[] = {"14-15","13-14","12-13"};
+		sea = new JComboBox(str3);
 		poin = new DoubleField("0.95");
 	    area = new JTextArea();
 	    area.setEditable(false);
@@ -232,32 +234,41 @@ public class PlayerFrame extends NormalFrame{
 				if (((String)kind.getSelectedItem()).endsWith(str1[0])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
-					area.setText(pai.getSortInfo(fi, n, Integer.parseInt(numb.getText()), Double.parseDouble(poin.getText())));
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					area.setText(pai.getSortInfo(a,fi,n));
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).endsWith(str1[1])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
 					area.setText("详情见图，无图则为样本容量过小");
-					pai.showRedar(pname);
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					pai.showRedar(a,pname);
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).endsWith(str1[2])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
-					area.setText(pai.getIntervalInfo(fi, n, Integer.parseInt(numb.getText()), Double.parseDouble(poin.getText())));
+					Selector a = new Selector();
+					String m[] = ((String)sea.getSelectedItem()).split("-");
+					a.setSeason("20"+m[0]+"-"+"20"+m[1]);
+					area.setText(pai.getIntervalInfo(a,fi,n,Double.parseDouble(poin.getText())));
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).endsWith(str1[3])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
-					area.setText(pai.getAvgEvolveInfo(fi, n, Integer.parseInt(numb.getText()), Double.parseDouble(poin.getText())));
+					area.setText(pai.getAvgEvolveInfo(fi, n));
 					area.repaint();
 				}
 				if (((String)kind.getSelectedItem()).endsWith(str1[4])){
 					String fi = (String)box.getSelectedItem();
 					String n = pname;
-					area.setText(pai.getVarEvolveInfo(fi, n, Integer.parseInt(numb.getText()), Double.parseDouble(poin.getText())));
+					area.setText(pai.getVarEvolveInfo(fi, n));
 					area.repaint();
 				}
 				
@@ -273,7 +284,7 @@ public class PlayerFrame extends NormalFrame{
 		hGroup1.addGap(10);
 		hGroup1.addGroup(layout1.createParallelGroup().addComponent(aname1).addComponent(aname2).addComponent(aname3).addComponent(aname4));
 		hGroup1.addGap(10);
-		hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(box).addComponent(numb).addComponent(poin).addComponent(butt));
+		hGroup1.addGroup(layout1.createParallelGroup().addComponent(kind).addComponent(box).addComponent(sea).addComponent(poin).addComponent(butt));
 	  //垂直组
 	  	GroupLayout.SequentialGroup vGroup1 = 
 	  				layout1.createSequentialGroup();
@@ -282,7 +293,7 @@ public class PlayerFrame extends NormalFrame{
 	  	vGroup1.addGap(5);
 	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname2).addComponent(box));
 	  	vGroup1.addGap(5);
-	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname3).addComponent(numb));
+	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname3).addComponent(sea));
 	  	vGroup1.addGap(5);
 	  	vGroup1.addGroup(layout1.createParallelGroup().addComponent(aname4).addComponent(poin));
 		vGroup1.addGap(5);
