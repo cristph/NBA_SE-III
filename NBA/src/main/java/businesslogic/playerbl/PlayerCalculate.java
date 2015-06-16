@@ -48,7 +48,7 @@ public class PlayerCalculate{
 	ArrayList<PlayerGamePO> todayGameList;
 	
 	public PlayerCalculate(){
-		Selector sel=new Selector("2012-2013","R");
+		Selector sel=new Selector("2014-2015","A");
 		iniData(sel);
 		cm=new CalMethod();
 		calAllInfo();
@@ -599,7 +599,23 @@ public class PlayerCalculate{
 		PlayerPO pp=null;
 		for(int i=0;i<playerList.size();i++){
 			pp=playerList.get(i);
-			if(pp.getName().equalsIgnoreCase(name)){
+			System.out.println("name:"+name);
+			
+			String temp[]=pp.getName().split(" ");
+			int len=temp.length;
+			String c_name=null;
+			if(len>=2){
+				c_name=temp[0].charAt(0)+". ";
+				for(int n=0;n<len-1;n++){
+					c_name=c_name+temp[n+1];
+				}
+			}else if(len==1){
+				c_name=temp[0];
+			}
+			//String c_name=temp[0].charAt(0)+". "+temp[1];
+			System.out.println(c_name);
+			System.out.println("pp_name:"+pp.getName());
+			if(c_name.equalsIgnoreCase(name)){
 				break;
 			}
 		}
@@ -895,7 +911,7 @@ public class PlayerCalculate{
 				PlayerInfo pi = null;
 				for(int j=0;j<playerInfoList.size();j++){
 					pi=playerInfoList.get(j);
-					if(pi.getName().equals(name)){
+					if(pi.getName().equalsIgnoreCase(name)){
 						break;
 					}
 				}
@@ -952,6 +968,7 @@ public class PlayerCalculate{
 	 */
 	public void changeMatchSet(Selector sel){
 		iniData(sel);
+		System.out.println("<<<<<<<<change to "+sel.getSeason()+"___"+sel.getKind()+">>>>>>>>>>>>>");
 		calAllInfo();
 	}
 	
