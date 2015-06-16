@@ -3,7 +3,7 @@
  */
 package po;
 
-import data.gamedata.TeamInfo;
+import util.TeamInfo;
 
 public class PlayerGamePO extends GamePO implements Comparable<PlayerGamePO>{
 	
