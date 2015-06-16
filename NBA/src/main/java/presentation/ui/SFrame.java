@@ -23,7 +23,9 @@ import util.Selector;
 
 public class SFrame extends JFrame{
 
+	JFrame f;
 	public SFrame(){
+		f = this;
 		init();
 		this.setVisible(true);
 		this.setResizable(false);
@@ -84,6 +86,7 @@ public class SFrame extends JFrame{
 			NbaFrame.ps.changeMatchSet(sel);
 			NbaFrame.ts.setSeason(s);
 			NormalFrame.season = name;
+			f.dispose();
 		}
 		
 	}

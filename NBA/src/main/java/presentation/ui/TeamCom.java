@@ -7,6 +7,8 @@ package presentation.ui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import util.Selector;
 import analysis.playeranalysis.PlayerAnalyseController;
 import analysis.playeranalysis.PlayerAnalyseInter;
 import businesslogicservice.teamblservice.TeamBLService;
@@ -45,7 +48,7 @@ public class TeamCom extends JPanel {
 		//球员
 		JPanel ppanel = new JPanel();
 		ppanel.setLayout(new BorderLayout());
-		//PlayerAnalyseInter pas = new PlayerAnalyseController();
+		final PlayerAnalyseInter pas = new PlayerAnalyseController();
 		JLabel label1 = new JLabel("<html>球<br>员<br>比<br>较</html>");
 		ppanel.add(label1,BorderLayout.WEST);
 		Font font = new Font("TimesRoman",Font.ITALIC,20);
@@ -62,18 +65,57 @@ public class TeamCom extends JPanel {
 		ppanel.add(area1,BorderLayout.CENTER);
 		JPanel title1 = new JPanel();
 		
-		//Object[] str = pas.getPlayerNames().toArray();
-		Object[] str = {"ggg","no","he","wer"};
+		Object[] str = pas.getPlayerNames().toArray();
 		player1 = new JComboBox(str);
 		player2 = new JComboBox(str);
 		String[] str1 = {"14-15","13-14","12-13","all"};
 		String[] str2 = {"得分","篮板","助攻","抢断","盖帽"};
-		String[] str3 = {"球员单指标均值对比","球员单指标方差对比","球员多项指标对比"};
+		final String[] str3 = {"球员单指标均值对比","球员单指标方差对比","球员多项指标对比"};
 		sea = new JComboBox(str1);
 		field = new JComboBox(str2);
 		kind = new JComboBox(str3);
 		GroupLayout layout1 = new GroupLayout(title1);
 		title1.setLayout(layout1);
+		butt1.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				String n1 = (String)player1.getSelectedItem();
+				String n2 = (String)player2.getSelectedItem();
+				String se = (String)(sea.getSelectedItem());
+				String pa = (String)kind.getSelectedItem();
+				String fi = (String)field.getSelectedItem();
+				if(pa.equals(str3[1])){
+					String m =pas.getPlayersVarEvolveInfo(fi, n1, n2);
+					area1.setText(m);
+				}
+				if(se.equals("all")){
+					//查看所有赛季的
+					
+					if(pa.equals(str3[0])){
+						String m = pas.getPlayersAvgEvolveInfo(fi, n1, n2);
+						area1.setText(m);
+					}
+					else{
+						se = "14-15";
+					}			
+				}
+				String[] temp = se.split("-");
+				se = "20"+temp[0]+"-"+"20"+temp[1];
+				Selector sel = new Selector();
+				sel.setKind("A");
+				sel.setSeason(se);
+				if(pa.equals(str3[0])){
+					String m = pas.getPlayersInfo(sel, fi, n1, n2);
+					area1.setText(m);					
+				}
+				if(pa.equals(str3[2])){
+					pas.showRedar(sel, n1, n2);
+					area1.setText("");
+				}
+				
+			}
+			
+		});
 		//水平连续
 		GroupLayout.SequentialGroup hGroup1 = 
 				layout1.createSequentialGroup();
