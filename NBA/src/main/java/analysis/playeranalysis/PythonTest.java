@@ -44,7 +44,7 @@ public class PythonTest{
 	
 	public void test3(){
 		PlayerSelfAnalysis psa=new PlayerSelfAnalysis();
-		System.out.println(psa.KSTest(""));
+		//System.out.println(psa.KSTest(""));
 	}
 	
 	public void test4(){

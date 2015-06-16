@@ -142,7 +142,7 @@ public class CMDHandler {
 		
 		Process pro=null;
 		try {
-			//System.out.println(order);
+			System.out.println("<<<<<<<<<<order>>>>: "+order);
 			pro=Runtime.getRuntime().exec(order);
 			InputStream is=pro.getInputStream();
 			BufferedReader buf=new BufferedReader(new InputStreamReader(is));
