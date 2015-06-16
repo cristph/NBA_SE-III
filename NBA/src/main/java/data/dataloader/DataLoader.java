@@ -34,6 +34,10 @@ public class DataLoader implements Runnable{
 
 	private int threadCount=0;
 	
+	
+    private PreparedStatement team_pst=null;
+    private PreparedStatement player_pst=null;
+	
 	public DataLoader(){
 		initFold();
 		if(threadCount==0)
@@ -42,6 +46,35 @@ public class DataLoader implements Runnable{
 			threadCount++;
 		}
 		conn=DBUtil.open();
+		try {
+			conn.setAutoCommit(false);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		initStmt();
+}
+
+	private void initStmt(){
+		String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
+        		+ "chap4,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num,reb_Def_Num,reb_Num,"
+        		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,twoNum,isDirty,kind,season) "
+        		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String playerSql="insert into playerGameTbl(playerName,position,teamName,time, matchDate,matchPair"
+        		+ ",matchResult,isFirst,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num"
+        		+ ",reb_Def_Num,reb_Num,assNum,stlNum,blockNum,errNum,foulNum,score,twoNum,isDirty,kind,season,"
+        		+ "allPlayerTime,teamRebNum,"
+        		+"oppTeamRebNum,teamAttRebNum,oppTeamAttRebNum,teamDefRebNum,"
+				+"oppTeamDefRebNum,teamHitNum,oppAttNum,oppTwoNum,"
+				+"teamThrowNum,teamFreeNum,teamErrorNum) values(?,"
+        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		try {
+			team_pst=conn.prepareStatement(teamSql);
+			player_pst=conn.prepareStatement(playerSql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
     private void initFold()
@@ -156,17 +189,48 @@ public class DataLoader implements Runnable{
         GameDataReader gdr=new GameDataReader();
         File matches=new File(matchFold);
         File fArr[]=matches.listFiles();
+        int sqlCount=0;
         for(int i=0;i<fArr.length;i++)
         {
         GameInfo gif=gdr.readMatchFile(fArr[i]);
         loadGif(gif);
+        sqlCount++;
+        if(sqlCount==10)
+        {
+        	try 
+        	{
+				team_pst.executeBatch();
+				player_pst.executeBatch();
+				conn.commit();
+				team_pst.clearBatch();
+				player_pst.clearBatch();
+				sqlCount=0;
+			} catch (SQLException e) 
+        	{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
+        }
+        if(sqlCount!=0)
+        {
+        	try {
+				team_pst.executeBatch();
+				player_pst.executeBatch();
+				team_pst.clearBatch();
+				player_pst.clearBatch();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
      }
 
 	
     public void loadGif(GameInfo gif)
     {
-    	String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
+    	/*String teamSql="insert into teamGameTbl(teamName,matchDate,matchPair,matchResult,chap1,chap2,chap3,"
         		+ "chap4,hitNum,shotNum,t_hitNum,t_shotNum,f_hitNum,f_shotNum,reb_Att_Num,reb_Def_Num,reb_Num,"
         		+ "assNum,stlNum,blockNum,errNum,foulNum,all_time,twoNum,isDirty,kind,season) "
         		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -177,11 +241,12 @@ public class DataLoader implements Runnable{
         		+"oppTeamRebNum,teamAttRebNum,oppTeamAttRebNum,teamDefRebNum,"
 				+"oppTeamDefRebNum,teamHitNum,oppAttNum,oppTwoNum,"
 				+"teamThrowNum,teamFreeNum,teamErrorNum) values(?,"
-        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        		+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";*/
+       
       
        try {
-        	PreparedStatement t_pst=conn.prepareStatement(teamSql);
-        	PreparedStatement p_pst=conn.prepareStatement(playerSql);
+        	/*PreparedStatement t_pst=conn.prepareStatement(teamSql);
+        	PreparedStatement p_pst=conn.prepareStatement(playerSql);*/
         	        
         	TeamGamePO teamList[]=new TeamGamePO[2];
         	teamList[0]=gif.getTeamGame1();
@@ -194,39 +259,39 @@ public class DataLoader implements Runnable{
         	for(int j=0;j<2;j++)
         	{
         	    TeamGamePO tmp=teamList[j];
-        	    t_pst.setString(1, tmp.getTeamName());
-        	    t_pst.setString(2, tmp.getMatchDate());
-        	    t_pst.setString(3, tmp.getMatchPair());
-        	    t_pst.setString(4, tmp.getMatchResult());
+        	    team_pst.setString(1, tmp.getTeamName());
+        	    team_pst.setString(2, tmp.getMatchDate());
+        	    team_pst.setString(3, tmp.getMatchPair());
+        	    team_pst.setString(4, tmp.getMatchResult());
         	    String score[]=tmp.getPartScore();
         	  /*  System.out.println(score.length);
         	    System.out.println(score);
         	    System.out.println(tmp.getMatchDate()+";"+tmp.getMatchPair());*/
-        	    t_pst.setString(5, score[0]);
-        	    t_pst.setString(6, score[1]);
-        	    t_pst.setString(7, score[2]);
-        	    t_pst.setString(8, score[3]);
-        	    t_pst.setInt(9, tmp.getHitShootNum());
-        	    t_pst.setInt(10, tmp.getShootNum());
-        	    t_pst.setInt(11, tmp.getThreePointNum());
-        	    t_pst.setInt(12, tmp.getThreeShootNum());
-        	    t_pst.setInt(13, tmp.getFreeHitNum());
-        	    t_pst.setInt(14, tmp.getFreeNum());
-        	    t_pst.setInt(15, tmp.getRebAttNum());
-        	    t_pst.setInt(16, tmp.getRebDefNum());
-        	    t_pst.setInt(17, tmp.getRebTotalNum());
-        	    t_pst.setInt(18, tmp.getAllPlayerTime());
-        	    t_pst.setInt(19, tmp.getStealNum());
-        	    t_pst.setInt(20, tmp.getBlockNum());
-        	    t_pst.setInt(21, tmp.getErrorNum());
-        	    t_pst.setInt(22, tmp.getFoulNum());
-        	    t_pst.setInt(23, tmp.getAllPlayerTime());
-        	    t_pst.setInt(24, tmp.getShootNum()-tmp.getThreeShootNum());
-        	    t_pst.setBoolean(25, tmp.isDirty());
-        	    t_pst.setString(26, kind);
-        	    t_pst.setString(27, season);
-        	        	
-        	    t_pst.executeUpdate();
+        	    team_pst.setString(5, score[0]);
+        	    team_pst.setString(6, score[1]);
+        	    team_pst.setString(7, score[2]);
+        	    team_pst.setString(8, score[3]);
+        	    team_pst.setInt(9, tmp.getHitShootNum());
+        	    team_pst.setInt(10, tmp.getShootNum());
+        	    team_pst.setInt(11, tmp.getThreePointNum());
+        	    team_pst.setInt(12, tmp.getThreeShootNum());
+        	    team_pst.setInt(13, tmp.getFreeHitNum());
+        	    team_pst.setInt(14, tmp.getFreeNum());
+        	    team_pst.setInt(15, tmp.getRebAttNum());
+        	    team_pst.setInt(16, tmp.getRebDefNum());
+        	    team_pst.setInt(17, tmp.getRebTotalNum());
+        	    team_pst.setInt(18, tmp.getAllPlayerTime());
+        	    team_pst.setInt(19, tmp.getStealNum());
+        	    team_pst.setInt(20, tmp.getBlockNum());
+        	    team_pst.setInt(21, tmp.getErrorNum());
+        	    team_pst.setInt(22, tmp.getFoulNum());
+        	    team_pst.setInt(23, tmp.getAllPlayerTime());
+        	    team_pst.setInt(24, tmp.getShootNum()-tmp.getThreeShootNum());
+        	    team_pst.setBoolean(25, tmp.isDirty());
+        	    team_pst.setString(26, kind);
+        	    team_pst.setString(27, season);
+        	    team_pst.addBatch();   	
+        	   // team_pst.executeUpdate();
         	 }
         	        
         	 ArrayList<PlayerGamePO> pList=gif.getGameList();
@@ -235,51 +300,53 @@ public class DataLoader implements Runnable{
         	 {
 
         	     PlayerGamePO tmp=pList.get(j);
-        	     p_pst.setString(1, tmp.getPlayerName());
-        	     p_pst.setString(2, tmp.getPosition());
-        	     p_pst.setString(3, tmp.getTeam());
-        	     p_pst.setInt(4, tmp.getTime());
+        	     player_pst.setString(1, tmp.getPlayerName());
+        	     player_pst.setString(2, tmp.getPosition());
+        	     player_pst.setString(3, tmp.getTeam());
+        	     player_pst.setInt(4, tmp.getTime());
         	        	
-        	     p_pst.setString(5, tmp.getMatchDate());
-        	     p_pst.setString(6, tmp.getMatchPair());
-        	     p_pst.setString(7, tmp.getMatchResult());
-        	     p_pst.setBoolean(8, tmp.isFirst());
-        	     p_pst.setInt(9, tmp.getHitShootNum());
-        	     p_pst.setInt(10, tmp.getShootNum());
-        	     p_pst.setInt(11, tmp.getThreePointNum());
-        	     p_pst.setInt(12, tmp.getThreeShootNum());
-        	     p_pst.setInt(13, tmp.getFreeHitNum());
-        	     p_pst.setInt(14, tmp.getFreeNum());
-        	     p_pst.setInt(15, tmp.getRebAttNum());
-        	     p_pst.setInt(16, tmp.getRebDefNum());
-        	     p_pst.setInt(17, tmp.getRebTotalNum());
-        	     p_pst.setInt(18, tmp.getAssistNum());
-        	     p_pst.setInt(19, tmp.getStealNum());
-        	     p_pst.setInt(20, tmp.getBlockNum());
-        	     p_pst.setInt(21, tmp.getErrorNum());
-        	     p_pst.setInt(22, tmp.getFoulNum());
-        	     p_pst.setInt(23, tmp.getScore());
-        	     p_pst.setInt(24, tmp.getTwoNum());
-        	     p_pst.setBoolean(25, tmp.isDirty());
-        	     p_pst.setString(26, kind);
-        	     p_pst.setString(27, season);
+        	     player_pst.setString(5, tmp.getMatchDate());
+        	     player_pst.setString(6, tmp.getMatchPair());
+        	     player_pst.setString(7, tmp.getMatchResult());
+        	     player_pst.setBoolean(8, tmp.isFirst());
+        	     player_pst.setInt(9, tmp.getHitShootNum());
+        	     player_pst.setInt(10, tmp.getShootNum());
+        	     player_pst.setInt(11, tmp.getThreePointNum());
+        	     player_pst.setInt(12, tmp.getThreeShootNum());
+        	     player_pst.setInt(13, tmp.getFreeHitNum());
+        	     player_pst.setInt(14, tmp.getFreeNum());
+        	     player_pst.setInt(15, tmp.getRebAttNum());
+        	     player_pst.setInt(16, tmp.getRebDefNum());
+        	     player_pst.setInt(17, tmp.getRebTotalNum());
+        	     player_pst.setInt(18, tmp.getAssistNum());
+        	     player_pst.setInt(19, tmp.getStealNum());
+        	     player_pst.setInt(20, tmp.getBlockNum());
+        	     player_pst.setInt(21, tmp.getErrorNum());
+        	     player_pst.setInt(22, tmp.getFoulNum());
+        	     player_pst.setInt(23, tmp.getScore());
+        	     player_pst.setInt(24, tmp.getTwoNum());
+        	     player_pst.setBoolean(25, tmp.isDirty());
+        	     player_pst.setString(26, kind);
+        	     player_pst.setString(27, season);
         	        	
         	     TeamInfo tif=tmp.getTif();
-        	     p_pst.setInt(28, tif.getAllPlayerTime());
-        	     p_pst.setInt(29, tif.getTeamRebNum());
-        	     p_pst.setInt(30, tif.getOppTeamRebNum());
-        	     p_pst.setInt(31, tif.getTeamAttRebNum());
-        	     p_pst.setInt(32, tif.getOppAttNum());
-        	     p_pst.setInt(33, tif.getTeamDefRebNum());
-        	     p_pst.setInt(34, tif.getOppTeamDefRebNum());
+        	     player_pst.setInt(28, tif.getAllPlayerTime());
+        	     player_pst.setInt(29, tif.getTeamRebNum());
+        	     player_pst.setInt(30, tif.getOppTeamRebNum());
+        	     player_pst.setInt(31, tif.getTeamAttRebNum());
+        	     player_pst.setInt(32, tif.getOppAttNum());
+        	     player_pst.setInt(33, tif.getTeamDefRebNum());
+        	     player_pst.setInt(34, tif.getOppTeamDefRebNum());
         	        	
-        	     p_pst.setInt(35, tif.getTeamHitNum());
-        	     p_pst.setInt(36, tif.getOppAttNum());
-        	     p_pst.setInt(37, tif.getOppTwoNum());
-        	     p_pst.setInt(38, tif.getTeamThrowNum());
-        	     p_pst.setInt(39, tif.getTeamFreeNum());
-        	     p_pst.setInt(40, tif.getTeamErrorNum());
-        	     p_pst.executeUpdate();
+        	     player_pst.setInt(35, tif.getTeamHitNum());
+        	     player_pst.setInt(36, tif.getOppAttNum());
+        	     player_pst.setInt(37, tif.getOppTwoNum());
+        	     player_pst.setInt(38, tif.getTeamThrowNum());
+        	     player_pst.setInt(39, tif.getTeamFreeNum());
+        	     player_pst.setInt(40, tif.getTeamErrorNum());
+        	     player_pst.addBatch();
+        	     
+        	     //player_pst.executeUpdate();
         	     
 			}
         	System.out.println(mdate);

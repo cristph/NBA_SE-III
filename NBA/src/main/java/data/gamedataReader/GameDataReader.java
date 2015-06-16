@@ -244,17 +244,7 @@ private GameInfo makeGameInfo(){
 public GameInfo readMatchFile(File f) {
 		
 	    boolean isGoodFile=fft.isGoodFile(f.getName());
-	    System.out.println(isGoodFile);
-	    /*System.out.println(f.getName());*/
-	    if(!isGoodFile){
-	    	try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    }
-		playerList=new ArrayList<PlayerGamePO>();
+	    playerList=new ArrayList<PlayerGamePO>();
 		if(isGoodFile)
 		{
 			teamGame1=new TeamGamePO();
@@ -281,8 +271,6 @@ public GameInfo readMatchFile(File f) {
 				    {
 				    	row++;
 				    	partScore=line.split(";");
-				    	/*System.out.println(line);
-				    	System.out.println(partScore.length);*/
 				    	continue;
 				    }
 					else if(row==3)
